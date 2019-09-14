@@ -1,0 +1,10 @@
+#! /usr/bin/env bash
+
+CONFIGURE=lib
+
+TARGET=libft
+PROJDIR=.
+SRCDIR=src
+OBJDIR=build
+
+VERBOSE=false
