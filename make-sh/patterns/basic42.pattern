@@ -56,7 +56,7 @@ directories:
 	$(HIDE)$(MKDIR) $(subst /,$(PSEP),$(OBJDIRS)) $(ERRIGNORE)
 
 lib:
-	$(HIDE)make -C ./lib/libirc/
+	$(HIDE)make -C ./lib/libft/
 
 clean:
 	$(HIDE)$(RMDIR) $(subst /,$(PSEP),$(OBJDIRS)) $(ERRIGNORE)
