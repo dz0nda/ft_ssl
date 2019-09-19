@@ -29,11 +29,29 @@
   int c0 = 0x98badcfe;  //C
   int d0 = 0x10325476;  //D
 
+int   md5_process(char chunk[64])
+{
+  int A = a0;
+  int B = b0;
+  int C = c0;
+  int d = d0;
+
+  // break chunk into sixteen 32-bit words M[j], 0 ≤ j ≤ 15
+  short words[16];
+  int j = -1;
+  while (++j < 16)
+  {
+    ;
+  }
+  return (1);
+}
+
 int main(int argc, char const *argv[])
 {
   (void)argc;
   (void)argv;
 
   printf("ssl\n");
+  printf("size short : %ld && size int : %ld \n", sizeof(short), sizeof(int));
   return 0;
 }
