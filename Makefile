@@ -12,13 +12,19 @@ OBJDIR = ./build
 MAKEFILE_NAME = Makefile-$(lastword $(subst /, ,$(TARGET)))
 
 CC = gcc
-CFLAGS = #-Wall -Wextra -Werror 
-LDFLAGS = -L
-LDLIBS = -l
+CFLAGS = 
+LDFLAGS = -L./lib/libft 
+LDLIBS = -lft 
 SUBDIR = \
+				md5 \
 				ssl
 SUBFILE = \
-				ssl/ssl.c
+				md5/ft_md5.c \
+				md5/ft_md5_init.c \
+				md5/ft_md5_break.c \
+				md5/ft_md5_padding.c \
+				md5/ft_md5_process.c \
+				ssl/ft_ssl.c
 
 SRCDIRS = $(foreach dir, $(SUBDIR), $(addprefix $(SRCDIR)/, $(dir)))
 OBJDIRS = $(foreach dir, $(SUBDIR), $(addprefix $(OBJDIR)/, $(dir)))
@@ -44,7 +50,7 @@ PSEP = $(strip $(SEP))
 
 .PHONY: all directories clean fclean re lib
 
-all: directories $(TARGET)
+all: directories lib $(TARGET)
 
 $(TARGET): $(OBJS)
 	$(HIDE)echo $(MAKEFILE_NAME): Linking $@
@@ -57,8 +63,8 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 directories:
 	$(HIDE)$(MKDIR) $(subst /,$(PSEP),$(OBJDIRS)) $(ERRIGNORE)
 
-# lib:
-# 	$(HIDE)make -C ./lib/libft/
+lib:
+	$(HIDE)make -C ./lib/libft/
 
 clean:
 	$(HIDE)$(RMDIR) $(subst /,$(PSEP),$(OBJDIRS)) $(ERRIGNORE)

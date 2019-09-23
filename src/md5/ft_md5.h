@@ -9,6 +9,7 @@
 # include "../../lib/libft/libft.h"
 
 # define FT_MD5_LENGHTMOD 0xFFFFFFFFFFFFFFFF
+# define FT_MD5_MOD_ILENGTH_BITS 0xFFFFFFFFFFFFFFFF     // 2^64 
 # define FT_MD5_PADMOD    64
 # define FT_MD5_BYTE      8
 

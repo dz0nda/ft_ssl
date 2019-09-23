@@ -5,7 +5,7 @@ int main(int argc, char const *argv[])
   (void)argc;
   (void)argv;
 
-  const unsigned char arg[64] = "pickle rick\n";
+  const unsigned char arg[64] = "pickle rick";
 
   unsigned char md[16];
   size_t        len;
@@ -22,3 +22,5 @@ int main(int argc, char const *argv[])
 // 111 1101 1110
 
 // 1 1011 1000
+
+// 110 0111  0100 0101  0010 0011  0000 0001

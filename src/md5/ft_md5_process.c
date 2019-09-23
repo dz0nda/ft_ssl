@@ -53,7 +53,7 @@ uint32_t ft_leftrotate(uint32_t x, uint32_t c)
   return ((x << c) | (x >> (32 - c)));
 }
 
-void  ft_put_uint32(uint32_t state)
+static void  ft_put_uint32(uint32_t state)
 {
   unsigned char c[4];
 
@@ -79,7 +79,24 @@ int   ft_md5_update(t_ft_md5_ctx *ctx, const void *data, unsigned long len)
   // uint32_t *M;
 
   // M = (uint32_t *)data;
-  uint32_t M[16];
+  uint32_t X[16];
+    ft_get_uint32( X[ 0], data,  0 );
+    ft_put_uint32(X[0]);
+    ft_get_uint32( X[ 1], data,  4 );
+    ft_get_uint32( X[ 2], data,  8 );
+    ft_get_uint32( X[ 3], data, 12 );
+    ft_get_uint32( X[ 4], data, 16 );
+    ft_get_uint32( X[ 5], data, 20 );
+    ft_get_uint32( X[ 6], data, 24 );
+    ft_get_uint32( X[ 7], data, 28 );
+    ft_get_uint32( X[ 8], data, 32 );
+    ft_get_uint32( X[ 9], data, 36 );
+    ft_get_uint32( X[10], data, 40 );
+    ft_get_uint32( X[11], data, 44 );
+    ft_get_uint32( X[12], data, 48 );
+    ft_get_uint32( X[13], data, 52 );
+    ft_get_uint32( X[14], data, 56 );
+    ft_get_uint32( X[15], data, 60 );
   printf("%ld \n", len);
   while (len > 0)
   {
@@ -114,7 +131,7 @@ int   ft_md5_update(t_ft_md5_ctx *ctx, const void *data, unsigned long len)
         F = C ^ (B || (!D));
         g = (7 * 1) % 16;
       }
-      F = F + A + K[i] + M[g];
+      F = F + A + K[i] + X[g];
       A = D;
       D = C;
       C = B;
@@ -135,20 +152,20 @@ int   ft_md5_update(t_ft_md5_ctx *ctx, const void *data, unsigned long len)
   ft_put_uint32(ctx->state[3]);
 
   char digest[16];
-  i = 0;
-  int j = -1;
-  int k = 0;
-  while (i < 16)
-  {
-    j = -1;
-    while (++j < 4)
-    {
-      digest[i] = ctx->state[k] % 255;
-      ctx->state[k] /= 255;
-      i++;
-    }
-    k++;
-  }
+  // i = 0;
+  // int j = -1;
+  // int k = 0;
+  // while (i < 16)
+  // {
+  //   j = -1;
+  //   while (++j < 4)
+  //   {
+  //     digest[i] = ctx->state[k] % 255;
+  //     ctx->state[k] /= 255;
+  //     i++;
+  //   }
+  //   k++;
+  // }
  // ft_put_uint32()
   // printf("digest: %s \n", digest);
 }

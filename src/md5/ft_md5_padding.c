@@ -16,8 +16,8 @@ static void  ft_md5_padding_lenght(unsigned char *dpad, unsigned long nalign, un
   {
     if (n > 0)
     {
-      bytes[nbytes] = n % 256;
-      n /= 256;
+      bytes[nbytes] = n % 255;
+      n /= 255;
     }
     else
       bytes[nbytes] = 0;
@@ -61,7 +61,6 @@ static char *ft_md5_padding_new(const unsigned char *d, unsigned long nalign)
 
 char  *ft_md5_padding(const unsigned char *d, unsigned long n)
 {
-
   size_t i;
   size_t nalign;
   char   *dpad;
