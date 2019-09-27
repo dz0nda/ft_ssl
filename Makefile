@@ -19,12 +19,13 @@ SUBDIR = \
 				md5 \
 				ssl
 SUBFILE = \
-				md5/ft_md5.c \
-				md5/ft_md5_init.c \
-				md5/ft_md5_break.c \
-				md5/ft_md5_padding.c \
-				md5/ft_md5_process.c \
 				ssl/ft_ssl.c
+				# md5/ft_md5.c \
+				# md5/ft_md5_init.c \
+				# md5/ft_md5_break.c \
+				# md5/ft_md5_padding.c \
+				# md5/ft_md5_process.c \
+				
 
 SRCDIRS = $(foreach dir, $(SUBDIR), $(addprefix $(SRCDIR)/, $(dir)))
 OBJDIRS = $(foreach dir, $(SUBDIR), $(addprefix $(OBJDIR)/, $(dir)))
@@ -35,7 +36,7 @@ SRCS = $(foreach file, $(SUBFILE), $(addprefix $(SRCDIR)/, $(file)))
 OBJS := $(subst $(SRCDIR),$(OBJDIR),$(SRCS:.c=.o))
 DEPS = $(OBJS:.o=.d)
 
-VERBOSE = false
+VERBOSE = true
 ifeq ($(VERBOSE),TRUE)
 	HIDE =  
 else
@@ -61,7 +62,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(HIDE)$(CC) $(CFLAGS) -c $(INCLUDES) -o $@ $< -MMD
 
 directories:
-	$(HIDE)$(MKDIR) $(subst /,$(PSEP),$(OBJDIRS)) $(ERRIGNORE)
+	$(MKDIR) $(subst /,$(PSEP),$(OBJDIRS)) $(ERRIGNORE)
 
 lib:
 	$(HIDE)make -C ./lib/libft/
