@@ -3,14 +3,14 @@
 
 # include "../md5/ft_md5.h"
 
-typedef struct  s_ft_ssl
+typedef struct	s_ft_ssl
 {
 
-}               t_ft_ssl;
+}				t_ft_ssl;
 
 
-int     ft_ssl_usage(void);
-int     ft_ssl_error(const char *cmd);
+int				ft_ssl_usage(void);
+int				ft_ssl_error(const char *cmd);
 
 
 
