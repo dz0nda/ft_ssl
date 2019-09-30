@@ -21,7 +21,7 @@ typedef struct  s_ft_md5_context
 }               t_ft_md5_ctx;
 
 unsigned char   *ft_md5(const unsigned char *d, unsigned long n, unsigned char *md);
-int             ft_md5_init(t_ft_md5_ctx *ctx);
+
 char            *ft_md5_padding(const unsigned char *d, unsigned long n);
-int   ft_md5_update(t_ft_md5_ctx *ctx, const void *data, unsigned long len);
+int               ft_md5_update(t_ft_md5_ctx *ctx, const void *data, unsigned long len);
 #endif
