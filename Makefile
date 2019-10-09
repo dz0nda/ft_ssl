@@ -16,11 +16,15 @@ LDFLAGS = -Llib/libft
 LDLIBS = -lft 
 SUBDIR = \
 				md5 \
+				sha256 \
 				ssl
 SUBFILE = \
 				md5/ft_md5.c \
 				md5/ft_md5_padding.c \
-				md5/ft_md5_process.c \
+				md5/ft_md5_final.c \
+				md5/ft_md5_update.c \
+				sha256/ft_sha256.c \
+				sha256/ft_sha256_padding.c \
 				ssl/ft_ssl_parse.c \
 				ssl/ft_ssl.c
 
