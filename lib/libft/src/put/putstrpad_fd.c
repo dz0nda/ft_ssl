@@ -9,5 +9,5 @@ void	ft_putstrpad_fd(const char *s, size_t len, int fd)
 		len = (len == 0) ? 0 : len - 1;
 	}
 	while (len--)
-		ft_putchar_fd(' ', fd);
+		ft_putchar_fd('0', fd);
 }
