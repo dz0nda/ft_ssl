@@ -69,16 +69,17 @@ static int			ft_sha256_init(t_ft_sha256_ctx *ctx)
 
 unsigned char		*ft_sha256(const unsigned char *d, unsigned long n, unsigned char *md)
 {
-	char					*	dpad;
+	char					*dpad;
 	unsigned long		nalign;
 	t_ft_sha256_ctx	ctx;
 
 	dpad = NULL;
-	nalign = ft_get_size_aligned((n + FT_MD5_BYTE), FT_MD5_MODBYTE);
+	nalign = ft_get_size_aligned((n + FT_SHA256_BYTE), FT_SHA256_MODBYTE);
 	ft_sha256_init(&ctx);
+    printf("nalign = %d\n", nalign);
 	if ((dpad = ft_sha256_padding(d, nalign)) == NULL)
 		return (NULL);
-	hexDump(NULL, dpad, ft_strlen(dpad));
+	hexDump(NULL, dpad, nalign);
 	// ft_md5_update(&ctx, (const void *)dpad, nalign);
 	// ft_md5_final(&ctx, md);
 	// ft_strdel(&dpad);

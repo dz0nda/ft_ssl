@@ -12,7 +12,7 @@ char		*ft_sha256_padding(const unsigned char *d, unsigned long n)
 		return (NULL);
 	ft_strcpy(dpad, (const void *)d);
 	dpad[i] = 0x80;
-	while (++i < (n - FT_MD5_BYTE))
+	while (++i < (n - FT_SHA256_BYTE))
 		dpad[i] = 0;
 	while (i < n)
 	{
