@@ -24,7 +24,7 @@ void				ft_md5_final(t_ft_md5_ctx *ctx, unsigned char *md)
 				++pmd;
 			}
 		}
-					ft_putstr("\n");
+		ft_putstr("\n");
 
 	}
 	ft_putstr("\n");
