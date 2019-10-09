@@ -20,7 +20,8 @@ SUBDIR = \
 SUBFILE = \
 				md5/ft_md5.c \
 				md5/ft_md5_padding.c \
-				md5/ft_md5_process.c \
+				md5/ft_md5_update.c \
+				md5/ft_md5_final.c \
 				ssl/ft_ssl_parse.c \
 				ssl/ft_ssl.c
 
