@@ -58,7 +58,7 @@ static void			ft_md5_update_process(uint32_t abcd[4], uint32_t *m, int j)
 	abcd[1] = abcd[1] + ft_leftrotate(fg[0], s[j]);
 }
 
-int					ft_md5_update(t_ft_md5_ctx *ctx, const void *data, unsigned long len)
+int					ft_md5_update(t_ftmd5ctx *ctx, const void *data, unsigned long len)
 {
 	uint32_t	abcd[4];
 	uint32_t	*m;
@@ -81,13 +81,13 @@ int					ft_md5_update(t_ft_md5_ctx *ctx, const void *data, unsigned long len)
 		#endif
 		j = -1;
 		while (++j < 4)
-		  abcd[j] = ctx->state[j];  // ft_memcpy(&abcd[j], &ctx->state[j], sizeof(uint32_t));
+		  abcd[j] = ctx->hash[j];  // ft_memcpy(&abcd[j], &ctx->hash[j], sizeof(uint32_t));
 		j = -1;
 		while (++j < 64)
 			ft_md5_update_process(abcd, m, j);
 		j = -1;
 		while (++j < 4)
-			ctx->state[j] += abcd[j];
+			ctx->hash[j] += abcd[j];
 		i += 64;
 	}
 }

@@ -50,13 +50,13 @@ void hexdump(void *mem, unsigned int len)
 	}
 }
 
-static int			ft_md5_init(t_ft_md5_ctx *ctx)
+static int			ft_md5_init(t_ftmd5ctx *ctx)
 {
-	ft_memset(ctx, 0, sizeof(t_ft_md5_ctx));
-	ctx->state[0] = 0x67452301;
-	ctx->state[1] = 0xefcdab89;
-	ctx->state[2] = 0x98badcfe;
-	ctx->state[3] = 0x10325476;
+	ft_memset(ctx, 0, sizeof(t_ftmd5ctx));
+	ctx->hash[0] = 0x67452301;
+	ctx->hash[1] = 0xefcdab89;
+	ctx->hash[2] = 0x98badcfe;
+	ctx->hash[3] = 0x10325476;
 	return (EXIT_SUCCESS);
 }
 
@@ -64,7 +64,7 @@ unsigned char		*ft_md5(const unsigned char *d, unsigned long n, unsigned char *m
 {
 	char			*dpad;
 	unsigned long	nalign;
-	t_ft_md5_ctx	ctx;
+	t_ftmd5ctx	ctx;
 
 	dpad = NULL;
 	nalign = ft_get_size_aligned((n + FT_MD5_BYTE), FT_MD5_MODBYTE);

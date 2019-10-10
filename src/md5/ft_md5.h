@@ -14,16 +14,24 @@
 # define FT_MD5_MODBITS    512
 # define FT_MD5_BYTE        8
 
+typedef enum    s_ft_md5_enum
+{
+  FTMD5_MB_Size = 64,
+  FTMD5HashSize = 16,
+  FTMD5HashSizeBits = 128
+}       t_ftmd5enum;
+
 typedef struct	s_ft_md5_context
 {
-  uint32_t		state[4];
-}				t_ft_md5_ctx;
+  uint32_t		hash[FTMD5HashSize/4];
+  uint8_t     block[FTMD5_MB_Size];
+}				t_ftmd5ctx;
 
 unsigned char	*ft_md5(const unsigned char *d, unsigned long n, unsigned char *md);
 size_t			ft_get_size_aligned(size_t offset, size_t align);
 void			ft_md5_puthexa(uint32_t nb);
 
 char			*ft_md5_padding(const unsigned char *d, unsigned long n);
-int				ft_md5_update(t_ft_md5_ctx *ctx, const void *data, unsigned long len);
-void			ft_md5_final(t_ft_md5_ctx *ctx, unsigned char *md);
+int				ft_md5_update(t_ftmd5ctx *ctx, const void *data, unsigned long len);
+void			ft_md5_final(t_ftmd5ctx *ctx, unsigned char *md);
 #endif
