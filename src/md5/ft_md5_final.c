@@ -1,6 +1,6 @@
 #include "ft_md5.h"
 
-void				ft_md5_final(t_ft_md5_ctx *ctx, unsigned char *md)
+void				ft_md5_final(t_ftmd5ctx *ctx, unsigned char *md)
 {
 	int				ijk[3];
 	char			s[12];
@@ -11,7 +11,7 @@ void				ft_md5_final(t_ft_md5_ctx *ctx, unsigned char *md)
 	while (++ijk[0] < 4)
 	{
 		ijk[1] = -1;
-		p = (uint8_t *)&ctx->state[ijk[0]];
+		p = (uint8_t *)&ctx->hash[ijk[0]];
 		while (++ijk[1] < 4)
 		{
 			ijk[2] = -1;
@@ -24,6 +24,8 @@ void				ft_md5_final(t_ft_md5_ctx *ctx, unsigned char *md)
 				++pmd;
 			}
 		}
+		ft_putstr("\n");
+
 	}
 	ft_putstr("\n");
 }

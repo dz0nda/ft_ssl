@@ -19,10 +19,16 @@ char		*ft_md5_padding(const unsigned char *d, unsigned long n)
 	dpad[i] = 0x80;
 	while (++i < (n - FT_MD5_BYTE))
 		dpad[i] = 0;
-	while (--n > i)
+	// while (--n > i)
+	// {
+	// 	dpad[n] = ibits % 255;
+	// 	ibits /= 255;
+	// }
+	while (i < n)
 	{
-		dpad[n] = ibits % 255;
+		dpad[i++] = ibits % 255;
 		ibits /= 255;
 	}
+
 	return (dpad);
 }
