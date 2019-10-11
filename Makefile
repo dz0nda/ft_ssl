@@ -11,7 +11,7 @@ OBJDIR = build
 MAKEFILE_NAME = Makefile-$(lastword $(subst /, ,$(TARGET)))
 
 CC = gcc
-CFLAGS = 
+CFLAGS = -g3
 LDFLAGS = -Llib/libft 
 LDLIBS = -lft 
 SUBDIR = \
@@ -25,6 +25,10 @@ SUBFILE = \
 				md5/ft_md5_update.c \
 				sha256/ft_sha256.c \
 				sha256/ft_sha256_padding.c \
+				sha256/ft_sha256_final.c \
+				sha256/ft_sha256_update.c \
+				sha256/ft_sha256_rotate.c \
+				sha256/ft_sha256_sigma.c \
 				ssl/ft_ssl_parse.c \
 				ssl/ft_ssl.c
 
