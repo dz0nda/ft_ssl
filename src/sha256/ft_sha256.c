@@ -53,17 +53,17 @@ void hexDump (const char *desc, const void *addr, const int len) {
     printf ("  %s\n", buff);
 }
 
-static int			ft_sha256_init(t_ft_sha256_ctx *ctx)
+static int			ft_sha256_init(t_sha256_ctx *ctx)
 {
-	ft_memset(ctx, 0, sizeof(t_ft_sha256_ctx));
-	ctx->state[0] = 0x6a09e667;
-	ctx->state[1] = 0xbb67ae85;
-	ctx->state[2] = 0x3c6ef372;
-	ctx->state[3] = 0xa54ff53a;
-	ctx->state[4] = 0x510e527f;
-	ctx->state[5] = 0x9b05688c;
-	ctx->state[6] = 0x1f83d9ab;
-	ctx->state[7] = 0x5be0cd19;
+	ft_memset(ctx, 0, sizeof(t_sha256_ctx));
+	ctx->hash[0] = 0x6a09e667;
+	ctx->hash[1] = 0xbb67ae85;
+	ctx->hash[2] = 0x3c6ef372;
+	ctx->hash[3] = 0xa54ff53a;
+	ctx->hash[4] = 0x510e527f;
+	ctx->hash[5] = 0x9b05688c;
+	ctx->hash[6] = 0x1f83d9ab;
+	ctx->hash[7] = 0x5be0cd19;
 	return (EXIT_SUCCESS);
 }
 
@@ -71,7 +71,7 @@ unsigned char		*ft_sha256(const unsigned char *d, unsigned long n, unsigned char
 {
 	char					*dpad;
 	unsigned long		nalign;
-	t_ft_sha256_ctx	ctx;
+	t_sha256_ctx	ctx;
 
 	dpad = NULL;
 	nalign = ft_get_size_aligned((n + FT_SHA256_BYTE), FT_SHA256_MODBYTE);
@@ -80,8 +80,8 @@ unsigned char		*ft_sha256(const unsigned char *d, unsigned long n, unsigned char
 	if ((dpad = ft_sha256_padding(d, nalign)) == NULL)
 		return (NULL);
 	hexDump(NULL, dpad, nalign);
-	// ft_md5_update(&ctx, (const void *)dpad, nalign);
-	// ft_md5_final(&ctx, md);
+	ft_sha256_update(&ctx, (const void *)dpad, nalign);
+	ft_sha256_final(&ctx, md);
 	// ft_strdel(&dpad);
 	return (md);
 }
