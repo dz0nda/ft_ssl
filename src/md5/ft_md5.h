@@ -14,12 +14,12 @@
 # define FT_MD5_MODBITS    512
 # define FT_MD5_BYTE        8
 
-typedef enum    s_ft_md5_enum
+typedef enum    s_md5_enum
 {
   FTMD5_MB_Size = 64,
   FTMD5HashSize = 16,
   FTMD5HashSizeBits = 128
-}       t_ftmd5enum;
+}       t_md5enum;
 
 typedef struct	s_ft_md5_context
 {
