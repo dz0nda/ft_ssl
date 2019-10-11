@@ -7,6 +7,7 @@
 # include <stdint.h>
 
 # include "../../lib/libft/libft.h"
+# include "../ssl_utils/ft_ssl_utils.h"
 
 # define FT_MD5_LENGHTMOD 0xFFFFFFFFFFFFFFFF
 # define FT_MD5_MOD_ILENGTH_BITS 0xFFFFFFFFFFFFFFFF     // 2^64 
@@ -37,9 +38,7 @@ uint32_t		      ft_sha256_sigma1a(uint32_t word);
 uint32_t		      ft_sha256_sigma0b(uint32_t word);
 uint32_t		      ft_sha256_sigma1b(uint32_t word);
 
-uint32_t		      ft_shift_right(uint32_t word, uint32_t bits);
-uint32_t		      ft_rotate_right(uint32_t word, uint32_t bits);
-uint32_t		      ft_rotate_left(uint32_t word, uint32_t bits);
+
 
 #endif
 

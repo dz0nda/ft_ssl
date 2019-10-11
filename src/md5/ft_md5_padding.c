@@ -1,10 +1,5 @@
 #include "ft_md5.h"
 
-size_t		ft_get_size_aligned(size_t offset, size_t align)
-{
-	return (offset + (align - (offset % align) % align));
-}
-
 char		*ft_md5_padding(const unsigned char *d, unsigned long n)
 {
 	size_t	i;

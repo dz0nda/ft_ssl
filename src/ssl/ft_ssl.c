@@ -4,7 +4,7 @@ int		main(int argc, char const *argv[])
 {
 	(void)argc;
 	(void)argv;
-	const unsigned char arg[64] = "abcdeedcba";
+	const unsigned char arg[64] = "\n";
 
 	unsigned char md[16];
 	size_t        len;

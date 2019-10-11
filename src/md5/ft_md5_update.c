@@ -3,11 +3,6 @@
 #include "ft_md5.h"
 # define DEBUG 1
 
-static uint32_t		ft_leftrotate(uint32_t x, uint32_t c)
-{
-	return ((x << c) | (x >> (32 - c)));
-}
-
 static int			ft_md5_process_f(int j, int B, int C, int D)
 {
 	if (j < 16)
@@ -55,7 +50,7 @@ static void			ft_md5_update_process(uint32_t abcd[4], uint32_t *m, int j)
 	abcd[0] = abcd[3];
 	abcd[3] = abcd[2];
 	abcd[2] = abcd[1];
-	abcd[1] = abcd[1] + ft_leftrotate(fg[0], s[j]);
+	abcd[1] = abcd[1] + ft_rotate_left(fg[0], s[j]);
 }
 
 int					ft_md5_update(t_ftmd5ctx *ctx, const void *data, unsigned long len)

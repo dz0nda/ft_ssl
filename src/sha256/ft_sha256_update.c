@@ -45,7 +45,7 @@ void		ft_sha256_update_process_words(uint32_t m[64], const void *data)
 
 int				ft_sha256_update(t_sha256_ctx *ctx, const void *data, unsigned long len)
 {
-	uint32_t	abcd[4];
+	uint32_t	abcd[8];
 	uint32_t	m[64];
 	size_t		i;
 	int			j;
