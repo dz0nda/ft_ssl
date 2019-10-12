@@ -17,7 +17,8 @@ LDLIBS = -lft
 SUBDIR = \
 				md5 \
 				sha256 \
-				ssl
+				ssl \
+				ssl_utils
 SUBFILE = \
 				md5/ft_md5.c \
 				md5/ft_md5_padding.c \
@@ -27,10 +28,12 @@ SUBFILE = \
 				sha256/ft_sha256_padding.c \
 				sha256/ft_sha256_final.c \
 				sha256/ft_sha256_update.c \
-				sha256/ft_sha256_rotate.c \
 				sha256/ft_sha256_sigma.c \
 				ssl/ft_ssl_parse.c \
-				ssl/ft_ssl.c
+				ssl/ft_ssl.c \
+				ssl_utils/ft_ssl_rotate.c \
+				ssl_utils/ft_ssl_size.c \
+				ssl_utils/hexdump.c
 
 SRCDIRS = $(foreach dir, $(SUBDIR), $(addprefix $(SRCDIR)/, $(dir)))
 OBJDIRS = $(foreach dir, $(SUBDIR), $(addprefix $(OBJDIR)/, $(dir)))
