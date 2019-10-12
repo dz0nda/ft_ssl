@@ -25,12 +25,8 @@ static int			ft_md5_process_g(int j)
 	return ((7 * j) % 16);
 }
 
-static void			ft_md5_update_process(uint32_t abcd[4], uint32_t *m, int j)
+static int			ft_md5_process_k(int j)
 {
-	const uint32_t s[64] = { 7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17,
-		22, 5,  9, 14, 20,  5,  9, 14, 20,  5,  9, 14, 20,  5,  9, 14, 20, 4, 11, 16,
-		23,  4, 11, 16, 23,  4, 11, 16, 23,  4, 11, 16, 23, 6, 10, 15, 21,  6, 10, 15,
-		21,  6, 10, 15, 21,  6, 10, 15, 21 };
 	const uint32_t k[64] = { 0xd76aa478, 0xe8c7b756, 0x242070db, 0xc1bdceee, 0xf57c0faf, 
 		0x4787c62a, 0xa8304613, 0xfd469501, 0x698098d8, 0x8b44f7af, 0xffff5bb1, 0x895cd7be,
 		0x6b901122, 0xfd987193, 0xa679438e, 0x49b40821, 0xf61e2562, 0xc040b340, 0x265e5a51,
@@ -41,16 +37,41 @@ static void			ft_md5_update_process(uint32_t abcd[4], uint32_t *m, int j)
 		0xc4ac5665, 0xf4292244, 0x432aff97, 0xab9423a7, 0xfc93a039, 0x655b59c3, 0x8f0ccc92,
 		0xffeff47d, 0x85845dd1, 0x6fa87e4f, 0xfe2ce6e0, 0xa3014314, 0x4e0811a1, 0xf7537e82,
 		0xbd3af235, 0x2ad7d2bb, 0xeb86d391 };
+	
+	if (j < 0 || j > 63)
+		return (0);
+	return (k[j]);
+}
+
+static int			ft_md5_process_s(int j)
+{
+	const uint32_t s[64] = { 7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17,
+		22, 5,  9, 14, 20,  5,  9, 14, 20,  5,  9, 14, 20,  5,  9, 14, 20, 4, 11, 16,
+		23,  4, 11, 16, 23,  4, 11, 16, 23,  4, 11, 16, 23, 6, 10, 15, 21,  6, 10, 15,
+		21,  6, 10, 15, 21,  6, 10, 15, 21 };
+	
+	if (j < 0 || j > 63)
+		return (0);
+	return (s[j]);
+}
+
+
+static void			ft_md5_update_process(uint32_t abcd[4], uint32_t *m, int j)
+{
+	uint32_t k;
+	uint32_t s;
 	uint32_t fg[2];
 
+	k = ft_md5_process_k(j);
+	s = ft_md5_process_s(s);
 	fg[0] = ft_md5_process_f(j, abcd[1], abcd[2], abcd[3]);
 	fg[1] = ft_md5_process_g(j);
-	printf("rotateLeft(%x + %x + %x + %x, %d), %x, %x\n", abcd[0], fg[0], k[j], m[j], s[j], abcd[1], abcd[2]);
-	fg[0] = fg[0] + abcd[0] + k[j] + m[fg[1]];
+	printf("rotateLeft(%x + %x + %x + %x, %d), %x, %x\n", abcd[0], fg[0], k, m[j], s, abcd[1], abcd[2]);
+	fg[0] = fg[0] + abcd[0] + k + m[fg[1]];
 	abcd[0] = abcd[3];
 	abcd[3] = abcd[2];
 	abcd[2] = abcd[1];
-	abcd[1] = abcd[1] + ft_rotate_left(fg[0], s[j]);
+	abcd[1] = abcd[1] + ft_rotate_left(fg[0], s);
 }
 
 int					ft_md5_update(t_ftmd5ctx *ctx, const void *data, unsigned long len)
