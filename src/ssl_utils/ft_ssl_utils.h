@@ -11,6 +11,9 @@ uint32_t    ft_rotate_left(uint32_t word, uint32_t bits);
 
 size_t		ft_get_size_aligned(size_t offset, size_t align);
 
+uint32_t    swap_uint32( uint32_t val );
+uint64_t    swap_uint64( uint64_t val );
+
 void        hexdump(void *mem, unsigned int len);
 
 #endif
