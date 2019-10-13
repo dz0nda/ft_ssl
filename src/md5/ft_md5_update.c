@@ -1,7 +1,6 @@
 /* ************************************************************************** */
 
 #include "ft_md5.h"
-# define DEBUG 1
 
 static int			ft_md5_process_f(int j, int B, int C, int D)
 {
@@ -65,13 +64,27 @@ static void			ft_md5_update_process(uint32_t abcd[4], uint32_t *m, int j)
 	s = ft_md5_process_s(j);
 	fg[0] = ft_md5_process_f(j, abcd[1], abcd[2], abcd[3]);
 	fg[1] = ft_md5_process_g(j);
-	printf("rotateLeft(%x + %x + %x + %x, %d), %x, %x\n", abcd[0], fg[0], k, m[j], s, abcd[1], abcd[2]);
 	fg[0] = fg[0] + abcd[0] + k + m[fg[1]];
 	abcd[0] = abcd[3];
 	abcd[3] = abcd[2];
 	abcd[2] = abcd[1];
 	abcd[1] = abcd[1] + ft_rotate_left(fg[0], s);
+	
+	printf("[j = %d] A=%u, B=%u, C=%u, D=%u\n", j, abcd[0], abcd[1], abcd[2], abcd[3]);
+	// printf("rotateLeft(%d + %x + %x + %x, %d), %x, %x\n", abcd[0], fg[0], k, m[j], s, abcd[1], abcd[2]);
 }
+
+static void			ft_md5_update_show(uint32_t	*m)
+{
+	int i;
+
+	i = -1;
+	printf("Update show: \n");
+	while (++i < 15)
+		printf("Block[%d] = %u \n", i, m[i]);
+	printf("\n");
+}
+
 
 int					ft_md5_update(t_ftmd5ctx *ctx, const void *data, unsigned long len)
 {
@@ -87,6 +100,7 @@ int					ft_md5_update(t_ftmd5ctx *ctx, const void *data, unsigned long len)
 	while (i < len)
 	{
 		m = (uint32_t *)data;
+		ft_md5_update_show(m);
 		#ifdef DEBUG
 			printf("offset: %d %x\n", i, i);
 
