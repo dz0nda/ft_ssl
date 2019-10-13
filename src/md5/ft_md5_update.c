@@ -89,11 +89,11 @@ int					ft_md5_update(t_ftmd5ctx *ctx, const void *data, unsigned long len)
 	{
 		m = (uint32_t *)data;
 		#ifdef DEBUG
-						printf("offset: %d %x\n", i, i);
-		
-						int j;
-						for(j =0; j < 64; j++) printf("%x ", ((uint8_t *) m)[j]);
-						puts("");
+			printf("offset: %d %x\n", i, i);
+
+			int j;
+			for(j =0; j < 64; j++) printf("%x ", ((uint8_t *) m)[j]);
+			puts("");
 		#endif
 		j = -1;
 		while (++j < 4)

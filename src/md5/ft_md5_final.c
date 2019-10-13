@@ -1,5 +1,27 @@
 #include "ft_md5.h"
 
+// void				ft_md5_final(t_ftmd5ctx *ctx, unsigned char *md)
+// {
+// 	int		i;
+// 	int		j;
+// 	char	s[12];
+// 	uint8_t	*p;
+
+// 	i = -1;
+// 	while (++i < 4)
+// 	{
+// 		j = -1;
+// 		p = (uint8_t *)&ctx->hash[i];
+// 		while (++j < 4)
+// 		{
+// 			ft_bzero(s, sizeof(s));
+// 			ft_itoa(p[j], s, 16);
+// 			ft_putstr(s);
+// 		}
+// 	}
+// 	ft_putstr("\n");
+// }
+
 void				ft_md5_final(t_ftmd5ctx *ctx, unsigned char *md)
 {
 	int				ijk[3];
