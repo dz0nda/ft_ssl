@@ -55,7 +55,6 @@ static int			ft_md5_process_s(int j)
 	return (s[j]);
 }
 
-
 static void			ft_md5_update_process(uint32_t abcd[4], uint32_t *m, int j)
 {
 	uint32_t k;
@@ -63,7 +62,7 @@ static void			ft_md5_update_process(uint32_t abcd[4], uint32_t *m, int j)
 	uint32_t fg[2];
 
 	k = ft_md5_process_k(j);
-	s = ft_md5_process_s(s);
+	s = ft_md5_process_s(j);
 	fg[0] = ft_md5_process_f(j, abcd[1], abcd[2], abcd[3]);
 	fg[1] = ft_md5_process_g(j);
 	printf("rotateLeft(%x + %x + %x + %x, %d), %x, %x\n", abcd[0], fg[0], k, m[j], s, abcd[1], abcd[2]);
