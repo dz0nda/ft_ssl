@@ -1,5 +1,14 @@
 #include "ft_sha256.h"
 
+static void			ft_sha256_padding_show(char *dpad)
+{
+	int i;
+
+	i = -1;
+	printf("Padding show: \n");
+	printf("'%s'\n", dpad);
+}
+
 char		*ft_sha256_padding(const unsigned char *d, unsigned long n)
 {
 	size_t	i;
@@ -14,10 +23,16 @@ char		*ft_sha256_padding(const unsigned char *d, unsigned long n)
 	dpad[i] = 0x80;
 	while (++i < (n - FT_SHA256_BYTE))
 		dpad[i] = 0;
-	while (i < n)
+	while (--n > i)
 	{
-		dpad[i++] = ibits % 255;
+		dpad[n] = ibits % 255;
 		ibits /= 255;
 	}
+	// while (i < n)
+	// {
+	// 	dpad[i++] = ibits % 255;
+	// 	ibits /= 255;
+	// }
+	ft_sha256_padding_show(dpad);
 	return (dpad);
 }

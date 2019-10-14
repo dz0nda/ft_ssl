@@ -27,7 +27,7 @@ unsigned char		*ft_sha256(const unsigned char *d, unsigned long n, unsigned char
     printf("nalign = %d\n", nalign);
 	if ((dpad = ft_sha256_padding(d, nalign)) == NULL)
 		return (NULL);
-	hexdump(dpad, nalign);
+	// hexdump(dpad, nalign);
 	ft_sha256_update(&ctx, (const void *)dpad, nalign);
 	ft_sha256_final(&ctx, md);
 	// ft_strdel(&dpad);
