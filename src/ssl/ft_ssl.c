@@ -4,7 +4,7 @@ int		main(int argc, char const *argv[])
 {
 	(void)argc;
 	(void)argv;
-	const unsigned char arg[64] = "";
+	const unsigned char arg[64] = "abc";
 
 	unsigned char md[16];
 	size_t        len;
@@ -12,6 +12,6 @@ int		main(int argc, char const *argv[])
 	ft_bzero(md, sizeof(md));
 	len = ft_strlen((const char *)arg);
 	ft_md5(arg, len, md);
-	printf("MD5(%s)\n", md);
+	printf("\nMD5(%s)\n", md);
 	return 0;
 }
