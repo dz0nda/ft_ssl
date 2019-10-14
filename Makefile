@@ -16,6 +16,7 @@ LDFLAGS = -Llib/libft
 LDLIBS = -lft 
 SUBDIR = \
 				md5 \
+				sha1 \
 				sha256 \
 				ssl \
 				ssl_utils
@@ -24,6 +25,10 @@ SUBFILE = \
 				md5/ft_md5_final.c \
 				md5/ft_md5_padding.c \
 				md5/ft_md5_update.c \
+				sha1/ft_sha1.c \
+				sha1/ft_sha1_final.c \
+				sha1/ft_sha1_padding.c \
+				sha1/ft_sha1_update.c \
 				sha256/ft_sha256.c \
 				sha256/ft_sha256_final.c \
 				sha256/ft_sha256_padding.c \
@@ -33,6 +38,7 @@ SUBFILE = \
 				ssl/ft_ssl_parse.c \
 				ssl_utils/ft_ssl_rotate.c \
 				ssl_utils/ft_ssl_size.c \
+				ssl_utils/ft_ssl_swap.c \
 				ssl_utils/hexdump.c
 
 SRCDIRS = $(foreach dir, $(SUBDIR), $(addprefix $(SRCDIR)/, $(dir)))
