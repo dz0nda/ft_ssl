@@ -85,7 +85,6 @@ static void			ft_md5_update_show(uint32_t	*m)
 	printf("\n");
 }
 
-
 int					ft_md5_update(t_ftmd5ctx *ctx, const void *data, unsigned long len)
 {
 	uint32_t	abcd[4];

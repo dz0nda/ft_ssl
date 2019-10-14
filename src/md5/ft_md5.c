@@ -33,7 +33,6 @@ unsigned char		*ft_md5(const unsigned char *d, unsigned long n, unsigned char *m
 	ft_md5_init_show(&ctx);
 	if ((dpad = ft_md5_padding(d, nalign)) == NULL)
 		return (NULL);
-	// hexdump(dpad, (unsigned int)nalign);
 	ft_md5_update(&ctx, (const void *)dpad, nalign);
 	ft_md5_final(&ctx, md);
 	ft_strdel(&dpad);

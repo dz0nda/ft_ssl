@@ -29,9 +29,8 @@ typedef struct	s_ft_md5_context
 }				t_ftmd5ctx;
 
 unsigned char   *ft_md5(const unsigned char *d, unsigned long n, unsigned char *md);
-void            ft_md5_puthexa(uint32_t nb);
-
 char			      *ft_md5_padding(const unsigned char *d, unsigned long n);
 int				      ft_md5_update(t_ftmd5ctx *ctx, const void *data, unsigned long len);
 void			      ft_md5_final(t_ftmd5ctx *ctx, unsigned char *md);
+
 #endif
