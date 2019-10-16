@@ -8,22 +8,22 @@ static void			ft_sha1_init_show(t_sha1_ctx *ctx)
 	i = -1;
 	printf("Init show: \n");
 	while (++i < 5)
-		printf("hash[%d] = %u ", i, ctx->hash[i]);
+		printf("hash[%d] = %u ", i, ctx->state[i]);
 	printf("\n");
 }
 
 static int			ft_sha1_init(t_sha1_ctx *ctx)
 {
 	ft_memset(ctx, 0, sizeof(t_sha1_ctx));
-	ctx->hash[0] = 0x67452301;
-	ctx->hash[1] = 0xEFCDAB89;
-	ctx->hash[2] = 0x98BADCFE;
-	ctx->hash[3] = 0x10325476;
-	ctx->hash[4] = 0xC3D2E1F0;
+	ctx->state[0] = 0x67452301;
+	ctx->state[1] = 0xEFCDAB89;
+	ctx->state[2] = 0x98BADCFE;
+	ctx->state[3] = 0x10325476;
+	ctx->state[4] = 0xC3D2E1F0;
 	return (EXIT_SUCCESS);
 }
 
-unsigned char		*ft_sha1(const unsigned char *d, unsigned long n, unsigned char *md)
+int			ft_sha1(const unsigned char *d, unsigned long n, unsigned char *md)
 {
 	char					*dpad;
 	unsigned long		nalign;

@@ -15,21 +15,20 @@
 
 typedef enum    s_sha1_enum
 {
-  T_SHA1_MBS = 64,
-  T_SHA1_HS = 32,
-  T_SHA1_HBS = 256
-}               t_sha1enum;
+  FT_SHA1_MBS = 64,
+  FT_SHA1_HS = 32,
+  FT_SHA1_HBS = 256
+}               t_sha1_e;
 
 typedef struct	s_sha1_context
 {
-  uint32_t		hash[5];
+  uint32_t		state[5];
 }				        t_sha1_ctx;
 
-unsigned char	    *ft_sha1(const unsigned char *d, unsigned long n, unsigned char *md);
+int               ft_sha1(const unsigned char *d, unsigned long n, unsigned char *md);
 char		          *ft_sha1_padding(const unsigned char *d, unsigned long n);
-size_t		        ft_get_size_aligned(size_t offset, size_t align);
 int				        ft_sha1_update(t_sha1_ctx *ctx, const void *data, unsigned long len);
-void				      ft_sha1_final(t_sha1_ctx *ctx, unsigned char *md);
+int				        ft_sha1_final(t_sha1_ctx *ctx, unsigned char *md);
 
 uint32_t		      ft_sha1_sigma0a(uint32_t word);
 uint32_t		      ft_sha1_sigma1a(uint32_t word);

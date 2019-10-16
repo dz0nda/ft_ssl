@@ -79,7 +79,7 @@ static void          ft_sha1_update_break(uint32_t *w, const void *data)
 
 int					ft_sha1_update(t_sha1_ctx *ctx, const void *data, unsigned long len)
 {
-	uint32_t	abcd[4];
+	uint32_t	abcd[5];
 	uint32_t	*m;
     uint32_t    w[80];
 	size_t		i;
@@ -96,13 +96,13 @@ int					ft_sha1_update(t_sha1_ctx *ctx, const void *data, unsigned long len)
 		ft_sha1_update_show(w);
 		j = -1;
 		while (++j < 5)
-		  abcd[j] = ctx->hash[j];  // ft_memcpy(&abcd[j], &ctx->hash[j], sizeof(uint32_t));
+		  abcd[j] = ctx->state[j];  // ft_memcpy(&abcd[j], &ctx->state[j], sizeof(uint32_t));
 		j = -1;
 		while (++j < 80)
 			ft_sha1_update_process(abcd, w, j);
 		j = -1;
 		while (++j < 5)
-			ctx->hash[j] += abcd[j];
+			ctx->state[j] += abcd[j];
 		i += 64;
 	}
 }

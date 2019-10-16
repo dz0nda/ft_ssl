@@ -43,6 +43,7 @@ char		*ft_sha1_padding(const unsigned char *d, unsigned long n)
 		dpad[n] = ibits % 255;
 		ibits /= 255;
 	}
+	hexdump(dpad, n + 8);
 	ft_sha1_padding_show(dpad);
 	return (dpad);
 }
