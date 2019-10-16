@@ -29,6 +29,7 @@ char		*ft_md5_padding(const unsigned char *d, unsigned long n)
 		ibits /= 256;
 	}
 	ft_md5_padding_show(dpad);
+	hexdump(dpad, n);
 	// while (--n > i)
 	// {
 	// 	dpad[n] = ibits % 255;

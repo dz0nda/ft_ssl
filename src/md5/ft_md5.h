@@ -17,20 +17,20 @@
 
 typedef enum    s_md5_enum
 {
-  FTMD5_MB_Size = 64,
-  FTMD5HashSize = 16,
-  FTMD5HashSizeBits = 128
-}       t_md5enum;
+  FT_MD5_MBS = 64,          // Message block size in bytes
+  FT_MD5_HS = 16,           // Hash size in bytes     
+  FT_MD5_HSB = 128          // Hash size in bits 
+}               t_md5_e;
 
-typedef struct	s_ft_md5_context
+typedef struct	s_md5_context
 {
-  uint32_t		hash[FTMD5HashSize/4];
-  uint8_t     block[FTMD5_MB_Size];
-}				t_ftmd5ctx;
+  uint32_t		state[FT_MD5_HS/4];
+  uint8_t     block[FT_MD5_MBS];
+}				        t_md5_ctx;
 
-unsigned char   *ft_md5(const unsigned char *d, unsigned long n, unsigned char *md);
-char			      *ft_md5_padding(const unsigned char *d, unsigned long n);
-int				      ft_md5_update(t_ftmd5ctx *ctx, const void *data, unsigned long len);
-void			      ft_md5_final(t_ftmd5ctx *ctx, unsigned char *md);
+int     ft_md5(const unsigned char *d, unsigned long n, unsigned char *md);
+char	  *ft_md5_padding(const unsigned char *d, unsigned long n);
+int		  ft_md5_update(t_md5_ctx *ctx, const void *data, unsigned long len);
+int     ft_md5_final(t_md5_ctx *ctx, unsigned char *md);
 
 #endif
