@@ -17,21 +17,21 @@
 
 typedef enum    s_sha256_enum
 {
-  T_SHA256_MBS = 64,
-  T_SHA256_HS = 32,
-  T_SHA256_HBS = 256
-}               t_sha256enum;
+  FT_SHA256_MBS = 64,
+  FT_SHA256_HS = 32,
+  FT_SHA256_HBS = 256
+}               t_sha256_e;
 
 typedef struct	s_sha256_context
 {
-  uint32_t		hash[8];
+  uint32_t		state[8];
 }				        t_sha256_ctx;
 
-unsigned char	    *ft_sha256(const unsigned char *d, unsigned long n, unsigned char *md);
+int               ft_sha256(const unsigned char *d, unsigned long n, unsigned char *md);
 char		          *ft_sha256_padding(const unsigned char *d, unsigned long n);
 size_t		        ft_get_size_aligned(size_t offset, size_t align);
 int				        ft_sha256_update(t_sha256_ctx *ctx, const void *data, unsigned long len);
-void				      ft_sha256_final(t_sha256_ctx *ctx, unsigned char *md);
+int				        ft_sha256_final(t_sha256_ctx *ctx, unsigned char *md);
 
 uint32_t		      ft_sha256_sigma0a(uint32_t word);
 uint32_t		      ft_sha256_sigma1a(uint32_t word);

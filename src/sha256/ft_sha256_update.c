@@ -123,13 +123,13 @@ int				ft_sha256_update(t_sha256_ctx *ctx, const void *data, unsigned long len)
 		ft_sha256_update_break(w, data);
 		ft_sha256_update_show(w);
 		while (++j < 8)
-			abcd[j] = ctx->hash[j];
+			abcd[j] = ctx->state[j];
 		j = -1;
 		while (++j < 64)
 			ft_sha256_update_process(abcd, w, j);
 		j = -1;
 		while (++j < 8)
-			ctx->hash[j] += abcd[j];
+			ctx->state[j] += abcd[j];
 		i += 64;
 	}
 }

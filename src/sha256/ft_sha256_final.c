@@ -7,11 +7,11 @@ static void			ft_sha256_final_show(t_sha256_ctx *ctx)
 	i = -1;
 	printf("Final show: \n");
 	while (++i < 8)
-		printf("hash[%d] = %x ", i, ctx->hash[i]);
+		printf("hash[%d] = %x ", i, ctx->state[i]);
 	printf("\n");
 }
 
-void				ft_sha256_final(t_sha256_ctx *ctx, unsigned char *md)
+int				ft_sha256_final(t_sha256_ctx *ctx, unsigned char *md)
 {
 	int		i;
 	int		j;
@@ -23,8 +23,8 @@ void				ft_sha256_final(t_sha256_ctx *ctx, unsigned char *md)
 	while (++i < 8)
 	{
 		j = -1;
-		ctx->hash[i] = swap_uint32(ctx->hash[i]);
-		p = (uint8_t *)&ctx->hash[i];
+		ctx->state[i] = swap_uint32(ctx->state[i]);
+		p = (uint8_t *)&ctx->state[i];
 		while (++j < 4)
 		{
 			ft_bzero(s, sizeof(s));
