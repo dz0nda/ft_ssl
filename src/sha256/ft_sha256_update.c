@@ -19,12 +19,17 @@ static void			ft_sha256_update_process(uint32_t abcd[8], uint32_t *w, int j)
 	uint32_t temp2;
 	uint32_t maj;
 
+	printf("[j = %d] A=%u, B=%u, C=%u, D=%u, E=%u, F=%u, G=%u, H=%u\n", j, abcd[0], abcd[1], abcd[2], abcd[3], abcd[4], abcd[5], abcd[6], abcd[7]);
+
 	S1 = ft_rotate_right(abcd[4], 6) ^ ft_rotate_right(abcd[4], 11) ^ ft_rotate_right(abcd[4], 25);
 	ch = (abcd[4] & abcd[5]) ^ ((~abcd[4]) & abcd[6]);
 	temp1 = abcd[7] + S1 + ch + k[j] + w[j];
+	
 	S0 = ft_rotate_right(abcd[0], 2) ^ ft_rotate_right(abcd[0], 13) ^ ft_rotate_right(abcd[0], 22);
-	maj = (abcd[0] + abcd[1]) ^ (abcd[0] + abcd[2]) ^ (abcd[1] + abcd[2]);
+	maj = (abcd[0] & abcd[1]) ^ (abcd[0] & abcd[2]) ^ (abcd[1] & abcd[2]);
+	
 	temp2 = S0 + maj;
+	
 	abcd[7] = abcd[6];
 	abcd[6] = abcd[5];
 	abcd[5] = abcd[4];
@@ -33,6 +38,7 @@ static void			ft_sha256_update_process(uint32_t abcd[8], uint32_t *w, int j)
 	abcd[2] = abcd[1];
 	abcd[1] = abcd[0];
 	abcd[0] = temp1 + temp2;
+
 	// uint32_t s[2];
 	// uint32_t ch;
 	// uint32_t maj;
@@ -88,11 +94,13 @@ static void          ft_sha256_update_break(uint32_t *w, const void *data)
     m = (uint32_t *)data;
     while (++i < 16)
         w[i] = swap_uint32(m[i]);
+	// w[15] = 24;
     while (i < 64)
 	{
 		s0 = ft_rotate_right(w[i-15], 7) ^ ft_rotate_right(w[i-15], 18) ^ ft_shift_right(w[i-15], 3);
 		s1 = ft_rotate_right(w[i-2], 17) ^ ft_rotate_right(w[i-2], 19) ^ ft_shift_right(w[i-2], 10);
 		w[i] = w[i-16] + s0 + w[i-7] + s1;
+		// w[i] = swap_uint32(m[i]);
 		// w[i] = ft_sha256_sigma1a(w[i-2]) + w[i-7] + ft_sha256_sigma0a(w[i-15]) + w[i-16];
 		// w[i] = swap_uint32(w[i]);
 		i++;

@@ -28,11 +28,13 @@ char		*ft_sha256_padding(const unsigned char *d, unsigned long n)
 		dpad[n] = ibits % 255;
 		ibits /= 255;
 	}
+	// dpad[n + 8] = 24;
 	// while (i < n)
 	// {
 	// 	dpad[i++] = ibits % 255;
 	// 	ibits /= 255;
 	// }
+	hexdump(dpad, n + 8);
 	ft_sha256_padding_show(dpad);
 	return (dpad);
 }
