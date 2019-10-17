@@ -5,9 +5,13 @@
 # include <stdio.h>
 # include <stdint.h>
 
+# include "../ssl/ft_ssl.h"
+
 uint32_t    ft_shift_right(uint32_t word, uint32_t bits);
 uint32_t    ft_rotate_right(uint32_t word, uint32_t bits);
 uint32_t    ft_rotate_left(uint32_t word, uint32_t bits);
+
+void		ft_init_show(t_ssl_ctx *ctx);
 
 size_t		ft_get_size_aligned(size_t offset, size_t align);
 
