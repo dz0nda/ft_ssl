@@ -2,13 +2,11 @@
 
 int		main(int argc, char const *argv[])
 {
-	(void)argc;
-	(void)argv;
-	t_ft_ssl	ft_ssl;
+	t_ft_ssl	ssl;
 
-	const unsigned char arg[64] = "abc";
-	const char *prgm = "md5";
-
+	ft_ssl_init(&ssl, argc, argv);
+	// const unsigned char arg[64] = "abc";
+	// const char *prgm = "md5";
 
 	// unsigned char md[16];
 	// size_t        len;

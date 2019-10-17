@@ -13,6 +13,13 @@
  *      SHA-512   64 byte / 512 bit
  */
 
+typedef enum        s_ssl_return
+{
+    FT_SSL_SUCCESS,
+    FT_SSL_USAGE,
+    FT_SSL_INVALID_COMMAND
+}                   t_ssl_return;
+
 typedef enum        s_ssl_message_digest
 {
     FT_MD5,
@@ -32,7 +39,9 @@ typedef struct	s_ft_ssl
     t_ssl_ctx   ssl_ctx;
 }				t_ft_ssl;
 
-int				ft_ssl_usage(void);
 int				ft_ssl_error(const char *cmd);
+int		        ft_ssl_init(t_ft_ssl *ssl, int argc, char *argv[]);
+int		        ft_ssl_parse(int argc, char *argv[]);
+int				ft_ssl_usage(void);
 
 #endif
