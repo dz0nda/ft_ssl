@@ -2,7 +2,7 @@
 
 int		main(int argc, char const *argv[])
 {
-	t_ft_ssl	ssl;
+	t_ftssl	ssl;
 
 	ft_ssl_init(&ssl, argc, argv);
 	// const unsigned char arg[64] = "abc";
