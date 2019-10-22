@@ -4,7 +4,9 @@ int		main(int argc, char const *argv[])
 {
 	t_ftssl	ssl;
 
-	ft_ssl_init(&ssl, argc, argv);
+	ft_ssl_init(&ssl);
+	if (argc < 2)
+		ft_ssl_shell(&ssl);
 	// const unsigned char arg[64] = "abc";
 	// const char *prgm = "md5";
 

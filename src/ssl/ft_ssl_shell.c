@@ -160,7 +160,7 @@ int     ft_ssl_shell_open(char *file)
         readFile(fd[0]);
         close(fd[0]);
     }
-    else { 
+    else {
         printf("file %s not found\n", file);
         fd[0] = open(0, O_RDONLY);
         readFile(0);
@@ -169,15 +169,25 @@ int     ft_ssl_shell_open(char *file)
     return (EXIT_SUCCESS);
 }
 
+void            ft_ssl_shell_prompt()
+{
+    ft_putstr("ftSSL> ");
+}
 
 int		        ft_ssl_shell(t_ftssl *ssl)
 {
     t_ftssl_sh  sh;
 	char	buff[5];
-    
+    int exit;
 
     ft_memset(&sh, 0, sizeof(sh));
     ft_memset(buff, 0, sizeof(buff));
+    exit = FT_SSL_SUCCESS;
+    while(exit = FT_SSL_SUCCESS)
+    {
+        ft_ssl_shell_prompt();
+        
+    }
     ft_ssl_shell_open("0");
     // sslRead();
 }
