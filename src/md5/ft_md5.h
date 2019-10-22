@@ -30,6 +30,7 @@ typedef struct  s_md5_context
 
 int     ft_md5(const unsigned char *d, unsigned long n, unsigned char *md);
 char	  *ft_md5_padding(const unsigned char *d, unsigned long n);
+int			ft_md5_init(t_md5_ctx *ctx);
 int		  ft_md5_update(t_md5_ctx *ctx, const void *data, unsigned long len);
 int     ft_md5_final(t_md5_ctx *ctx, unsigned char *md);
 
