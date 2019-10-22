@@ -30,6 +30,7 @@ int					ft_md5(const unsigned char *d, unsigned long n, unsigned char *md)
 	dpad = NULL;
 	nalign = ft_get_size_aligned((n + FT_MD5_BYTE), FT_MD5_MODBYTE);
 	ft_md5_init(&ctx);
+	// ft_init_show(&ctx);
 	ft_md5_init_show(&ctx);
 	if ((dpad = ft_md5_padding(d, nalign)) == NULL)
 		return (NULL);
