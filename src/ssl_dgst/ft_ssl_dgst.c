@@ -25,11 +25,11 @@ int     dispatch_padding(t_dgst_ctx_u *ctx, int ft_ssl_dgstcmd)
     return (*padding[ft_ssl_dgstcmd])(ctx);	
 }
 
-int				        ft_dgst(const unsigned char *d, unsigned long n, unsigned char *md)
+int				        ft_dgst(t_dgst_ctx *ctx, int cmd)
 {
-	t_dgst_ctx	ctx;
+    printf("ïm in dgst\n");
 
-	dispatch_padding(&ctx, FT_MD5);
-    ft_init_showdgst(&ctx.dgst_ctx);
+	dispatch_padding(ctx, cmd);
+    ft_init_showdgst((t_md5_ctx *)&ctx->dgst_ctx);
 	return (EXIT_SUCCESS);
 }

@@ -15,11 +15,11 @@ typedef enum        s_digest_command_enum
 
 typedef enum        s_dgst_flag_enum
 {
-    FT_DGST_P,
-    FT_DGST_Q,
-    FT_DGST_R,
-    FT_DGST_S,
-    FT_DGST_FLAG
+    FT_DGST_P = 'p',
+    FT_DGST_Q = 'q',
+    FT_DGST_R = 'r',
+    FT_DGST_S = 's',
+    FT_DGST_FLAG = 4
 }                   s_dgst_flag_e;
 
 typedef union       s_digest_context_union
@@ -34,8 +34,8 @@ typedef struct	    s_dgst_context
     int             dgst_cmd;
     t_dgst_ctx_u    dgst_ctx;
 }				    t_dgst_ctx;
- 
-int				ft_dgst(const unsigned char *d, unsigned long n, unsigned char *md);
+
+int				ft_dgst(t_dgst_ctx *ctx, int cmd);
 
 int			    ft_ssl_dgst_md5_init(t_dgst_ctx_u *ctx);
 int			    ft_ssl_dgst_sha1_init(t_dgst_ctx_u *ctx);
