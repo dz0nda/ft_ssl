@@ -4,7 +4,7 @@ int		ft_ssl_error(const char *cmd)
 {
 	ft_putstr("ft_ssl: Error: '");
 	ft_putstr(cmd);
-	ft_putstr("' is an invalid command.");
+	ft_putstr("' is an invalid command.\n");
 	return (EXIT_FAILURE);
 }
 

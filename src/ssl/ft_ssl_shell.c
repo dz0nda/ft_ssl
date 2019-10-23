@@ -177,7 +177,7 @@ void            ft_ssl_shell_prompt()
 
 // int     ft_ssl_dispatch()
 // {
-//     static int (* const pf[FT_SSL_CMD][FT_SSL_DGST_CMD])(void) = 
+//     static int (* const pf[FT_SSL_TYPE][FT_SSL_DGST_CMD])(void) = 
 //     {
 //         {fnUp, fnDown, fnNull, ..., fnMenu},
 // 	    {fnMenu, fnNull, ..., fnHome}, 

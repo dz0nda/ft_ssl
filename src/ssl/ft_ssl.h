@@ -4,7 +4,7 @@
 # include "../ssl_dgst/ft_ssl_dgst.h"
 
 #define FTSSL_MAX_BUFFER 512
-#define FTSSL_MAX_STRINGS 10
+#define FTSSL_MAX_STRINGS 50
 #define FTSSL_MAX_CMDFLAG 
 
 /*
@@ -18,17 +18,18 @@
 typedef enum        s_ftssl_status
 {
     FT_SSL_SUCCESS,
+    FT_SSL_ERROR,
     FT_SSL_USAGE,
     FT_SSL_INVALID_COMMAND
 }                   t_ftssl_stat;
 
-typedef enum        s_ftssl_command_enum
+typedef enum        s_ftssl_type_enum
 {
     FT_DGST,
     FT_CIPHER,
     FT_STDRD,
-    FT_SSL_CMD
-}                   t_ftssl_cmd_e;
+    FT_SSL_TYPE
+}                   t_ftssl_type_e;
 
 // typedef struct	s_ftssl_digest_context
 // {
@@ -37,9 +38,11 @@ typedef enum        s_ftssl_command_enum
 // }				t_dgst_ctx_u;
  
 
-typedef struct	s_ft_ssl_shell
+typedef struct	s_ftssl_shell
 {
     char        *prompt;
+    int         argc;
+    char        *argv[FTSSL_MAX_STRINGS];
 }				t_ftssl_sh;
 
 // typedef struct	s_ft_ssl_context
@@ -48,19 +51,32 @@ typedef struct	s_ft_ssl_shell
 //     t_dgst_ctx_u ctx;
 // }				t_ftssl_ctx;
  
-
+typedef struct        s_ftssl_context
+{
+    int     ftssl_type;
+    int     ftssl_cmd;
+    int     (*flags)(char);
+}                   t_ftssl_ctx;
 
 typedef struct	s_ft_ssl
 {
-    int           ftssl_cmd;
-    char          *flags;
+    int          ftssl_stat;
+    int          (*ftssl_usage)(void);
+    int          (*ftssl_error)(const char *);
+    t_ftssl_sh    sh;
+    t_ftssl_ctx   ctx;
 }				t_ftssl;
 
-int				ft_ssl_error(const char *cmd);
-int		        ft_ssl_init(t_ftssl *ssl);
+int		        ft_ssl_init(t_ftssl *ssl, int argc, char const *argv[]);
+int		        ft_ssl_reset(t_ftssl *ssl);
+
 int		        ft_ssl_shell(t_ftssl *ssl);
+
 int		        ft_ssl_parse(int argc, char *argv[]);
 int             ft_ssl_parse_flag_unknown(char c);
+
 int				ft_ssl_usage(void);
+int				ft_ssl_error(const char *cmd);
+
 
 #endif
