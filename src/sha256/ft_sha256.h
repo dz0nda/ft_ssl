@@ -24,7 +24,8 @@ typedef enum    s_sha256_enum
 
 typedef struct	s_sha256_context
 {
-  uint32_t		state[8];
+  uint32_t		state[FT_SHA256_HS/4];
+  uint8_t     block[FT_SHA256_MBS];
 }				        t_sha256_ctx;
 
 int               ft_sha256(const unsigned char *d, unsigned long n, unsigned char *md);

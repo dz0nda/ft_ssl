@@ -13,16 +13,17 @@
 # define FT_SHA1_MODBITS    512
 # define FT_SHA1_BYTE       8
 
-typedef enum    s_sha1_enum
+typedef enum    s_ftsha1_enum
 {
   FT_SHA1_MBS = 64,
-  FT_SHA1_HS = 32,
-  FT_SHA1_HBS = 256
-}               t_sha1_e;
+  FT_SHA1_HS = 20,
+  FT_SHA1_HBS = 160
+}               t_ftsha1_e;
 
 typedef struct	s_sha1_context
 {
-  uint32_t		state[5];
+  uint32_t		state[FT_SHA1_HS/4];
+  uint8_t     block[FT_SHA1_MBS];
 }				        t_sha1_ctx;
 
 int               ft_sha1(const unsigned char *d, unsigned long n, unsigned char *md);
