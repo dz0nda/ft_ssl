@@ -174,6 +174,16 @@ void            ft_ssl_shell_prompt()
     ft_putstr("ftSSL> ");
 }
 
+
+// int     ft_ssl_dispatch()
+// {
+//     static int (* const pf[FT_SSL_CMD][FT_SSL_DGST_CMD])(void) = 
+//     {
+//         {fnUp, fnDown, fnNull, ..., fnMenu},
+// 	    {fnMenu, fnNull, ..., fnHome}, 
+//     };
+// }
+
 int		        ft_ssl_shell(t_ftssl *ssl)
 {
     t_ftssl_sh  sh;

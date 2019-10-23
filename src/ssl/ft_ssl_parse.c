@@ -16,12 +16,12 @@ int    ft_ssl_parse_flags_md(char c)
 
 int     ft_ssl_check_cmd(char *cmd)
 {
-    const char *ft_sslcmd[FT_SSLCMD] = { "md5", "sha1", "sha256" };
+    const char *FT_SSL_DGST_CMD[FT_SSL_DGST_CMD] = { "md5", "sha1", "sha256" };
     int i;
 
     i = -1;
-    while (++i < FT_SSLCMD)
-        if (ft_strcmp(cmd, ft_sslcmd[i]) == 0)
+    while (++i < FT_SSL_DGST_CMD)
+        if (ft_strcmp(cmd, FT_SSL_DGST_CMD[i]) == 0)
             break;
     return (i);
 }

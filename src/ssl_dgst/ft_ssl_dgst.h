@@ -2,33 +2,43 @@
 # define FT_SSL_DIGST_H
 
 # include "../md5/ft_md5.h"
-# include "../ssl/ft_ssl.h"
+# include "../sha1/ft_sha1.h"
+# include "../sha256/ft_sha256.h"
 
-typedef enum        s_ftssl_digest_command_enum
+typedef enum        s_digest_command_enum
 {
     FT_MD5,
     FT_SHA1,
     FT_SHA256,
     FT_SSL_DGST_CMD
-}                   t_ftssl_dgst_cmd_e;
+}                   t_dgst_cmd_e;
 
-typedef union       s_ftssl_digest_context_union
+typedef enum        s_dgst_flag_enum
+{
+    FT_DGST_P,
+    FT_DGST_Q,
+    FT_DGST_R,
+    FT_DGST_S,
+    FT_DGST_FLAG
+}                   s_dgst_flag_e;
+
+typedef union       s_digest_context_union
 {
     t_md5_ctx       md5ctx;
     t_sha1_ctx      sha1ctx;
     t_sha256_ctx    sha256ctx;
-}                   t_ftssl_dgst_ctx_u;
+}                   t_dgst_ctx_u;
 
-typedef struct	    s_ft_ssl_dgst_context
+typedef struct	    s_dgst_context
 {
-    int             ftssl_dgst_cmd;
-    t_ftssl_dgst_ctx_u ftssl_dgst_ctx;
-}				    t_ftssl_dgst_ctx;
+    int             dgst_cmd;
+    t_dgst_ctx_u    dgst_ctx;
+}				    t_dgst_ctx;
  
 int				ft_dgst(const unsigned char *d, unsigned long n, unsigned char *md);
 
-int			    ft_ssl_dgst_md5_init(t_ftssl_dgst_ctx_u *ctx);
-int			    ft_ssl_dgst_sha1_init(t_ftssl_dgst_ctx_u *ctx);
-int			    ft_ssl_dgst_sha256_init(t_ftssl_dgst_ctx_u *ctx);
+int			    ft_ssl_dgst_md5_init(t_dgst_ctx_u *ctx);
+int			    ft_ssl_dgst_sha1_init(t_dgst_ctx_u *ctx);
+int			    ft_ssl_dgst_sha256_init(t_dgst_ctx_u *ctx);
 
 #endif

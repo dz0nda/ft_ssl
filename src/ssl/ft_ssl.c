@@ -15,7 +15,7 @@ int		main(int argc, char const *argv[])
 
 	ft_bzero(md, sizeof(md));
 	len = ft_strlen((const char *)arg);
-	ft_md5(arg, len, md);
+	ft_dgst(arg, len, md);
 	printf("\nMD5(%s)\n", md);
 	return 0;
 }
