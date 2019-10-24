@@ -15,31 +15,29 @@ CFLAGS = -ggdb -g3
 LDFLAGS = -Llib/libft 
 LDLIBS = -lft 
 SUBDIR = \
-				md5 \
-				sha1 \
-				sha256 \
+				dgst \
 				ssl \
+				ssl_dgst \
 				ssl_utils
 SUBFILE = \
-				md5/ft_md5.c \
-				md5/ft_md5_final.c \
-				md5/ft_md5_padding.c \
-				md5/ft_md5_update.c \
-				sha1/ft_sha1.c \
-				sha1/ft_sha1_final.c \
-				sha1/ft_sha1_padding.c \
-				sha1/ft_sha1_update.c \
-				sha256/ft_sha256.c \
-				sha256/ft_sha256_final.c \
-				sha256/ft_sha256_padding.c \
-				sha256/ft_sha256_sigma.c \
-				sha256/ft_sha256_update.c \
+				dgst/ft_dgst_final.c \
+				dgst/ft_dgst_init.c \
+				dgst/ft_dgst_md5_update.c \
+				dgst/ft_dgst_md5.c \
+				dgst/ft_dgst_sha1_update.c \
+				dgst/ft_dgst_sha1.c \
+				dgst/ft_dgst_sha256_sigma.c \
+				dgst/ft_dgst_sha256_update.c \
+				dgst/ft_dgst_sha256.c \
 				ssl/ft_ssl.c \
 				ssl/ft_ssl_parse.c \
 				ssl/ft_ssl_shell.c \
 				ssl/ft_ssl_init.c \
 				ssl/ft_ssl_error.c \
 				ssl/ft_ssl_usage.c \
+				ssl_dgst/ft_ssl_dgst_init.c \
+				ssl_dgst/ft_ssl_dgst_usage.c \
+				ssl_dgst/ft_ssl_dgst.c \
 				ssl_utils/ft_ssl_rotate.c \
 				ssl_utils/ft_ssl_show.c \
 				ssl_utils/ft_ssl_size.c \
@@ -76,6 +74,8 @@ all: directories lib $(TARGET)
 $(TARGET): $(OBJS)
 	$(HIDE)echo $(MAKEFILE_NAME): Linking $@
 	$(HIDE)$(CC) $(OBJS) $(LDFLAGS) $(LDLIBS)  -o $(TARGET)
+
+-include $(DEPS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@echo $(MAKEFILE_NAME): Building $@
