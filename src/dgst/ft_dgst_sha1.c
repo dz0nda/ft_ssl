@@ -71,9 +71,9 @@ int			ft_sha1(const unsigned char *d, unsigned long n, unsigned char *md)
 	ft_sha1_init(&ctx);
 	ft_sha1_init_show(&ctx);
 	if ((dpad = ft_sha1_padding(d, nalign)) == NULL)
-		return (NULL);
+		return (EXIT_FAILURE);
 	ft_sha1_update(&ctx, (const void *)dpad, nalign);
 	ft_sha1_final(&ctx, md);
 	// ft_strdel(&dpad);
-	return (md);
+	return (EXIT_SUCCESS);
 }

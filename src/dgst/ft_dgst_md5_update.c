@@ -120,5 +120,6 @@ int					ft_md5_update(t_md5_ctx *ctx, const void *data, unsigned long len)
     while (++j < 4)
         ctx->state[j] += abcd[j];
     i += 64;
+    return (EXIT_SUCCESS);
 }
 

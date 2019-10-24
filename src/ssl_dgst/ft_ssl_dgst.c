@@ -14,11 +14,10 @@ static void			ft_init_showdgst(t_md5_ctx *ctx)
 
 int     dispatch_padding(t_dgst_ctx_u *ctx, int ft_ssl_dgstcmd)
 {
-    static int (* const padding[FT_SSL_DGST_CMD])(void *) = 
-    {
-        { ft_ssl_dgst_md5_init, ft_ssl_dgst_sha1_init, ft_ssl_dgst_sha256_init },
-        { 0, 0, 0 },
-        { 0, 0, 0 }
+    static int (* const padding[FT_SSL_DGST_CMD])(t_dgst_ctx_u *) = {
+        ft_ssl_dgst_md5_init, 
+        ft_ssl_dgst_sha1_init,
+        ft_ssl_dgst_sha256_init
     };
 
     /* Call the function and return result */
@@ -28,8 +27,12 @@ int     dispatch_padding(t_dgst_ctx_u *ctx, int ft_ssl_dgstcmd)
 int				        ft_dgst(t_dgst_ctx *ctx, int cmd)
 {
     printf("ïm in dgst\n");
+    // ft_putchar(FT_DGST_S);
+	// dispatch_padding(ctx, cmd);
+    // ft_init_showdgst((t_md5_ctx *)&ctx->dgst_ctx);
 
-	dispatch_padding(ctx, cmd);
-    ft_init_showdgst((t_md5_ctx *)&ctx->dgst_ctx);
+    
+
+
 	return (EXIT_SUCCESS);
 }

@@ -33,6 +33,7 @@ int				ft_md5_final(t_md5_ctx *ctx, unsigned char *md)
 		}
 	}
 	ft_putstr("\n");
+	return (EXIT_SUCCESS);
 }
 
 static void			ft_sha1_final_show(t_sha1_ctx *ctx)
@@ -68,6 +69,8 @@ int				ft_sha1_final(t_sha1_ctx *ctx, unsigned char *md)
 		}
 	}
 	ft_putstr("\n");
+	return (EXIT_SUCCESS);
+
 }
 
 
@@ -104,4 +107,6 @@ int				ft_sha256_final(t_sha256_ctx *ctx, unsigned char *md)
 		}
 	}
 	ft_putstr("\n");
+	return (EXIT_SUCCESS);
+
 }

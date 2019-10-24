@@ -31,6 +31,11 @@ typedef enum        s_ftssl_type_enum
     FT_SSL_TYPE
 }                   t_ftssl_type_e;
 
+typedef union       s_ftssl_context_union
+{
+    t_dgst_ctx    dgstctx;
+}                   t_ftssl_ctx_u;
+
 // typedef struct	s_ftssl_digest_context
 // {
 //     int			(*ftssl_digst_update)(t_md5_ctx *ctx, const void *data, unsigned long len);
@@ -53,9 +58,10 @@ typedef struct	s_ftssl_shell
  
 typedef struct        s_ftssl_context
 {
-    int     ftssl_type;
-    int     ftssl_cmd;
-    int     (*flags)(char);
+    int         ftssl_type;
+    int         ftssl_cmd;
+    int         (*flags)(char);
+    t_ftssl_ctx_u  ctx;
 }                   t_ftssl_ctx;
 
 typedef struct	s_ft_ssl
@@ -74,9 +80,8 @@ int		        ft_ssl_shell(t_ftssl *ssl);
 
 int		        ft_ssl_parse(int argc, char *argv[]);
 int             ft_ssl_parse_flag_unknown(char c);
-
+int             ft_ssl_parse_flags_md(char c);
 int				ft_ssl_usage(void);
 int				ft_ssl_error(const char *cmd);
-
 
 #endif

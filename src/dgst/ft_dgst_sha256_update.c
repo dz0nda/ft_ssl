@@ -60,15 +60,6 @@ static void			ft_sha256_update_process(uint32_t abcd[8], uint32_t *w, int j)
 	// abcd[0] = temp[0] + temp[1];
 }
 
-void		ft_sha256_update_process_words(uint32_t m[64], const void *data)
-{
-	int 	t;
-
-	t = 15;
-	ft_strcpy(m, data);
-	while (++t < 64)
-		m[t] = ft_sha256_sigma1a(m[t-2]) + m[t-7] + ft_sha256_sigma0a(m[t-15]) + m[t-16];
-}
 
 static void			ft_sha256_update_show(uint32_t	*m)
 {
@@ -131,4 +122,5 @@ int				ft_sha256_update(t_sha256_ctx *ctx, const void *data, unsigned long len)
 			ctx->state[j] += abcd[j];
 		i += 64;
 	}
+	return (EXIT_SUCCESS);
 }

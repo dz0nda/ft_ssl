@@ -47,12 +47,11 @@ int 		ft_sha256(const unsigned char *d, unsigned long n, unsigned char *md)
 	dpad = NULL;
 	nalign = ft_get_size_aligned((n + FT_BYTE), FT_MODBYTE);
 	ft_sha256_init(&ctx);
-    printf("nalign = %d\n", nalign);
 	if ((dpad = ft_sha256_padding(d, nalign)) == NULL)
-		return (NULL);
+		return (EXIT_FAILURE);
 	// hexdump(dpad, nalign);
 	ft_sha256_update(&ctx, (const void *)dpad, nalign);
 	ft_sha256_final(&ctx, md);
 	// ft_strdel(&dpad);
-	return (md);
+	return (EXIT_SUCCESS);
 }

@@ -105,4 +105,5 @@ int					ft_sha1_update(t_sha1_ctx *ctx, const void *data, unsigned long len)
 			ctx->state[j] += abcd[j];
 		i += 64;
 	}
+	return (EXIT_SUCCESS);
 }

@@ -1,9 +1,7 @@
 #ifndef FT_SSL_DIGST_H
 # define FT_SSL_DIGST_H
 
-# include "../md5/ft_md5.h"
-# include "../sha1/ft_sha1.h"
-# include "../sha256/ft_sha256.h"
+# include "../dgst/ft_dgst.h"
 
 typedef enum        s_digest_command_enum
 {
@@ -32,6 +30,9 @@ typedef union       s_digest_context_union
 typedef struct	    s_dgst_context
 {
     int             dgst_cmd;
+    int             dgst_mbs;
+    int             dgst_hs;
+    int             dgst_hsb;
     t_dgst_ctx_u    dgst_ctx;
 }				    t_dgst_ctx;
 

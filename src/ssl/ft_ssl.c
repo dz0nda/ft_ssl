@@ -3,6 +3,7 @@
 int 	ft_ssl_parse_execute_file(char *file)
 {
 	printf("'%s' will be considered as a file\n", file);
+	return (EXIT_SUCCESS);
 }
 
 int 	ft_ssl_parse_execute_flag(char *flag)
@@ -17,6 +18,7 @@ int 	ft_ssl_parse_execute_flag(char *flag)
 		else
 			printf("flag '%c' recognized \n", flag[i]);
 	}
+	return (EXIT_SUCCESS);
 }
 
 int		ft_ssl_parse_execute(int argc, char *argv[])
@@ -83,6 +85,13 @@ int		ft_ssl_execute(t_ftssl	*ssl)
 	return (EXIT_SUCCESS);
 }
 
+int 	dispatchType(t_ftssl *ssl)
+{
+	if (ssl->ctx.ftssl_type == FT_DGST)
+		return (ft_dgst((t_dgst_ctx *)&ssl->ctx.ctx, ssl->ctx.ftssl_cmd));
+	return (-1);
+}
+
 int		main(int argc, char const *argv[])
 {
 	t_ftssl	ssl;
@@ -90,7 +99,9 @@ int		main(int argc, char const *argv[])
 	ft_ssl_reset(&ssl);
 	if (ft_ssl_init(&ssl, argc, argv) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	// ft_ssl_execute(&ssl);
+	ft_ssl_execute(&ssl);
+	printf("cmd enter : %d\n", ssl.ctx.ftssl_cmd);
+	dispatchType(&ssl);
 	// int i = -1;
 	// while (++i < ssl.sh.argc)
 	// 	ft_putendl(ssl.sh.argv[i]);
@@ -100,15 +111,15 @@ int		main(int argc, char const *argv[])
 	// 	ft_ssl_shell(&ssl);
 	
 	
-	const unsigned char arg[64] = "abc";
+	// const unsigned char arg[64] = "abc";
 
-	unsigned char md[16];
-	size_t        len;
+	// unsigned char md[16];
+	// size_t        len;
 
-	ft_bzero(md, sizeof(md));
-	len = ft_strlen((const char *)arg);
-	ft_dgst(arg, len, md);
-	printf("\nMD5(%s)\n", md);
+	// ft_bzero(md, sizeof(md));
+	// len = ft_strlen((const char *)arg);
+	// ft_dgst(arg, len, md);
+	// printf("\nMD5(%s)\n", md);
 	ft_ssl_reset(&ssl);
 	return (ssl.ftssl_stat);
 }
