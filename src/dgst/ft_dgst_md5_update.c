@@ -85,6 +85,18 @@ static void			ft_md5_update_show(uint32_t	*m)
 	printf("\n");
 }
 
+int                 ft_md5_update_break(uint32_t *w, const void *data)
+{
+	int i;
+    uint32_t *m;
+
+	i = -1;
+    m = (uint32_t *)data;
+    while (++i < 16)
+        w[i] = m[i];
+    return (EXIT_SUCCESS);
+}
+
 int					ft_md5_update(t_md5_ctx *ctx, const void *data, unsigned long len)
 {
 	uint32_t	abcd[4];
@@ -96,27 +108,17 @@ int					ft_md5_update(t_md5_ctx *ctx, const void *data, unsigned long len)
 	j = -1;
 	ft_putnbr(len);
 	ft_memset(abcd, 0, sizeof(abcd));
-	while (i < len)
-	{
-		m = (uint32_t *)data;
-		ft_md5_update_show(m);
-		#ifdef DEBUG
-			printf("offset: %d %x\n", i, i);
-
-			int j;
-			for(j =0; j < 64; j++) printf("%x ", ((uint8_t *) m)[j]);
-			puts("");
-		#endif
-		j = -1;
-		while (++j < 4)
-		  abcd[j] = ctx->state[j];  // ft_memcpy(&abcd[j], &ctx->state[j], sizeof(uint32_t));
-		j = -1;
-		while (++j < 64)
-			ft_md5_update_process(abcd, m, j);
-		j = -1;
-		while (++j < 4)
-			ctx->state[j] += abcd[j];
-		i += 64;
-	}
+    m = (uint32_t *)data;
+    ft_md5_update_show(m);
+    j = -1;
+    while (++j < 4)
+        abcd[j] = ctx->state[j];  // ft_memcpy(&abcd[j], &ctx->state[j], sizeof(uint32_t));
+    j = -1;
+    while (++j < 64)
+        ft_md5_update_process(abcd, m, j);
+    j = -1;
+    while (++j < 4)
+        ctx->state[j] += abcd[j];
+    i += 64;
 }
 

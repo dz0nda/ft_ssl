@@ -66,19 +66,25 @@ static void			ft_md5_init_show(t_md5_ctx *ctx)
 
 int					ft_md5(const unsigned char *d, unsigned long n, unsigned char *md)
 {
-	char			*dpad;
-	unsigned long	nalign;
-	t_md5_ctx	ctx;
+	// char			*dpad;
+	// unsigned long	nalign;
+	t_md5_ctx		ctx;
+	int i;
 
-	dpad = NULL;
-	nalign = ft_get_size_aligned((n + FT_BYTE), FT_MODBYTE);
+	// dpad = NULL;
+	// nalign = ft_get_size_aligned((n + FT_BYTE), FT_MODBYTE);
+	i = 0;
 	ft_md5_init(&ctx);
 	// ft_init_show(&ctx);
 	ft_md5_init_show(&ctx);
-	if ((dpad = ft_md5_padding(d, nalign)) == NULL)
-		return (NULL);
-	ft_md5_update(&ctx, (const void *)dpad, nalign);
+	// if ((dpad = ft_md5_padding(d, nalign)) == NULL)
+	// 	return (NULL);
+	while (i < n)
+	{
+		ft_md5_update(&ctx, (const void *)d, n);
+		i +=64;
+	}
 	ft_md5_final(&ctx, md);
-	ft_strdel(&dpad);
+	// ft_strdel(&dpad);
 	return (EXIT_SUCCESS);
 }
