@@ -1,4 +1,4 @@
-#include "ft_sha1.h"
+#include "ft_dgst.h"
 
 static int			ft_sha1_process_f(int j, int B, int C, int D)
 {

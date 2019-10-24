@@ -1,5 +1,4 @@
-#include "ft_sha256.h"
-
+#include "ft_dgst.h"
 static void			ft_sha256_padding_show(char *dpad)
 {
 	int i;
@@ -21,7 +20,7 @@ char		*ft_sha256_padding(const unsigned char *d, unsigned long n)
 		return (NULL);
 	ft_strcpy(dpad, (const void *)d);
 	dpad[i] = 0x80;
-	while (++i < (n - FT_SHA256_BYTE))
+	while (++i < (n - FT_BYTE))
 		dpad[i] = 0;
 	while (--n > i)
 	{
@@ -37,4 +36,23 @@ char		*ft_sha256_padding(const unsigned char *d, unsigned long n)
 	hexdump(dpad, n + 8);
 	ft_sha256_padding_show(dpad);
 	return (dpad);
+}
+
+int 		ft_sha256(const unsigned char *d, unsigned long n, unsigned char *md)
+{
+	char					*dpad;
+	unsigned long		nalign;
+	t_sha256_ctx	ctx;
+
+	dpad = NULL;
+	nalign = ft_get_size_aligned((n + FT_BYTE), FT_MODBYTE);
+	ft_sha256_init(&ctx);
+    printf("nalign = %d\n", nalign);
+	if ((dpad = ft_sha256_padding(d, nalign)) == NULL)
+		return (NULL);
+	// hexdump(dpad, nalign);
+	ft_sha256_update(&ctx, (const void *)dpad, nalign);
+	ft_sha256_final(&ctx, md);
+	// ft_strdel(&dpad);
+	return (md);
 }

@@ -1,5 +1,4 @@
-#include "ft_sha256.h"
-#include <stdio.h>
+#include "ft_dgst.h"
 
 static void			ft_sha256_update_process(uint32_t abcd[8], uint32_t *w, int j)
 {

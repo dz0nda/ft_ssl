@@ -1,4 +1,4 @@
-#include "ft_sha256.h"
+#include "ft_dgst.h"
 
 uint32_t		ft_sha256_sigma0a(uint32_t word)
 {

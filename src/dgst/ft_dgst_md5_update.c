@@ -1,6 +1,6 @@
 /* ************************************************************************** */
 
-#include "ft_md5.h"
+#include "ft_dgst.h"
 
 static int			ft_md5_process_f(int j, int B, int C, int D)
 {
