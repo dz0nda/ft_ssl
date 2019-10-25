@@ -48,6 +48,14 @@ typedef struct	s_sha256_context
   uint8_t       block[FT_SHA256_MBS];
 }				t_sha256_ctx;
 
+typedef union   s_context_union
+{
+  int   (*ft_md5)(t_md5_ctx *ctx);
+  int   (*ft_sha1)(t_sha1_ctx *ctx);
+  int   (*ft_sha256)(t_sha256_ctx *ctx);
+}               t_context_union;
+
+
 int             ft_md5(const unsigned char *d, unsigned long n, unsigned char *md);
 int			    ft_md5_init(t_md5_ctx *ctx);
 int		        ft_md5_update(t_md5_ctx *ctx, const void *data, unsigned long len);
