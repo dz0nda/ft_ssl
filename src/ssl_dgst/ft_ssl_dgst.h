@@ -20,12 +20,19 @@ typedef enum        s_dgst_flag_enum
     FT_DGST_FLAG = 4
 }                   s_dgst_flag_e;
 
-typedef union       s_digest_context_union
+typedef union       s_digest_context
 {
     t_md5_ctx       md5ctx;
     t_sha1_ctx      sha1ctx;
     t_sha256_ctx    sha256ctx;
-}                   t_dgst_ctx_u;
+}                   t_dgst_ctx;
+
+typedef struct      s_dgst_dispatch
+{
+    int flag;
+    
+}                   t_dgst_dsptch;
+
 
 typedef struct	    s_dgst_context
 {
@@ -33,13 +40,14 @@ typedef struct	    s_dgst_context
     int             dgst_mbs;
     int             dgst_hs;
     int             dgst_hsb;
-    t_dgst_ctx_u    dgst_ctx;
-}				    t_dgst_ctx;
 
-int				ft_dgst(t_dgst_ctx *ctx, int cmd);
+    t_dgst_ctx    dgst_ctx;
+}				    t_dgst;
 
-int			    ft_ssl_dgst_md5_init(t_dgst_ctx_u *ctx);
-int			    ft_ssl_dgst_sha1_init(t_dgst_ctx_u *ctx);
-int			    ft_ssl_dgst_sha256_init(t_dgst_ctx_u *ctx);
+int             ft_ssl_parse_type_dgst(char *s);
+
+int			    ft_ssl_dgst_md5_init(t_dgst_ctx *ctx);
+int			    ft_ssl_dgst_sha1_init(t_dgst_ctx *ctx);
+int			    ft_ssl_dgst_sha256_init(t_dgst_ctx *ctx);
 
 #endif

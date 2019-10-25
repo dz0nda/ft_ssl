@@ -1,6 +1,17 @@
 #include "ft_ssl_dgst.h"
 
-int			ft_ssl_dgst_md5_init(t_dgst_ctx_u *ctx)
+// int			ft_ssl_dgst_init(t_dgst_ctx *ctx, int cmd)
+// {
+// 	// static int (* const dgstinit[FT_SSL_DGST_CMD])(void *) = {
+// 	// 	ft_ssl_dgst_md5_init, ft_ssl_dgst_sha1_init, ft_ssl_dgst_sha256_init
+// 	// };
+// 	const uint32_t 
+
+
+// 	return (*dgstinit[cmd])(ctx);
+// }
+
+int			ft_ssl_dgst_md5_init(t_dgst_ctx *ctx)
 {
 	ft_memset((void *)&ctx->md5ctx, 0, sizeof(t_md5_ctx));
 	ctx->md5ctx.state[0] = 0x67452301;
@@ -10,7 +21,7 @@ int			ft_ssl_dgst_md5_init(t_dgst_ctx_u *ctx)
 	return (EXIT_SUCCESS);
 }
 
-int			ft_ssl_dgst_sha1_init(t_dgst_ctx_u *ctx)
+int			ft_ssl_dgst_sha1_init(t_dgst_ctx *ctx)
 {
 	ft_memset((void *)&ctx->sha1ctx, 0, sizeof(t_sha1_ctx));
 	ctx->sha1ctx.state[0] = 0x67452301;
@@ -21,7 +32,7 @@ int			ft_ssl_dgst_sha1_init(t_dgst_ctx_u *ctx)
 	return (EXIT_SUCCESS);
 }
 
-int			ft_ssl_dgst_sha256_init(t_dgst_ctx_u *ctx)
+int			ft_ssl_dgst_sha256_init(t_dgst_ctx *ctx)
 {
 	ft_memset((void *)&ctx->sha256ctx, 0, sizeof(t_sha256_ctx));
 	ctx->sha256ctx.state[0] = 0x6a09e667;

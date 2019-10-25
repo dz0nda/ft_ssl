@@ -12,9 +12,9 @@ static void			ft_init_showdgst(t_md5_ctx *ctx)
 }
 
 
-int     dispatch_padding(t_dgst_ctx_u *ctx, int ft_ssl_dgstcmd)
+int     dispatch_padding(t_dgst_ctx *ctx, int ft_ssl_dgstcmd)
 {
-    static int (* const padding[FT_SSL_DGST_CMD])(t_dgst_ctx_u *) = {
+    static int (* const padding[FT_SSL_DGST_CMD])(t_dgst_ctx *) = {
         ft_ssl_dgst_md5_init, 
         ft_ssl_dgst_sha1_init,
         ft_ssl_dgst_sha256_init
@@ -24,15 +24,18 @@ int     dispatch_padding(t_dgst_ctx_u *ctx, int ft_ssl_dgstcmd)
     return (*padding[ft_ssl_dgstcmd])(ctx);	
 }
 
-int				        ft_dgst(t_dgst_ctx *ctx, int cmd)
+int     ft_ssl_parse_type_dgst(char *s)
 {
-    printf("ïm in dgst\n");
-    // ft_putchar(FT_DGST_S);
-	// dispatch_padding(ctx, cmd);
-    // ft_init_showdgst((t_md5_ctx *)&ctx->dgst_ctx);
+    const char *ft_ssl_dgst_cmds[FT_SSL_DGST_CMD] = {
+        "md5",
+        "sha1",
+        "sha256"
+    };
+    int i;
 
-    
-
-
-	return (EXIT_SUCCESS);
+    i = -1;
+    while (++i < FT_SSL_DGST_CMD)
+        if (ft_strcmp(s, ft_ssl_dgst_cmds[i]) == 0)
+            return (EXIT_SUCCESS);
+    return (EXIT_FAILURE);
 }
