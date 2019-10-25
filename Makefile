@@ -18,6 +18,8 @@ SUBDIR = \
 				dgst \
 				ssl \
 				ssl_dgst \
+				ssl_cipher \
+				ssl_stdrd \
 				ssl_utils
 SUBFILE = \
 				dgst/ft_dgst_final.c \
@@ -32,12 +34,15 @@ SUBFILE = \
 				ssl/ft_ssl.c \
 				ssl/ft_ssl_parse.c \
 				ssl/ft_ssl_shell.c \
+				ssl/ft_ssl_core.c \
 				ssl/ft_ssl_init.c \
 				ssl/ft_ssl_error.c \
 				ssl/ft_ssl_usage.c \
 				ssl_dgst/ft_ssl_dgst_init.c \
 				ssl_dgst/ft_ssl_dgst_usage.c \
 				ssl_dgst/ft_ssl_dgst.c \
+				ssl_cipher/ft_ssl_cipher.c \
+				ssl_stdrd/ft_ssl_stdrd.c \
 				ssl_utils/ft_ssl_rotate.c \
 				ssl_utils/ft_ssl_show.c \
 				ssl_utils/ft_ssl_size.c \
@@ -78,8 +83,8 @@ $(TARGET): $(OBJS)
 -include $(DEPS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
-	@echo $(MAKEFILE_NAME): Building $@
-	$(HIDE)$(CC) $(CFLAGS) -c $(INCLUDES) -o $@ $< -MMD
+	@echo $(MAKEFILE_NAME): Building $(@)
+	$(HIDE)$(CC) $(CFLAGS) -c $(INCLUDES) -o $(@) $(<) -MMD
 
 directories:
 	$(HIDE)$(MKDIR) $(subst /,$(PSEP),$(OBJDIRS)) $(ERRIGNORE)
