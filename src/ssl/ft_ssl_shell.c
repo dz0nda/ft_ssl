@@ -104,51 +104,26 @@ int sslRead(void) {
 
     return 0;
 }
-// void readFile(int fd) {
-//     char buffer[10];
-//     int bytes_read;
-//     int k = 0;
-//     do {
-//         char t = 0;
-//         bytes_read = read(fd, &t, 1); 
-//         buffer[k++] = t;    
-//         printf("%c", t);
-//         if(t == '\n' && t == '\0') {
-//             printf("%d", atoi(buffer));
-//             for(int i=0; i<10; i++) 
-//                 buffer[i]='\0';
-//             k = 0;
-//         }
-//     }
-//     while (bytes_read != 0); 
-// }
-
-void        readFile(int fd) {
-    char buffer[MAX_BUFFER];
+void readFile(int fd) {
+    char buffer[10];
     int bytes_read;
     int k = 0;
-    int i;
-    char c[1];
-    int exit = 1;
-
-    i = -1;
-    while (exit)
-    {
-        ft_memset(c, 0, sizeof(c));
-        bytes_read = read(fd, &c, 1);
-        if (bytes_read == 0)
-        {
-            ft_putendl("\n0 bytes read\n");
-            return ;
+    do {
+        char t = 0;
+        bytes_read = read(fd, &t, 1); 
+        buffer[k++] = t;    
+        printf("%c", t);
+        if(t == '\n' && t == '\0') {
+            printf("%d", atoi(buffer));
+            for(int i=0; i<10; i++)
+                buffer[i]='\0';
+            k = 0;
         }
-        if (bytes_read == -1)
-        {
-            ft_putendl("\nerror with read\n");
-            return ;
-        }
-        ft_putchar(c[0]);
     }
+    while (bytes_read != 0); 
 }
+
+
 
 int     ft_ssl_shell_open(char *file)
 {
@@ -183,22 +158,36 @@ void            ft_ssl_shell_prompt()
 // 	    {fnMenu, fnNull, ..., fnHome}, 
 //     };
 // }
+void        ft_ssl_shell_input(t_ftssl_sh *sh) {
+    char buffer[FTSSL_MAX_INPUT_SHELL];
+    int bytes_read;
+    int bytes_total;
+    int i;
+    char c[2];
 
-int		        ft_ssl_shell(t_ftssl *ssl)
-{
-    t_ftssl_sh  sh;
-	char	buff[5];
-    int exit;
-
-    ft_memset(&sh, 0, sizeof(sh));
-    ft_memset(buff, 0, sizeof(buff));
-    exit = FT_SSL_SUCCESS;
-    while(exit == FT_SSL_SUCCESS)
+    i = -1;
+    ft_memset(c, 0, sizeof(buffer));
+    ft_memset(c, 0, sizeof(c));
+    while ((bytes_read = read(0, &c, 1)) > 0)
     {
-        ft_ssl_shell_prompt();
-        
+        // bytes_read = read(fd, &c, 1);
+        // ft_strcat()
+        ft_putchar(c[0]);
+        ft_memset(c, 0, sizeof(c));
     }
-    ft_ssl_shell_open("0");
-    // sslRead();
+
+    // if (bytes_read == -1)
+    // {
+    //     ft_putendl("\nerror with read\n");
+    //     return ;
+    // }
+}
+int		        ft_ssl_shell(t_ftssl_sh  *sh)
+{
+	char	buff[5];
+
+    ft_ssl_shell_prompt();
+    sslRead();
+    // ft_ssl_shell_open("0");
     return (EXIT_SUCCESS);
 }

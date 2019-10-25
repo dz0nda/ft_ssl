@@ -9,6 +9,7 @@ static int      ft_ssl_init_sh(t_ftssl_sh *sh, int argc, char const *argv[])
 		if ((sh->argv[i] = ft_strdup(argv[i])) == NULL)
             return (EXIT_FAILURE);
     sh->argc = argc;
+    sh->sh_size = FTSSL_MAX_INPUT_SHELL;
     return (EXIT_SUCCESS);
 }
 
@@ -29,6 +30,8 @@ int		        ft_ssl_init(t_ftssl *ssl, int argc, char const *argv[])
     ssl->ftssl_error = &ft_ssl_error;
     if (ft_ssl_init_sh(&ssl->sh, argc - 1, ++argv) == EXIT_FAILURE)
         return (EXIT_FAILURE);
+    if (ssl->sh.argc < 1)
+        ssl->ftssl_stat = FT_SSL_COMMAND_MISSING;
     return (EXIT_SUCCESS);
 }
 
