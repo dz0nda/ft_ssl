@@ -1,5 +1,5 @@
-#ifndef FT_SSL_DIGST_H
-# define FT_SSL_DIGST_H
+#ifndef FT_SSL_DGST_H
+# define FT_SSL_DGST_H
 
 # include "../dgst/ft_dgst.h"
 
@@ -33,7 +33,6 @@ typedef struct      s_dgst_dispatch
     
 }                   t_dgst_dsptch;
 
-
 typedef struct	    s_dgst_context
 {
     int             dgst_cmd;
@@ -42,6 +41,7 @@ typedef struct	    s_dgst_context
     int             dgst_hsb;
 
     t_dgst_ctx    dgst_ctx;
+    
 }				    t_dgst;
 
 int             ft_ssl_parse_type_dgst(char *s);

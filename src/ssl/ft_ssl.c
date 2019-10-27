@@ -148,10 +148,75 @@ int 	ft_ssl_parse_type(t_ftssl *ssl)
     // return (EXIT_SUCCESS);
 }
 
+char	*ft_ssl_input_fd(int fd)
+{
+	int len = 512;
+	int i = -1;
+    char c[2];
+    int bytes_read;
+	char buffer[513];
+	
+	ft_memset(buffer, 0, sizeof(buffer));
+	ft_memset(c, 0, sizeof(c));
+	while (++i < len)
+	{
+		if ((bytes_read = read(fd, &c, 1)) < 0)
+			break;
+		if (c[0] == '\n')
+			break ;
+        ft_strcat(buffer, c);
+        // ft_putchar(c[0]);
+        ft_memset(c, 0, sizeof(c));
+    }
+	return (ft_strdup(buffer));
+}
+
+char	*ft_ssl_input_string(char *s)
+{
+	ft_putendl(s);
+	return (ft_strdup(s));
+}
+
+char	*ft_ssl_input_dispatch(t_input_u *input, int type)
+{
+	if (type == FT_INPUT_FILE)
+		return (ft_ssl_input_fd(input->fd));
+	if (type == FT_INPUT_STRING)
+		return (ft_ssl_input_string(input->s));
+}
+
+int 	ft_ssl_dispatch()
+{
+	const t_ftssl_cmd	ftssl_dispatcher[] = {
+		{ FT_DGST, ft_dgst},
+		{ FT_CIPHER, ft_cipher},
+		{ FT_STDRD,	ft_stdrd },
+    };
+
+	
+}
+
 int		ft_ssl_execute(t_ftssl	*ssl)
 {
+	// if (ssl->ftssl_stat == FT_SSL_ARGUMENT_MISSING)
+	// ft_ssl_getInput(ssl);
+	// ft_ssl_parse_type(ssl);
+	// ssl->ftssl_cmd(ssl);
+	// while (ssl->ftssl_mode == FT_SHMODE_TRUE)
+	// {
+
+	if (ssl->sh.argc == 0)
+		ft_ssl_getInput(ssl);
 	ft_ssl_parse_type(ssl);
 	ssl->ftssl_cmd(ssl);
+	ft_ssl_reset(ssl);
+
+	// t_input_u input;
+	// input.s = "mystring";
+	// int type = 1;
+	// ssl->ftssl_input = ft_ssl_input_dispatch;
+	// ssl->ftssl_input(&input, type);
+
 	// if (ssl->sh.argc == 0)
 	// 	ft_ssl_shell(&ssl->sh);
 	// if (ssl->sh.argc == 0)
@@ -171,14 +236,33 @@ int		ft_ssl_execute(t_ftssl	*ssl)
 // }
 
 
+static int		ft_ssl_init(t_ftssl *ssl, int argc, char const *argv[])
+{
+    int i;
+
+    i = 0;
+	if (argc < 1)
+		return (EXIT_SUCCESS);
+	// ssl->sh.cmd = ft_strdup(argv[0]);
+	ft_strncpy(ssl->sh.cmd, argv[0], FTSSL_SHMAX_BUFFER);
+	while (++i < argc && i < FTSSL_SHMAX_ARG)
+		ft_strncpy(ssl->sh.cmd, argv[i], FTSSL_SHMAX_BUFFER);
+		// if ((ssl->sh.argv = ft_strdup(argv[i])) == NULL)
+        //     return (EXIT_FAILURE);
+    return (EXIT_SUCCESS);
+}
 
 int		main(int argc, char const *argv[])
 {
 	t_ftssl	ssl;
 
-	if (ft_ssl_init(&ssl, argc, argv) == EXIT_FAILURE)
+	ft_ssl_reset(&ssl);
+	if (ft_ssl_init(&ssl, argc - 1, ++argv) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	ft_ssl_execute(&ssl);
+	ft_ssl_reset(&ssl);
+	return (EXIT_SUCCESS);
+
 	// ft_ssl_execute(&ssl);
 	// ft_ssl_shell(&ssl);
 // 	dispatchType(&ssl);

@@ -2,13 +2,12 @@
 
 // int			ft_ssl_dgst_init(t_dgst_ctx *ctx, int cmd)
 // {
-// 	// static int (* const dgstinit[FT_SSL_DGST_CMD])(void *) = {
-// 	// 	ft_ssl_dgst_md5_init, ft_ssl_dgst_sha1_init, ft_ssl_dgst_sha256_init
-// 	// };
-// 	const uint32_t 
+// 	const ft_ssl_dgst_init[FT_SSL_DGST_CMD] = {
+// 		{}
+// 	}
 
 
-// 	return (*dgstinit[cmd])(ctx);
+// 	return (EXIT_SUCCESS);
 // }
 
 int			ft_ssl_dgst_md5_init(t_dgst_ctx *ctx)

@@ -6,7 +6,11 @@
 # include "../ssl_stdrd/ft_ssl_stdrd.h"
 
 #define FTSSL_MAX_INPUT_SHELL 1024
-#define FTSSL_MAX_STRINGS 50
+
+# define FTSSL_SHMAX_BUFFER 1024
+# define FTSSL_SHMAX_ARG 50
+
+
 #define FTSSL_MAX_CMDFLAG 3
 
 /*
@@ -52,13 +56,18 @@ typedef union       s_ftssl_context_union
 //     t_dgst_ctx ctx;
 // }				t_ftssl_ctx;
 
+typedef enum        s_ftssl_command_enum
+{
+    FT_SSL_CMD_VALID,
+    FT_SSL_CMD_INVALID,
+    FT_SSL_CMD_MISSING
+}                   t_ftssl_cmd_e;
+
 typedef struct	s_ftssl_shell
 {
+    char        cmd[FTSSL_SHMAX_BUFFER];
     int         argc;
-    char        *argv[FTSSL_MAX_STRINGS];
-    int         sh_fd;
-    int         sh_size;
-    char        sh_input[FTSSL_MAX_INPUT_SHELL];
+    char        argv[FTSSL_SHMAX_ARG][FTSSL_SHMAX_BUFFER];
 }				t_ftssl_sh;
 
 // typedef struct  s_ftssl_input
@@ -75,24 +84,59 @@ typedef struct        s_ftssl_context
     t_ftssl_ctx_u  ctx;
 }                   t_ftssl_ctx;
 
+typedef enum s_shell_mode_e
+{
+    FT_SHMODE_FALSE,
+    FT_SHMODE_TRUE
+}            t_shmode_e;
+
+typedef enum s_input_e
+{
+    FT_INPUT_FILE,
+    FT_INPUT_STRING
+}            t_input_e;
+
+typedef union s_input_u
+{
+    int fd;
+    char *s;
+}             t_input_u;
+
+typedef struct s_input
+{
+    int type;
+    t_input_u  file;
+}              t_input;
+
+typedef		int t_ftssl_dist(t_ftssl *);
+
+typedef struct s_ftssl_cmd {
+  int		    type;
+  t_ftssl_dist	*dist;
+  }             t_ftssl_cmd;
+
 typedef struct	s_ftssl
 {
-    int          ftssl_stat;
+    int         ftssl_mode;
+    int         ftssl_stat;
     int          (*ftssl_usage)(void);
     int          (*ftssl_error)(const char *);
+    char         *(*ftssl_input)(t_input_u *, int);
     int          (*ftssl_cmd)(struct s_ftssl *);
     int         key;
     t_ftssl_sh    sh;
     t_ftssl_ctx   ctx;
 }				t_ftssl;
 
-int		        ft_ssl_init(t_ftssl *ssl, int argc, char const *argv[]);
 int		        ft_ssl_reset(t_ftssl *ssl);
 
-int             ft_dgst(t_ftssl *ctx);
-int				ft_cipher(t_ftssl *ctx);
-int			    ft_stdrd(t_ftssl *ctx);
-int             ft_unknown(t_ftssl *ctx);
+int		        ft_ssl_getInput(t_ftssl *ssl);
+
+
+int             ft_dgst(t_ftssl_sh *sh);
+int				ft_cipher(t_ftssl_sh *sh);
+int			    ft_stdrd(t_ftssl_sh *sh);
+int             ft_unknown(t_ftssl_sh *sh);
 
 int		        ft_ssl_shell(t_ftssl_sh  *sh);
 

@@ -123,8 +123,6 @@ void readFile(int fd) {
     while (bytes_read != 0); 
 }
 
-
-
 int     ft_ssl_shell_open(char *file)
 {
     int fd[2];
@@ -182,6 +180,7 @@ void        ft_ssl_shell_input(t_ftssl_sh *sh) {
     //     return ;
     // }
 }
+
 int		        ft_ssl_shell(t_ftssl_sh  *sh)
 {
 	char	buff[5];
