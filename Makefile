@@ -32,7 +32,6 @@ SUBFILE = \
 				dgst/ft_dgst_sha256_update.c \
 				dgst/ft_dgst_sha256.c \
 				ssl/ft_ssl.c \
-				ssl/ft_ssl_parse.c \
 				ssl/ft_ssl_shell.c \
 				ssl/ft_ssl_core.c \
 				ssl/ft_ssl_init.c \
