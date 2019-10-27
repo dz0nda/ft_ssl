@@ -46,6 +46,9 @@ typedef struct	    s_dgst_context
 
 int             ft_ssl_parse_type_dgst(char *s);
 
+void            ft_ssl_usage_dgst(void);
+
+
 int			    ft_ssl_dgst_md5_init(t_dgst_ctx *ctx);
 int			    ft_ssl_dgst_sha1_init(t_dgst_ctx *ctx);
 int			    ft_ssl_dgst_sha256_init(t_dgst_ctx *ctx);

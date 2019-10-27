@@ -25,7 +25,7 @@ typedef struct	    s_cipher_context
 }				    t_cipher;
 
 int                 ft_ssl_parse_type_cipher(char *s);
-
+void                ft_ssl_usage_cipher(void);
 // int				ft_cipher(t_cipher *ctx);
 
 #endif

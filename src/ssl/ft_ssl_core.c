@@ -22,6 +22,9 @@ int			ft_stdrd(t_ftssl_sh *sh)
 
 int         ft_unknown(t_ftssl_sh *sh)
 {
-    printf("%s fonction inconnue\n", sh->argv[0]);
+	ft_putstr("ft_ssl: Error: '");
+	ft_putstr(sh->cmd);
+	ft_putstr("' is an invalid command.\n");
+    ft_ssl_usage();
 	return (EXIT_SUCCESS);
 }

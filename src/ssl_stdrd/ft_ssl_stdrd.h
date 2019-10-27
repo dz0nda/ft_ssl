@@ -14,6 +14,8 @@ typedef struct	    s_standard
 }				    t_stdrd;
 
 int                 ft_ssl_parse_type_stdrd(char *s);
+void                ft_ssl_usage_stdrd(void);
+
 
 // int				ft_stdrd(t_stdrd *ctx);
 

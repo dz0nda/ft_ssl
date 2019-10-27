@@ -1,5 +1,11 @@
 #include "ft_ssl_stdrd.h"
 
+void     ft_ssl_usage_stdrd(void)
+{
+    ft_putstr("Standard commands: \n");
+    ft_putstr(" \n");
+}
+
 int     ft_ssl_parse_type_stdrd(char *s)
 {
     const char *ft_ssl_dgst_cmds[FT_SSL_STDRD_CMD] = { };
@@ -12,7 +18,7 @@ int     ft_ssl_parse_type_stdrd(char *s)
     return (1);
 }
 
-// int				        t_stdrd(t_stdrd *ctx)
+// int				        ft_stdrd(t_stdrd *ctx)
 // {
 //     printf("ïm in stdrd\n");
 
