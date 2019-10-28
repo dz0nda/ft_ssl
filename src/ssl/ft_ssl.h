@@ -12,7 +12,7 @@
 
 typedef     struct s_ftssl t_ftssl;
 typedef     struct s_ftssl_shell t_ftssl_sh;
-typedef		int t_ftssl_dist(t_ftssl_sh *);
+typedef		int t_ftssl_dist(t_ftssl *);
 typedef     int t_ftssl_dist_parser(char *s);
 
 
@@ -42,25 +42,12 @@ typedef enum        s_ftssl_type_enum
     FT_CIPHER,
     FT_STDRD,
     FT_UNKNOWN,
-    FT_SSL_TYPE
+    FTSSL_TYPE_E
 }                   t_ftssl_type_e;
 
 typedef union       s_ftssl_context_union
 {
-    t_dgst    dgstctx;
 }                   t_ftssl_ctx_u;
-
-// typedef struct	s_ftssl_digest_context
-// {
-//     int			(*ftssl_digst_update)(t_md5_ctx *ctx, const void *data, unsigned long len);
-//     int			(*ftssl_digst_final)(t_md5_ctx *ctx, unsigned char *md);
-// }				t_dgst_ctx;
- 
-// typedef struct	s_ft_ssl_context
-// {
-//     int             ftssl_cmd;
-//     t_dgst_ctx ctx;
-// }				t_ftssl_ctx;
 
 typedef enum        s_ftssl_command_enum
 {
@@ -75,12 +62,6 @@ typedef struct	s_ftssl_shell
     int         argc;
     char        *argv[FTSSL_SHMAX_ARG];
 }				t_ftssl_sh;
-
-// typedef struct  s_ftssl_input
-// {
-//     int         
-//     char        *sh_input[FTSSL_MAX_INPUT_SHELL];
-// }
 
 typedef struct        s_ftssl_context
 {
@@ -99,24 +80,6 @@ typedef enum s_shell_mode_e
     FT_SHMODE_TRUE
 }            t_shmode_e;
 
-typedef enum s_input_e
-{
-    FT_INPUT_FILE,
-    FT_INPUT_STRING
-}            t_input_e;
-
-typedef union s_input_u
-{
-    int fd;
-    char *s;
-}             t_input_u;
-
-typedef struct s_input
-{
-    int type;
-    t_input_u  file;
-}              t_input;
-
 // typedef struct s_ftssl_cmd {
 //   int		    type;
 //   t_ftssl_dist	*dist;
@@ -128,7 +91,6 @@ typedef struct	s_ftssl
     int         ftssl_stat;
     int          (*ftssl_usage)(void);
     int          (*ftssl_error)(const char *);
-    char         *(*ftssl_input)(t_input_u *, int);
     int          (*ftssl_cmd)(struct s_ftssl *);
     int         key;
     t_ftssl_sh    sh;
@@ -144,7 +106,7 @@ typedef struct s_ftssl_type_dispatch
     t_ftssl_dist        *ftssl_dist;
 }              t_ftssl_type_dispatch;
 
-extern const t_ftssl_type_dispatch g_ftssl_type_dispatch[FT_SSL_TYPE];
+// extern const t_ftssl_type_dispatch g_ftssl_type_dispatch[FTSSL_TYPE_E];
 
 int		        ft_ssl_reset(t_ftssl *ssl);
 int		        ft_ssl_init(t_ftssl *ssl, int argc, char const *argv[]);
@@ -152,12 +114,12 @@ int		        ft_ssl_init(t_ftssl *ssl, int argc, char const *argv[]);
 int		        ft_ssl_shell(t_ftssl_sh  *sh);
 
 
-int             ft_dgst(t_ftssl_sh *sh);
-int				ft_cipher(t_ftssl_sh *sh);
-int			    ft_stdrd(t_ftssl_sh *sh);
-int             ft_unknown(t_ftssl_sh *sh);
+int             ft_dgst(t_ftssl *sh);
+int				ft_cipher(t_ftssl *sh);
+int			    ft_stdrd(t_ftssl *sh);
+int             ft_unknown(t_ftssl *sh);
 
-int     ft_ssl_parse_type_unknown(char *s);
+int             ft_ssl_parse_type_unknown(char *s);
 int		        ft_ssl_parse(int argc, char *argv[]);
 int             ft_ssl_parse_flag_unknown(char c);
 int             ft_ssl_parse_flags_md(char c);

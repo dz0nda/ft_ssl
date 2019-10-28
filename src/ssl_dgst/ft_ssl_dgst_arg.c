@@ -1,4 +1,4 @@
-// #include "ft_ssl_dgst.h"
+#include "ft_ssl_dgst.h"
 
 // int    ft_ssl_parse_flags_md(char c)
 // {
@@ -16,11 +16,11 @@
 
 // int     ft_ssl_check_cmd(char *cmd)
 // {
-//     const char *ftssl_cmd[FT_SSL_DGST_CMD] = { "md5", "sha1", "sha256" };
+//     const char *ftssl_cmd[FT_DGST_CMD] = { "md5", "sha1", "sha256" };
 //     int i;
 
 //     i = -1;
-//     while (++i < FT_SSL_DGST_CMD)
+//     while (++i < FT_DGST_CMD)
 //         if (ft_strcmp(cmd, ftssl_cmd[i]) == 0)
 //             break;
 //     return (i);
@@ -97,3 +97,58 @@
 //     }
 // 	return (EXIT_SUCCESS);
 // }
+char	*ft_ssl_input_fd(int fd)
+{
+	int len = 512;
+	int i = -1;
+    char c[2];
+    int bytes_read;
+	char buffer[513];
+	
+	ft_memset(buffer, 0, sizeof(buffer));
+	ft_memset(c, 0, sizeof(c));
+	while (++i < len)
+	{
+		if ((bytes_read = read(fd, &c, 1)) < 0)
+			break;
+		if (c[0] == '\n')
+			break ;
+        ft_strcat(buffer, c);
+        // ft_putchar(c[0]);
+        ft_memset(c, 0, sizeof(c));
+    }
+	return (ft_strdup(buffer));
+}
+
+char	*ft_ssl_input_string(char *s)
+{
+	ft_putendl(s);
+	return (ft_strdup(s));
+}
+
+// char	*ft_ssl_input_dispatch(int type)
+// {
+// 	if (type == FT_INPUT_STRING)
+// 		return (ft_ssl_input_string);
+//     return (ft_ssl_input_fd(input->fd));
+// }
+
+// int     ft_ssl_dgst_parse_file(t_ftssl_dgst *dgst, char i)
+// {
+//     dgst->ftssl_dgst_input[i] = ft_ssl_input_dispatch;
+// }
+
+int     ft_ssl_dgst_parse(t_ftssl_dgst *dgst, int argc, char *argv[])
+{
+    int  i = -1;
+
+    while (++i < argc)
+    {
+		// if (*argv[i] == '-')
+		// 	ft_ssl_parse_execute_flag(argv[i]);
+		// else
+    
+		dgst->ftssl_dgst_input[i] = ft_ssl_(dgst, argv[i]);
+    }
+	return (EXIT_SUCCESS);
+}

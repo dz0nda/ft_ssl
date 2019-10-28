@@ -14,10 +14,10 @@ static int        ft_ssl_shell_read(int fd, int len, char *buffer)
 	while (++i < len)
 	{
 		if ((bytes_read = read(fd, &c, 1)) < 1)
-			break;
-		if (c[0] == '\n')
 			break ;
 		bytes_total += bytes_read;
+		if (c[0] == '\n')
+			break ;
         ft_strcat(buffer, c);
         ft_memset(c, 0, sizeof(c));
     }
@@ -37,7 +37,7 @@ static int 	    ft_ssl_shell_parse(t_ftssl_sh *sh, char *buffer)
 		buffer_temp_ptr = buffer_temp;
         while (buffer[i] && ft_isspace(buffer[i]))
             i++;
-		if (buffer[i]== '\0')
+		if (buffer[i] == '\0')
 			return (EXIT_FAILURE);
 		if (buffer[i] == '"')
 		{
@@ -53,15 +53,19 @@ static int 	    ft_ssl_shell_parse(t_ftssl_sh *sh, char *buffer)
 			return (EXIT_FAILURE);
 		sh->argc++;
     }
+	return (EXIT_SUCCESS);
 }
+
 
 int		        ft_ssl_shell(t_ftssl_sh  *sh)
 {
 	char 	buffer[FTSSL_MAX_INPUT_SHELL];
+	int bytes_read;
 
 	ft_memset(buffer, 0, sizeof(buffer));
+	bytes_read = 0;
 	ft_putstr("ftSSL> ");
-	ft_ssl_shell_read(0, FTSSL_MAX_INPUT_SHELL, buffer);
+	bytes_read = ft_ssl_shell_read(0, FTSSL_MAX_INPUT_SHELL, buffer);
 	ft_ssl_shell_parse(sh, buffer);
-    return (EXIT_SUCCESS);
+    return (bytes_read);
 }

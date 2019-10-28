@@ -15,19 +15,26 @@
 # define FT_MODBITS    512
 # define FT_BYTE        8
 
-typedef enum    s_dgst_enum
+
+# define FT_DGST_LITTLE_ENDIAN 0
+# define FT_DGST_BIG_ENDIAN 1
+
+typedef enum    s_digest_enum
 {
   FT_MD5_MBS = 64,          // Message block size in bytes
   FT_MD5_HS = 16,           // Hash size in bytes     
   FT_MD5_HSB = 128,          // Hash size in bits 
+  FT_MD5_ENDIAN = FT_DGST_LITTLE_ENDIAN,
 
   FT_SHA1_MBS = 64,
   FT_SHA1_HS = 20,
   FT_SHA1_HBS = 160,
+  FT_SHA1_ENDIAN = FT_DGST_BIG_ENDIAN,
 
   FT_SHA256_MBS = 64,
   FT_SHA256_HS = 32,
-  FT_SHA256_HBS = 256
+  FT_SHA256_HBS = 256,
+  FT_SHA256_ENDIAN = FT_DGST_BIG_ENDIAN,
 }               t_dgst_e;
 
 typedef struct  s_md5_context
@@ -44,7 +51,7 @@ typedef struct	s_sha1_context
 
 typedef struct	s_sha256_context
 {
-  uint32_t		state[FT_SHA256_HS/4];
+  uint32_t		  state[FT_SHA256_HS/4];
   uint8_t       block[FT_SHA256_MBS];
 }				t_sha256_ctx;
 

@@ -23,7 +23,7 @@ int		ft_ssl_init_sh(t_ftssl_sh *sh, int argc, char const *argv[])
 	if ((sh->cmd = ft_strdup(argv[0])) == NULL)
         return (EXIT_FAILURE);
 	while (++i < argc && i < FTSSL_SHMAX_ARG)
-		if ((sh->argv[i] = ft_strdup(argv[i])) == NULL)
+		if ((sh->argv[i - 1] = ft_strdup(argv[i])) == NULL)
             return (EXIT_FAILURE);
     return (EXIT_SUCCESS);
 }
