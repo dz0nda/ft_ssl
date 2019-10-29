@@ -12,9 +12,11 @@
 
 typedef     struct s_ftssl t_ftssl;
 typedef     struct s_ftssl_shell t_ftssl_sh;
-typedef		int t_ftssl_dist(t_ftssl *);
-typedef     int t_ftssl_dist_parser(char *s);
 
+typedef     int t_ftssl_dist_parser(char *);
+
+typedef		int t_ftssl_dist(int, char *[]);
+typedef     int t_ftssl_dgst_dist(int, char *[]);
 
 #define FTSSL_MAX_CMDFLAG 3
 
@@ -35,6 +37,27 @@ typedef enum        s_ftssl_status
     FT_SSL_COMMAND_MISSING,
     FT_SSL_ARGUMENT_MISSING
 }                   t_ftssl_stat;
+
+
+
+/*
+ *  Error part, new && correct
+ */
+
+typedef enum        e_ftssl_error_enum
+{
+    FTSSL_ERR_MALLOC,
+    FTSSL_ERR_E
+}                   t_ftssl_err_e;
+
+typedef struct        s_ftssl_error
+{
+    int     err_key;
+    char    *err_msg;
+}                   t_ftssl_err;
+
+
+
 
 typedef enum        s_ftssl_type_enum
 {
@@ -70,7 +93,8 @@ typedef struct        s_ftssl_context
     int         (*flags)(char);
     t_ftssl_ctx_u  ctx;
 
-    int         ctx_type;
+    int         cmd_type;
+    int         cmd_name;
     int         (*ctx_cmd)(struct s_ftssl *);
 }                   t_ftssl_ctx;
 
@@ -89,8 +113,8 @@ typedef struct	s_ftssl
 {
     int         ftssl_mode;
     int         ftssl_stat;
-    int          (*ftssl_usage)(void);
-    int          (*ftssl_error)(const char *);
+    // int          (*ftssl_usage)(void);
+    int          (*ftssl_error)(int key, const char *);
     int          (*ftssl_cmd)(struct s_ftssl *);
     int         key;
     t_ftssl_sh    sh;
@@ -98,15 +122,19 @@ typedef struct	s_ftssl
 }				t_ftssl;
 
 
-
-typedef struct s_ftssl_type_dispatch
+typedef struct s_ftssl_dispatcher
 {
     int type;
-    t_ftssl_dist_parser *ftssl_parse_cmd;
     t_ftssl_dist        *ftssl_dist;
-}              t_ftssl_type_dispatch;
+}              t_ftssl_dispatcher;
 
-// extern const t_ftssl_type_dispatch g_ftssl_type_dispatch[FTSSL_TYPE_E];
+typedef struct s_ftssl_dgst_dispatcher
+{
+    int *cmd_key;
+    char *cmd_name;
+    t_ftssl_dgst_dispatcher *cmd_dispatcher;
+}              t_ftssl_dgst_dispatcher;
+// extern const t_ftssl_dispatcher g_ftssl_type_dispatch[FTSSL_TYPE_E];
 
 int		        ft_ssl_reset(t_ftssl *ssl);
 int		        ft_ssl_init(t_ftssl *ssl, int argc, char const *argv[]);
@@ -124,6 +152,6 @@ int		        ft_ssl_parse(int argc, char *argv[]);
 int             ft_ssl_parse_flag_unknown(char c);
 int             ft_ssl_parse_flags_md(char c);
 int				ft_ssl_usage(void);
-int				ft_ssl_error(const char *cmd);
+int				ft_ssl_error(int key);
 
 #endif

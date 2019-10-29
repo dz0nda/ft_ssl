@@ -39,6 +39,7 @@ SUBFILE = \
 				ssl/ft_ssl_usage.c \
 				ssl_dgst/ft_ssl_dgst_init.c \
 				ssl_dgst/ft_ssl_dgst_usage.c \
+				ssl_dgst/ft_ssl_dgst_update.c \
 				ssl_dgst/ft_ssl_dgst.c \
 				ssl_cipher/ft_ssl_cipher.c \
 				ssl_stdrd/ft_ssl_stdrd.c \

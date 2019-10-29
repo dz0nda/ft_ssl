@@ -120,8 +120,9 @@ char	*ft_ssl_input_fd(int fd)
 	return (ft_strdup(buffer));
 }
 
-char	*ft_ssl_input_string(char *s)
+char	*ft_ssl_input_string(char *d, char *s, int len)
 {
+
 	ft_putendl(s);
 	return (ft_strdup(s));
 }
@@ -147,7 +148,7 @@ int     ft_ssl_dgst_parse(t_ftssl_dgst *dgst, int argc, char *argv[])
 		// if (*argv[i] == '-')
 		// 	ft_ssl_parse_execute_flag(argv[i]);
 		// else
-    
+	
 		dgst->ftssl_dgst_input[i] = ft_ssl_(dgst, argv[i]);
     }
 	return (EXIT_SUCCESS);

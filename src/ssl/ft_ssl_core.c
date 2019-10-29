@@ -31,40 +31,50 @@ t_dgst_ctx        *ft_dgst_init_ctx(int cmd_key)
 
 t_dgst_act		ft_dgst_init_act(int cmd_key)
 {
-	int (* dgst_act[FT_DGST_CMD][2])(t_dgst_ctx *) = {
-        { ft_ssl_dgst_init_md5_sha1, ft_ssl_dgst_update_md5 }, 
-        { ft_ssl_dgst_init_md5_sha1, ft_ssl_dgst_update_sha1 },
-        { ft_ssl_dgst_init_sha256, ft_ssl_dgst_update_sha256 }
+	int (* dgst_act[FT_DGST_CMD][3])(t_dgst_ctx *) = {
+        { ft_ssl_dgst_init_md5_sha1, ft_ssl_dgst_update_md5, ft_ssl_dgst_final }, 
+        { ft_ssl_dgst_init_md5_sha1, ft_ssl_dgst_update_sha1, ft_ssl_dgst_final },
+        { ft_ssl_dgst_init_sha256, ft_ssl_dgst_update_sha256, ft_ssl_dgst_final }
 	};
 	t_dgst_act	act;	
 
 	ft_memset(&act, 0, sizeof(t_dgst_act));
 	act.init = dgst_act[cmd_key][0];
 	act.update = dgst_act[cmd_key][1];
+	act.final = dgst_act[cmd_key][2];
 	return (act);
+}
+
+int 				ft_dgst_action(t_dgst_ctx *ctx, t_digest_ipt input)
+{
+	int i;
+
+	i = -1;
+	while (++i < ctx->len_state)
+		printf("%x\n", ctx->state[i]);
 }
 
 int         		ft_dgst(t_ftssl *ssl)
 {
     printf("ïm in dgst\n");
-	t_ftssl_dgst	dgst;
+	// t_ftssl_dgst	dgst;
+	// t_digest_ipt	 input;
+    
+	// ft_memset(&dgst, 0, sizeof(dgst));
+	// int i = 0;
 
-    ft_memset(&dgst, 0, sizeof(dgst));
-	int i = 0;
-	dgst.cmd_key = 0;
-	dgst.cmd_name = "md5";
-	while (ssl->sh.argv[i] != NULL)
-		ft_putendl(ssl->sh.argv[i++]);
-	dgst.ctx = ft_dgst_init_ctx(dgst.cmd_key);
-	dgst.act = ft_dgst_init_act(dgst.cmd_key);
-	dgst.act.init(dgst.ctx);
-	dgst.act.update(dgst.ctx);
-
-
-	i = -1;
-	while (++i < dgst.ctx->len_state)
-		printf("%x\n", dgst.ctx->state[i]);
-
+	// dgst.cmd_key = 0;
+	// dgst.cmd_name = "md5";
+	// input.type = FT_INPUT_FILE;
+	// input.file.fd = 0;
+	// while (ssl->sh.argv[i] != NULL)
+	// 	ft_putendl(ssl->sh.argv[i++]);
+	// dgst.ctx = ft_dgst_init_ctx(dgst.cmd_key);
+	// dgst.act = ft_dgst_init_act(dgst.cmd_key);
+	// dgst.act.init(dgst.ctx);
+	// ft_dgst_action(&dgst.ctx, input);
+	// dgst.act.update(dgst.ctx);
+	// dgst.act.final(dgst.ctx);
 	return (EXIT_SUCCESS);
 }
 

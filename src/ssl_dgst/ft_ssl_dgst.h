@@ -76,6 +76,7 @@ typedef struct     s_digest_action
 {
     t_dgst_step     *init;
     t_dgst_step     *update;
+    t_dgst_step     *final;
 }                  t_dgst_act;
 
 typedef struct      s_ftssl_digest
@@ -98,6 +99,6 @@ int			ft_ssl_dgst_update_md5(t_dgst_ctx *ctx);
 int			ft_ssl_dgst_update_sha1(t_dgst_ctx *ctx);
 int			ft_ssl_dgst_update_sha256(t_dgst_ctx *ctx);
 
-
+int			ft_ssl_dgst_final(t_dgst_ctx *ctx);
 
 #endif
