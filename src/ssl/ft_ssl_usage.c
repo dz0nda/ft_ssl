@@ -3,7 +3,7 @@
 int		ft_ssl_usage(void)
 {
 	void (*usage[FTSSL_TYPE_E - 1])(void) = {
-		ft_ssl_usage_stdrd, ft_ssl_usage_dgst, ft_ssl_usage_cipher
+		ft_ssl_stdrd_usage, ft_ssl_dgst_usage, ft_ssl_cipher_usage
 	};
 	int i;
 

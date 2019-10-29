@@ -4,7 +4,7 @@
 // {
 // 	const t_ftssl_dispatcher ftssl_type_dispatch[FTSSL_TYPE_E] = {
 // 		{ FT_DGST, ft_ssl_parse_type_dgst, ft_dgst },
-// 		{ FT_CIPHER, ft_ssl_parse_type_cipher, ft_cipher },
+// 		{ ft_ssl_cipher, ft_ssl_parse_type_cipher, ft_ssl_cipher },
 // 		{ FT_STDRD, ft_ssl_parse_type_stdrd, ft_stdrd },
 // 		{ FT_UNKNOWN, ft_ssl_parse_type_unknown, ft_unknown },
 // 	};
@@ -18,50 +18,20 @@
 // 	return (EXIT_SUCCESS);
 // }
 
-int     ft_ssl_dgst_dispatcher(int argc, char *argv[])
-{
-    const t_ftssl_dgst_dispatcher[FT_DGST_CMD] = {
-        "md5",
-        "sha1",
-        "sha256"
-    };
-    int i;
 
-    i = -1;
-    while (++i < FT_DGST_CMD)
-        if (ft_strcmp(s, ft_ssl_dgst_cmd[i]) == 0)
-            return (i);
-    return (-1);
-}
 
-int		ft_ssl_dispatcher(int argc, char *argv)
-{
-	const t_ftssl_dispatcher ftssl_dispatcher[FTSSL_TYPE_E] = {
-		{ FT_DGST, ft_ssl_dgst_dispatcher },
-		{ FT_CIPHER, ft_ssl_parse_type_cipher },
-		{ FT_STDRD, ft_ssl_parse_type_stdrd, ft_stdrd },
-		{ FT_UNKNOWN, ft_ssl_parse_type_unknown, ft_unknown },
-	};
-    int i;
 
-    i = -1;
-    while (++i < FTSSL_TYPE_E)
-		if (ftssl_dispatcher[i].ftssl_parse_cmd(argv[0]) != -1)
-			break;
-	ftssl_type_dispatch[i].ftssl_dist(ssl);
-	return (EXIT_SUCCESS);
-}
 
-int			ft_ssl(t_ftssl_ctx *ctx)
-{
+// int			ft_ssl(t_ftssl_ctx *ctx)
+// {
 	
-}
+// }
 
 int			main(int argc, char const *argv[])
 {
 	if (argc > 1)
 		;// ft_ssl_shell();
-	ft_ssl_dispatch_type(argc - 1, ++argv);
+	ft_ssl_dispatcher(argc - 1, (char **)++argv);
 	return (EXIT_SUCCESS);
 	// t_ftssl	ssl;
 

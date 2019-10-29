@@ -10,22 +10,16 @@ typedef enum        s_cipher_command_enum
     FT_SSL_CIPHER_CMD
 }                   t_cipher_cmd_e;
 
-typedef enum        s_cipher_flag_enum
+typedef struct  s_cipher_command_dispatcher
 {
-    FT_CIPHER_D = 'd',
-    FT_CIPHER_E = 'e',
-    FT_CIPHER_I = 'i',
-    FT_CIPHER_O = 'o',
-    FT_CIPHER_FLAG = 4
-}                   t_cipher_flag_e;
+    int     cmd_key;
+    char    *cmd_name;
+}               t_cipher_cmd_d;
 
-typedef struct	    s_cipher_context
-{
-    int             cmd;
-}				    t_cipher;
+int     ft_ssl_cipher(int cmd_key, int argc, char *argv[]);
 
-int                 ft_ssl_parse_type_cipher(char *s);
-void                ft_ssl_usage_cipher(void);
-// int				ft_cipher(t_cipher *ctx);
+int     ft_ssl_cipher_dispatcher(char *cmd_name);
+
+void     ft_ssl_cipher_usage(void);
 
 #endif
