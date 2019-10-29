@@ -30,8 +30,7 @@
 int			main(int argc, char const *argv[])
 {
 	if (argc > 1)
-		;// ft_ssl_shell();
-	ft_ssl_dispatcher(argc - 1, (char **)++argv);
+		ft_ssl_dispatcher(argc - 1, (char **)++argv);
 	return (EXIT_SUCCESS);
 	// t_ftssl	ssl;
 

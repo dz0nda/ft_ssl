@@ -7,6 +7,8 @@
 # include "../ssl_cipher/ft_ssl_cipher.h"
 # include "../ssl_stdrd/ft_ssl_stdrd.h"
 
+# define FT_CMD_NOT_FOUND -1
+
 typedef		int t_ftssl_cmd_dispatch(char *);
 typedef     int t_ftssl_cmd_dist(int, int, char *[]);
 

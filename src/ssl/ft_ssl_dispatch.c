@@ -2,6 +2,7 @@
 
 int     ft_ssl_unknown(int key, int argc, char *argv[])
 {
+	printf("ünknown\n");
     return (1);
 }
 
@@ -19,10 +20,12 @@ int		ft_ssl_dispatcher(int argc, char *argv[])
 		{ FT_UNKNOWN, ft_ssl_unknown_dispatcher, ft_ssl_unknown },
 	};
     int i;
+	int key_cmd;
 
     i = -1;
+	key_cmd = FT_CMD_NOT_FOUND;
     while (++i < FTSSL_TYPE_E)
-		if (dispatcher[i].cmd_dispatch(argv[0]) == EXIT_SUCCESS)
-			break;
+		if ((key_cmd = dispatcher[i].cmd_dispatch(argv[0])) != FT_CMD_NOT_FOUND)
+			return (dispatcher[i].cmd_dist(key_cmd, argc, argv));
 	return (EXIT_SUCCESS);
 }
