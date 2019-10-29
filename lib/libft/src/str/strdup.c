@@ -16,10 +16,13 @@
 char			*ft_strdup(const char *s1)
 {
 	int			i;
+	size_t		len;
 	char		*dest;
 
 	i = -1;
-	if (!(dest = ft_strnew(ft_strlen(s1))))
+	if ((len = ft_strlen(s1)) == 0)
+		return (NULL);
+	if ((dest = ft_strnew(len)) == NULL)
 		return (NULL);
 	while (s1[++i])
 		dest[i] = s1[i];
