@@ -39,28 +39,46 @@ typedef enum    s_digest_enum
 
 typedef struct  s_md5_context
 {
-  uint32_t		state[FT_MD5_HS/4];
+  int         cmd_key;
+  int         len_hs;
+  int         len_mbs;
+  int         endian;
+  int         len_state;
+  uint32_t		  state[FT_MD5_HS/4];
   uint8_t       block[FT_MD5_MBS];
 }				t_md5_ctx;
 
 typedef struct	s_sha1_context
 {
-  uint32_t		state[FT_SHA1_HS/4];
+  int         cmd_key;
+  int         len_hs;
+  int         len_mbs;
+  int         endian;
+  int         len_state;
+  uint32_t		  state[FT_SHA1_HS/4];
   uint8_t       block[FT_SHA1_MBS];
 }				        t_sha1_ctx;
 
 typedef struct	s_sha256_context
 {
+  int         cmd_key;
+  int         len_hs;
+  int         len_mbs;
+  int         endian;
+  int         len_state;
   uint32_t		  state[FT_SHA256_HS/4];
   uint8_t       block[FT_SHA256_MBS];
 }				t_sha256_ctx;
 
-typedef union   s_context_union
+typedef union   s_digest_context_union
 {
-  int   (*ft_md5)(t_md5_ctx *ctx);
-  int   (*ft_sha1)(t_sha1_ctx *ctx);
-  int   (*ft_sha256)(t_sha256_ctx *ctx);
-}               t_context_union;
+  t_md5_ctx     md5ctx;
+  t_sha1_ctx    sha1ctx;
+  t_sha256_ctx  sha256;
+  // int   (*ft_md5)(t_md5_ctx *ctx);
+  // int   (*ft_sha1)(t_sha1_ctx *ctx);
+  // int   (*ft_sha256)(t_sha256_ctx *ctx);
+}               t_dgst_ctx_u;
 
 
 int             ft_md5(const unsigned char *d, unsigned long n, unsigned char *md);

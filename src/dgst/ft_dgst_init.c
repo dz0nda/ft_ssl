@@ -1,5 +1,19 @@
 #include "ft_dgst.h"
 
+// int			ft_ssl_dgst_init_md5_sha1(uint32_t *ctx_)
+// {
+// 	const uint32_t init[5] = {
+// 		0x67452301, 0xefcdab89, 0x98badcfe,
+// 		0x10325476, 0xC3D2E1F0
+// 	};
+// 	int i;
+
+// 	i = -1;
+// 	while(++i < ctx->len_state)
+// 		ctx->state[i] = init[i];
+// 	return (EXIT_SUCCESS);
+// }
+
 int			ft_md5_init(t_md5_ctx *ctx)
 {
 	ft_memset(ctx, 0, sizeof(t_md5_ctx));
