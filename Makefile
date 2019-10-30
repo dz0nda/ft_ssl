@@ -26,6 +26,9 @@ SUBFILE = \
 				ssl_dgst/ft_ssl_dgst.c \
 				ssl_dgst/ft_ssl_dgst_dispatch.c \
 				ssl_dgst/ft_ssl_dgst_usage.c \
+				ssl_dgst/ft_ssl_dgst_init.c \
+				ssl_dgst/ft_ssl_dgst_update.c \
+				ssl_dgst/ft_ssl_dgst_final.c \
 				ssl_cipher/ft_ssl_cipher.c \
 				ssl_cipher/ft_ssl_cipher_dispatch.c \
 				ssl_cipher/ft_ssl_cipher_usage.c \
