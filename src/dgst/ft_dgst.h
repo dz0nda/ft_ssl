@@ -70,6 +70,18 @@ typedef struct	s_sha256_context
   uint8_t       block[FT_SHA256_MBS];
 }				t_sha256_ctx;
 
+typedef struct  s_digest_context
+{
+    int         len_hs;
+    int         len_mbs;
+    int         endian;
+    int         len_state;
+    int         len_input;
+    int         len_block;
+    uint32_t    *state;
+    uint8_t     *block;
+}               t_dgst_ctx;
+
 typedef union   s_digest_context_union
 {
   t_md5_ctx     md5ctx;
@@ -81,11 +93,16 @@ typedef union   s_digest_context_union
 }               t_dgst_ctx_u;
 
 
+// Unified functions
+
+int			ft_dgst_init_md5_sha1(t_dgst_ctx *ctx);
+
+
 int             ft_md5(const unsigned char *d, unsigned long n, unsigned char *md);
 int			    ft_md5_init(t_md5_ctx *ctx);
 int		        ft_md5_update(t_md5_ctx *ctx, const void *data, unsigned long len);
 int             ft_md5_final(t_md5_ctx *ctx, unsigned char *md);
-
+void			ft_md5_update_process(uint32_t abcd[4], uint32_t *m, int j);
 int             ft_sha1(const unsigned char *d, unsigned long n, unsigned char *md);
 int			    ft_sha1_init(t_sha1_ctx *ctx);
 int				ft_sha1_update(t_sha1_ctx *ctx, const void *data, unsigned long len);

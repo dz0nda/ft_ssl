@@ -21,6 +21,7 @@ typedef enum    s_digest_command_enum
 
 typedef enum    s_digest_input_enum
 {
+    FT_DGST_INPUT,
     FT_DGST_FILE,
     FT_DGST_STRING
 }               t_dgst_ipt_e;
@@ -37,16 +38,22 @@ typedef struct      s_digest_input
     char    *ipt_name;
 }                   t_dgst_ipt;
 
-typedef struct      s_digest_context
+// typedef struct      s_digest_context
+// {
+//     int         cmd_key;
+//     int         len_hs;
+//     int         len_mbs;
+//     int         endian;
+//     int         len_state;
+//     uint32_t    *state;
+//     uint8_t     *block;
+// }                   t_dgst_ctx;
+
+typedef struct      s_digest_context_dispatch
 {
     int         cmd_key;
-    int         len_hs;
-    int         len_mbs;
-    int         endian;
-    int         len_state;
-    uint32_t    *state;
-    uint8_t     *block;
-}                   t_dgst_ctx;
+    t_dgst_ctx  ctx;
+}                   t_dgst_ctx_d;
 
 typedef struct     s_digest_action
 {
@@ -68,7 +75,7 @@ void    ft_ssl_dgst_usage(void);
 
 // functions for dgst
 
-int			ft_ssl_dgst_init_md5_sha1(t_dgst_ctx *ctx);
+// int			ft_dgst_init_md5_sha1(t_dgst_ctx *ctx);
 int			ft_ssl_dgst_init_sha256(t_dgst_ctx *ctx);
 
 int			ft_ssl_dgst_update_md5(t_dgst_ctx *ctx);
@@ -77,4 +84,5 @@ int			ft_ssl_dgst_update_sha256(t_dgst_ctx *ctx);
 
 int			ft_ssl_dgst_final(t_dgst_ctx *ctx);
 
+int				ft_ssl_dgst_result(t_dgst_ctx *ctx);
 #endif

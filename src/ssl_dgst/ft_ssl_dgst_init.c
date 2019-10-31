@@ -1,19 +1,5 @@
 #include "ft_ssl_dgst.h"
 
-int			ft_ssl_dgst_init_md5_sha1(t_dgst_ctx *ctx)
-{
-	const uint32_t init[5] = {
-		0x67452301, 0xefcdab89, 0x98badcfe,
-		0x10325476, 0xC3D2E1F0
-	};
-	int i;
-
-	i = -1;
-	while(++i < ctx->len_state)
-		ctx->state[i] = init[i];
-	return (EXIT_SUCCESS);
-}
-
 int			ft_ssl_dgst_init_sha256(t_dgst_ctx *ctx)
 {
 	const uint32_t init[8] = {

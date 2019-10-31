@@ -2,6 +2,19 @@
 
 #include "ft_dgst.h"
 
+static int			ft_md5_process_fg(uint32_t fg[2], int j, int b, int c, int d)
+{
+	if (j < 16)
+	{
+		fg[0] = (b & c) | ((~b) & d);
+		fg[1] = j;
+	}
+	else if (j < 32)
+	{
+
+	}
+}
+
 static int			ft_md5_process_f(int j, int B, int C, int D)
 {
 	if (j < 16)
@@ -54,7 +67,7 @@ static int			ft_md5_process_s(int j)
 	return (s[j]);
 }
 
-static void			ft_md5_update_process(uint32_t abcd[4], uint32_t *m, int j)
+void			ft_md5_update_process(uint32_t abcd[4], uint32_t *m, int j)
 {
 	uint32_t k;
 	uint32_t s;
@@ -62,8 +75,9 @@ static void			ft_md5_update_process(uint32_t abcd[4], uint32_t *m, int j)
 
 	k = ft_md5_process_k(j);
 	s = ft_md5_process_s(j);
-	fg[0] = ft_md5_process_f(j, abcd[1], abcd[2], abcd[3]);
-	fg[1] = ft_md5_process_g(j);
+	ft_md5_process_fg(fg, j, abcd[1], abcd[2], abcd[3]);
+	// fg[0] = ft_md5_process_f(j, abcd[1], abcd[2], abcd[3]);
+	// fg[1] = ft_md5_process_g(j);
 	fg[0] = fg[0] + abcd[0] + k + m[fg[1]];
 	abcd[0] = abcd[3];
 	abcd[3] = abcd[2];

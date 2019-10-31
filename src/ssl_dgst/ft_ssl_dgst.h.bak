@@ -92,7 +92,7 @@ int             ft_ssl_parse_type_dgst(char *s);
 
 void            ft_ssl_usage_dgst(void);
 
-int			ft_ssl_dgst_init_md5_sha1(t_dgst_ctx *ctx);
+int			ft_dgst_init_md5_sha1(t_dgst_ctx *ctx);
 int			ft_ssl_dgst_init_sha256(t_dgst_ctx *ctx);
 
 int			ft_ssl_dgst_update_md5(t_dgst_ctx *ctx);
