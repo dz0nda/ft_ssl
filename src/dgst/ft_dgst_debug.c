@@ -6,7 +6,6 @@ void    ft_dgst_update_words_debug(uint32_t *w, int n)
 
 	i = -1;
 	printf("\n== Words for block: ==\n");
-    // m[0] = swap_uint32(m[0]);
 	while (++i < n)
 		printf("Block[%d] = %u \n", i, w[i]);
 	printf("\n");
