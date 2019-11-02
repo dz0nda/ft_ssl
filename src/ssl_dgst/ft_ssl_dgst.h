@@ -1,10 +1,9 @@
 #ifndef FT_SSL_DGST_H
 # define FT_SSL_DGST_H
 
-# include "../ft_ssl_global.h"
 # include "../dgst/ft_dgst.h"
 
-# define FT_DGST_MAX_STDIN 1024
+# define        FT_DGST_MAX_STDIN 1024
 
 typedef struct      s_digest_context t_dgst_ctx;
 typedef struct      s_digest_input   t_dgst_ipt;
@@ -71,6 +70,7 @@ typedef struct     s_digest_action
 typedef struct      s_digest
 {
     char            *cmd_name;
+    char            hash[32];
     t_dgst_ipt      input;
     t_dgst_act      act;
     t_dgst_ctx      ctx;

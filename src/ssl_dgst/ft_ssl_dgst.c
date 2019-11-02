@@ -123,23 +123,44 @@ int     ft_ssl_dgst(int cmd_key, int argc, char *argv[])
 	dgst.cmd_name = argv[0];
     ft_dgst_dispatcher_ctx(cmd_key, &dgst.ctx);
 	ft_dgst_dispatcher_act(cmd_key, &dgst.act);
+	dgst.input.ipt_key = FT_DGST_INPUT;
+	dgst.input.ipt_name = NULL;
     printf("cmd = %d && hs = %d\n", i, argc);
 	if (++i == argc)
-		ft_ssl_dgst_perform(&dgst, (t_dgst_ipt){ FT_DGST_INPUT, NULL }); // ft_ssl_dgst_execute(&dgst.ctx, &dgst.act, (t_dgst_ipt){ FT_DGST_INPUT, NULL });// 
-	else
-		while (i < argc)
+			ft_ssl_dgst_perform(&dgst, dgst.input); // ft_ssl_dgst_execute(&dgst.ctx, &dgst.act, (t_dgst_ipt){ FT_DGST_INPUT, NULL });// 
+	while (i < argc)
+	{
+		if (argv[i] != NULL && *argv[i] == '-')
 		{
-			printf("%s - len %d .\n", argv[i], ft_strlen(argv[i]));
-			// if (*argv[i] == '-')
-			// {
-
-			// 	// ft_
-			// 	// ft_ssl_parse_execute_flag(argv[i]);
-			// }
-			ft_ssl_dgst_perform(&dgst, (t_dgst_ipt){ FT_DGST_FILE, argv[i] }); // ft_ssl_dgst_execute(&dgst.ctx, &dgst.act, (t_dgst_ipt){ FT_DGST_INPUT, NULL });// 
-			// else
-			// ft_ssl_dgst_execute(&dgst.ctx, &dgst.act, (t_dgst_ipt){ FT_DGST_FILE, argv[i] });
-			i++;
+			// ft_ssl_dgst_flags();
+			printf("flag will modified\n");
 		}
+		else if (argv[i] != NULL)
+		{
+			printf("here argument\n");
+			dgst.input.ipt_key = FT_DGST_FILE;
+			dgst.input.ipt_name = argv[i];
+		}
+		i++;
+		printf("execute\n");
+		// ft_ssl_dgst_perform(&dgst, dgst.input); // ft_ssl_dgst_execute(&dgst.ctx, &dgst.act, (t_dgst_ipt){ FT_DGST_INPUT, NULL });// 
+	}
+	// if (++i == argc)
+	// 	ft_ssl_dgst_perform(&dgst, (t_dgst_ipt){ FT_DGST_INPUT, NULL }); // ft_ssl_dgst_execute(&dgst.ctx, &dgst.act, (t_dgst_ipt){ FT_DGST_INPUT, NULL });// 
+	// else
+	// 	while (i < argc)
+	// 	{
+	// 		printf("%s - len %d .\n", argv[i], ft_strlen(argv[i]));
+	// 		// if (*argv[i] == '-')
+	// 		// {
+
+	// 		// 	// ft_
+	// 		// 	// ft_ssl_parse_execute_flag(argv[i]);
+	// 		// }
+	// 		ft_ssl_dgst_perform(&dgst, (t_dgst_ipt){ FT_DGST_FILE, argv[i] }); // ft_ssl_dgst_execute(&dgst.ctx, &dgst.act, (t_dgst_ipt){ FT_DGST_INPUT, NULL });// 
+	// 		// else
+	// 		// ft_ssl_dgst_execute(&dgst.ctx, &dgst.act, (t_dgst_ipt){ FT_DGST_FILE, argv[i] });
+	// 		i++;
+	// 	}
 	return (0);   
 }

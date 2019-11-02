@@ -1,12 +1,7 @@
 #ifndef FT_DGST_H
 # define FT_DGST_H
 
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <stdint.h>
-
-# include "../../lib/libft/libft.h"
+# include "../ft_ssl_global.h"
 
 # define FT_DGST_DEBUG            1
 # define FT_DGST_ENDIAN_LITTLE    0
@@ -27,7 +22,7 @@
  *      len_input : Length total of input
  *      len_block : Length of block (max: 2 * len_mbs)
  *      state     : Array of variables processed
- *      block     : Data to be processed
+ *      block     : Data to be processed (len: 2 * len_mbs)
 */
 
 typedef enum    s_digest_enum

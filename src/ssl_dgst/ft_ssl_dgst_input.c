@@ -1,7 +1,5 @@
 #include "ft_ssl_dgst.h"
 
-
-
 int		read_file(char *dst, char *src, int len)
 {
 	static int fd = -1;
@@ -23,6 +21,7 @@ int		read_file(char *dst, char *src, int len)
         ft_strcat(dst, c);
 		ft_bzero(c, sizeof(c));
     }
+	printf("Block len : %d read : %s.\n", i, dst);
 	// bytes_read = read(fd, &c, len);
     // ft_strncpy(dst, c, bytes_read);
 	if (i < len && close(fd) == -1)

@@ -1,8 +1,6 @@
 #ifndef FT_SSL_H
 # define FT_SSL_H
 
-# include "../ft_ssl_global.h"
-
 # include "../ssl_dgst/ft_ssl_dgst.h"
 # include "../ssl_cipher/ft_ssl_cipher.h"
 # include "../ssl_stdrd/ft_ssl_stdrd.h"
