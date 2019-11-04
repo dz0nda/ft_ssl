@@ -47,10 +47,7 @@ int     ft_ssl_shell(t_ftssl_sh *sh)
     ft_ssl_shell_reset(sh);
     ft_putstr("ftSSL> ");
     if (read(0, buffer, FTSSL_SHMAX_BUFFER - 1) < 1)
-    {
-        printf("what");
         return (EXIT_FAILURE);
-    }
     ft_ssl_shell_parse(sh, buffer);
     return (EXIT_SUCCESS);
 }
