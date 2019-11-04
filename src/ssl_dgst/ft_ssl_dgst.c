@@ -39,6 +39,7 @@ int		ft_ssl_dgst_mdsha_file(t_dgst *dgst, char *filename)
 	dist.final(&ctx);
 	dist.transform(&ctx); // need to be run in final
 	ft_ssl_dgst_result(&ctx);
+	return (EXIT_SUCCESS);
 }
 
 int		ft_ssl_dgst_mdsha_string(t_dgst *dgst, char *data, size_t len)
@@ -66,6 +67,7 @@ int		ft_ssl_dgst_mdsha_string(t_dgst *dgst, char *data, size_t len)
 	dist.final(&ctx);
 	dist.transform(&ctx); // need to be run in final
 	ft_ssl_dgst_result(&ctx);
+	return (EXIT_SUCCESS);
 }
 
 int     ft_ssl_dgst(int argc, char *argv[])
