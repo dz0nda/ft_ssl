@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_ssl_cipher.h                                  .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2019/11/04 22:13:32 by dzonda       #+#   ##    ##    #+#       */
+/*   Updated: 2019/11/04 22:13:32 by dzonda      ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #ifndef FT_SSL_CIPHER_H
 # define FT_SSL_CIPHER_H
 
@@ -7,19 +20,9 @@ typedef enum        s_cipher_command_enum
 {
     FT_BASE64,
     FT_DES,
-    FT_SSL_CIPHER_CMD
+    FT_CIPHER_CMD
 }                   t_cipher_cmd_e;
 
-typedef struct  s_cipher_command_dispatcher
-{
-    int     cmd_key;
-    char    *cmd_name;
-}               t_cipher_cmd_d;
-
-int     ft_ssl_cipher(int cmd_key, int argc, char *argv[]);
-
-int     ft_ssl_cipher_dispatcher(char *cmd_name);
-
-void     ft_ssl_cipher_usage(void);
+int     ft_ssl_cipher(int argc, char *argv[]);
 
 #endif
