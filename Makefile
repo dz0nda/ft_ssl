@@ -22,28 +22,23 @@ SUBDIR = \
 				dgst
 SUBFILE = \
 				ssl/ft_ssl.c \
-				ssl/ft_ssl_dispatch.c \
+				ssl/ft_ssl_init.c \
+				ssl/ft_ssl_shell.c \
+				ssl/ft_ssl_error.c \
+				ssl/ft_ssl_dist.c \
 				ssl/ft_ssl_usage.c \
 				ssl_dgst/ft_ssl_dgst.c \
-				ssl_dgst/ft_ssl_dgst_dispatch.c \
-				ssl_dgst/ft_ssl_dgst_usage.c \
 				ssl_dgst/ft_ssl_dgst_init.c \
-				ssl_dgst/ft_ssl_dgst_input.c \
 				ssl_dgst/ft_ssl_dgst_output.c \
 				ssl_cipher/ft_ssl_cipher.c \
-				ssl_cipher/ft_ssl_cipher_dispatch.c \
-				ssl_cipher/ft_ssl_cipher_usage.c \
 				ssl_stdrd/ft_ssl_stdrd.c \
-				ssl_stdrd/ft_ssl_stdrd_dispatch.c \
-				ssl_stdrd/ft_ssl_stdrd_usage.c \
-				dgst/ft_dgst_final.c \
 				dgst/ft_dgst_debug.c \
-				dgst/ft_dgst_init.c \
-				dgst/ft_dgst_update_md5.c \
-				dgst/ft_dgst_update_sha1.c \
-				dgst/ft_dgst_update_sha256.c \
-				dgst/ft_dgst_utils.c 
-				
+				dgst/ft_dgst_final.c \
+				dgst/ft_dgst_utils.c \
+				dgst/ft_md5.c \
+				dgst/ft_sha1.c \
+				dgst/ft_sha256.c \
+
 SRCDIRS = $(foreach dir, $(SUBDIR), $(addprefix $(SRCDIR)/, $(dir)))
 OBJDIRS = $(foreach dir, $(SUBDIR), $(addprefix $(OBJDIR)/, $(dir)))
 INCLUDES = $(foreach dir, $(SRCDIRS), $(addprefix -I, $(dir)))
