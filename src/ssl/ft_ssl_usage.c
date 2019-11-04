@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_ssl_usage.c                                   .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2019/11/04 22:11:53 by dzonda       #+#   ##    ##    #+#       */
+/*   Updated: 2019/11/04 22:12:11 by dzonda      ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #include "ft_ssl.h"
 
 int		ft_ssl_usage(int argc, char *argv[])
@@ -10,7 +23,7 @@ int		ft_ssl_usage(int argc, char *argv[])
 		{ "help" },
 		{ "md5", "sha1" "sha256" },
 		{ "base64", "des" },
-		{ NULL }
+		{ "dgst" }
 	};
 	int key_dist;
 	int	key_dist_cmd;
