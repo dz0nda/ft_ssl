@@ -51,24 +51,29 @@ typedef struct  s_digest_context
     int         len_state;
     int         len_input;
     int         len_block;
+    int         idata;
+    int         iblock;
     uint32_t    *state;
     uint8_t     *block;
 }               t_dgst_ctx;
 
-int			  ft_dgst_init_md5_sha1(t_dgst_ctx *ctx);
-int			  ft_dgst_init_sha256(t_dgst_ctx *ctx);
+int			ft_md5_init(t_dgst_ctx *ctx);
+int 		ft_md5_transform(t_dgst_ctx *ctx);
 
-int			  ft_dgst_update_md5(t_dgst_ctx *ctx);
-int			  ft_dgst_update_sha1(t_dgst_ctx *ctx);
-int			  ft_dgst_update_256(t_dgst_ctx *ctx);
+int			ft_sha1_init(t_dgst_ctx *ctx);
+int 		ft_sha1_transform(t_dgst_ctx *ctx);
 
-int			  ft_dgst_final(t_dgst_ctx *ctx);
+int			ft_sha256_init(t_dgst_ctx *ctx);
+int			ft_sha256_transform(t_dgst_ctx *ctx);
+
+int			 ft_dgst_final(t_dgst_ctx *ctx);
 
 uint32_t		ft_rotate_left(uint32_t word, uint32_t bits);
 uint32_t		ft_rotate_right(uint32_t word, uint32_t bits);
 uint32_t		ft_shift_right(uint32_t word, uint32_t bits);
 uint32_t    swap_uint32(uint32_t val);
 uint64_t    swap_uint64(uint64_t val);
+void        hexdump(void *mem, unsigned int len);
 
 void      ft_dgst_update_words_debug(uint32_t *w, int n);
 void      ft_dgst_update_process_debug(uint32_t *state, int i, int n);
