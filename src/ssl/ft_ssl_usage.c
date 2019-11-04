@@ -1,18 +1,31 @@
 #include "ft_ssl.h"
 
-int		ft_ssl_usage(void)
+int		ft_ssl_usage(int argc, char *argv[])
 {
-	void (*usage[FTSSL_TYPE_E - 1])(void) = {
-		ft_ssl_stdrd_usage, ft_ssl_dgst_usage, ft_ssl_cipher_usage
+	const char *dist[FTSSL_DIST_E] = {
+		"Help commands:", "Message Digest commands:",
+		"Cipher commands:", "Standard commands:"
 	};
-	int i;
+	const char *dist_cmd[FTSSL_DIST_E][FTSSL_SHMAX_BUFFER] = {
+		{ "help" },
+		{ "md5", "sha1" "sha256" },
+		{ "base64", "des" },
+		{ NULL }
+	};
+	int key_dist;
+	int	key_dist_cmd;
 
-	i = -1;
-	while (++i < FTSSL_TYPE_E - 1)
+	(void)argc;
+	(void)argv;
+	key_dist = -1;
+	while (++key_dist < FTSSL_DIST_E)
 	{
+		key_dist_cmd = -1;
+		ft_putendl(dist[key_dist]);
+		if (dist_cmd[key_dist] != NULL)
+			while (dist_cmd[key_dist][++key_dist_cmd] != NULL )
+				ft_putendl(dist_cmd[key_dist][key_dist_cmd]);
 		ft_putstr("\n");
-		usage[i]();
 	}
-	// ft_putstr("usage: ft_ssl command [command opts] [command args]\n");
 	return (EXIT_FAILURE);
 }

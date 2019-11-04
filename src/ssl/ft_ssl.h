@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_ssl.h                                         .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2019/11/04 20:10:56 by dzonda       #+#   ##    ##    #+#       */
+/*   Updated: 2019/11/04 22:02:07 by dzonda      ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #ifndef FT_SSL_H
 # define FT_SSL_H
 
@@ -5,30 +18,49 @@
 # include "../ssl_cipher/ft_ssl_cipher.h"
 # include "../ssl_stdrd/ft_ssl_stdrd.h"
 
-# define FT_CMD_NOT_FOUND -1
+# define FTSSL_SHMODE_DISABLED  0
+# define FTSSL_SHMODE_ENABLED   1
 
-typedef		int t_ftssl_cmd_dispatch(char *);
-typedef     int t_ftssl_cmd_dist(int, int, char *[]);
+# define FTSSL_SHMAX_CMD        8192
+# define FTSSL_SHMAX_BUFFER     8192
 
-typedef enum        s_ftssl_type_enum
+typedef int         t_ftssl_dist(int, char *[]);
+
+typedef enum        s_ftssl_dist_enum
 {
-    FT_DGST = 0,
-    FT_CIPHER,
-    FT_STDRD,
-    FT_UNKNOWN,
-    FTSSL_TYPE_E
-}                   t_ftssl_type_e;
+    FTSSL_HELP,
+    FTSSL_DGST,
+    FTSSL_CIPHER,
+    FTSSL_STDRD,
+    FTSSL_DIST_E
+}                   t_ftssl_dist_e;
 
-
-typedef struct  s_ftssl_dispatcher
+typedef struct      s_ftssl_dist_table
 {
-    int                     type;
-    t_ftssl_cmd_dispatch    *cmd_dispatch;
-    t_ftssl_cmd_dist        *cmd_dist;
-}              t_ftssl_dispatcher;
+    int             key_dist;
+    char            *dist_name[FTSSL_SHMAX_CMD];
+    t_ftssl_dist    *dist_ft;    
+}                   t_ftssl_dist_t;
 
-int		ft_ssl_dispatcher(int argc, char *argv[]);
+typedef struct      s_ftssl_shell
+{
+    int             argc;
+    char            *argv[FTSSL_SHMAX_CMD];
+}                   t_ftssl_sh;
 
-int		ft_ssl_usage(void);
+typedef struct      s_ftssl
+{
+    int             shmode;
+    t_ftssl_sh      sh;
+}                   t_ftssl;
+
+int                 ft_ssl_init(t_ftssl *fssl, int argc, const char *argv[]);
+
+int		            ft_ssl_dist_exec(int argc, char *argv[]);
+
+int		            ft_ssl_usage(int argc, char *argv[]);
+int                 ft_ssl_error(int argc, char *argv[]);
+
+int                 ft_ssl_shell(t_ftssl_sh *sh);
 
 #endif
