@@ -29,7 +29,10 @@ SUBFILE = \
 				ssl/ft_ssl_usage.c \
 				ssl_dgst/ft_ssl_dgst.c \
 				ssl_dgst/ft_ssl_dgst_init.c \
+				ssl_dgst/ft_ssl_dgst_error.c \
+				ssl_dgst/ft_ssl_dgst_usage.c \
 				ssl_dgst/ft_ssl_dgst_output.c \
+				ssl_dgst/ft_ssl_dgst_mdsha.c \
 				ssl_cipher/ft_ssl_cipher.c \
 				ssl_stdrd/ft_ssl_stdrd.c \
 				dgst/ft_dgst_debug.c \
