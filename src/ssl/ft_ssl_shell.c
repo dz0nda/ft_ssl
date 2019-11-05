@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 22:12:33 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/05 04:53:58 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/05 21:46:38 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,20 +29,20 @@ static void ft_ssl_shell_parse(t_ftssl_sh *sh, char *buffer)
     char tmp[FTSSL_SHMAX_BUFFER];
     char *tmp_ptr;
 
-    i = -1;
-    while (*buffer && ++i < FTSSL_SHMAX_CMD)
+    i = 0;
+    while (*buffer && i < FTSSL_SHMAX_CMD)
     {
         ft_bzero(tmp, sizeof(tmp));
         tmp_ptr = tmp;
         while (*buffer && ft_isspace(*buffer))
-            ++buffer;
+            buffer++;
         if (*buffer == '\0')
             break ; 
         if (*buffer == '"') 
         {
-            while (++*buffer && *buffer != '"')
+            while (*buffer++ && *buffer != '"')
                 *tmp_ptr++ = *buffer;
-            (*buffer != '\0') ? ++buffer : 0;
+            (*buffer != '\0') ? buffer++ : 0;
         }
         else 
             while (*buffer && !ft_isspace(*buffer))
@@ -62,12 +62,5 @@ int     ft_ssl_shell(t_ftssl_sh *sh)
     if (read(0, buffer, FTSSL_SHMAX_BUFFER - 1) < 1)
         return (EXIT_FAILURE);
     ft_ssl_shell_parse(sh, buffer);
-
-    printf("\n=== DEBUG BUFFER === \n");
-    int i = -1;
-    while (++i < sh->argc)
-    {
-        printf("[%d] - .%s.\n", i, sh->argv[i]);
-    }
     return (EXIT_SUCCESS);
 }
