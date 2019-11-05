@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 23:11:52 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/04 23:16:56 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/05 18:55:02 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -94,3 +94,32 @@ int				ft_sha1_transform(t_dgst_ctx *ctx)
         ctx->state[i] += state[i];
 	return (EXIT_SUCCESS);
 }
+
+int			ft_sha1_final(t_dgst_ctx *ctx)
+{
+	int i;
+	int pad;
+	uint64_t ibits;
+	
+	i = ctx->iblock;
+	pad = ft_get_size_aligned(ctx->iblock + 8, 64);
+	ibits = ctx->len_input * 8;
+	ctx->block[ctx->iblock++] = 0x80;
+	while (++i < (pad - 8))
+	{
+		if (ctx->iblock == ctx->len_mbs)
+		{
+			ft_sha1_transform(ctx);
+			ctx->iblock = 0;
+			ft_memset(ctx->block,0, sizeof(ctx->iblock));
+		}
+		ctx->block[ctx->iblock++] = 0;
+	}
+	ft_memrev(&ibits, sizeof(ibits));
+	ft_memcpy(&ctx->block[ctx->iblock], &ibits, sizeof(ibits));
+	ft_sha1_transform(ctx);
+	printf("\n== Final hexdump == \n");
+	hexdump(ctx->block, pad);
+	return (EXIT_SUCCESS);
+}
+

@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 22:14:00 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/05 05:01:30 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/05 20:06:12 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,6 +18,7 @@
 
 # define        FT_DGST_MAX_STDIN 1024
 
+typedef struct      s_digest         t_dgst;
 typedef struct      s_digest_context t_dgst_ctx;
 typedef struct      s_digest_input   t_dgst_ipt;
 
@@ -29,6 +30,7 @@ typedef     int t_dgst_act_input(t_dgst_ctx *, t_dgst_ipt);
 
 typedef     int  t_dgst_process(t_dgst_ctx *);
 typedef     int  t_dgst_result(const char *, const char *);
+typedef     int  t_dgst_output(t_dgst *dgst);
 typedef     char t_dgst_file(const char *, char *);
 typedef     char t_dgst_string(const void *, unsigned int, char *);
 
@@ -45,7 +47,6 @@ typedef struct s_digest_dist
     t_dgst_process  *init;
     t_dgst_process  *transform;
     t_dgst_process  *final;
-    t_dgst_process  *result;
 }              t_dgst_dist;
 
 typedef struct      s_digest
@@ -54,6 +55,7 @@ typedef struct      s_digest
     char            *cmd_name;
     t_dgst_ctx      ctx;
     t_dgst_dist     dist;
+    t_dgst_output   *output;
 }                   t_dgst;
 
 int     ft_ssl_dgst(int argc, char *argv[]);
@@ -69,6 +71,9 @@ int	    ft_ssl_dgst_result(t_dgst_ctx *ctx);
 int		ft_ssl_dgst_result_q(t_dgst_ctx *ctx);
 int		ft_ssl_dgst_result_r(t_dgst_ctx *ctx);
 
+int	    ft_ssl_dgst_output(t_dgst *dgst);
+int		ft_ssl_dgst_output_q(t_dgst *dgst);
+int		ft_ssl_dgst_output_r(t_dgst *dgst);
 
 int     ft_ssl_dgst_error(char *cmd, char *err);
 

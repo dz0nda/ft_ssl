@@ -1,5 +1,13 @@
 #include "ft_ssl_dgst.h"
 
+int		ft_ssl_dgst_parse_flag(t_dgst *dgst, int argc, char *argv[])
+{
+	// const char
+	// int i;
+
+	// i = 1;
+}
+
 int     ft_ssl_dgst_parse(t_dgst *dgst, int argc, char *argv[])
 {
 	int i;
@@ -15,13 +23,13 @@ int     ft_ssl_dgst_parse(t_dgst *dgst, int argc, char *argv[])
 			if (argv[i][j] == 's')
 				printf("sok\n");
 			else if (argv[i][j] == 'p')
-				printf("pok\n");
+				ft_ssl_dgst_mdsha_file(dgst, NULL); // printf("pok\n");
 			else if (argv[i][j] == 'q')
-				printf("qok\n");
+				dgst->output = ft_ssl_dgst_output_q;
 			else if (argv[i][j] == 'r')
 			{
 				printf("rok\n");
-				dgst->dist.result = ft_ssl_dgst_result_r;
+				dgst->output = ft_ssl_dgst_output_r;
 			}
 			else
 				return (ft_ssl_dgst_error(argv[0], &argv[i][j]));
@@ -44,10 +52,10 @@ int     ft_ssl_dgst(int argc, char *argv[])
 	ft_memset(&dgst, 0, sizeof(dgst));
 	ft_ssl_dgst_init(&dgst, argv[0]);
 	printf("\n\nLen : %d \n\n\n", dgst.ctx.len_state);
-	if (argc > 1)
+	// if (argc > 1)
 		ft_ssl_dgst_parse(&dgst, argc, argv);
-	else
-		ft_ssl_dgst_mdsha_file(&dgst, NULL);
+	// else
+		// ft_ssl_dgst_mdsha_file(&dgst, NULL);
 	
 	// ft_ssl_dgst_mdsha_string(&dgst, "abc", 3);
 	// t_dgst 	ftssl_dgst;
