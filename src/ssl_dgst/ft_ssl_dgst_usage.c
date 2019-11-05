@@ -1,7 +1,9 @@
 #include "ft_ssl_dgst.h"
 
-void     ft_ssl_dgst_usage(void)
+void     ft_ssl_dgst_usage(char *cmd)
 {
-    ft_putstr("Message Digest commands: \n");
-    ft_putstr("md5, sha1, sha256 \n");
+    ft_putstr("usage: ");
+    ft_putstr(cmd);
+    ft_putstr(" [-pqr] [-s string] [files ...]");
+    ft_putendl(": \n");
 }

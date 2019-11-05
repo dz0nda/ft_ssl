@@ -9,6 +9,7 @@ int				ft_ssl_dgst_result(t_dgst_ctx *ctx)
 
 	i = -1;
 	// ft_md5_final_show(ctx);
+	ft_putstr("DGST () = ");
 	while (++i < ctx->len_state)
 	{
 		j = -1;
@@ -22,6 +23,59 @@ int				ft_ssl_dgst_result(t_dgst_ctx *ctx)
 			ft_putstr(s);
 		}
 	}
+	ft_putstr("\n");
+	return (EXIT_SUCCESS);
+}
+
+int				ft_ssl_dgst_result_q(t_dgst_ctx *ctx)
+{
+	int		i;
+	int		j;
+	char	s[12];
+	uint8_t	*p;
+
+	i = -1;
+	// ft_md5_final_show(ctx);
+	while (++i < ctx->len_state)
+	{
+		j = -1;
+        if (ctx->endian == FT_DGST_ENDIAN_BIG)
+		    ctx->state[i] = swap_uint32(ctx->state[i]); 
+		p = (uint8_t *)&ctx->state[i];
+		while (++j < 4)
+		{
+			ft_bzero(s, sizeof(s));
+			ft_itoa(p[j], s, 16);
+			ft_putstr(s);
+		}
+	}
+	ft_putstr("\n");
+	return (EXIT_SUCCESS);
+}
+
+int				ft_ssl_dgst_result_r(t_dgst_ctx *ctx)
+{
+	int		i;
+	int		j;
+	char	s[12];
+	uint8_t	*p;
+
+	i = -1;
+	// ft_md5_final_show(ctx);
+	while (++i < ctx->len_state)
+	{
+		j = -1;
+        if (ctx->endian == FT_DGST_ENDIAN_BIG)
+		    ctx->state[i] = swap_uint32(ctx->state[i]); 
+		p = (uint8_t *)&ctx->state[i];
+		while (++j < 4)
+		{
+			ft_bzero(s, sizeof(s));
+			ft_itoa(p[j], s, 16);
+			ft_putstr(s);
+		}
+	}
+	ft_putstr(" \" \" ");
 	ft_putstr("\n");
 	return (EXIT_SUCCESS);
 }

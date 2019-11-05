@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 22:14:00 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/04 22:40:19 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/05 05:01:30 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,6 +28,7 @@ typedef     int t_dgst_act_input(t_dgst_ctx *, t_dgst_ipt);
 
 
 typedef     int  t_dgst_process(t_dgst_ctx *);
+typedef     int  t_dgst_result(const char *, const char *);
 typedef     char t_dgst_file(const char *, char *);
 typedef     char t_dgst_string(const void *, unsigned int, char *);
 
@@ -44,6 +45,7 @@ typedef struct s_digest_dist
     t_dgst_process  *init;
     t_dgst_process  *transform;
     t_dgst_process  *final;
+    t_dgst_process  *result;
 }              t_dgst_dist;
 
 typedef struct      s_digest
@@ -58,23 +60,16 @@ int     ft_ssl_dgst(int argc, char *argv[]);
 
 int     ft_ssl_dgst_init(t_dgst *ftssl_dgst, const char *cmd_name);
 
-int 	get_input(uint8_t *block, t_dgst_ipt ipt, int len);
-int     ft_ssl_dgst_input(t_dgst_ctx *ctx, t_dgst_ipt ipt);
+int		ft_ssl_dgst_mdsha_string(t_dgst *dgst, char *data, size_t len);
+int		ft_ssl_dgst_mdsha_file(t_dgst *dgst, char *filename);
 
-// int     ft_dgst_dispatcher(char *cmd_name);
-// int     ft_dgst_dispatcher_ctx(int cmd_key, t_dgst_ctx *ctx);
-// int		ft_dgst_dispatcher_act(int cmd_key, t_dgst_act *act);
+void    ft_ssl_dgst_usage(char *cmd);
+
+int	    ft_ssl_dgst_result(t_dgst_ctx *ctx);
+int		ft_ssl_dgst_result_q(t_dgst_ctx *ctx);
+int		ft_ssl_dgst_result_r(t_dgst_ctx *ctx);
 
 
-void    ft_ssl_dgst_usage(void);
+int     ft_ssl_dgst_error(char *cmd, char *err);
 
-
-// functions for dgst
-
-// int			ft_dgst_init_md5_sha1(t_dgst_ctx *ctx);
-// // int			ft_ssl_dgst_init_sha256(t_dgst_ctx *ctx);
-
-// int			ft_ssl_dgst_final(t_dgst_ctx *ctx);
-
-int				ft_ssl_dgst_result(t_dgst_ctx *ctx);
 #endif

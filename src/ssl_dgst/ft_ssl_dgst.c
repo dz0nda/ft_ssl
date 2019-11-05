@@ -1,73 +1,39 @@
 #include "ft_ssl_dgst.h"
 
-int		ft_ssl_dgst_mdsha_file(t_dgst *dgst, char *filename)
-{
-	int i, fd;
-	char c[2];
-	t_dgst_dist dist;
-	t_dgst_ctx 	ctx;
-
-	i = -1;
-	ft_bzero(c, sizeof(c));
-	dist = dgst->dist;
-	ctx = dgst->ctx;
-
-	if (access(filename, F_OK) == -1 || (fd = open(filename, O_RDONLY)) == -1)
-		return (-1);
-
-	ctx.state = (uint32_t *)ft_memalloc(sizeof(uint32_t) * ctx.len_state);
-	ctx.block = (uint8_t *)ft_memalloc(sizeof(uint8_t) * (ctx.len_mbs * 2));
-	dist.init(&ctx);
-	while ((ctx.iblock = read(fd, ctx.block, ctx.len_mbs)) == ctx.len_mbs)
-	{
-		ctx.len_input += ctx.iblock;
-		dist.transform(&ctx);
-		ft_memset(ctx.block, 0, sizeof(ctx.block));
-	}
-	ctx.len_input += ctx.iblock;
-	// while (read(fd, c, 1) > 0)
-	// {
-	// 	ctx.len_input++;
-	// 	ctx.block[ctx.iblock++] = c[0];
-	// 	if (ctx.iblock == ctx.len_mbs)
-	// 	{
-	// 		dist.transform(&ctx);
-	// 		ctx.iblock = 0;
-	// 	}
-	// 	ft_bzero(c, sizeof(c));
-	// }
-	dist.final(&ctx);
-	dist.transform(&ctx); // need to be run in final
-	ft_ssl_dgst_result(&ctx);
-	return (EXIT_SUCCESS);
-}
-
-int		ft_ssl_dgst_mdsha_string(t_dgst *dgst, char *data, size_t len)
+int     ft_ssl_dgst_parse(t_dgst *dgst, int argc, char *argv[])
 {
 	int i;
-	t_dgst_dist dist;
-	t_dgst_ctx 	ctx;
+	int j;
 
-	i = -1;
-	dist = dgst->dist;
-	ctx = dgst->ctx;
-	ctx.state = (uint32_t *)ft_memalloc(sizeof(uint32_t) * ctx.len_state);
-	ctx.block = (uint8_t *)ft_memalloc(sizeof(uint8_t) * (ctx.len_mbs * 2));
-	ctx.len_input = len;
-	dist.init(&ctx);
-	while (ctx.idata < len)
+	i = 1;
+	j = 0;
+	printf("argc %d\n", argc);
+	while (i < argc && argv[i] &&  argv[i][j] == '-')
 	{
-		ctx.block[ctx.iblock++] = data[ctx.idata++];
-		if (ctx.iblock == ctx.len_mbs)
+		while (argv[i][++j])
 		{
-			dist.transform(&ctx);
-			ctx.iblock = 0;
+			if (argv[i][j] == 's')
+				printf("sok\n");
+			else if (argv[i][j] == 'p')
+				printf("pok\n");
+			else if (argv[i][j] == 'q')
+				printf("qok\n");
+			else if (argv[i][j] == 'r')
+			{
+				printf("rok\n");
+				dgst->dist.result = ft_ssl_dgst_result_r;
+			}
+			else
+				return (ft_ssl_dgst_error(argv[0], &argv[i][j]));
 		}
+		i++;
+		j = 0;
 	}
-	dist.final(&ctx);
-	dist.transform(&ctx); // need to be run in final
-	ft_ssl_dgst_result(&ctx);
-	return (EXIT_SUCCESS);
+	if (i == argc)
+		ft_ssl_dgst_mdsha_file(dgst, NULL);
+	else
+		while (i < argc)
+			ft_ssl_dgst_mdsha_file(dgst, argv[i++]);
 }
 
 int     ft_ssl_dgst(int argc, char *argv[])
@@ -78,7 +44,11 @@ int     ft_ssl_dgst(int argc, char *argv[])
 	ft_memset(&dgst, 0, sizeof(dgst));
 	ft_ssl_dgst_init(&dgst, argv[0]);
 	printf("\n\nLen : %d \n\n\n", dgst.ctx.len_state);
-	ft_ssl_dgst_mdsha_file(&dgst, "ft_ssl");
+	if (argc > 1)
+		ft_ssl_dgst_parse(&dgst, argc, argv);
+	else
+		ft_ssl_dgst_mdsha_file(&dgst, NULL);
+	
 	// ft_ssl_dgst_mdsha_string(&dgst, "abc", 3);
 	// t_dgst 	ftssl_dgst;
 
