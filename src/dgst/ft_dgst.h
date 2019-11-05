@@ -55,6 +55,7 @@ typedef struct  s_digest_context
     int         iblock;
     uint32_t    *state;
     uint8_t     *block;
+    char        dgst[FT_SHA256_HS];
 }               t_dgst_ctx;
 
 int			ft_md5_init(t_dgst_ctx *ctx);
