@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 22:12:33 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/04 22:12:35 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/05 04:53:58 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@ static void ft_ssl_shell_reset(t_ftssl_sh *sh)
 
     i = -1;
     while (++i < sh->argc)
-        free(sh->argv[i]);
+        ft_strdel(&sh->argv[i]);
     sh->argc = 0;
 }
 
@@ -62,5 +62,12 @@ int     ft_ssl_shell(t_ftssl_sh *sh)
     if (read(0, buffer, FTSSL_SHMAX_BUFFER - 1) < 1)
         return (EXIT_FAILURE);
     ft_ssl_shell_parse(sh, buffer);
+
+    printf("\n=== DEBUG BUFFER === \n");
+    int i = -1;
+    while (++i < sh->argc)
+    {
+        printf("[%d] - .%s.\n", i, sh->argv[i]);
+    }
     return (EXIT_SUCCESS);
 }

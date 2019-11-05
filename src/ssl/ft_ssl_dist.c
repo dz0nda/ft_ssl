@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 22:13:04 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/04 22:13:06 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/05 04:23:06 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,6 +25,8 @@ int		ft_ssl_dist_exec(int argc, char *argv[])
 	int	key_dist_name;
 
 	key_dist = -1;
+	if (argv[0] == NULL)
+		return (EXIT_SUCCESS);
 	while (++key_dist < FTSSL_DIST_E)
 	{
 		key_dist_name = -1;
