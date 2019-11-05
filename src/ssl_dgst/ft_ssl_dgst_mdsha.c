@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/05 04:42:44 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/05 21:36:28 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/06 00:37:39 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,6 +73,7 @@ int		ft_ssl_dgst_mdsha_string(t_dgst *dgst, char *data, size_t len)
 	}
 	dist->final(ctx);
     ft_dgst_result(ctx);
+	ft_ssl_dgst_output(dgst);
 	// dgst->output(dgst);
 	return (EXIT_SUCCESS);
 }

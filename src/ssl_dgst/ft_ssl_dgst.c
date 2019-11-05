@@ -21,7 +21,7 @@ int     ft_ssl_dgst_parse(t_dgst *dgst, int argc, char *argv[])
 		while (argv[i][++j])
 		{
 			if (argv[i][j] == 's')
-				printf("sok\n");
+				ft_ssl_dgst_mdsha_string(dgst, argv[i + 1], ft_strlen(argv[i + 1]));// printf("sok\n");
 			else if (argv[i][j] == 'p')
 				ft_ssl_dgst_mdsha_file(dgst, NULL); // printf("pok\n");
 			else if (argv[i][j] == 'q')
