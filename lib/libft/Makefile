@@ -30,6 +30,7 @@ SUBFILE = \
 				mem/memccpy.c \
 				mem/memalloc.c \
 				mem/memset.c \
+				mem/memrev.c \
 				lst/lstmap.c \
 				lst/lstadd.c \
 				lst/lstdelone.c \
@@ -132,6 +133,8 @@ all: directories $(TARGET)
 $(TARGET) : $(OBJS)
 	$(HIDE)echo $(MAKEFILE_NAME): Linking library $@
 	$(HIDE)ar rcs $(TARGET) $(OBJS)
+
+-include $(DEPS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@echo $(MAKEFILE_NAME): Building $@

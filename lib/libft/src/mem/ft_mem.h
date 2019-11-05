@@ -27,5 +27,6 @@ void	*ft_memmove(void *dst, const void *src, size_t len);
 void	*ft_memset(void *s, int c, size_t len);
 void	*ft_memalloc(size_t size);
 void    ft_memdel(void **ap);
+void    *ft_memrev(void *p, size_t len);
 
 #endif
