@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 23:07:42 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/05 18:53:01 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/06 04:11:23 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -104,7 +104,7 @@ int			ft_md5_final(t_dgst_ctx *ctx)
 	
 	i = ctx->iblock;
 	pad = ft_get_size_aligned(ctx->iblock + 8, 64);
-	ibits = ctx->len_input * 8;
+	ibits = ctx->idata * 8;
 	ctx->block[ctx->iblock++] = 0x80;
 	while (++i < (pad - 8))
 	{
@@ -118,8 +118,8 @@ int			ft_md5_final(t_dgst_ctx *ctx)
 	}
 	ft_memcpy(&ctx->block[ctx->iblock], &ibits, sizeof(ibits));
 	ft_md5_transform(ctx);
-	printf("\n== Final hexdump == \n");
-	hexdump(ctx->block, pad);
+	// printf("\n== Final hexdump == \n");
+	// hexdump(ctx->block, pad);
 	return (EXIT_SUCCESS);
 }
 

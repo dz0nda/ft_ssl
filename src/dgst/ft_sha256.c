@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 23:12:09 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/05 18:55:19 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/06 02:29:59 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -109,7 +109,7 @@ int			ft_sha256_final(t_dgst_ctx *ctx)
 	
 	i = ctx->iblock;
 	pad = ft_get_size_aligned(ctx->iblock + 8, 64);
-	ibits = ctx->len_input * 8;
+	ibits = ctx->idata * 8;
 	ctx->block[ctx->iblock++] = 0x80;
 	while (++i < (pad - 8))
 	{

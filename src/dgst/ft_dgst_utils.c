@@ -19,6 +19,21 @@ uint32_t		ft_shift_right(uint32_t word, uint32_t bits)
 	return (word >> bits);
 }
 
+uint64_t		ft_rotate_left64(uint64_t word, uint64_t bits)
+{
+	return ((word << bits) | (word >> (64 - bits)));
+}
+
+uint64_t		ft_rotate_right64(uint64_t word, uint64_t bits)
+{
+	return ((word >> bits) | (word << (64 - bits)));
+}
+
+uint64_t		ft_shift_right64(uint64_t word, uint64_t bits)
+{
+	return (word >> bits);
+}
+
 uint32_t swap_uint32( uint32_t val )
 {
     val = ((val << 8) & 0xFF00FF00 ) | ((val >> 8) & 0xFF00FF ); 
