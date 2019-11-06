@@ -58,7 +58,7 @@ typedef enum    s_digest_enum
   FT_SHA384_STATE   = 8,
 
   FT_SHA512_MBS     = 128,
-  FT_SHA512_HS      = 64,
+  FT_SHA512_HS      = 128,
   FT_SHA512_HBS     = 512,
   FT_SHA512_ENDIAN  = FT_DGST_ENDIAN_BIG,
   FT_SHA512_STATE   = FT_SHA512_HS / 8
