@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 22:14:00 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/05 20:06:12 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/06 07:14:58 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,7 +30,7 @@ typedef     int t_dgst_act_input(t_dgst_ctx *, t_dgst_ipt);
 
 typedef     int  t_dgst_process(t_dgst_ctx *);
 typedef     int  t_dgst_result(const char *, const char *);
-typedef     int  t_dgst_output(t_dgst *dgst);
+typedef     int  t_dgst_output(t_dgst *, char *, int);
 typedef     char t_dgst_file(const char *, char *);
 typedef     char t_dgst_string(const void *, unsigned int, char *);
 
@@ -39,21 +39,37 @@ typedef enum    s_digest_command_enum
     FT_MD5,
     FT_SHA1,
     FT_SHA256,
+    FT_SHA384,
+    FT_SHA512,
     FT_DGST_CMD
 }               t_dgst_cmd_e;
 
+typedef enum    s_digest_flag_enum
+{
+    FT_DGST_FLAG_P = 'p',
+    FT_DGST_FLAG_R = 'r',
+    FT_DGST_FLAG_S = 's',
+    FT_DGST_FLAG
+}               t_dgst_flag_e;
+
 typedef struct s_digest_dist
 {
+    t_dgst_ctx      ctx;
     t_dgst_process  *init;
     t_dgst_process  *transform;
     t_dgst_process  *final;
 }              t_dgst_dist;
 
+typedef struct s_digest_input
+{
+    char    *cmd_name;
+    char    *cmd_input;
+}               t_dgst_inpt;
+
 typedef struct      s_digest
 {
     int             cmd_key;
     char            *cmd_name;
-    t_dgst_ctx      ctx;
     t_dgst_dist     dist;
     t_dgst_output   *output;
 }                   t_dgst;
@@ -71,9 +87,9 @@ int	    ft_ssl_dgst_result(t_dgst_ctx *ctx);
 int		ft_ssl_dgst_result_q(t_dgst_ctx *ctx);
 int		ft_ssl_dgst_result_r(t_dgst_ctx *ctx);
 
-int	    ft_ssl_dgst_output(t_dgst *dgst);
-int		ft_ssl_dgst_output_q(t_dgst *dgst);
-int		ft_ssl_dgst_output_r(t_dgst *dgst);
+int	    ft_ssl_dgst_output(t_dgst *dgst, char *data, int len);
+int		ft_ssl_dgst_output_q(t_dgst *dgst, char *data, int len);
+int		ft_ssl_dgst_output_r(t_dgst *dgst, char *data, int len);
 
 int     ft_ssl_dgst_error(char *cmd, char *err);
 

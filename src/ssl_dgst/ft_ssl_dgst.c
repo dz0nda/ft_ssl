@@ -46,12 +46,12 @@ int     ft_ssl_dgst_parse(t_dgst *dgst, int argc, char *argv[])
 
 int     ft_ssl_dgst(int argc, char *argv[])
 {
-    printf("dgst has been.\n");
+    printf("dgst has been. %d\n", FT_DGST_FLAG);
     t_dgst dgst;
 
 	ft_memset(&dgst, 0, sizeof(dgst));
 	ft_ssl_dgst_init(&dgst, argv[0]);
-	printf("\n\nLen : %d \n\n\n", dgst.ctx.len_state);
+	printf("\n\nLen : %d \n\n\n", dgst.dist.ctx.len_state);
 	// if (argc > 1)
 		ft_ssl_dgst_parse(&dgst, argc, argv);
 	// else
