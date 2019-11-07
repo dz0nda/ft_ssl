@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 23:07:42 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/06 04:11:23 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/07 21:10:18 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,10 +15,10 @@
 
 int			ft_md5_init(t_dgst_ctx *ctx)
 {
-	ctx->state[0] = 0x67452301;
-    ctx->state[1] = 0xefcdab89;
-    ctx->state[2] = 0x98badcfe;
-    ctx->state[3] = 0x10325476;
+	ctx->state.x_32[0] = 0x67452301;
+    ctx->state.x_32[1] = 0xefcdab89;
+    ctx->state.x_32[2] = 0x98badcfe;
+    ctx->state.x_32[3] = 0x10325476;
 	return (EXIT_SUCCESS);
 }
 
@@ -78,7 +78,7 @@ int     		ft_md5_transform(t_dgst_ctx *ctx)
 	i = -1;
 	ft_memset(ks, 0, sizeof(ks));
 	ft_memset(fg, 0, sizeof(fg));
-    ft_memcpy(state, ctx->state, sizeof(state));
+    ft_memcpy(state, ctx->state.x_32, sizeof(state));
     ft_memcpy(w, ctx->block, sizeof(w));    // w = (uint32_t *)data;
 	while (++i < 64)
 	{
@@ -92,7 +92,48 @@ int     		ft_md5_transform(t_dgst_ctx *ctx)
 	}
     i = -1;
     while (++i < ctx->len_state)
-        ctx->state[i] += state[i];
+        ctx->state.x_32[i] += state[i];
+	return (EXIT_SUCCESS);
+}
+
+int			ft_dgst_pad(t_dgst_ctx *ctx)
+{
+	int i;
+	int pad;
+	uint64_t ibits;
+	
+	i = ctx->iblock;
+	pad = ft_get_size_aligned(ctx->iblock + 8, 64);
+	ibits = ctx->idata * 8;
+	ctx->block[ctx->iblock++] = 0x80;
+	while (++i < (pad - 8))
+	{
+		if (ctx->iblock == ctx->len_mbs)
+			break;
+		ctx->block[ctx->iblock++] = 0;
+	}
+	return (EXIT_SUCCESS);
+}
+
+int			ft_dgst_addlength_32(t_dgst_ctx *ctx)
+{
+	uint64_t ibits;
+	
+	ibits = ctx->idata * 8;
+	if (ctx->endian == FT_DGST_ENDIAN_BIG)
+		ft_memrev(&ibits, sizeof(ibits));
+	ft_memcpy(&ctx->block[ctx->iblock], &ibits, sizeof(ibits));
+	return (EXIT_SUCCESS);
+}
+
+int			ft_dgst_addlength_64(t_dgst_ctx *ctx)
+{
+	__uint128_t ibits;
+	
+	ibits = ctx->idata * 8;
+	if (ctx->endian == FT_DGST_ENDIAN_BIG)
+		ft_memrev(&ibits, sizeof(ibits));
+	ft_memcpy(&ctx->block[ctx->iblock], &ibits, sizeof(ibits));
 	return (EXIT_SUCCESS);
 }
 

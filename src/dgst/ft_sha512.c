@@ -2,14 +2,14 @@
 
 int			ft_sha512_init(t_dgst_ctx *ctx)
 {
-    ctx->state64[0] = 0x6a09e667f3bcc908;
-    ctx->state64[1] = 0xbb67ae8584caa73b;
-    ctx->state64[2] = 0x3c6ef372fe94f82b;
-    ctx->state64[3] = 0xa54ff53a5f1d36f1;
-    ctx->state64[4] = 0x510e527fade682d1;
-    ctx->state64[5] = 0x9b05688c2b3e6c1f;
-    ctx->state64[6] = 0x1f83d9abfb41bd6b;
-    ctx->state64[7] = 0x5be0cd19137e2179;
+    ctx->state.x_64[0] = 0x6a09e667f3bcc908;
+    ctx->state.x_64[1] = 0xbb67ae8584caa73b;
+    ctx->state.x_64[2] = 0x3c6ef372fe94f82b;
+    ctx->state.x_64[3] = 0xa54ff53a5f1d36f1;
+    ctx->state.x_64[4] = 0x510e527fade682d1;
+    ctx->state.x_64[5] = 0x9b05688c2b3e6c1f;
+    ctx->state.x_64[6] = 0x1f83d9abfb41bd6b;
+    ctx->state.x_64[7] = 0x5be0cd19137e2179;
 	return (EXIT_SUCCESS);
 }
 
@@ -73,7 +73,7 @@ int			ft_sha512_transform(t_dgst_ctx *ctx)
 	uint64_t 	s[2];
 
 	i = -1;
-	ft_memcpy(state, ctx->state64, sizeof(state));
+	ft_memcpy(state, ctx->state.x_64, sizeof(state));
 	ft_sha512_transform_word(w, ctx->block);
 	while (++i < 80)
 	{
@@ -89,7 +89,7 @@ int			ft_sha512_transform(t_dgst_ctx *ctx)
 	}
     i = -1;
     while (++i < ctx->len_state)
-        ctx->state64[i] += state[i];
+        ctx->state.x_64[i] += state[i];
 	return (EXIT_SUCCESS);
 }
 

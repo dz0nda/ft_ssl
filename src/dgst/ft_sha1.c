@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 23:11:52 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/06 02:30:00 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/07 21:17:44 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,11 +15,12 @@
 
 int			ft_sha1_init(t_dgst_ctx *ctx)
 {
-	ctx->state[0] = 0x67452301;
-    ctx->state[1] = 0xefcdab89;
-    ctx->state[2] = 0x98badcfe;
-    ctx->state[3] = 0x10325476;
-    ctx->state[4] = 0xc3d2e1f0;
+	ctx->state.x_32[0] = 0x67452301;
+	ctx->state.x_32[1] = 0xefcdab89;
+    ctx->state.x_32[2] = 0x98badcfe;
+    ctx->state.x_32[3] = 0x10325476;
+    ctx->state.x_32[4] = 0x10325476;
+    ctx->state.x_32[5] = 0xc3d2e1f0;
 	return (EXIT_SUCCESS);
 }
 
@@ -77,7 +78,7 @@ int				ft_sha1_transform(t_dgst_ctx *ctx)
     uint32_t tmp;
 
 	i = -1;
-    ft_memcpy(state, ctx->state, sizeof(state));
+    ft_memcpy(state, ctx->state.x_32, sizeof(state));
     ft_sha1_transform_word(w, ctx->block);
 	while (++i < 80)
 	{
@@ -91,7 +92,7 @@ int				ft_sha1_transform(t_dgst_ctx *ctx)
 	}
     i = -1;
     while (++i < ctx->len_state)
-        ctx->state[i] += state[i];
+        ctx->state.x_32[i] += state[i];
 	return (EXIT_SUCCESS);
 }
 

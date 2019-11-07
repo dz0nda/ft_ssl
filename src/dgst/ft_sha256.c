@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 23:12:09 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/06 02:29:59 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/07 21:16:40 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,14 +15,14 @@
 
 int			ft_sha256_init(t_dgst_ctx *ctx)
 {
-    ctx->state[0] = 0x6a09e667;
-    ctx->state[1] = 0xbb67ae85;
-    ctx->state[2] = 0x3c6ef372;
-    ctx->state[3] = 0xa54ff53a;
-    ctx->state[4] = 0x510e527f;
-    ctx->state[5] = 0x9b05688c;
-    ctx->state[6] = 0x1f83d9ab;
-    ctx->state[7] = 0x5be0cd19;
+    ctx->state.x_32[0] = 0x6a09e667;
+    ctx->state.x_32[1] = 0xbb67ae85;
+    ctx->state.x_32[2] = 0x3c6ef372;
+	ctx->state.x_32[3] = 0xa54ff53a;
+    ctx->state.x_32[4] = 0x510e527f;
+    ctx->state.x_32[5] = 0x9b05688c;
+    ctx->state.x_32[6] = 0x1f83d9ab;
+    ctx->state.x_32[7] = 0x5be0cd19;
 	return (EXIT_SUCCESS);
 }
 
@@ -81,7 +81,7 @@ int			ft_sha256_transform(t_dgst_ctx *ctx)
 	uint32_t 	s[2];
 
 	i = -1;
-	ft_memcpy(state, ctx->state, sizeof(state));
+	ft_memcpy(state, ctx->state.x_32, sizeof(state));
 	ft_sha256_transform_word(w, ctx->block);
 	while (++i < 64)
 	{
@@ -97,7 +97,7 @@ int			ft_sha256_transform(t_dgst_ctx *ctx)
 	}
     i = -1;
     while (++i < ctx->len_state)
-        ctx->state[i] += state[i];
+        ctx->state.x_32[i] += state[i];
 	return (EXIT_SUCCESS);
 }
 

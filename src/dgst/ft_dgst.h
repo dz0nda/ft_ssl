@@ -64,6 +64,12 @@ typedef enum    s_digest_enum
   FT_SHA512_STATE   = FT_SHA512_HS / 8
 }               t_dgst_e;
 
+typedef union   s_digest_uint_union
+{
+  uint32_t      x_32[FT_SHA512_STATE];
+  uint64_t      x_64[FT_SHA512_STATE];
+}               t_dgst_uint_u;
+
 typedef struct  s_digest_context
 {
     int         len_hs;
@@ -72,8 +78,9 @@ typedef struct  s_digest_context
     int         len_state;
     int         idata;
     int         iblock;
-    uint32_t    state[FT_SHA512_STATE];
+    // uint32_t    state[FT_SHA512_STATE];
     uint64_t    state64[FT_SHA512_STATE];
+    t_dgst_uint_u state;
     uint8_t     block[FT_SHA512_MBS];
     char        dgst[FT_SHA512_HS];
 }               t_dgst_ctx;
