@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/05 00:17:22 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/06 07:23:28 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/08 21:51:31 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,7 +15,7 @@
 
 int		ft_ssl_dgst_init(t_dgst *ftssl_dgst, const char *cmd_name)
 {
-	const t_dgst ftssl_dgst_table[FT_DGST_CMD] = {
+	const t_dgst ftssl_dgst_table[FT_DGST_DIST] = {
         { 
             FT_MD5, "md5", 
             { { FT_MD5_HS, FT_MD5_MBS, FT_DGST_ENDIAN_LITTLE, FT_MD5_STATE },
@@ -50,10 +50,10 @@ int		ft_ssl_dgst_init(t_dgst *ftssl_dgst, const char *cmd_name)
     int i;
 
     i = -1;
-    while (++i < FT_DGST_CMD)
+    while (++i < FT_DGST_DIST)
         if (ft_strcmp(ftssl_dgst_table[i].cmd_name, cmd_name) == 0)
             break;
-	if (i == FT_DGST_CMD)
+	if (i == FT_DGST_DIST)
 		return (EXIT_FAILURE);
     ft_memcpy(ftssl_dgst, &ftssl_dgst_table[i], sizeof(t_dgst));
     // ftssl_dgst->output = ft_ssl_dgst_output;

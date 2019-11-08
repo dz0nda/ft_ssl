@@ -47,11 +47,6 @@ uint64_t swap_uint64( uint64_t val )
     return (val << 32) | (val >> 32);
 }
 
-size_t	ft_get_size_aligned(size_t offset, size_t align)
-{
-	return (offset + (align - (offset % align) % align));
-}
-
 void hexdump(void *mem, unsigned int len)
 {
 	unsigned int i, j;

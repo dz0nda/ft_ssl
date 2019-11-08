@@ -25,6 +25,16 @@
  *      block     : Data to be processed (len: 2 * len_mbs)
 */
 
+typedef enum    s_digest_dist_enum
+{
+    FT_MD5,
+    FT_SHA1,
+    FT_SHA256,
+    FT_SHA384,
+    FT_SHA512,
+    FT_DGST_DIST
+}               t_dgst_dist_e;
+
 typedef enum    s_digest_enum
 {
   FT_MD5_MBS        = 64,
@@ -85,6 +95,8 @@ typedef struct  s_digest_context
     char        dgst[FT_SHA512_HS];
 }               t_dgst_ctx;
 
+
+
 typedef struct  s_digest_info
 {
     int         cmd_key;
@@ -99,6 +111,11 @@ typedef struct  s_digest_test
   t_dgst_inf    inf;
   t_dgst_ctx    ctx;
 }               t_dgst_test;
+
+/*
+ *      init: Init the dgst state
+ *      transform: Process block of size 'len_mbs'
+*/
 
 int			ft_md5_init(t_dgst_ctx *ctx);
 int 		ft_md5_transform(t_dgst_ctx *ctx);
@@ -118,7 +135,20 @@ int			ft_sha512_final(t_dgst_ctx *ctx);
 
 int			ft_sha384_init(t_dgst_ctx *ctx);
 
+/*
+ *      This interface connect to the sha functions
+*/
+
+int			ft_dgst_addlength_32(t_dgst_ctx *ctx);
+int			ft_dgst_addlength_64(t_dgst_ctx *ctx);
+
+int			ft_dgst_pad(t_dgst_ctx *ctx);
+
+int			ft_dgst_result32(t_dgst_ctx *ctx);
+int			ft_dgst_result64(t_dgst_ctx *ctx);
+
 int			ft_dgst_result(t_dgst_ctx *ctx);
+
 
 uint32_t		ft_rotate_left(uint32_t word, uint32_t bits);
 uint32_t		ft_rotate_right(uint32_t word, uint32_t bits);

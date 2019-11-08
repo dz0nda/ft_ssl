@@ -29,9 +29,6 @@ static void          ft_sha512_transform_word(uint64_t *w, const void *data)
         s0 = ft_rotate_right64(w[i-15], 1) ^ ft_rotate_right64(w[i-15], 8) ^ ft_shift_right64(w[i-15], 7);
 		s1 = ft_rotate_right64(w[i-2], 19) ^ ft_rotate_right64(w[i-2], 61) ^ ft_shift_right64(w[i-2], 6);
 		w[i] = w[i-16] + s0 + w[i-7] + s1;
-		// w[i] = swap_uint32(m[i]);
-		// w[i] = ft_sha256_sigma1a(w[i-2]) + w[i-7] + ft_sha256_sigma0a(w[i-15]) + w[i-16];
-		// w[i] = swap_uint32(w[i]);
 		i++;
 	}
 }

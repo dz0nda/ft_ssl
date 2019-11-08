@@ -12,7 +12,10 @@ int				ft_ssl_dgst_output(t_dgst *dgst, char *data, int len)
 	if (data == NULL)
 		ft_putstr("*stdin");
 	else if (len == 0)
+	{
+		ft_putchar('*');
 		ft_putstr(data);
+	}
 	else
 	{
 		ft_putchar('\"');
