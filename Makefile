@@ -30,17 +30,23 @@ SUBFILE = \
 				ssl_dgst/ft_ssl_dgst.c \
 				ssl_dgst/ft_ssl_dgst_init.c \
 				ssl_dgst/ft_ssl_dgst_error.c \
+				ssl_dgst/ft_ssl_dgst_parse.c \
 				ssl_dgst/ft_ssl_dgst_usage.c \
 				ssl_dgst/ft_ssl_dgst_output.c \
-				ssl_dgst/ft_ssl_dgst_mdsha.c \
+				ssl_dgst/ft_ssl_dgst_opt.c \
 				ssl_cipher/ft_ssl_cipher.c \
 				ssl_stdrd/ft_ssl_stdrd.c \
+				dgst/ft_dgst_addlen.c \
+				dgst/ft_dgst_pad.c \
+				dgst/ft_dgst_result.c \
 				dgst/ft_dgst_debug.c \
-				dgst/ft_dgst_final.c \
 				dgst/ft_dgst_utils.c \
+				dgst/ft_dgst.c \
 				dgst/ft_md5.c \
 				dgst/ft_sha1.c \
 				dgst/ft_sha256.c \
+				dgst/ft_sha384.c \
+				dgst/ft_sha512.c
 
 SRCDIRS = $(foreach dir, $(SUBDIR), $(addprefix $(SRCDIR)/, $(dir)))
 OBJDIRS = $(foreach dir, $(SUBDIR), $(addprefix $(OBJDIR)/, $(dir)))
