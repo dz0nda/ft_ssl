@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_memchr.c                                      .::    .:/ .      .::   */
+/*   libft.h                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: dzonda <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
+/*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/12/12 20:11:03 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/13 02:59:07 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Created: 2019/07/09 20:43:25 by dz0nda       #+#   ##    ##    #+#       */
+/*   Updated: 2019/11/10 19:55:47 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
+#ifndef LIBFT_H
+# define LIBFT_H
 
-#include "ft_mem.h"
+# include "./src/is/ft_is.h"
+# include "./src/mem/ft_mem.h"
+# include "./src/str/ft_str.h"
+# include "./src/put/ft_put.h"
+# include "./src/to/ft_to.h"
 
-void		*ft_memchr(const void *s, int c, size_t n)
-{
-	unsigned char *m;
-	unsigned char ch;
-
-	m = (unsigned char *)s;
-	ch = (unsigned char)c;
-	while (n-- > 0)
-	{
-		if (*m == ch)
-			return ((void *)m);
-		m++;
-	}
-	return (NULL);
-}
+#endif

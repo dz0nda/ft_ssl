@@ -1,41 +1,31 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_strjoin.c                                     .::    .:/ .      .::   */
+/*   ft_memcpy.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: dzonda <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/12/12 20:13:22 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/12 11:38:26 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Created: 2017/12/12 20:11:15 by dzonda       #+#   ##    ##    #+#       */
+/*   Updated: 2018/07/12 11:38:02 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "ft_str.h"
+#include "ft_mem.h"
 
-char		*ft_strjoin(const char *s1, const char *s2)
+void		*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	int		i;
-	char	*str;
+	unsigned char *d;
+	unsigned char *s;
+	size_t i;
 
+	d = (unsigned char *)dst;
+	s = (unsigned char *)src;
 	i = 0;
-	if (s1 && s2)
+	while (i < n)
 	{
-		if (!(str = ft_strnew(ft_strlen(s1) + ft_strlen(s2))))
-			return (NULL);
-		while (*s1)
-		{
-			str[i] = *s1;
-			s1++;
-			i++;
-		}
-		while (*s2)
-		{
-			str[i] = *s2;
-			s2++;
-			i++;
-		}
-		return (str);
+		d[i] = s[i];
+		i++;
 	}
-	return (NULL);
+	return (dst);
 }

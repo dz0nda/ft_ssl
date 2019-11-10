@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_memccpy.c                                     .::    .:/ .      .::   */
+/*   ft_strmap.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: dzonda <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/12/12 20:10:57 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/13 02:58:56 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Created: 2017/12/12 20:13:37 by dzonda       #+#   ##    ##    #+#       */
+/*   Updated: 2018/07/12 11:38:29 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "ft_mem.h"
+#include "ft_str.h"
 
-void				*ft_memccpy(void *dest, const void *src, int c, size_t n)
+char		*ft_strmap(const char *s, char (*f)(char))
 {
-    unsigned char   *d;
-    unsigned char   *s;
-    unsigned char   ch;
+	char	*str;
+	size_t	i;
 
-    d = (unsigned char *)dest;
-    s = (unsigned char *)src;
-    ch = (unsigned char)c;
-    while (n-- > 0)
-    {
-        *d=*s;
-        if (*d==ch)
-            return ((void *)(d + 1));
-        d++;
-        s++;
-    }
+	i = -1;
+	if (s)
+	{
+		if ((str = ft_strnew(ft_strlen(s))) == NULL)
+			return (NULL);
+		while (s[++i])
+			str[i] = f(str[i]);
+		return (str);
+	}
 	return (NULL);
 }

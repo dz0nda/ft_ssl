@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_strmap.c                                      .::    .:/ .      .::   */
+/*   ft_memcmp.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: dzonda <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/12/12 20:13:37 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/12 11:38:29 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Created: 2017/12/12 20:11:12 by dzonda       #+#   ##    ##    #+#       */
+/*   Updated: 2018/07/12 11:38:00 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "ft_str.h"
+#include "ft_mem.h"
 
-char		*ft_strmap(const char *s, char (*f)(char))
+int		ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	char	*str;
-	size_t	i;
-
-	i = -1;
-	if (s)
-	{
-		if (!(str = ft_strnew(ft_strlen(s))))
-			return (NULL);
-		while (s[++i])
-			str[i] = f(str[i]);
-		return (str);
-	}
-	return (NULL);
+	unsigned char *uc1;
+	unsigned char *uc2;
+	size_t i;
+	
+	uc1 = (unsigned char *)s1;
+	uc2 = (unsigned char *)s2;
+	i = 0;
+	while (i < n && uc1[i] && uc2[i] && uc1[i] == uc2[i])
+		i++;
+	i = uc1[i] = uc2[i];
+	return (i);
 }
