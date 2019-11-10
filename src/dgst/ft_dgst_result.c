@@ -1,6 +1,6 @@
 #include "ft_dgst.h"
 
-int				ft_dgst_result32(t_dgst_ctx *ctx)
+char*				ft_dgst_result32(t_dgst_ctx *ctx, char *cmd_dgst)
 {
 	int		i;
 	int		j;
@@ -22,10 +22,11 @@ int				ft_dgst_result32(t_dgst_ctx *ctx)
 			ft_strcat(ctx->dgst, s);
 		}
 	}
-	return (EXIT_SUCCESS);
+	ft_strcpy(cmd_dgst, ctx->dgst);
+	return (cmd_dgst);
 }
 
-int				ft_dgst_result64(t_dgst_ctx *ctx)
+char*					ft_dgst_result64(t_dgst_ctx *ctx, char *cmd_dgst)
 {
 	int		i;
 	int		j;
@@ -34,7 +35,7 @@ int				ft_dgst_result64(t_dgst_ctx *ctx)
 
 	i = -1;
 	ft_bzero(ctx->dgst, sizeof(ctx->dgst));
-	while (++i < ctx->len_state)
+	while (++i < 8)
 	{
 		j = -1;
         if (ctx->endian == FT_DGST_ENDIAN_BIG)
@@ -45,9 +46,8 @@ int				ft_dgst_result64(t_dgst_ctx *ctx)
 			ft_bzero(s, sizeof(s));
 			ft_itoa(p[j], s, 16);
 			ft_strcat(ctx->dgst, s);
-			// ft_putstr(s);
 		}
 	}
-	// ft_putstr("\n");
-	return (EXIT_SUCCESS);
+	ft_strcpy(cmd_dgst, ctx->dgst);
+	return (cmd_dgst);
 }

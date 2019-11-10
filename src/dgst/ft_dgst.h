@@ -7,6 +7,8 @@
 # define FT_DGST_ENDIAN_LITTLE    0
 # define FT_DGST_ENDIAN_BIG       1
 
+
+
 /*
  *  
  *  Enum :
@@ -24,6 +26,12 @@
  *      state     : Array of variables processed
  *      block     : Data to be processed (len: 2 * len_mbs)
 */
+
+
+typedef struct  s_digest_context  t_dgst_ctx;
+
+typedef     int  t_dgst_process(t_dgst_ctx *);
+typedef     char*	  t_dgst_dist_result(t_dgst_ctx *, char *);
 
 typedef enum    s_digest_dist_enum
 {
@@ -74,11 +82,11 @@ typedef enum    s_digest_enum
   FT_SHA512_STATE   = FT_SHA512_HS / 8
 }               t_dgst_e;
 
-typedef union   s_digest_uint_union
+typedef union   s_digest_state
 {
   uint32_t      x_32[FT_SHA512_STATE];
   uint64_t      x_64[FT_SHA512_STATE];
-}               t_dgst_uint_u;
+}               t_dgst_st;
 
 typedef struct  s_digest_context
 {
@@ -88,34 +96,36 @@ typedef struct  s_digest_context
     int         len_state;
     int         idata;
     int         iblock;
-    // uint32_t    state[FT_SHA512_STATE];
-    uint64_t    state64[FT_SHA512_STATE];
-    t_dgst_uint_u state;
+    t_dgst_st   state;
     uint8_t     block[FT_SHA512_MBS];
     char        dgst[FT_SHA512_HS];
 }               t_dgst_ctx;
 
-
-
-typedef struct  s_digest_info
+typedef struct s_dgst_dist
 {
-    int         cmd_key;
-    int         cmd_hs;
-    int         cmd_mbs;
-    int         cmd_endian;
-    int         len_state;
-}               t_dgst_inf;
+    t_dgst_process      *init;
+    t_dgst_process      *transform;
+    t_dgst_process      *final;
+    t_dgst_dist_result  *result;
+}               t_dgst_dist;
 
-typedef struct  s_digest_test
+
+typedef struct  s_digest
 {
-  t_dgst_inf    inf;
-  t_dgst_ctx    ctx;
-}               t_dgst_test;
+  int         dist_enum;
+  t_dgst_ctx  ctx;
+  t_dgst_dist dist;
+}               t_dgst;
+
+
+char*     ft_dgst(int cmd_key, char *cmd_arg, int cmd_arg_len, char *cmd_dgst);
 
 /*
  *      init: Init the dgst state
  *      transform: Process block of size 'len_mbs'
 */
+
+
 
 int			ft_md5_init(t_dgst_ctx *ctx);
 int 		ft_md5_transform(t_dgst_ctx *ctx);
@@ -144,8 +154,8 @@ int			ft_dgst_addlength_64(t_dgst_ctx *ctx);
 
 int			ft_dgst_pad(t_dgst_ctx *ctx);
 
-int			ft_dgst_result32(t_dgst_ctx *ctx);
-int			ft_dgst_result64(t_dgst_ctx *ctx);
+char*				ft_dgst_result32(t_dgst_ctx *ctx, char *cmd_dgst);
+char*				ft_dgst_result64(t_dgst_ctx *ctx, char *cmd_dgst);
 
 int			ft_dgst_result(t_dgst_ctx *ctx);
 
