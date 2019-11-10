@@ -1,52 +1,53 @@
 #include "ft_ssl_dgst.h"
 
-int				ft_ssl_dgst_output(t_dgst *dgst, char *data, int len)
+int				ft_ssl_dgst_output(t_ftssl_dgst *ftssl_dgst)
 {
 	int i;
 
 	i = -1;
-	while (dgst->cmd_name[++i] != '\0')
-		ft_putchar(ft_toupper(dgst->cmd_name[i]));
-	// ft_putstr(dgst->cmd_name);
+	while (ftssl_dgst->ctx.cmd_name[++i] != '\0')
+		ft_putchar(ft_toupper(ftssl_dgst->ctx.cmd_name[i]));
 	ft_putstr(" (");
-	if (data == NULL)
+	if (ftssl_dgst->ctx.cmd_arg == NULL)
 		ft_putstr("*stdin");
-	else if (len == 0)
+	else if (ftssl_dgst->ctx.cmd_arg_len == 0)
 	{
 		ft_putchar('*');
-		ft_putstr(data);
+		ft_putstr(ftssl_dgst->ctx.cmd_arg);
 	}
 	else
 	{
 		ft_putchar('\"');
-		ft_putstr(data);
+		ft_putstr(ftssl_dgst->ctx.cmd_arg);
 		ft_putchar('\"');
 	}
 	ft_putstr(") = ");
-	ft_putendl(dgst->dist.ctx.dgst);
+	ft_putendl(ftssl_dgst->ctx.cmd_dgst);
+	return (EXIT_SUCCESS);
 }
 
-int				ft_ssl_dgst_output_q(t_dgst *dgst, char *data, int len)
+int				ft_ssl_dgst_output_q(t_ftssl_dgst *ftssl_dgst)
 {
-	ft_putendl(dgst->dist.ctx.dgst);
+	ft_putendl(ftssl_dgst->ctx.cmd_dgst);
+	return (EXIT_SUCCESS);
 }
 
-int				ft_ssl_dgst_output_r(t_dgst *dgst, char *data, int len)
+int				ft_ssl_dgst_output_r(t_ftssl_dgst *ftssl_dgst)
 {
-	ft_putstr(dgst->dist.ctx.dgst);
+	ft_putstr(ftssl_dgst->ctx.cmd_dgst);
 	ft_putchar(' ');
-	if (data == NULL)
+	if (ftssl_dgst->ctx.cmd_arg == NULL)
 		ft_putstr("*stdin");
-	else if (len == 0)
+	else if (ftssl_dgst->ctx.cmd_arg_len == 0)
 	{
 		ft_putchar('*');
-		ft_putstr(data);
+		ft_putstr(ftssl_dgst->ctx.cmd_arg);
 	}
 	else
 	{
 		ft_putchar('\"');
-		ft_putstr(data);
+		ft_putstr(ftssl_dgst->ctx.cmd_arg);
 		ft_putchar('\"');
 	}
+	return (EXIT_SUCCESS);
 }
-
