@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/08 14:07:28 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/10 16:17:20 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/11 03:48:56 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -54,65 +54,90 @@ int		ft_dgst_init(t_dgst *dgst, int cmd_key)
     return (EXIT_SUCCESS);
 }
 
-int		ft_dgst_string(t_dgst *dgst, char *data, size_t len)
+char     *ft_dgst_file(int cmd_key, char *filename, int outp, char *cmd_dgst)
 {
-	t_dgst_dist *dist;
-	t_dgst_ctx 	*ctx;
+    int fd;
+    t_dgst  dgst;
+    char c[2];
 
-	dist = &dgst->dist;
-	ctx = &dgst->ctx;
-	while (ctx->idata < len)
-	{
-		ctx->block[ctx->iblock++] = data[ctx->idata++];
-		if (ctx->iblock == ctx->len_mbs)
-		{
-			dist->transform(ctx);
-			ctx->iblock = 0;
-		}
-	}
-    return (EXIT_SUCCESS);
-}
-
-
-int		ft_dgst_file(t_dgst *dgst, char *filename)
-{
-	t_dgst_dist *dist;
-	t_dgst_ctx 	*ctx;
-	int fd;
-
-	dist = &dgst->dist;
-	ctx = &dgst->ctx;
+    fd = 0;
+    ft_memset(&dgst, 0, sizeof(dgst));
+    ft_bzero(c, sizeof(c));
+    ft_dgst_init(&dgst, cmd_key);
+    dgst.dist.init(&dgst.ctx);
 	if (filename == NULL)
 		fd = 0;
-	else if (access(filename, F_OK) == -1 || (fd = open(filename, O_RDONLY)) == -1)
-		return (EXIT_FAILURE);
-	while ((ctx->iblock = read(fd, ctx->block, ctx->len_mbs)) == ctx->len_mbs)
-	{
-		ctx->idata += ctx->iblock;
-		dist->transform(ctx);
-		ft_memset(ctx->block, 0, sizeof(ctx->block));
-	}
-	ctx->idata += ctx->iblock;
-	return (EXIT_SUCCESS);
+	else if ((fd = open(filename, O_RDONLY)) == -1)
+		return (NULL);
+    while (read(fd, c, 1) > 0)
+    {
+        dgst.ctx.block[dgst.ctx.iblock++] = c[0];
+    	dgst.ctx.idata++;
+        ft_bzero(c, sizeof(c));
+        if (dgst.ctx.iblock == dgst.ctx.len_mbs)
+        {
+            dgst.dist.transform(&dgst.ctx);
+            if (outp == FT_SSL_TRUE)
+                ft_putstr((const char *)dgst.ctx.block);
+            ft_memset(dgst.ctx.block, 0, sizeof(dgst.ctx.block));
+            dgst.ctx.iblock = 0;
+        }
+    }
+	// while ((dgst.ctx.iblock = read(fd, dgst.ctx.block, dgst.ctx.len_mbs)) == dgst.ctx.len_mbs)
+	// {
+	// 	dgst.ctx.idata += dgst.ctx.iblock;
+	// 	dgst.dist.transform(&dgst.ctx);
+    //     if (outp == FT_SSL_TRUE)
+    //         ft_putstr((const char *)dgst.ctx.block);
+	// 	ft_memset(dgst.ctx.block, 0, sizeof(dgst.ctx.block));
+	// }
+    close(fd);
+    if (outp == FT_SSL_TRUE)
+        ft_putstr((const char *)dgst.ctx.block);
+	// dgst.ctx.idata += dgst.ctx.iblock;
+    dgst.dist.final(&dgst.ctx);
+    dgst.dist.result(&dgst.ctx, cmd_dgst);
+    return (cmd_dgst);
 }
 
-char     *ft_dgst(int cmd_key, char *cmd_arg, int cmd_arg_len, char *cmd_dgst)
+char     *ft_dgst_string(int cmd_key, char *cmd_arg, int cmd_arg_len, char *cmd_dgst)
 {
     t_dgst  dgst;
 
     ft_memset(&dgst, 0, sizeof(dgst));
     ft_dgst_init(&dgst, cmd_key);
-    // if (dgst.dist.init == NULL)
-    //     printf("not\n");
     dgst.dist.init(&dgst.ctx);
-    if (cmd_arg_len == 0)
-        ft_dgst_file(&dgst, cmd_arg);
-    else
-        ft_dgst_string(&dgst, cmd_arg, cmd_arg_len);
+	while (dgst.ctx.idata < cmd_arg_len)
+	{
+		dgst.ctx.block[dgst.ctx.iblock++] = cmd_arg[dgst.ctx.idata++];
+		if (dgst.ctx.iblock == dgst.ctx.len_mbs)
+		{
+			dgst.dist.transform(&dgst.ctx);
+			dgst.ctx.iblock = 0;
+		}
+	}
     dgst.dist.final(&dgst.ctx);
     dgst.dist.result(&dgst.ctx, cmd_dgst);
-    return (cmd_dgst);
+    return(cmd_dgst);
 }
+
+// char     *ft_dgst(int cmd_key, char *cmd_arg, int cmd_arg_len, char *cmd_dgst)
+// {
+//     t_dgst  dgst;
+
+//     ft_memset(&dgst, 0, sizeof(dgst));
+//     ft_dgst_init(&dgst, cmd_key);
+//     // if (dgst.dist.init == NULL)
+//     //     printf("not\n");
+//     dgst.dist.init(&dgst.ctx);
+//     if (cmd_arg_len == 0)
+//         ft_dgst_file(&dgst, cmd_arg);
+//     else
+//         ft_dgst_string(&dgst, cmd_arg, cmd_arg_len);
+//     dgst.dist.final(&dgst.ctx);
+//     dgst.dist.result(&dgst.ctx, cmd_dgst);
+//     return (cmd_dgst);
+// }
 
 // int		ft_ssl_dgst_mdsha_init(t_dgst *dgst)
 // {

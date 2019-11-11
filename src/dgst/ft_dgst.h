@@ -118,13 +118,13 @@ typedef struct  s_digest
 }               t_dgst;
 
 
-char*     ft_dgst(int cmd_key, char *cmd_arg, int cmd_arg_len, char *cmd_dgst);
+char     *ft_dgst_file(int cmd_key, char *filename, int outp, char *cmd_dgst);
+char     *ft_dgst_string(int cmd_key, char *cmd_arg, int cmd_arg_len, char *cmd_dgst);
 
 /*
  *      init: Init the dgst state
  *      transform: Process block of size 'len_mbs'
 */
-
 
 
 int			ft_md5_init(t_dgst_ctx *ctx);
