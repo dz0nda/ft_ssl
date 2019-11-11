@@ -6,4 +6,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
+# define FT_SSL_TRUE    1
+# define FT_SSL_FALSE   0
+
 #endif
