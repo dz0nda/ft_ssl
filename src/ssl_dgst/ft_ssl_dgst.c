@@ -27,20 +27,36 @@ int     ft_ssl_dgst_exec(t_ftssl_dgst *ftssl_dgst)
 	printf("exec \n");
 
 	ft_bzero(dgst, FTSSL_DGST_MAX_BUFFER);
-	ft_dgst(ftssl_dgst->ctx.cmd_key, ftssl_dgst->ctx.cmd_arg, ftssl_dgst->ctx.cmd_arg_len, ftssl_dgst->ctx.cmd_dgst);
+	if (ftssl_dgst->ctx.cmd_arg_len == 0)
+		ft_dgst_file(ftssl_dgst->ctx.cmd_key, ftssl_dgst->ctx.cmd_arg, FT_SSL_TRUE, ftssl_dgst->ctx.cmd_dgst);
+	else
+		ft_dgst_string(ftssl_dgst->ctx.cmd_key, ftssl_dgst->ctx.cmd_arg, ftssl_dgst->ctx.cmd_arg_len, ftssl_dgst->ctx.cmd_dgst);
+	
+	// ft_dgst(ftssl_dgst->ctx.cmd_key, ftssl_dgst->ctx.cmd_arg, ftssl_dgst->ctx.cmd_arg_len, ftssl_dgst->ctx.cmd_dgst);
 	ftssl_dgst->outp.outp_dist(ftssl_dgst);
+	return (EXIT_SUCCESS);
 }
 
 int     ft_ssl_dgst(int argc, char *argv[])
 {
 	t_ftssl_dgst	ftssl_dgst;
+	t_ftssl_dgst_inpt *inpt;
 
 	ft_memset(&ftssl_dgst, 0, sizeof(ftssl_dgst));
 	ft_ssl_dgst_init(&ftssl_dgst, argc, argv);
 	ft_ssl_dgst_opt(&ftssl_dgst, ftssl_dgst.inpt.argv[0]);
-	if (ft_ssl_dgst_parse_opt(&ftssl_dgst) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	ft_ssl_dgst_parse_arg(&ftssl_dgst);
+	inpt = &ftssl_dgst.inpt;
+	while (ftssl_dgst.inpt.i < ftssl_dgst.inpt.argc)
+	{
+		while (*inpt->argv[inpt->i] != '-' || inpt->argv[inpt->i][1] != '\0')
+			if (ft_ssl_dgst_opt(&ftssl_dgst, inpt->argv[inpt->i] + 1) == EXIT_FAILURE)
+				return (EXIT_FAILURE);
+		
+	}
+
+	// if (ft_ssl_dgst_parse_opt(&ftssl_dgst) == EXIT_FAILURE)
+	// 	return (EXIT_FAILURE);
+	// ft_ssl_dgst_parse_arg(&ftssl_dgst);
 	ft_ssl_dgst_show_all(ftssl_dgst);
 	return (EXIT_FAILURE);   
 }
