@@ -6,7 +6,7 @@
 #    By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/11/10 21:08:47 by dzonda       #+#   ##    ##    #+#        #
-#    Updated: 2019/11/10 21:13:58 by dzonda      ###    #+. /#+    ###.fr      #
+#    Updated: 2019/11/11 17:54:14 by dzonda      ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -134,17 +134,17 @@ ERRIGNORE = 2>/dev/null
 all: $(NAME)
 
 $(NAME): $(OBJDIRS) $(OBJS)
-	$(HIDE)echo $(MAKEFILE_NAME): Linking library $@
+	$(HIDE)echo $(MAKEFILE_NAME): "Linking \t ->" $@
 	$(HIDE)ar rcs $(NAME) $(OBJS)
 
 -include $(DEPS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
-	@echo $(MAKEFILE_NAME): Building $@
+	@echo $(MAKEFILE_NAME): "Building \t ->" $@
 	$(HIDE)$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ -MMD
 
 $(OBJDIRS):
-	@echo $(MAKEFILE_NAME): Making $(OBJDIRS)
+	@echo $(MAKEFILE_NAME): "Making \t ->" $(OBJDIRS)
 	$(HIDE)$(MKDIR) $(OBJDIRS) $(ERRIGNORE)
 
 clean:
