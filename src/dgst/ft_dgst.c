@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/08 14:07:28 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/11 03:48:56 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/11 21:24:12 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,7 +29,7 @@ int		ft_dgst_init(t_dgst *dgst, int cmd_key)
         {
             FT_SHA256,
             { FT_SHA256_HS, FT_SHA256_MBS, FT_DGST_ENDIAN_BIG, FT_SHA256_STATE },
-            { ft_sha256_init, ft_sha256_transform, ft_sha1_final, ft_dgst_result32}
+            { ft_sha256_init, ft_sha256_transform, ft_sha256_final, ft_dgst_result32}
         },
         {
             FT_SHA384,
@@ -69,32 +69,32 @@ char     *ft_dgst_file(int cmd_key, char *filename, int outp, char *cmd_dgst)
 		fd = 0;
 	else if ((fd = open(filename, O_RDONLY)) == -1)
 		return (NULL);
-    while (read(fd, c, 1) > 0)
-    {
-        dgst.ctx.block[dgst.ctx.iblock++] = c[0];
-    	dgst.ctx.idata++;
-        ft_bzero(c, sizeof(c));
-        if (dgst.ctx.iblock == dgst.ctx.len_mbs)
-        {
-            dgst.dist.transform(&dgst.ctx);
-            if (outp == FT_SSL_TRUE)
-                ft_putstr((const char *)dgst.ctx.block);
-            ft_memset(dgst.ctx.block, 0, sizeof(dgst.ctx.block));
-            dgst.ctx.iblock = 0;
-        }
-    }
-	// while ((dgst.ctx.iblock = read(fd, dgst.ctx.block, dgst.ctx.len_mbs)) == dgst.ctx.len_mbs)
-	// {
-	// 	dgst.ctx.idata += dgst.ctx.iblock;
-	// 	dgst.dist.transform(&dgst.ctx);
-    //     if (outp == FT_SSL_TRUE)
-    //         ft_putstr((const char *)dgst.ctx.block);
-	// 	ft_memset(dgst.ctx.block, 0, sizeof(dgst.ctx.block));
-	// }
+    // while (read(fd, c, 1) > 0)
+    // {
+    //     dgst.ctx.block[dgst.ctx.iblock++] = c[0];
+    // 	dgst.ctx.idata++;
+    //     ft_bzero(c, sizeof(c));
+    //     if (dgst.ctx.iblock == dgst.ctx.len_mbs)
+    //     {
+    //         dgst.dist.transform(&dgst.ctx);
+    //         if (outp == FT_SSL_TRUE)
+    //             ft_putstr((const char *)dgst.ctx.block);
+    //         ft_memset(dgst.ctx.block, 0, sizeof(dgst.ctx.block));
+    //         dgst.ctx.iblock = 0;
+    //     }
+    // }
+	while ((dgst.ctx.iblock = read(fd, dgst.ctx.block, dgst.ctx.len_mbs)) == dgst.ctx.len_mbs)
+	{
+		dgst.ctx.idata += dgst.ctx.iblock;
+		dgst.dist.transform(&dgst.ctx);
+        if (outp == FT_SSL_TRUE)
+            ft_putstr((const char *)dgst.ctx.block);
+		ft_memset(dgst.ctx.block, 0, sizeof(dgst.ctx.block));
+	}
     close(fd);
     if (outp == FT_SSL_TRUE)
         ft_putstr((const char *)dgst.ctx.block);
-	// dgst.ctx.idata += dgst.ctx.iblock;
+	dgst.ctx.idata += dgst.ctx.iblock;
     dgst.dist.final(&dgst.ctx);
     dgst.dist.result(&dgst.ctx, cmd_dgst);
     return (cmd_dgst);

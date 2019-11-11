@@ -4,7 +4,7 @@ char*				ft_dgst_result32(t_dgst_ctx *ctx, char *cmd_dgst)
 {
 	int		i;
 	int		j;
-	char	s[512];
+	char	s[3];
 	uint8_t	*p;
 
 	i = -1;
@@ -19,10 +19,9 @@ char*				ft_dgst_result32(t_dgst_ctx *ctx, char *cmd_dgst)
 		{
 			ft_bzero(s, sizeof(s));
 			ft_itoa(p[j], s, 16);
-			ft_strcat(ctx->dgst, s);
+			ft_strcat(cmd_dgst, s);
 		}
 	}
-	ft_strcpy(cmd_dgst, ctx->dgst);
 	return (cmd_dgst);
 }
 
@@ -30,12 +29,12 @@ char*					ft_dgst_result64(t_dgst_ctx *ctx, char *cmd_dgst)
 {
 	int		i;
 	int		j;
-	char	s[512];
+	char	s[6];
 	uint8_t	*p;
 
 	i = -1;
 	ft_bzero(ctx->dgst, sizeof(ctx->dgst));
-	while (++i < 8)
+	while (++i < ctx->len_state)
 	{
 		j = -1;
         if (ctx->endian == FT_DGST_ENDIAN_BIG)
@@ -45,9 +44,8 @@ char*					ft_dgst_result64(t_dgst_ctx *ctx, char *cmd_dgst)
 		{
 			ft_bzero(s, sizeof(s));
 			ft_itoa(p[j], s, 16);
-			ft_strcat(ctx->dgst, s);
+			ft_strcat(cmd_dgst, s);
 		}
 	}
-	ft_strcpy(cmd_dgst, ctx->dgst);
 	return (cmd_dgst);
 }

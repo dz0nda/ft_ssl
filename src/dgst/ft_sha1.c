@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 23:11:52 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/07 21:17:44 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/11 21:16:54 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,8 +19,7 @@ int			ft_sha1_init(t_dgst_ctx *ctx)
 	ctx->state.x_32[1] = 0xefcdab89;
     ctx->state.x_32[2] = 0x98badcfe;
     ctx->state.x_32[3] = 0x10325476;
-    ctx->state.x_32[4] = 0x10325476;
-    ctx->state.x_32[5] = 0xc3d2e1f0;
+    ctx->state.x_32[4] = 0xc3d2e1f0;
 	return (EXIT_SUCCESS);
 }
 
@@ -119,8 +118,8 @@ int			ft_sha1_final(t_dgst_ctx *ctx)
 	ft_memrev(&ibits, sizeof(ibits));
 	ft_memcpy(&ctx->block[ctx->iblock], &ibits, sizeof(ibits));
 	ft_sha1_transform(ctx);
-	printf("\n== Final hexdump == \n");
-	hexdump(ctx->block, pad);
+	if (FT_DGST_DEBUG)
+		hexdump(ctx->block, pad);
 	return (EXIT_SUCCESS);
 }
 

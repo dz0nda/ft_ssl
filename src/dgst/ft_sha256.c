@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 23:12:09 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/07 21:16:40 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/11 21:16:37 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -124,7 +124,7 @@ int			ft_sha256_final(t_dgst_ctx *ctx)
 	ft_memrev(&ibits, sizeof(ibits));
 	ft_memcpy(&ctx->block[ctx->iblock], &ibits, sizeof(ibits));
 	ft_sha256_transform(ctx);
-	printf("\n== Final hexdump == \n");
-	hexdump(ctx->block, pad);
+	if (FT_DGST_DEBUG)
+		hexdump(ctx->block, pad);
 	return (EXIT_SUCCESS);
 }

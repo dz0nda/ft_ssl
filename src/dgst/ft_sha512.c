@@ -113,7 +113,7 @@ int			ft_sha512_final(t_dgst_ctx *ctx)
 	ft_memrev(&ibits, sizeof(ibits));
 	ft_memcpy(&ctx->block[ctx->iblock], &ibits, sizeof(ibits));
 	ft_sha512_transform(ctx);
-	printf("\n== Final hexdump == \n");
-	hexdump(ctx->block, pad);
+	if (FT_DGST_DEBUG)
+		hexdump(ctx->block, pad);
 	return (EXIT_SUCCESS);
 }

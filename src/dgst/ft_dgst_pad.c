@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/08 12:01:09 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/08 12:15:50 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/11 18:40:43 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,11 +22,9 @@ int			ft_dgst_pad(t_dgst_ctx *ctx)
 {
 	int i;
 	int pad;
-	uint64_t ibits;
-	
+
 	i = ctx->iblock;
 	pad = ft_get_size_aligned(ctx->iblock + 8, ctx->len_mbs);
-	ibits = ctx->idata * 8;
 	ctx->block[ctx->iblock++] = 0x80;
 	while (++i < (pad - 8))
 	{
