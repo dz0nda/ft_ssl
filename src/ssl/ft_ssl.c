@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 22:12:50 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/05 04:42:06 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/11 00:14:50 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,6 +28,7 @@ int			ft_ssl(int argc, const char *argv[])
 		if (ftssl.shmode == FTSSL_SHMODE_DISABLED)
 			break;
 	}
+	ft_ssl_shell_reset(&ftssl.sh);
 	return (EXIT_SUCCESS);
 }
 

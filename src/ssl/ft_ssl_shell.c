@@ -6,22 +6,12 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 22:12:33 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/05 21:46:38 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/11 02:31:07 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
-
-static void ft_ssl_shell_reset(t_ftssl_sh *sh)
-{
-    int i;
-
-    i = -1;
-    while (++i < sh->argc)
-        ft_strdel(&sh->argv[i]);
-    sh->argc = 0;
-}
 
 static void ft_ssl_shell_parse(t_ftssl_sh *sh, char *buffer)
 {
@@ -50,6 +40,16 @@ static void ft_ssl_shell_parse(t_ftssl_sh *sh, char *buffer)
         sh->argv[i++] = ft_strdup(tmp);
     }
     sh->argc = i;
+}
+
+void ft_ssl_shell_reset(t_ftssl_sh *sh)
+{
+    int i;
+
+    i = -1;
+    while (++i < sh->argc)
+        ft_strdel(&sh->argv[i]);
+    sh->argc = 0;
 }
 
 int     ft_ssl_shell(t_ftssl_sh *sh)

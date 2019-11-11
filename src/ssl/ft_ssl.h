@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 20:10:56 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/05 04:42:10 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/11 00:14:19 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,5 +62,5 @@ int		            ft_ssl_usage(int argc, char *argv[]);
 int                 ft_ssl_error(int argc, char *argv[]);
 
 int                 ft_ssl_shell(t_ftssl_sh *sh);
-
+void                ft_ssl_shell_reset(t_ftssl_sh *sh);
 #endif
