@@ -1,8 +1,15 @@
-###############################################################################
-#                                                                             #
-# Makefile                                                                    #
-#                                                                             #
-###############################################################################
+# **************************************************************************** #
+#                                                           LE - /             #
+#                                                               /              #
+#    Makefile                                         .::    .:/ .      .::    #
+#                                                  +:+:+   +:    +:  +:+:+     #
+#    By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+      #
+#                                                  #+#   #+    #+    #+#       #
+#    Created: 2019/11/11 05:46:03 by dzonda       #+#   ##    ##    #+#        #
+#    Updated: 2019/11/11 05:46:06 by dzonda      ###    #+. /#+    ###.fr      #
+#                                                          /                   #
+#                                                         /                    #
+# **************************************************************************** #
 
 NAME = ft_ssl
 SRCDIR = src
@@ -12,7 +19,7 @@ LIBDIR = libft
 MAKEFILE_NAME = Makefile-$(lastword $(subst /, ,$(NAME)))
 
 CC = gcc
-CFLAGS = # -Wall -Wextra -Werror -Wunused -Wunreachable-code
+CFLAGS = -g3 -ggdb # -Wall -Wextra -Werror -Wunused -Wunreachable-code
 LDFLAGS = -Llibft 
 LDLIBS = -lft 
 SUBDIR = \
