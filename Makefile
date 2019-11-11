@@ -6,7 +6,7 @@
 #    By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/11/11 05:46:03 by dzonda       #+#   ##    ##    #+#        #
-#    Updated: 2019/11/11 05:46:06 by dzonda      ###    #+. /#+    ###.fr      #
+#    Updated: 2019/11/11 18:31:04 by dzonda      ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -48,11 +48,9 @@ SUBFILE = \
 			dgst/ft_md5.c \
 			ssl_dgst/ft_ssl_dgst_opt.c \
 			ssl_dgst/ft_ssl_dgst_output.c \
-			ssl_dgst/ft_ssl_dgst_parse.c \
 			ssl_dgst/ft_ssl_dgst.c \
 			ssl_dgst/ft_ssl_dgst_error.c \
 			ssl_dgst/ft_ssl_dgst_usage.c \
-			ssl_dgst/ft_ssl_dgst_init.c \
 			ssl_cipher/ft_ssl_cipher.c \
 			ssl_stdrd/ft_ssl_stdrd.c
 
@@ -80,17 +78,17 @@ ERRIGNORE = 2>/dev/null
 all: lib $(NAME)
 
 $(NAME): $(OBJDIRS) $(OBJS)
-	$(HIDE)echo $(MAKEFILE_NAME): Linking $@
+	$(HIDE)echo $(MAKEFILE_NAME): "Linking \t ->" $@
 	$(HIDE)$(CC) $(OBJS) $(LDFLAGS) $(LDLIBS) -o $(NAME)
 
 -include $(DEPS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
-	@echo $(MAKEFILE_NAME): Building $@
+	@echo $(MAKEFILE_NAME): "Building \t ->" $@
 	$(HIDE)$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ -MMD
 
 $(OBJDIRS):
-	@echo $(MAKEFILE_NAME): Making $(OBJDIRS)
+	@echo $(MAKEFILE_NAME): "Making \t ->" $(OBJDIRS)
 	$(HIDE)$(MKDIR) $(OBJDIRS) $(ERRIGNORE)
 
 lib:
