@@ -1,52 +1,52 @@
 #include "ft_ssl_dgst.h"
 
-int				ft_ssl_dgst_output(t_ftssl_dgst *ftssl_dgst)
+int				ft_ssl_dgst_output(char *cmd_name, char *cmd_arg, int cmd_arg_len, char *md)
 {
 	int i;
 
 	i = -1;
-	while (ftssl_dgst->ctx.cmd_name[++i] != '\0')
-		ft_putchar(ft_toupper(ftssl_dgst->ctx.cmd_name[i]));
+	while (cmd_name[++i] != '\0')
+		ft_putchar(ft_toupper(cmd_name[i]));
 	ft_putstr(" (");
-	if (ftssl_dgst->ctx.cmd_arg == NULL)
+	if (cmd_arg == NULL)
 		ft_putstr("*stdin");
-	else if (ftssl_dgst->ctx.cmd_arg_len == 0)
+	else if (cmd_arg_len == 0)
 	{
 		ft_putchar('*');
-		ft_putstr(ftssl_dgst->ctx.cmd_arg);
+		ft_putstr(cmd_arg);
 	}
 	else
 	{
 		ft_putchar('\"');
-		ft_putstr(ftssl_dgst->ctx.cmd_arg);
+		ft_putstr(cmd_arg);
 		ft_putchar('\"');
 	}
 	ft_putstr(") = ");
-	ft_putendl(ftssl_dgst->ctx.cmd_dgst);
+	ft_putendl(md);
 	return (EXIT_SUCCESS);
 }
 
-int				ft_ssl_dgst_output_q(t_ftssl_dgst *ftssl_dgst)
+int				ft_ssl_dgst_output_q(char *cmd_name, char *cmd_arg, int cmd_arg_len, char *md)
 {
-	ft_putendl(ftssl_dgst->ctx.cmd_dgst);
+	ft_putendl(md);
 	return (EXIT_SUCCESS);
 }
 
-int				ft_ssl_dgst_output_r(t_ftssl_dgst *ftssl_dgst)
+int				ft_ssl_dgst_output_r(char *cmd_name, char *cmd_arg, int cmd_arg_len, char *md)
 {
-	ft_putstr(ftssl_dgst->ctx.cmd_dgst);
+	ft_putstr(md);
 	ft_putchar(' ');
-	if (ftssl_dgst->ctx.cmd_arg == NULL)
+	if (cmd_arg == NULL)
 		ft_putstr("*stdin");
-	else if (ftssl_dgst->ctx.cmd_arg_len == 0)
+	else if (cmd_arg_len == 0)
 	{
 		ft_putchar('*');
-		ft_putstr(ftssl_dgst->ctx.cmd_arg);
+		ft_putstr(cmd_arg);
 	}
 	else
 	{
 		ft_putchar('\"');
-		ft_putstr(ftssl_dgst->ctx.cmd_arg);
+		ft_putstr(cmd_arg);
 		ft_putchar('\"');
 	}
 	return (EXIT_SUCCESS);
