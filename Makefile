@@ -6,7 +6,7 @@
 #    By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/11/11 05:46:03 by dzonda       #+#   ##    ##    #+#        #
-#    Updated: 2019/11/11 18:31:04 by dzonda      ###    #+. /#+    ###.fr      #
+#    Updated: 2019/11/12 07:54:34 by dzonda      ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -75,9 +75,9 @@ ERRIGNORE = 2>/dev/null
 
 .PHONY: all clean fclean re lib
 
-all: $(NAME)
+all: lib $(NAME)
 
-$(NAME): lib $(OBJDIRS) $(OBJS)
+$(NAME): $(OBJDIRS) $(OBJS)
 	$(HIDE)echo $(MAKEFILE_NAME): "Linking \t ->" $@
 	$(HIDE)$(CC) $(OBJS) $(LDFLAGS) $(LDLIBS) -o $(NAME)
 
