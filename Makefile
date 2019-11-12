@@ -75,9 +75,9 @@ ERRIGNORE = 2>/dev/null
 
 .PHONY: all clean fclean re lib
 
-all: lib $(NAME)
+all: $(NAME)
 
-$(NAME): $(OBJDIRS) $(OBJS)
+$(NAME): lib $(OBJDIRS) $(OBJS)
 	$(HIDE)echo $(MAKEFILE_NAME): "Linking \t ->" $@
 	$(HIDE)$(CC) $(OBJS) $(LDFLAGS) $(LDLIBS) -o $(NAME)
 
