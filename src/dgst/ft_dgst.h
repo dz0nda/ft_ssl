@@ -3,7 +3,7 @@
 
 # include "../ft_ssl_global.h"
 
-# define FT_DGST_DEBUG            1
+# define FT_DGST_DEBUG            0
 # define FT_DGST_ENDIAN_LITTLE    0
 # define FT_DGST_ENDIAN_BIG       1
 

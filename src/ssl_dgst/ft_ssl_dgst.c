@@ -36,18 +36,24 @@ int     ft_ssl_dgst(int argc, char *argv[])
 			break ;
 		if (ft_ssl_dgst_opt(&ftssl_dgst, argc, argv) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
+		// ft_putendl(ftssl_dgst.md);
+	}
+	if (ftssl_dgst.iarg == argc && ft_strlen(ftssl_dgst.md) == 0)
+	{
+		ft_dgst_file(ftssl_dgst.cmd_key, NULL, FT_SSL_FALSE, ftssl_dgst.md);
+		ftssl_dgst.outp_dist(ftssl_dgst.cmd_name, NULL, 0, ftssl_dgst.md);
 	}
 	while (ftssl_dgst.iarg < argc)
 	{
-		lstat(argv[ftssl_dgst.iarg] , &st);
-		if(!(S_ISREG(st.st_mode)))
-			ft_ssl_dgst_error_file(ftssl_dgst.cmd_name, argv[ftssl_dgst.iarg]);
-		else
+		if (lstat(argv[ftssl_dgst.iarg] , &st) == 0
+			&& S_ISREG(st.st_mode))
 		{
 			ft_dgst_file(ftssl_dgst.cmd_key, argv[ftssl_dgst.iarg], FT_SSL_FALSE, ftssl_dgst.md);
 			ftssl_dgst.outp_dist(ftssl_dgst.cmd_name, argv[ftssl_dgst.iarg], 0, ftssl_dgst.md);
 			ft_bzero(ftssl_dgst.md, sizeof(ftssl_dgst.md));
 		}
+		else
+			ft_ssl_dgst_error_file(ftssl_dgst.cmd_name, argv[ftssl_dgst.iarg]);
 		ftssl_dgst.iarg++;
 	}
 	return (EXIT_FAILURE);   

@@ -5,23 +5,29 @@ int				ft_ssl_dgst_output(char *cmd_name, char *cmd_arg, int cmd_arg_len, char *
 	int i;
 
 	i = -1;
-	while (cmd_name[++i] != '\0')
-		ft_putchar(ft_toupper(cmd_name[i]));
-	ft_putstr(" (");
-	if (cmd_arg == NULL)
-		ft_putstr("*stdin");
-	else if (cmd_arg_len == 0)
+	if (cmd_arg != NULL)
 	{
-		ft_putchar('*');
+		while (cmd_name[++i] != '\0')
+			ft_putchar(ft_toupper(cmd_name[i]));
+		ft_putstr("(");
+	}
+	// if (cmd_arg == NULL)
+	// 	ft_putstr("*stdin");
+	if (cmd_arg_len == 0)
+	{
+		// ft_putchar('*');
 		ft_putstr(cmd_arg);
 	}
 	else
 	{
 		ft_putchar('\"');
+		if (cmd_arg[ft_strlen(cmd_arg) - 1] == '\n')
+			cmd_arg[ft_strlen(cmd_arg) - 1] = '\0';
 		ft_putstr(cmd_arg);
 		ft_putchar('\"');
 	}
-	ft_putstr(") = ");
+	if (cmd_arg != NULL)
+		ft_putstr(")= ");
 	ft_putendl(md);
 	return (EXIT_SUCCESS);
 }
@@ -36,18 +42,18 @@ int				ft_ssl_dgst_output_r(char *cmd_name, char *cmd_arg, int cmd_arg_len, char
 {
 	ft_putstr(md);
 	ft_putchar(' ');
-	if (cmd_arg == NULL)
-		ft_putstr("*stdin");
-	else if (cmd_arg_len == 0)
+	// if (cmd_arg == NULL)
+	// 	ft_putstr("*stdin");
+	if (cmd_arg != NULL && cmd_arg_len == 0)
 	{
-		ft_putchar('*');
-		ft_putstr(cmd_arg);
+		// ft_putchar('*');
+		ft_putendl(cmd_arg);
 	}
 	else
 	{
 		ft_putchar('\"');
 		ft_putstr(cmd_arg);
-		ft_putchar('\"');
+		ft_putendl("\"");
 	}
 	return (EXIT_SUCCESS);
 }
