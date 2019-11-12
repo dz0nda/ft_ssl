@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 23:07:42 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/11 18:41:21 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/12 07:38:02 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,8 +15,6 @@
 
 int			ft_md5_init(t_dgst_ctx *ctx)
 {
-	printf("init\n");
-
 	ctx->state.x_32[0] = 0x67452301;
     ctx->state.x_32[1] = 0xefcdab89;
     ctx->state.x_32[2] = 0x98badcfe;
