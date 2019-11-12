@@ -18,9 +18,7 @@
 */
 
 int		ft_ssl_dgst_opt_p(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[], int opt_key)
-{	
-	ft_putendl("Parse -p");
-
+{
 	(void)argc;
 	(void)opt_key;
 	ftssl_dgst->iarg++;
@@ -36,15 +34,16 @@ int		ft_ssl_dgst_opt_p(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[], int opt
 */
 
 static int		ft_ssl_dgst_opt_s(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[], int opt_key)
-{
-	ft_putendl("Parse -s2");
-	
+{	
 	(void)opt_key;
 	if (!(ftssl_dgst->iarg + 1 < argc))
 		return (ft_ssl_dgst_error_opt_arg(ftssl_dgst->cmd_name, argv[ftssl_dgst->iarg] + 1));
 	ftssl_dgst->iarg++;
 	ft_dgst_string(ftssl_dgst->cmd_key, argv[ftssl_dgst->iarg], ft_strlen(argv[ftssl_dgst->iarg]), ftssl_dgst->md);
-	ftssl_dgst->outp_dist(ftssl_dgst->cmd_name, argv[ftssl_dgst->iarg], ft_strlen(argv[ftssl_dgst->iarg]), ftssl_dgst->md);
+	if (argv[ftssl_dgst->iarg] == NULL)
+		ftssl_dgst->outp_dist(ftssl_dgst->cmd_name, "", 1, ftssl_dgst->md);
+	else
+		ftssl_dgst->outp_dist(ftssl_dgst->cmd_name, argv[ftssl_dgst->iarg], ft_strlen(argv[ftssl_dgst->iarg]), ftssl_dgst->md);
 	ft_bzero(ftssl_dgst->md, sizeof(ftssl_dgst->md));
 	ftssl_dgst->iarg++;
 	return (EXIT_SUCCESS);
