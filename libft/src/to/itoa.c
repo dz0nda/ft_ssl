@@ -38,6 +38,8 @@ char    	*ft_itoa(int input, char *buffer, int radix)
     }
     if (sign != '\0')
         buffer[i++] = sign;
+    if (ft_strlen(buffer) == 1)
+        buffer[i++] = '0';
     buffer[i] = '\0';
     return (ft_strrev(buffer));
 }
