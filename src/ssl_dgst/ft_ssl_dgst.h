@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 22:14:00 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/11 18:13:50 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/13 13:53:58 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,6 +65,7 @@ int		ft_ssl_dgst_output_r(char *cmd_name, char *cmd_arg, int cmd_arg_len, char *
 int     ft_ssl_dgst_error_opt(char *cmd, char *opt);
 int     ft_ssl_dgst_error_opt_arg(char *cmd, char *opt);
 int     ft_ssl_dgst_error_file(char *cmd, char *arg);
+int     ft_ssl_dgst_error_dir(char *cmd, char *arg);
 
 void    ft_ssl_dgst_usage(char *cmd);
 

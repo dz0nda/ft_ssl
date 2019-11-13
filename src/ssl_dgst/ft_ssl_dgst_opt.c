@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/09 21:17:47 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/12 08:34:50 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/13 12:34:35 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,7 +14,7 @@
 #include "ft_ssl_dgst.h"
 
 /*
- * 	Output stdin to stdout by sending P flag to ft_dgst_file
+ * 	Output stdin to stdout by sending TRUE bool to ft_dgst_file
 */
 
 int		ft_ssl_dgst_opt_p(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[], int opt_key)

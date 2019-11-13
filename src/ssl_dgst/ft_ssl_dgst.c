@@ -20,41 +20,60 @@
 // 	printf("\t.outp_flag : %d\n", ftssl_dgst.outp.outp_flag);
 // }
 
-
-int     ft_ssl_dgst(int argc, char *argv[])
+int		ft_ssl_dgst_parse_opt(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[])
 {
-	struct stat 	st;
-	t_ftssl_dgst	ftssl_dgst;
-
-	ft_memset(&st, 0, sizeof(st));
-	ft_memset(&ftssl_dgst, 0, sizeof(ftssl_dgst));
-	ftssl_dgst.outp_dist = ft_ssl_dgst_output;
-	ft_ssl_dgst_opt(&ftssl_dgst, argc, argv);
-	while (ftssl_dgst.iarg < argc && *argv[ftssl_dgst.iarg] == '-')
+	while (ftssl_dgst->iarg < argc && *argv[ftssl_dgst->iarg] == '-')
 	{
-		if (argv[ftssl_dgst.iarg][1] == '\0')
+		if (argv[ftssl_dgst->iarg][1] == '\0')
 			break ;
-		if (ft_ssl_dgst_opt(&ftssl_dgst, argc, argv) == EXIT_FAILURE)
+		if (ft_ssl_dgst_opt(ftssl_dgst, argc, argv) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 		// ft_putendl(ftssl_dgst.md);
 	}
-	if (ftssl_dgst.iarg == argc && ft_strlen(ftssl_dgst.md) == 0)
+	if (ftssl_dgst->iarg == argc && ft_strlen(ftssl_dgst->md) == 0)
 	{
-		ft_dgst_file(ftssl_dgst.cmd_key, NULL, FT_SSL_FALSE, ftssl_dgst.md);
-		ftssl_dgst.outp_dist(ftssl_dgst.cmd_name, NULL, 0, ftssl_dgst.md);
+		ft_dgst_file(ftssl_dgst->cmd_key, NULL, FT_SSL_FALSE, ftssl_dgst->md);
+		ftssl_dgst->outp_dist(ftssl_dgst->cmd_name, NULL, 0, ftssl_dgst->md);
 	}
-	while (ftssl_dgst.iarg < argc)
+	return (EXIT_SUCCESS);
+}
+
+int		ft_ssl_dgst_parse_arg(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[])
+{
+	struct stat	st;
+	int err = EXIT_SUCCESS;
+
+	ft_memset(&st, 0, sizeof(st));
+	while (ftssl_dgst->iarg < argc)
 	{
-		if (lstat(argv[ftssl_dgst.iarg] , &st) == 0
-			&& S_ISREG(st.st_mode))
+		if (lstat(argv[ftssl_dgst->iarg] , &st) == 0)
 		{
-			ft_dgst_file(ftssl_dgst.cmd_key, argv[ftssl_dgst.iarg], FT_SSL_FALSE, ftssl_dgst.md);
-			ftssl_dgst.outp_dist(ftssl_dgst.cmd_name, argv[ftssl_dgst.iarg], 0, ftssl_dgst.md);
-			ft_bzero(ftssl_dgst.md, sizeof(ftssl_dgst.md));
+			if (S_ISREG(st.st_mode))
+			{
+				ft_bzero(ftssl_dgst->md, sizeof(ftssl_dgst->md));
+				ft_dgst_file(ftssl_dgst->cmd_key, argv[ftssl_dgst->iarg], FT_SSL_FALSE, ftssl_dgst->md);
+				ftssl_dgst->outp_dist(ftssl_dgst->cmd_name, argv[ftssl_dgst->iarg], 0, ftssl_dgst->md);
+			}
+			else if (S_ISDIR(st.st_mode))
+				err = ft_ssl_dgst_error_dir(ftssl_dgst->cmd_name, argv[ftssl_dgst->iarg]);
 		}
 		else
-			ft_ssl_dgst_error_file(ftssl_dgst.cmd_name, argv[ftssl_dgst.iarg]);
-		ftssl_dgst.iarg++;
+			err = ft_ssl_dgst_error_file(ftssl_dgst->cmd_name, argv[ftssl_dgst->iarg]);
+		ftssl_dgst->iarg++;
 	}
-	return (EXIT_FAILURE);   
+	return (err);
+}
+
+int     ft_ssl_dgst(int argc, char *argv[])
+{
+	t_ftssl_dgst	ftssl_dgst;
+
+	ft_memset(&ftssl_dgst, 0, sizeof(ftssl_dgst));
+	ftssl_dgst.outp_dist = ft_ssl_dgst_output;
+	ft_ssl_dgst_opt(&ftssl_dgst, argc, argv);
+	if (ft_ssl_dgst_parse_opt(&ftssl_dgst, argc, argv) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	if (ft_ssl_dgst_parse_arg(&ftssl_dgst, argc, argv) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	return (EXIT_FAILURE);
 }
