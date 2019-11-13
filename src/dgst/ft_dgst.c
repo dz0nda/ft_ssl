@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/08 14:07:28 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/12 08:21:10 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/13 12:36:19 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -91,7 +91,8 @@ char     *ft_dgst_file(int cmd_key, char *filename, int outp, char *cmd_dgst)
             ft_putstr((const char *)dgst.ctx.block);
 		ft_memset(dgst.ctx.block, 0, sizeof(dgst.ctx.block));
 	}
-    close(fd);
+    if (filename != NULL)
+        close(fd);
     if (outp == FT_SSL_TRUE)
         ft_putstr((const char *)dgst.ctx.block);
 	dgst.ctx.idata += dgst.ctx.iblock;
