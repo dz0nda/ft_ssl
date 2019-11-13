@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 22:11:53 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/04 22:12:11 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/13 14:36:08 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,11 +34,11 @@ int		ft_ssl_usage(int argc, char *argv[])
 	while (++key_dist < FTSSL_DIST_E)
 	{
 		key_dist_cmd = -1;
-		ft_putendl(dist[key_dist]);
+		ft_putendl_fd(dist[key_dist], STDERR_FILENO);
 		if (dist_cmd[key_dist] != NULL)
 			while (dist_cmd[key_dist][++key_dist_cmd] != NULL )
-				ft_putendl(dist_cmd[key_dist][key_dist_cmd]);
-		ft_putstr("\n");
+				ft_putendl_fd(dist_cmd[key_dist][key_dist_cmd], STDERR_FILENO);
+		ft_putstr_fd("\n", STDERR_FILENO);
 	}
 	return (EXIT_FAILURE);
 }

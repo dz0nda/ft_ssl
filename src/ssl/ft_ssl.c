@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 22:12:50 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/11 00:14:50 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/13 14:25:52 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,6 +16,7 @@
 int			ft_ssl(int argc, const char *argv[])
 {
 	t_ftssl ftssl;
+	int err = EXIT_SUCCESS;
 
 	ft_memset(&ftssl, 0, sizeof(ftssl));
 	ft_ssl_init(&ftssl, argc, argv);
@@ -24,12 +25,12 @@ int			ft_ssl(int argc, const char *argv[])
 		if (ftssl.shmode == FTSSL_SHMODE_ENABLED)
 			if (ft_ssl_shell(&ftssl.sh) == EXIT_FAILURE)
 				break ;
-		ft_ssl_dist_exec(ftssl.sh.argc, ftssl.sh.argv);
+		err = ft_ssl_dist_exec(ftssl.sh.argc, ftssl.sh.argv);
 		if (ftssl.shmode == FTSSL_SHMODE_DISABLED)
 			break;
 	}
 	ft_ssl_shell_reset(&ftssl.sh);
-	return (EXIT_SUCCESS);
+	return (err);
 }
 
 int			main(int argc, const char *argv[])
