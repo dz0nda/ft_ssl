@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 22:13:32 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/04 22:13:32 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/14 10:09:26 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,13 +16,13 @@
 
 # include "../ft_ssl_global.h"
 
-typedef enum        s_cipher_command_enum
+typedef enum		e_cipher_command_enum
 {
-    FT_BASE64,
-    FT_DES,
-    FT_CIPHER_CMD
-}                   t_cipher_cmd_e;
+	FT_BASE64,
+	FT_DES,
+	FT_CIPHER_CMD
+}					t_cipher_cmd_e;
 
-int     ft_ssl_cipher(int argc, char *argv[]);
+int					ft_ssl_cipher(int argc, char *argv[]);
 
 #endif
