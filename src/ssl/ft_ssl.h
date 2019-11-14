@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 20:10:56 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/11 00:14:19 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/14 08:31:24 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,43 +24,43 @@
 # define FTSSL_SHMAX_CMD        8192
 # define FTSSL_SHMAX_BUFFER     8192
 
-typedef int         t_ftssl_dist(int, char *[]);
+typedef int			t_ftssl_dist(int argc, char *argv[]);
 
-typedef enum        s_ftssl_dist_enum
+typedef enum		e_ftssl_dist_enum
 {
-    FTSSL_HELP,
-    FTSSL_DGST,
-    FTSSL_CIPHER,
-    FTSSL_STDRD,
-    FTSSL_DIST_E
-}                   t_ftssl_dist_e;
+	FTSSL_HELP,
+	FTSSL_DGST,
+	FTSSL_CIPHER,
+	FTSSL_STDRD,
+	FTSSL_DIST_E
+}					t_ftssl_dist_e;
 
-typedef struct      s_ftssl_dist_table
+typedef struct		s_ftssl_dist_table
 {
-    int             key_dist;
-    char            *dist_name[FTSSL_SHMAX_CMD];
-    t_ftssl_dist    *dist_ft;    
-}                   t_ftssl_dist_t;
+	int				key_dist;
+	char			*dist_name[FTSSL_SHMAX_CMD];
+	t_ftssl_dist	*dist_ft;
+}					t_ftssl_dist_t;
 
-typedef struct      s_ftssl_shell
+typedef struct		s_ftssl_shell
 {
-    int             argc;
-    char            *argv[FTSSL_SHMAX_CMD];
-}                   t_ftssl_sh;
+	int				argc;
+	char			*argv[FTSSL_SHMAX_CMD];
+}					t_ftssl_sh;
 
-typedef struct      s_ftssl
+typedef struct		s_ftssl
 {
-    int             shmode;
-    t_ftssl_sh      sh;
-}                   t_ftssl;
+	int				shmode;
+	t_ftssl_sh		sh;
+}					t_ftssl;
 
-int                 ft_ssl_init(t_ftssl *fssl, int argc, const char *argv[]);
+int					ft_ssl_init(t_ftssl *fssl, int argc, const char *argv[]);
 
-int		            ft_ssl_dist_exec(int argc, char *argv[]);
+int					ft_ssl_dist_exec(int argc, char *argv[]);
 
-int		            ft_ssl_usage(int argc, char *argv[]);
-int                 ft_ssl_error(int argc, char *argv[]);
+int					ft_ssl_usage(int argc, char *argv[]);
+int					ft_ssl_error(int argc, char *argv[]);
 
-int                 ft_ssl_shell(t_ftssl_sh *sh);
-void                ft_ssl_shell_reset(t_ftssl_sh *sh);
+int					ft_ssl_shell(t_ftssl_sh *sh);
+void				ft_ssl_shell_reset(t_ftssl_sh *sh);
 #endif
