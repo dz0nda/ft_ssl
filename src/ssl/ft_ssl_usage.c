@@ -19,7 +19,7 @@ int		ft_ssl_usage(int argc, char *argv[])
 		"Message Digest commands:", "Cipher commands:", "Standard commands:" };
 	const char	*dist_cmd[FTSSL_DIST_E][FTSSL_SHMAX_BUFFER] = {
 		{ "help" },
-		{ "md5", "sha1" "sha256" },
+		{ "md5", "sha1", "sha224", "sha256", "sha384", "sha512" },
 		{ "base64", "des" },
 		{ "dgst" }
 	};

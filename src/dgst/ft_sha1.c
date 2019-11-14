@@ -122,4 +122,3 @@ int			ft_sha1_final(t_dgst_ctx *ctx)
 		hexdump(ctx->block, pad);
 	return (EXIT_SUCCESS);
 }
-

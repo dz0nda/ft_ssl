@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_dgst_result.c                                 .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: dzonda <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2019/11/14 08:12:21 by dzonda       #+#   ##    ##    #+#       */
+/*   Updated: 2019/11/14 08:12:40 by dzonda      ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #include "ft_dgst.h"
 
-char*				ft_dgst_result32(t_dgst_ctx *ctx, char *cmd_dgst)
+char		*ft_dgst_result32(t_dgst_ctx *ctx, char *cmd_dgst)
 {
 	int		i;
 	int		j;
@@ -25,7 +38,7 @@ char*				ft_dgst_result32(t_dgst_ctx *ctx, char *cmd_dgst)
 	return (cmd_dgst);
 }
 
-char*					ft_dgst_result64(t_dgst_ctx *ctx, char *cmd_dgst)
+char		*ft_dgst_result64(t_dgst_ctx *ctx, char *cmd_dgst)
 {
 	int		i;
 	int		j;

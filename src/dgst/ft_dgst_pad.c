@@ -6,14 +6,14 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/08 12:01:09 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/11 18:40:43 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/14 08:12:17 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_dgst.h"
 
-size_t	ft_get_size_aligned(size_t offset, size_t align)
+size_t		ft_get_size_aligned(size_t offset, size_t align)
 {
 	return (offset + (align - (offset % align) % align));
 }
@@ -29,7 +29,7 @@ int			ft_dgst_pad(t_dgst_ctx *ctx)
 	while (++i < (pad - 8))
 	{
 		if (ctx->iblock == ctx->len_mbs)
-			break;
+			break ;
 		ctx->block[ctx->iblock++] = 0;
 	}
 	return (EXIT_SUCCESS);
