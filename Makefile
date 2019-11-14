@@ -13,13 +13,13 @@
 
 NAME = ft_ssl
 SRCDIR = src
-OBJDIR = build
+OBJDIR = obj
 LIBDIR = libft
 
 MAKEFILE_NAME = Makefile-$(lastword $(subst /, ,$(NAME)))
 
 CC = gcc
-CFLAGS = -g3 -ggdb # -Wall -Wextra -Werror -Wunused -Wunreachable-code
+CFLAGS = -Wall -Wextra -Werror -Wunused -Wunreachable-code
 LDFLAGS = -Llibft 
 LDLIBS = -lft 
 SUBDIR = \
@@ -42,6 +42,7 @@ SUBFILE = \
 			dgst/ft_sha256.c \
 			dgst/ft_dgst.c \
 			dgst/ft_sha384.c \
+			dgst/ft_sha224.c \
 			dgst/ft_dgst_addlen.c \
 			dgst/ft_sha1.c \
 			dgst/ft_sha512.c \
