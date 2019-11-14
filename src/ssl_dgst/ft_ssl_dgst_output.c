@@ -29,12 +29,16 @@ int				ft_ssl_dgst_output(char *cmd_name, char *cmd_arg, int cmd_arg_len, char *
 
 int				ft_ssl_dgst_output_q(char *cmd_name, char *cmd_arg, int cmd_arg_len, char *md)
 {
+	(void)cmd_name;
+	(void)cmd_arg;
+	(void)cmd_arg_len;
 	ft_putendl(md);
 	return (EXIT_SUCCESS);
 }
 
 int				ft_ssl_dgst_output_r(char *cmd_name, char *cmd_arg, int cmd_arg_len, char *md)
 {
+	(void)cmd_name;
 	ft_putstr(md);
 	if (cmd_arg != NULL)
 		ft_putchar(' ');

@@ -15,6 +15,8 @@
 
 int     ft_ssl_cipher(int argc, char *argv[])
 {
+    (void)argc;
+    (void)argv;
     ft_putendl("Mmmhh.. it not really works...");
     return (EXIT_SUCCESS);
 }

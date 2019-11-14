@@ -16,32 +16,24 @@
 int		ft_dgst_init(t_dgst *dgst, int cmd_key)
 {
 	const t_dgst dgst_dist[FT_DGST_DIST] = {
-        { 
-            FT_MD5, 
-            { FT_MD5_HS, FT_MD5_MBS, FT_DGST_ENDIAN_LITTLE, FT_MD5_STATE },
-            { ft_md5_init, ft_md5_transform, ft_md5_final, ft_dgst_result32 }
-        },
-        {
-            FT_SHA1,
-            { FT_SHA1_HS, FT_SHA1_MBS, FT_DGST_ENDIAN_BIG, FT_SHA1_STATE },
-            { ft_sha1_init, ft_sha1_transform, ft_sha1_final, ft_dgst_result32 }
-        },
-        {
-            FT_SHA256,
-            { FT_SHA256_HS, FT_SHA256_MBS, FT_DGST_ENDIAN_BIG, FT_SHA256_STATE },
-            { ft_sha256_init, ft_sha256_transform, ft_sha256_final, ft_dgst_result32}
-        },
-        {
-            FT_SHA384,
-            { FT_SHA384_HS, FT_SHA384_MBS, FT_DGST_ENDIAN_BIG, FT_SHA384_STATE },
-            { ft_sha384_init, ft_sha512_transform, ft_sha512_final, ft_dgst_result64 }
-        },
-        {
-            FT_SHA512,
-            { FT_SHA512_HS, FT_SHA512_MBS, FT_DGST_ENDIAN_BIG, FT_SHA512_STATE },
-            { ft_sha512_init, ft_sha512_transform, ft_sha512_final, ft_dgst_result64 }
-        } 
-    };
+        { FT_MD5, { FT_MD5_HS, FT_MD5_MBS, FT_DGST_ENDIAN_LITTLE, FT_MD5_STATE,
+            0, 0, { }, { 0 }, { 0 }}, { ft_md5_init, ft_md5_transform,
+            ft_md5_final, ft_dgst_result32 } },
+        { FT_SHA1, { FT_SHA1_HS, FT_SHA1_MBS, FT_DGST_ENDIAN_BIG, FT_SHA1_STATE,
+            0, 0, { }, { 0 }, { 0 } }, { ft_sha1_init, ft_sha1_transform,
+            ft_sha1_final, ft_dgst_result32 } },
+        { FT_SHA224, { FT_SHA224_HS, FT_SHA224_MBS, FT_DGST_ENDIAN_BIG,
+            FT_SHA224_STATE, 0, 0, { }, { 0 }, { 0 } }, { ft_sha224_init,
+            ft_sha256_transform, ft_sha256_final, ft_dgst_result32 } },
+        { FT_SHA256, { FT_SHA256_HS, FT_SHA256_MBS, FT_DGST_ENDIAN_BIG,
+            FT_SHA256_STATE, 0, 0, { }, { 0 }, { 0 } }, { ft_sha256_init,
+            ft_sha256_transform, ft_sha256_final, ft_dgst_result32 } },
+        { FT_SHA384, { FT_SHA384_HS, FT_SHA384_MBS, FT_DGST_ENDIAN_BIG,
+            FT_SHA384_STATE, 0, 0, { }, { 0 }, { 0 } }, { ft_sha384_init,
+            ft_sha512_transform, ft_sha512_final, ft_dgst_result64 } },
+        { FT_SHA512, { FT_SHA512_HS, FT_SHA512_MBS, FT_DGST_ENDIAN_BIG,
+            FT_SHA512_STATE, 0, 0, { }, { 0 }, { 0 } }, { ft_sha512_init,
+            ft_sha512_transform, ft_sha512_final, ft_dgst_result64 } } };
     int i;
 
     i = -1;

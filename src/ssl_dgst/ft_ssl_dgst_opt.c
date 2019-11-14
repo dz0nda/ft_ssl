@@ -20,6 +20,7 @@
 int		ft_ssl_dgst_opt_p(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[], int opt_key)
 {
 	(void)argc;
+	(void)argv;
 	(void)opt_key;
 	ftssl_dgst->iarg++;
 	ft_bzero(ftssl_dgst->md, sizeof(ftssl_dgst->md));
@@ -81,6 +82,7 @@ static int		ft_ssl_dgst_opt_dist(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[
 	const int opt_dist[FT_DGST_DIST][2] = {
 		{ FT_SSL_DGST_OPT_MD5, FT_MD5 },
 		{ FT_SSL_DGST_OPT_SHA1, FT_SHA1 },
+		{ FT_SSL_DGST_OPT_SHA224, FT_SHA224 },
 		{ FT_SSL_DGST_OPT_SHA256, FT_SHA256 },
 		{ FT_SSL_DGST_OPT_SHA384, FT_SHA384 },
 		{ FT_SSL_DGST_OPT_SHA512, FT_SHA512 }
@@ -118,6 +120,7 @@ int		ft_ssl_dgst_opt(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[])
 		{ "s", 		FT_SSL_DGST_OPT_S, 		ft_ssl_dgst_opt_s },
 		{ "md5", 	FT_SSL_DGST_OPT_MD5, 	ft_ssl_dgst_opt_dist },
 		{ "sha1", 	FT_SSL_DGST_OPT_SHA1, 	ft_ssl_dgst_opt_dist },
+		{ "sha224", FT_SSL_DGST_OPT_SHA224, ft_ssl_dgst_opt_dist },
 		{ "sha256", FT_SSL_DGST_OPT_SHA256, ft_ssl_dgst_opt_dist },
 		{ "sha384", FT_SSL_DGST_OPT_SHA384, ft_ssl_dgst_opt_dist },
 		{ "sha512", FT_SSL_DGST_OPT_SHA512, ft_ssl_dgst_opt_dist }

@@ -31,6 +31,7 @@ typedef enum    s_ftssl_digest_opt_key
     FT_SSL_DGST_OPT_S,
     FT_SSL_DGST_OPT_MD5,
     FT_SSL_DGST_OPT_SHA1,
+    FT_SSL_DGST_OPT_SHA224,
     FT_SSL_DGST_OPT_SHA256,
     FT_SSL_DGST_OPT_SHA384,
     FT_SSL_DGST_OPT_SHA512,

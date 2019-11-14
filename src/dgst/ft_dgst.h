@@ -37,6 +37,7 @@ typedef enum    s_digest_dist_enum
 {
     FT_MD5,
     FT_SHA1,
+    FT_SHA224,
     FT_SHA256,
     FT_SHA384,
     FT_SHA512,
@@ -67,7 +68,7 @@ typedef enum    s_digest_enum
   FT_SHA224_HS      = FT_SHA256_HS,
   FT_SHA224_HBS     = FT_SHA256_HBS,
   FT_SHA224_ENDIAN  = FT_SHA256_ENDIAN,
-  FT_SHA224_STATE   = FT_SHA256_STATE,
+  FT_SHA224_STATE   = FT_SHA256_STATE - 1,
 
   FT_SHA512_MBS     = 128,
   FT_SHA512_HS      = 64,
@@ -79,7 +80,7 @@ typedef enum    s_digest_enum
   FT_SHA384_HS      = FT_SHA512_HS,
   FT_SHA384_HBS     = FT_SHA512_HBS,
   FT_SHA384_ENDIAN  = FT_SHA512_ENDIAN,
-  FT_SHA384_STATE   = FT_SHA512_STATE
+  FT_SHA384_STATE   = FT_SHA512_STATE - 2
 }               t_dgst_e;
 
 typedef union   s_digest_state
@@ -144,6 +145,7 @@ int			ft_sha512_transform(t_dgst_ctx *ctx);
 int			ft_sha512_final(t_dgst_ctx *ctx);
 
 int			ft_sha384_init(t_dgst_ctx *ctx);
+int			ft_sha224_init(t_dgst_ctx *ctx);
 
 /*
  *      This interface connect to the sha functions

@@ -96,7 +96,7 @@ int			ft_sha256_transform(t_dgst_ctx *ctx)
 		state[0] = s[0] + s[1];
 	}
     i = -1;
-    while (++i < ctx->len_state)
+    while (++i < 8)
         ctx->state.x_32[i] += state[i];
 	return (EXIT_SUCCESS);
 }
