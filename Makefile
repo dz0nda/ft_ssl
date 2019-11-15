@@ -6,7 +6,7 @@
 #    By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/11/11 05:46:03 by dzonda       #+#   ##    ##    #+#        #
-#    Updated: 2019/11/12 07:54:34 by dzonda      ###    #+. /#+    ###.fr      #
+#    Updated: 2019/11/15 09:34:45 by dzonda      ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -35,24 +35,29 @@ SUBFILE = \
 			ssl/ft_ssl_dist.c \
 			ssl/ft_ssl_shell.c \
 			ssl/ft_ssl_error.c \
-			dgst/ft_dgst_result.c \
-			dgst/ft_dgst_utils.c \
+			\
+			dgst/ft_dgst_init.c \
+			dgst/ft_dgst_utils_x32.c \
+			dgst/ft_dgst_utils_x64.c \
 			dgst/ft_dgst_debug.c \
-			dgst/ft_dgst_pad.c \
 			dgst/ft_sha256.c \
 			dgst/ft_dgst.c \
 			dgst/ft_sha384.c \
 			dgst/ft_sha224.c \
-			dgst/ft_dgst_addlen.c \
 			dgst/ft_sha1.c \
 			dgst/ft_sha512.c \
 			dgst/ft_md5.c \
+			\
 			ssl_dgst/ft_ssl_dgst_opt.c \
+			ssl_dgst/ft_ssl_dgst_arg.c \
+			ssl_dgst/ft_ssl_dgst_parse.c \
 			ssl_dgst/ft_ssl_dgst_output.c \
 			ssl_dgst/ft_ssl_dgst.c \
 			ssl_dgst/ft_ssl_dgst_error.c \
 			ssl_dgst/ft_ssl_dgst_usage.c \
+			\
 			ssl_cipher/ft_ssl_cipher.c \
+			\
 			ssl_stdrd/ft_ssl_stdrd.c
 
 SRCDIRS = $(foreach dir, $(SUBDIR), $(addprefix $(SRCDIR)/, $(dir)))
