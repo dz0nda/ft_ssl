@@ -118,8 +118,9 @@ typedef struct  s_digest
   t_dgst_dist dist;
 }               t_dgst;
 
-char     *ft_dgst_file(int cmd_key, char *filename, int outp, char *cmd_dgst);
-char     *ft_dgst_string(int cmd_key, char *cmd_arg, int cmd_arg_len, char *cmd_dgst);
+int       ft_dgst_init(t_dgst *dgst, int cmd_key);
+char      *ft_dgst_file(int cmd_key, char *filename, int outp, char *cmd_dgst);
+char      *ft_dgst_string(int cmd_key, char *cmd_arg, int cmd_arg_len, char *cmd_dgst);
 
 size_t	    ft_get_size_aligned(size_t offset, size_t align);
 
