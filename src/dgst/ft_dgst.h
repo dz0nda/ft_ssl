@@ -118,15 +118,15 @@ typedef struct  s_digest
   t_dgst_dist dist;
 }               t_dgst;
 
-
 char     *ft_dgst_file(int cmd_key, char *filename, int outp, char *cmd_dgst);
 char     *ft_dgst_string(int cmd_key, char *cmd_arg, int cmd_arg_len, char *cmd_dgst);
+
+size_t	    ft_get_size_aligned(size_t offset, size_t align);
 
 /*
  *      init: Init the dgst state
  *      transform: Process block of size 'len_mbs'
 */
-
 
 int			ft_md5_init(t_dgst_ctx *ctx);
 int 		ft_md5_transform(t_dgst_ctx *ctx);
@@ -151,29 +151,18 @@ int			ft_sha224_init(t_dgst_ctx *ctx);
  *      This interface connect to the sha functions
 */
 
-int			ft_dgst_addlength_32(t_dgst_ctx *ctx);
-int			ft_dgst_addlength_64(t_dgst_ctx *ctx);
+uint32_t		ft_rotate_left_x32(uint32_t word, uint32_t bits);
+uint32_t		ft_rotate_right_x32(uint32_t word, uint32_t bits);
+uint32_t		ft_shift_right_x32(uint32_t word, uint32_t bits);
+uint32_t    ft_swap_uint_x32(uint32_t val);
+char*				ft_dgst_result_x32(t_dgst_ctx *ctx, char *cmd_dgst);
 
-int			ft_dgst_pad(t_dgst_ctx *ctx);
+uint64_t		ft_rotate_left_x64(uint64_t word, uint64_t bits);
+uint64_t		ft_rotate_right_x64(uint64_t word, uint64_t bits);
+uint64_t		ft_shift_right_x64(uint64_t word, uint64_t bits);
+uint64_t    ft_swap_uint_x64(uint64_t val);
+char*				ft_dgst_result_x64(t_dgst_ctx *ctx, char *cmd_dgst);
 
-char*				ft_dgst_result32(t_dgst_ctx *ctx, char *cmd_dgst);
-char*				ft_dgst_result64(t_dgst_ctx *ctx, char *cmd_dgst);
-
-int			ft_dgst_result(t_dgst_ctx *ctx);
-
-
-uint32_t		ft_rotate_left(uint32_t word, uint32_t bits);
-uint32_t		ft_rotate_right(uint32_t word, uint32_t bits);
-uint32_t		ft_shift_right(uint32_t word, uint32_t bits);
-
-uint64_t		ft_rotate_left64(uint64_t word, uint64_t bits);
-uint64_t		ft_rotate_right64(uint64_t word, uint64_t bits);
-uint64_t		ft_shift_right64(uint64_t word, uint64_t bits);
-
-uint32_t    swap_uint32(uint32_t val);
-uint64_t    swap_uint64(uint64_t val);
-size_t	    ft_get_size_aligned(size_t offset, size_t align);
-void        hexdump(void *mem, unsigned int len);
 
 void      ft_dgst_update_words_debug(uint32_t *w, int n);
 void      ft_dgst_update_process_debug(uint32_t *state, int i, int n);

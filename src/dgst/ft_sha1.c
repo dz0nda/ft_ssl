@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 23:11:52 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/11 21:16:54 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/15 09:21:55 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,11 +33,11 @@ static void     ft_sha1_transform_word(uint32_t *w, const void *data)
     rotator = 0;
     m = (uint32_t *)data;
     while (++i < 16)
-        w[i] = swap_uint32(m[i]);
+        w[i] = ft_swap_uint_x32(m[i]);
     while (i < 80)
     {
         rotator = (w[i-3] ^ w[i-8] ^ w[i-14] ^ w[i-16]);
-        w[i] = ft_rotate_left(rotator, 1);
+        w[i] = ft_rotate_left_x32(rotator, 1);
         i++;
     }
 	if (FT_DGST_DEBUG)
@@ -82,10 +82,10 @@ int				ft_sha1_transform(t_dgst_ctx *ctx)
 	while (++i < 80)
 	{
 		ft_sha1_transform_fk(fk, i, state[1], state[2], state[3]);
-		tmp = ft_rotate_left(state[0], 5) + fk[0] + state[4] + fk[1] + w[i];
+		tmp = ft_rotate_left_x32(state[0], 5) + fk[0] + state[4] + fk[1] + w[i];
 		state[4] = state[3];
 		state[3] = state[2];
-		state[2] = ft_rotate_left(state[1], 30);
+		state[2] = ft_rotate_left_x32(state[1], 30);
 		state[1] = state[0];
 		state[0] = tmp;
 	}
@@ -118,7 +118,5 @@ int			ft_sha1_final(t_dgst_ctx *ctx)
 	ft_memrev(&ibits, sizeof(ibits));
 	ft_memcpy(&ctx->block[ctx->iblock], &ibits, sizeof(ibits));
 	ft_sha1_transform(ctx);
-	if (FT_DGST_DEBUG)
-		hexdump(ctx->block, pad);
 	return (EXIT_SUCCESS);
 }

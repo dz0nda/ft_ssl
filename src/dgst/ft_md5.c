@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 23:07:42 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/12 07:38:02 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/15 09:21:09 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,7 +79,7 @@ int     		ft_md5_transform(t_dgst_ctx *ctx)
 	ft_memset(ks, 0, sizeof(ks));
 	ft_memset(fg, 0, sizeof(fg));
     ft_memcpy(state, ctx->state.x_32, sizeof(state));
-    ft_memcpy(w, ctx->block, sizeof(w));    // w = (uint32_t *)data;
+    ft_memcpy(w, ctx->block, sizeof(w));
 	while (++i < 64)
 	{
 		ft_md5_transform_ks(ks, i);
@@ -88,7 +88,7 @@ int     		ft_md5_transform(t_dgst_ctx *ctx)
 		state[0] = state[3];
 		state[3] = state[2];
 		state[2] = state[1];
-		state[1] = state[1] + ft_rotate_left(fg[0], ks[1]);
+		state[1] = state[1] + ft_rotate_left_x32(fg[0], ks[1]);
 	}
     i = -1;
     while (++i < ctx->len_state)
@@ -119,8 +119,6 @@ int			ft_md5_final(t_dgst_ctx *ctx)
 	}
 	ft_memcpy(&ctx->block[ctx->iblock], &ibits, sizeof(ibits));
 	ft_md5_transform(ctx);
-	// printf("\n== Final hexdump == \n");
-	// hexdump(ctx->block, pad);
 	return (EXIT_SUCCESS);
 }
 

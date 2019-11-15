@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_sha512.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: dzonda <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
+/*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/14 08:19:12 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/14 08:26:46 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/15 09:31:00 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,11 +36,11 @@ static void		ft_sha512_transform_word(uint64_t *w, const void *data)
 	i = -1;
 	m = (uint64_t *)data;
 	while (++i < 16)
-		w[i] = swap_uint64(m[i]);
+		w[i] = ft_swap_uint_x64(m[i]);
 	while (i < 80)
 	{
-		s0 = ft_rotate_right64(w[i - 15], 1) ^ ft_rotate_right64(w[i - 15], 8) ^ ft_shift_right64(w[i - 15], 7);
-		s1 = ft_rotate_right64(w[i - 2], 19) ^ ft_rotate_right64(w[i - 2], 61) ^ ft_shift_right64(w[i - 2], 6);
+		s0 = ft_rotate_right_x64(w[i - 15], 1) ^ ft_rotate_right_x64(w[i - 15], 8) ^ ft_shift_right_x64(w[i - 15], 7);
+		s1 = ft_rotate_right_x64(w[i - 2], 19) ^ ft_rotate_right_x64(w[i - 2], 61) ^ ft_shift_right_x64(w[i - 2], 6);
 		w[i] = w[i - 16] + s0 + w[i - 7] + s1;
 		i++;
 	}
@@ -67,10 +67,10 @@ static void		ft_sha512_transform_s(uint64_t state[8], uint64_t s[2], uint64_t w,
 	uint64_t ch;
 	uint64_t maj;
 
-	s[0] = ft_rotate_right64(state[4], 14) ^ ft_rotate_right64(state[4], 18) ^ ft_rotate_right64(state[4], 41);
+	s[0] = ft_rotate_right_x64(state[4], 14) ^ ft_rotate_right_x64(state[4], 18) ^ ft_rotate_right_x64(state[4], 41);
 	ch = (state[4] & state[5]) ^ ((~state[4]) & state[6]);
 	s[0] = state[7] + s[0] + ch + k[i] + w;
-	s[1] = ft_rotate_right64(state[0], 28) ^ ft_rotate_right64(state[0], 34) ^ ft_rotate_right64(state[0], 39);
+	s[1] = ft_rotate_right_x64(state[0], 28) ^ ft_rotate_right_x64(state[0], 34) ^ ft_rotate_right_x64(state[0], 39);
 	maj = (state[0] & state[1]) ^ (state[0] & state[2]) ^ (state[1] & state[2]);
 	s[1] = s[1] + maj;
 }
@@ -126,7 +126,5 @@ int				ft_sha512_final(t_dgst_ctx *ctx)
 	ft_memrev(&ibits, sizeof(ibits));
 	ft_memcpy(&ctx->block[ctx->iblock], &ibits, sizeof(ibits));
 	ft_sha512_transform(ctx);
-	if (FT_DGST_DEBUG)
-		hexdump(ctx->block, pad);
 	return (EXIT_SUCCESS);
 }

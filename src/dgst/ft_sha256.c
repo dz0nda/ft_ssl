@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 23:12:09 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/14 08:27:22 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/15 09:30:35 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,11 +36,11 @@ static void		ft_sha256_transform_word(uint32_t *w, const void *data)
 	i = -1;
 	m = (uint32_t *)data;
 	while (++i < 16)
-		w[i] = swap_uint32(m[i]);
+		w[i] = ft_swap_uint_x32(m[i]);
 	while (i < 64)
 	{
-		s0 = ft_rotate_right(w[i - 15], 7) ^ ft_rotate_right(w[i - 15], 18) ^ ft_shift_right(w[i - 15], 3);
-		s1 = ft_rotate_right(w[i - 2], 17) ^ ft_rotate_right(w[i - 2], 19) ^ ft_shift_right(w[i - 2], 10);
+		s0 = ft_rotate_right_x32(w[i - 15], 7) ^ ft_rotate_right_x32(w[i - 15], 18) ^ ft_shift_right_x32(w[i - 15], 3);
+		s1 = ft_rotate_right_x32(w[i - 2], 17) ^ ft_rotate_right_x32(w[i - 2], 19) ^ ft_shift_right_x32(w[i - 2], 10);
 		w[i] = w[i - 16] + s0 + w[i - 7] + s1;
 		i++;
 	}
@@ -62,10 +62,10 @@ static void		ft_sha256_transform_s(uint32_t state[8], uint32_t s[2], uint32_t w,
 	uint32_t ch;
 	uint32_t maj;
 
-	s[0] = ft_rotate_right(state[4], 6) ^ ft_rotate_right(state[4], 11) ^ ft_rotate_right(state[4], 25);
+	s[0] = ft_rotate_right_x32(state[4], 6) ^ ft_rotate_right_x32(state[4], 11) ^ ft_rotate_right_x32(state[4], 25);
 	ch = (state[4] & state[5]) ^ ((~state[4]) & state[6]);
 	s[0] = state[7] + s[0] + ch + k[i] + w;
-	s[1] = ft_rotate_right(state[0], 2) ^ ft_rotate_right(state[0], 13) ^ ft_rotate_right(state[0], 22);
+	s[1] = ft_rotate_right_x32(state[0], 2) ^ ft_rotate_right_x32(state[0], 13) ^ ft_rotate_right_x32(state[0], 22);
 	maj = (state[0] & state[1]) ^ (state[0] & state[2]) ^ (state[1] & state[2]);
 	s[1] = s[1] + maj;
 }
@@ -121,7 +121,5 @@ int			ft_sha256_final(t_dgst_ctx *ctx)
 	ft_memrev(&ibits, sizeof(ibits));
 	ft_memcpy(&ctx->block[ctx->iblock], &ibits, sizeof(ibits));
 	ft_sha256_transform(ctx);
-	if (FT_DGST_DEBUG)
-		hexdump(ctx->block, pad);
 	return (EXIT_SUCCESS);
 }
