@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/09 21:17:47 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/13 12:34:35 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/15 08:20:00 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -114,10 +114,10 @@ static int		ft_ssl_dgst_opt_dist(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[
 int		ft_ssl_dgst_opt(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[])
 {
 	const t_ftssl_dgst_opt_d	opt_d[FT_SSL_DGST_OPT] = {
-		{ "p", 		FT_SSL_DGST_OPT_P, 		ft_ssl_dgst_opt_p },
+		{ "p", 		FT_SSL_DGST_OPT_P, 		ft_ssl_dgst_opt_p	 },
         { "q", 		FT_SSL_DGST_OPT_Q, 		ft_ssl_dgst_opt_outp },
         { "r", 		FT_SSL_DGST_OPT_R, 		ft_ssl_dgst_opt_outp },
-		{ "s", 		FT_SSL_DGST_OPT_S, 		ft_ssl_dgst_opt_s },
+		{ "s", 		FT_SSL_DGST_OPT_S, 		ft_ssl_dgst_opt_s  	 },
 		{ "md5", 	FT_SSL_DGST_OPT_MD5, 	ft_ssl_dgst_opt_dist },
 		{ "sha1", 	FT_SSL_DGST_OPT_SHA1, 	ft_ssl_dgst_opt_dist },
 		{ "sha224", FT_SSL_DGST_OPT_SHA224, ft_ssl_dgst_opt_dist },

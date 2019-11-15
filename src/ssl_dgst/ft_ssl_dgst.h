@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 22:14:00 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/13 13:53:58 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/15 08:19:04 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,7 +18,7 @@
 
 # define FTSSL_DGST_MAX_BUFFER     8192
 
-typedef struct  s_ftssl_dgst t_ftssl_dgst;
+typedef struct  s_ftssl_dgst    t_ftssl_dgst;
 
 typedef int     t_ftssl_dgst_outp(char *, char *, int , char *);
 typedef int     t_ftssl_dgst_opt(t_ftssl_dgst *, int, char *[], int);
@@ -57,7 +57,11 @@ typedef struct  s_ftssl_dgst
 
 int     ft_ssl_dgst(int argc, char *argv[]);
 
+int		ft_ssl_dgst_parse_opt(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[]);
+int		ft_ssl_dgst_parse_arg(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[]);
+
 int		ft_ssl_dgst_opt(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[]);
+int		ft_ssl_dgst_arg(t_ftssl_dgst *ftssl_dgst, char *arg);
 
 int	    ft_ssl_dgst_output(char *cmd_name, char *cmd_arg, int cmd_arg_len, char *md);
 int		ft_ssl_dgst_output_q(char *cmd_name, char *cmd_arg, int cmd_arg_len, char *md);
