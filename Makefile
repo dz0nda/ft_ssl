@@ -6,7 +6,7 @@
 #    By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/11/11 05:46:03 by dzonda       #+#   ##    ##    #+#        #
-#    Updated: 2019/11/15 09:34:45 by dzonda      ###    #+. /#+    ###.fr      #
+#    Updated: 2019/11/19 20:07:55 by dzonda      ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -29,36 +29,41 @@ SUBDIR = \
 			ssl_dgst \
 			ssl_stdrd
 SUBFILE = \
-			ssl/ft_ssl_usage.c \
 			ssl/ft_ssl.c \
 			ssl/ft_ssl_init.c \
-			ssl/ft_ssl_dist.c \
 			ssl/ft_ssl_shell.c \
-			ssl/ft_ssl_error.c \
+			ssl/ft_ssl_dist.c \
+			ssl/ft_ssl_prgm_dist.c \
+			ssl/ft_ssl_usage.c \
 			\
+			dgst/ft_dgst.c \
 			dgst/ft_dgst_init.c \
+			dgst/ft_dgst_debug.c \
+			dgst/ft_dgst_rotate.c \
+			dgst/ft_dgst_swap_shift.c \
 			dgst/ft_dgst_utils_x32.c \
 			dgst/ft_dgst_utils_x64.c \
-			dgst/ft_dgst_debug.c \
-			dgst/ft_sha256.c \
-			dgst/ft_dgst.c \
-			dgst/ft_sha384.c \
-			dgst/ft_sha224.c \
-			dgst/ft_sha1.c \
-			dgst/ft_sha512.c \
 			dgst/ft_md5.c \
+			dgst/ft_sha1.c \
+			dgst/ft_sha224.c \
+			dgst/ft_sha256.c \
+			dgst/ft_sha384.c \
+			dgst/ft_sha512.c \
 			\
+			ssl_dgst/ft_ssl_dgst.c \
+			ssl_dgst/ft_ssl_dgst_dist.c \
+			ssl_dgst/ft_ssl_dgst_parse.c \
 			ssl_dgst/ft_ssl_dgst_opt.c \
 			ssl_dgst/ft_ssl_dgst_arg.c \
-			ssl_dgst/ft_ssl_dgst_parse.c \
 			ssl_dgst/ft_ssl_dgst_output.c \
-			ssl_dgst/ft_ssl_dgst.c \
 			ssl_dgst/ft_ssl_dgst_error.c \
 			ssl_dgst/ft_ssl_dgst_usage.c \
 			\
 			ssl_cipher/ft_ssl_cipher.c \
+			ssl_cipher/ft_ssl_cipher_dist.c \
 			\
-			ssl_stdrd/ft_ssl_stdrd.c
+			ssl_stdrd/ft_ssl_stdrd.c \
+			ssl_stdrd/ft_ssl_stdrd_dist.c
 
 SRCDIRS = $(foreach dir, $(SUBDIR), $(addprefix $(SRCDIR)/, $(dir)))
 OBJDIRS = $(foreach dir, $(SUBDIR), $(addprefix $(OBJDIR)/, $(dir)))
