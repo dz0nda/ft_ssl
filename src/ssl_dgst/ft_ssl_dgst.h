@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 22:14:00 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/15 08:19:04 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/19 19:38:03 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,8 +20,8 @@
 
 typedef struct  s_ftssl_dgst    t_ftssl_dgst;
 
-typedef int     t_ftssl_dgst_outp(char *, char *, int , char *);
 typedef int     t_ftssl_dgst_opt(t_ftssl_dgst *, int, char *[], int);
+typedef int     t_ftssl_dgst_outp(char *, char *, int , char *);
 
 typedef enum    s_ftssl_digest_opt_key
 {
@@ -45,6 +45,12 @@ typedef struct  s_ftssl_dgst_option_dispatch
     t_ftssl_dgst_opt    *opt_dist;
 }               t_ftssl_dgst_opt_d;
 
+typedef struct  s_ftssl_dgst_dist
+{
+    char    *dist_name;
+    int     dist_key;
+}               t_ftssl_dgst_dist;
+
 typedef struct  s_ftssl_dgst
 {
     int                 iarg;
@@ -55,7 +61,8 @@ typedef struct  s_ftssl_dgst
     t_ftssl_dgst_outp   *outp_dist;
 }               t_ftssl_dgst;
 
-int     ft_ssl_dgst(int argc, char *argv[]);
+int     ft_ssl_dgst(int cmd_key, char *cmd_name, int argc, char *argv[]);
+int     ft_ssl_dgst_dispatch_dist(char *dist_name);
 
 int		ft_ssl_dgst_parse_opt(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[]);
 int		ft_ssl_dgst_parse_arg(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[]);

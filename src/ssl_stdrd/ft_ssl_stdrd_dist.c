@@ -1,24 +1,34 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_ssl_stdrd.c                                   .::    .:/ .      .::   */
+/*   ft_ssl_stdrd_dist.c                              .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/11/04 22:09:28 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/19 19:36:19 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Created: 2019/11/19 18:12:30 by dzonda       #+#   ##    ##    #+#       */
+/*   Updated: 2019/11/19 19:56:52 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ssl_stdrd.h"
 
-int		ft_ssl_stdrd(int cmd_key, char *cmd_name, int argc, char *argv[])
+t_ftssl_stdrd_dist   g_ftssl_stdrd_dist[FT_STDRD_CMD] = {
+    { "dgst", FT_DGST }
+};
+
+int     ft_ssl_stdrd_dispatch_dist(char *dist_name)
 {
-	(void)cmd_key;
-	(void)cmd_name;
-	(void)argc;
-	(void)argv;
-	ft_putendl("Mmmhh.. it not really works...");
-	return (EXIT_SUCCESS);
+    int i;
+    
+    i = -1;
+    while (++i < FT_STDRD_CMD)
+    {
+        if (dist_name == NULL)
+            ft_putendl_fd(dist_name, STDERR_FILENO);
+        else
+            if (ft_strcmp(dist_name, g_ftssl_stdrd_dist[i].dist_name) == 0)
+                break;
+    }
+    return (i);
 }

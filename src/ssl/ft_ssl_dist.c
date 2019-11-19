@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 22:13:04 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/14 09:57:19 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/19 20:13:34 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,33 +14,36 @@
 #include "ft_ssl.h"
 
 const t_ftssl_dist_t	g_ftssl_dist[FTSSL_DIST_E] = {
-	{ FTSSL_HELP, { "help" }, ft_ssl_usage },
-	{ FTSSL_DGST, { "md5", "sha1", "sha224", "sha256", "sha384", "sha512" },
-		ft_ssl_dgst },
-	{ FTSSL_CIPHER, { "base64", "des" }, ft_ssl_cipher },
-	{ FTSSL_STDRD, { "dgst" }, ft_ssl_stdrd }
+	{ FTSSL_PRGM, ft_ssl_prgm_dispatch_dist, FT_PRGM_CMD, ft_ssl_usage },
+	{ FTSSL_DGST, ft_ssl_dgst_dispatch_dist, FT_DGST_CMD, ft_ssl_dgst },
+	{ FTSSL_CIPHER, ft_ssl_cipher_dispatch_dist, FT_CIPHER_CMD, ft_ssl_cipher },
+	{ FTSSL_STDRD, ft_ssl_stdrd_dispatch_dist, FT_STDRD_CMD, ft_ssl_stdrd }
 };
+
+static int		ft_ssl_error(int argc, char *argv[])
+{
+	(void)argc;
+	ft_putstr_fd("ftssl:Error: '", STDERR_FILENO);
+	ft_putstr_fd(argv[0], STDERR_FILENO);
+	ft_putendl_fd("' is an invalid command.", STDERR_FILENO);
+	ft_ssl_usage(0, NULL, 0, NULL);
+	return (EXIT_SUCCESS);
+}
 
 int			ft_ssl_dist_exec(int argc, char *argv[])
 {
 	int		key_dist;
-	int		key_name;
-	char	*dist_name;
+	int		key_cmd;
 
 	key_dist = -1;
-	key_name = -1;
-	dist_name = NULL;
+	key_cmd = -1;
 	if (argv[0] == NULL)
 		return (EXIT_SUCCESS);
 	while (++key_dist < FTSSL_DIST_E)
 	{
-		while (g_ftssl_dist[key_dist].dist_name[++key_name] != NULL)
-		{
-			dist_name = g_ftssl_dist[key_dist].dist_name[key_name];
-			if (ft_strcmp(dist_name, argv[0]) == 0)
-				return (g_ftssl_dist[key_dist].dist_ft(argc, argv));
-		}
-		key_name = -1;
+		if ((key_cmd = g_ftssl_dist[key_dist].dist_dispatch(argv[0]))
+					!= g_ftssl_dist[key_dist].dist_dispatch_max)
+			return (g_ftssl_dist[key_dist].dist_ft(key_cmd, argv[0], argc - 1, argv + 1));
 	}
 	return (ft_ssl_error(argc, argv));
 }

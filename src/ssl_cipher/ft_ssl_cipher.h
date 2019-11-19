@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 22:13:32 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/14 10:09:26 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/19 19:36:58 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,6 +23,19 @@ typedef enum		e_cipher_command_enum
 	FT_CIPHER_CMD
 }					t_cipher_cmd_e;
 
-int					ft_ssl_cipher(int argc, char *argv[]);
+typedef struct  s_ftssl_cipher_dist
+{
+    char    *dist_name;
+    int     dist_key;
+}               t_ftssl_cipher_dist;
+
+typedef struct  s_ftssl_cipher
+{
+    int          cmd_key;
+    char                *cmd_name;
+}               t_ftssl_cipher;
+
+int					ft_ssl_cipher(int cmd_key, char *cmd_name, int argc, char *argv[]);
+int     			ft_ssl_cipher_dispatch_dist(char *dist_name);
 
 #endif

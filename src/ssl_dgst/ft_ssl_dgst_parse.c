@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/15 08:15:56 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/15 08:19:09 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/19 14:29:32 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,7 +34,8 @@ int		ft_ssl_dgst_parse_arg(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[])
 	ft_memset(&st, 0, sizeof(st));
 	if (ftssl_dgst->iarg == argc && ft_strlen(ftssl_dgst->md) == 0)
 	{
-		ft_dgst_file(ftssl_dgst->cmd_key, NULL, FT_SSL_FALSE, ftssl_dgst->md);
+		// ft_dgst_file(ftssl_dgst->cmd_key, NULL, FT_SSL_FALSE, ftssl_dgst->md);
+		ft_dgst(ftssl_dgst->cmd_key, NULL, FT_SSL_FALSE, ftssl_dgst->md);
 		ftssl_dgst->outp_dist(ftssl_dgst->cmd_name, NULL, 0, ftssl_dgst->md);
 	}
 	else

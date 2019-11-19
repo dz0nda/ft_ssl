@@ -6,37 +6,33 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 22:11:53 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/14 09:55:29 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/19 20:05:17 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-int		ft_ssl_usage(int argc, char *argv[])
-{
-	const char	*dist[FTSSL_DIST_E] = { "Help commands:",
-		"Message Digest commands:", "Cipher commands:", "Standard commands:" };
-	const char	*dist_cmd[FTSSL_DIST_E][FTSSL_SHMAX_BUFFER] = {
-		{ "help" },
-		{ "md5", "sha1", "sha224", "sha256", "sha384", "sha512" },
-		{ "base64", "des" },
-		{ "dgst" }
-	};
-	int			key_dist;
-	int			key_dist_cmd;
+t_ftssl_usage_table		g_ftssl_usage[FTSSL_DIST_E] = {
+	{ "Help commands:",  ft_ssl_prgm_dispatch_dist },
+	{ "Message Digest commands:", ft_ssl_dgst_dispatch_dist },
+	{ "Cipher commands:", ft_ssl_cipher_dispatch_dist },
+	{ "Standard commands:", ft_ssl_stdrd_dispatch_dist }
+};
 
+int		ft_ssl_usage(int cmd_key, char *cmd_name, int argc, char *argv[])
+{
+	int			key_dist;
+	
+	(void)cmd_key;
+	(void)cmd_name;
 	(void)argc;
 	(void)argv;
 	key_dist = -1;
 	while (++key_dist < FTSSL_DIST_E)
 	{
-		key_dist_cmd = -1;
-		ft_putendl_fd(dist[key_dist], STDERR_FILENO);
-		if (dist_cmd[key_dist] != NULL)
-			while (dist_cmd[key_dist][++key_dist_cmd] != NULL)
-				ft_putendl_fd(dist_cmd[key_dist][key_dist_cmd], STDERR_FILENO);
-		ft_putstr_fd("\n", STDERR_FILENO);
+		ft_putendl_fd(g_ftssl_usage[key_dist].dist_title, STDERR_FILENO);
+		g_ftssl_usage[key_dist].dist_dispatch(NULL);
 	}
-	return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }

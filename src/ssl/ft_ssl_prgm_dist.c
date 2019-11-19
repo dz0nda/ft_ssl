@@ -1,24 +1,34 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_ssl_error.c                                   .::    .:/ .      .::   */
+/*   ft_ssl_prgm_dist.c                               .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/11/04 22:12:18 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/14 08:30:33 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Created: 2019/11/19 19:21:56 by dzonda       #+#   ##    ##    #+#       */
+/*   Updated: 2019/11/19 20:08:41 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-int		ft_ssl_error(int argc, char *argv[])
+t_ftssl_prgm_dist   g_ftssl_prgm_dist[FT_PRGM_CMD] = {
+    { "help", FT_HELP }
+};
+
+int     ft_ssl_prgm_dispatch_dist(char *dist_name)
 {
-	(void)argc;
-	ft_putstr_fd("ftssl:Error: '", STDERR_FILENO);
-	ft_putstr_fd(argv[0], STDERR_FILENO);
-	ft_putendl_fd("' is an invalid command.", STDERR_FILENO);
-	ft_ssl_usage(0, NULL);
-	return (EXIT_SUCCESS);
+    int i;
+    
+    i = -1;
+    while (++i < FT_PRGM_CMD)
+    {
+        if (dist_name == NULL)
+            ft_putendl(dist_name);
+        else
+            if (ft_strcmp(dist_name, g_ftssl_prgm_dist[i].dist_name) == 0)
+                break;
+    }
+    return (i);
 }

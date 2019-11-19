@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/09 21:17:47 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/15 08:20:00 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/19 20:06:24 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,7 +24,8 @@ int		ft_ssl_dgst_opt_p(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[], int opt
 	(void)opt_key;
 	ftssl_dgst->iarg++;
 	ft_bzero(ftssl_dgst->md, sizeof(ftssl_dgst->md));
-	ft_dgst_file(ftssl_dgst->cmd_key, NULL, FT_SSL_TRUE, ftssl_dgst->md);
+	// ft_dgst_file(ftssl_dgst->cmd_key, NULL, FT_SSL_TRUE, ftssl_dgst->md);
+	ft_dgst(ftssl_dgst->cmd_key, NULL, FT_SSL_TRUE, ftssl_dgst->md);
 	ftssl_dgst->outp_dist(ftssl_dgst->cmd_name, NULL, 0, ftssl_dgst->md);
 	return (EXIT_SUCCESS);
 }
@@ -41,7 +42,11 @@ static int		ft_ssl_dgst_opt_s(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[], 
 		return (ft_ssl_dgst_error_opt_arg(ftssl_dgst->cmd_name, argv[ftssl_dgst->iarg] + 1));
 	ftssl_dgst->iarg++;
 	ft_bzero(ftssl_dgst->md, sizeof(ftssl_dgst->md));
-	ft_dgst_string(ftssl_dgst->cmd_key, argv[ftssl_dgst->iarg], ft_strlen(argv[ftssl_dgst->iarg]), ftssl_dgst->md);
+	// ft_dgst_string(ftssl_dgst->cmd_key, argv[ftssl_dgst->iarg], ft_strlen(argv[ftssl_dgst->iarg]), ftssl_dgst->md);
+	if (argv[ftssl_dgst->iarg] == NULL)
+		ft_dgst(ftssl_dgst->cmd_key, "", 0, ftssl_dgst->md);
+	else
+		ft_dgst(ftssl_dgst->cmd_key, argv[ftssl_dgst->iarg], ft_strlen(argv[ftssl_dgst->iarg]), ftssl_dgst->md);
 	if (argv[ftssl_dgst->iarg] == NULL)
 		ftssl_dgst->outp_dist(ftssl_dgst->cmd_name, "", 1, ftssl_dgst->md);
 	else
@@ -77,9 +82,23 @@ static int		ft_ssl_dgst_opt_outp(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[
  * 	Map dgst key and ssl_dgst
 */
 
+// int 	ft_ssl_dgst_cmd(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[], )
+// {
+
+// 	int i = -1;
+// 	while (++i < FT_DGST_DIST)
+// 	{
+// 		if 
+
+// 	}
+
+
+// 	return (EXIT_FAILURE);
+// }
+
 static int		ft_ssl_dgst_opt_dist(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[], int opt_key)
 {
-	const int opt_dist[FT_DGST_DIST][2] = {
+	const int opt_dist[FT_DGST_CMD][2] = {
 		{ FT_SSL_DGST_OPT_MD5, FT_MD5 },
 		{ FT_SSL_DGST_OPT_SHA1, FT_SHA1 },
 		{ FT_SSL_DGST_OPT_SHA224, FT_SHA224 },
@@ -91,10 +110,10 @@ static int		ft_ssl_dgst_opt_dist(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[
 
     i = -1;
 	(void)argc;
-	while (++i < FT_DGST_DIST)
+	while (++i < FT_DGST_CMD)
 		if (opt_key == opt_dist[i][0])
 			break ;
-	if (i == FT_DGST_DIST)
+	if (i == FT_DGST_CMD)
 		return (EXIT_FAILURE);
 	ftssl_dgst->cmd_key = opt_dist[i][1];
 	if (argv[ftssl_dgst->iarg][0] == '-')
@@ -127,7 +146,7 @@ int		ft_ssl_dgst_opt(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[])
     };
 	int i;
 	char *opt;
-	
+
 	i = -1;
 	if (ftssl_dgst->cmd_name == NULL)
 		opt = argv[ftssl_dgst->iarg];
