@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 23:12:09 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/15 09:30:35 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/19 17:50:34 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,8 +39,8 @@ static void		ft_sha256_transform_word(uint32_t *w, const void *data)
 		w[i] = ft_swap_uint_x32(m[i]);
 	while (i < 64)
 	{
-		s0 = ft_rotate_right_x32(w[i - 15], 7) ^ ft_rotate_right_x32(w[i - 15], 18) ^ ft_shift_right_x32(w[i - 15], 3);
-		s1 = ft_rotate_right_x32(w[i - 2], 17) ^ ft_rotate_right_x32(w[i - 2], 19) ^ ft_shift_right_x32(w[i - 2], 10);
+		s0 = FT_DGST_ROTR_X32(w[i - 15], 7) ^ FT_DGST_ROTR_X32(w[i - 15], 18) ^ FT_DGST_SHFR(w[i - 15], 3);
+		s1 = FT_DGST_ROTR_X32(w[i - 2], 17) ^ FT_DGST_ROTR_X32(w[i - 2], 19) ^ FT_DGST_SHFR(w[i - 2], 10);
 		w[i] = w[i - 16] + s0 + w[i - 7] + s1;
 		i++;
 	}
@@ -62,17 +62,17 @@ static void		ft_sha256_transform_s(uint32_t state[8], uint32_t s[2], uint32_t w,
 	uint32_t ch;
 	uint32_t maj;
 
-	s[0] = ft_rotate_right_x32(state[4], 6) ^ ft_rotate_right_x32(state[4], 11) ^ ft_rotate_right_x32(state[4], 25);
+	s[0] = FT_DGST_ROTR_X32(state[4], 6) ^ FT_DGST_ROTR_X32(state[4], 11) ^ FT_DGST_ROTR_X32(state[4], 25);
 	ch = (state[4] & state[5]) ^ ((~state[4]) & state[6]);
 	s[0] = state[7] + s[0] + ch + k[i] + w;
-	s[1] = ft_rotate_right_x32(state[0], 2) ^ ft_rotate_right_x32(state[0], 13) ^ ft_rotate_right_x32(state[0], 22);
+	s[1] = FT_DGST_ROTR_X32(state[0], 2) ^ FT_DGST_ROTR_X32(state[0], 13) ^ FT_DGST_ROTR_X32(state[0], 22);
 	maj = (state[0] & state[1]) ^ (state[0] & state[2]) ^ (state[1] & state[2]);
 	s[1] = s[1] + maj;
 }
 
 int			ft_sha256_transform(t_dgst_ctx *ctx)
 {
-	int			i;
+	unsigned int			i;
 	uint32_t	state[8];
 	uint32_t	w[64];
 	uint32_t	s[2];
@@ -98,28 +98,43 @@ int			ft_sha256_transform(t_dgst_ctx *ctx)
 	return (EXIT_SUCCESS);
 }
 
-int			ft_sha256_final(t_dgst_ctx *ctx)
+int				ft_sha256_final(t_dgst_ctx *ctx)
 {
-	int i;
-	int pad;
-	uint64_t ibits;
+	unsigned int 		i;
+	unsigned int 		pad;
+	uint64_t 	ibits_x32;
+	__uint128_t	ibits_x64;
 
 	i = ctx->iblock;
-	pad = ft_get_size_aligned(ctx->iblock + 8, 64);
-	ibits = ctx->idata * 8;
+	pad = ft_get_size_aligned(ctx->iblock + ctx->x, ctx->mbs);
+
 	ctx->block[ctx->iblock++] = 0x80;
-	while (++i < (pad - 8))
+	while (++i < (pad - ctx->x))
 	{
-		if (ctx->iblock == ctx->len_mbs)
+		if (ctx->iblock == ctx->mbs)
 		{
-			ft_sha256_transform(ctx);
+			if (ctx->x == FT_DGST_X64)
+				ft_sha512_transform(ctx);
+			else
+				ft_sha256_transform(ctx);
 			ctx->iblock = 0;
 			ft_memset(ctx->block,0, sizeof(ctx->iblock));
 		}
 		ctx->block[ctx->iblock++] = 0;
 	}
-	ft_memrev(&ibits, sizeof(ibits));
-	ft_memcpy(&ctx->block[ctx->iblock], &ibits, sizeof(ibits));
-	ft_sha256_transform(ctx);
+	if (ctx->x == FT_DGST_X64)
+	{
+		ibits_x64 = ctx->idata * 8;
+		ft_memrev(&ibits_x64, sizeof(ibits_x64));
+		ft_memcpy(&ctx->block[ctx->iblock], &ibits_x64, sizeof(ibits_x64));
+		ft_sha512_transform(ctx);
+	}
+	else
+	{
+		ibits_x32 = ctx->idata * 8;
+		ft_memrev(&ibits_x32, sizeof(ibits_x32));
+		ft_memcpy(&ctx->block[ctx->iblock], &ibits_x32, sizeof(ibits_x32));
+		ft_sha256_transform(ctx);
+	}
 	return (EXIT_SUCCESS);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_dgst.h                                        .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2019/11/19 12:18:59 by dzonda       #+#   ##    ##    #+#       */
+/*   Updated: 2019/11/19 19:33:17 by dzonda      ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
 #ifndef FT_DGST_H
 # define FT_DGST_H
 
@@ -7,7 +19,40 @@
 # define FT_DGST_ENDIAN_LITTLE    0
 # define FT_DGST_ENDIAN_BIG       1
 
+# define FT_DGST_X32   8
+# define FT_DGST_X64   16
 
+# define FT_DGST_ROTL_X32(word, bits)   \
+  ((word << bits) | (word >> (32 - bits)))
+# define FT_DGST_ROTR_X32(word, bits)   \
+  ((word >> bits) | (word << (32 - bits)))
+
+# define FT_DGST_ROTL_X64(word, bits)   \
+  ((word << bits) | (word >> (64 - bits)))
+# define FT_DGST_ROTR_X64(word, bits)   \
+  ((word >> bits) | (word << (64 - bits)))
+
+# define FT_DGST_SHFR(word, bits)       \
+  (word >> bits)
+
+# define FT_DGST_SHA256_SIGMA_W0(word)  \
+  (FT_DGST_ROTR_X32(word, 7) ^ FT_DGST_ROTR_X32(word, 18) ^ \
+    FT_DGST_SHFR(word, 3))
+# define FT_DGST_SHA256_SIGMA_W1(word)  \
+  (FT_DGST_ROTR_X32(word, 17) ^ FT_DGST_ROTR_X32(word, 19) ^ \
+    FT_DGST_SHFR(word, 10))
+
+# define FT_DGST_SHA256_SIGMA_CH(x, y, z) \
+  ((x & y) ^ ((~x) & z))
+# define FT_DGST_SHA256_SIGMA_MAJ(x, y, z) \
+  ((x & y) ^ (x & z) ^ (y & z))
+
+# define FT_DGST_SHA256_SIGMA_T0(word) \
+  (FT_DGST_ROTR_X32(word, 6) ^ FT_DGST_ROTR_X32(word, 11) ^ \
+    FT_DGST_ROTR_X32(word, 25))
+# define FT_DGST_SHA256_SIGMA_T1(word) \
+  (FT_DGST_ROTR_X32(word, 2) ^ FT_DGST_ROTR_X32(word, 13) ^ \
+    FT_DGST_ROTR_X32(word, 22))
 
 /*
  *  
@@ -17,14 +62,14 @@
  *      HSB : Hash Size in Bits
  *  
  *  Structure context :
- *      len_hs    : Hash size
- *      len_mbs   : Message block size
+ *      hs    : Hash size
+ *      mbs   : Message block size
  *      endian    : Endian type (Big or Little)
- *      len_state : Length of array state
+ *      sts : Length of array state
  *      len_input : Length total of input
- *      len_block : Length of block (max: 2 * len_mbs)
+ *      len_block : Length of block (max: 2 * mbs)
  *      state     : Array of variables processed
- *      block     : Data to be processed (len: 2 * len_mbs)
+ *      block     : Data to be processed (len: 2 * mbs)
 */
 
 
@@ -33,7 +78,7 @@ typedef struct  s_digest_context  t_dgst_ctx;
 typedef     int  t_dgst_process(t_dgst_ctx *);
 typedef     char*	  t_dgst_dist_result(t_dgst_ctx *, char *);
 
-typedef enum    s_digest_dist_enum
+typedef enum    s_digest_command_enum
 {
     FT_MD5,
     FT_SHA1,
@@ -41,8 +86,8 @@ typedef enum    s_digest_dist_enum
     FT_SHA256,
     FT_SHA384,
     FT_SHA512,
-    FT_DGST_DIST
-}               t_dgst_dist_e;
+    FT_DGST_CMD
+}               t_dgst_cmd_e;
 
 typedef enum    s_digest_enum
 {
@@ -91,16 +136,18 @@ typedef union   s_digest_state
 
 typedef struct  s_digest_context
 {
-    int         len_hs;
-    int         len_mbs;
-    int         endian;
-    int         len_state;
-    int         idata;
-    int         iblock;
+    unsigned int        hs;
+    unsigned int          mbs;
+    unsigned int          endian;
+    unsigned int         sts;
+    unsigned int         x;
+    unsigned int         idata;
+    unsigned int         iblock;
     t_dgst_st   state;
     uint8_t     block[FT_SHA512_MBS];
     char        dgst[FT_SHA512_HS];
 }               t_dgst_ctx;
+
 
 typedef struct s_dgst_dist
 {
@@ -118,15 +165,16 @@ typedef struct  s_digest
   t_dgst_dist dist;
 }               t_dgst;
 
+char 	    *ft_dgst(int dist, const char *arg, unsigned int arg_len, char *md);
 int       ft_dgst_init(t_dgst *dgst, int cmd_key);
 char      *ft_dgst_file(int cmd_key, char *filename, int outp, char *cmd_dgst);
-char      *ft_dgst_string(int cmd_key, char *cmd_arg, int cmd_arg_len, char *cmd_dgst);
+char      *ft_dgst_string(int cmd_key, char *cmd_arg, unsigned int cmd_arg_len, char *cmd_dgst);
 
-size_t	    ft_get_size_aligned(size_t offset, size_t align);
+unsigned int	    ft_get_size_aligned(size_t offset, size_t align);
 
 /*
  *      init: Init the dgst state
- *      transform: Process block of size 'len_mbs'
+ *      transform: Process block of size 'mbs'
 */
 
 int			ft_md5_init(t_dgst_ctx *ctx);

@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 23:11:52 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/15 09:21:55 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/19 14:26:15 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,7 +70,7 @@ static void     ft_sha1_transform_fk(uint32_t fk[2], int j, int b, int c, int d)
 
 int				ft_sha1_transform(t_dgst_ctx *ctx)
 {
-	int      i;
+	unsigned int      i;
     uint32_t state[5];
     uint32_t w[80];
 	uint32_t fk[2];
@@ -90,7 +90,7 @@ int				ft_sha1_transform(t_dgst_ctx *ctx)
 		state[0] = tmp;
 	}
     i = -1;
-    while (++i < ctx->len_state)
+    while (++i < ctx->sts)
         ctx->state.x_32[i] += state[i];
 	return (EXIT_SUCCESS);
 }
@@ -107,7 +107,7 @@ int			ft_sha1_final(t_dgst_ctx *ctx)
 	ctx->block[ctx->iblock++] = 0x80;
 	while (++i < (pad - 8))
 	{
-		if (ctx->iblock == ctx->len_mbs)
+		if (ctx->iblock == ctx->mbs)
 		{
 			ft_sha1_transform(ctx);
 			ctx->iblock = 0;

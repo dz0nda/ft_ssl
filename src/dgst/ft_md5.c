@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 23:07:42 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/15 09:21:09 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/19 14:26:47 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -69,7 +69,7 @@ static void     ft_md5_transform_ks(uint32_t ks[2], int i)
 
 int     		ft_md5_transform(t_dgst_ctx *ctx)
 {
-	int	i;
+	unsigned int	i;
 	uint32_t 	ks[2];
 	uint32_t 	fg[2];
 	uint32_t	state[4];
@@ -91,7 +91,7 @@ int     		ft_md5_transform(t_dgst_ctx *ctx)
 		state[1] = state[1] + ft_rotate_left_x32(fg[0], ks[1]);
 	}
     i = -1;
-    while (++i < ctx->len_state)
+    while (++i < ctx->sts)
         ctx->state.x_32[i] += state[i];
 	return (EXIT_SUCCESS);
 }
@@ -109,7 +109,7 @@ int			ft_md5_final(t_dgst_ctx *ctx)
 	ctx->block[ctx->iblock++] = 0x80;
 	while (++i < (pad - 8))
 	{
-		if (ctx->iblock == ctx->len_mbs)
+		if (ctx->iblock == ctx->mbs)
 		{
 			ft_md5_transform(ctx);
 			ctx->iblock = 0;
