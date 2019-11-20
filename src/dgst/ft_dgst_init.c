@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/15 09:33:43 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/19 20:05:47 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/20 09:27:26 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,10 +33,7 @@ const t_dgst g_dgst_dist[FT_DGST_CMD] = {
 			{ 0 }, { 0 }
 		},
 		{ 
-			ft_md5_init, 
 			ft_md5_transform, 
-			ft_md5_final, 
-			ft_dgst_result_x32 
 		}
 	},
 	{ FT_SHA1, 
@@ -58,10 +55,7 @@ const t_dgst g_dgst_dist[FT_DGST_CMD] = {
 			}, { 0 }, { 0 }
 		}, 
 		{ 
-			ft_sha1_init, 
 			ft_sha1_transform, 
-			ft_sha1_final, 
-			ft_dgst_result_x32 
 		}
 	},
 	{ FT_SHA224, 
@@ -86,10 +80,7 @@ const t_dgst g_dgst_dist[FT_DGST_CMD] = {
 			}, { 0 }, { 0 } 
 		}, 
 		{ 
-			ft_sha224_init, 
 			ft_sha256_transform, 
-			ft_sha256_final, 
-			ft_dgst_result_x32 
 		}
 	},
 	{ FT_SHA256, 
@@ -115,10 +106,7 @@ const t_dgst g_dgst_dist[FT_DGST_CMD] = {
 			{ 0 }, { 0 } 
 		}, 
 		{ 
-			ft_sha256_init, 
 			ft_sha256_transform, 
-			ft_sha256_final, 
-			ft_dgst_result_x32 
 		}
 	},
 	{ FT_SHA384, 
@@ -144,10 +132,7 @@ const t_dgst g_dgst_dist[FT_DGST_CMD] = {
 			{ 0 }, { 0 } 
 		},
 		{ 
-			ft_sha384_init, 
-			ft_sha512_transform, 
-			ft_sha256_final, 
-			ft_dgst_result_x64 
+			ft_sha512_transform 
 		}
 	},
 	{ FT_SHA512, 
@@ -172,7 +157,7 @@ const t_dgst g_dgst_dist[FT_DGST_CMD] = {
 			}, 
 			{ 0 }, { 0 } 
 		},
-		{ ft_sha512_init, ft_sha512_transform, ft_sha256_final, ft_dgst_result_x64 }
+		{ ft_sha512_transform }
 	}
 };
 

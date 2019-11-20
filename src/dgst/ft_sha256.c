@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 23:12:09 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/19 17:50:34 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/20 08:43:28 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -95,46 +95,5 @@ int			ft_sha256_transform(t_dgst_ctx *ctx)
 	i = -1;
 	while (++i < 8)
 		ctx->state.x_32[i] += state[i];
-	return (EXIT_SUCCESS);
-}
-
-int				ft_sha256_final(t_dgst_ctx *ctx)
-{
-	unsigned int 		i;
-	unsigned int 		pad;
-	uint64_t 	ibits_x32;
-	__uint128_t	ibits_x64;
-
-	i = ctx->iblock;
-	pad = ft_get_size_aligned(ctx->iblock + ctx->x, ctx->mbs);
-
-	ctx->block[ctx->iblock++] = 0x80;
-	while (++i < (pad - ctx->x))
-	{
-		if (ctx->iblock == ctx->mbs)
-		{
-			if (ctx->x == FT_DGST_X64)
-				ft_sha512_transform(ctx);
-			else
-				ft_sha256_transform(ctx);
-			ctx->iblock = 0;
-			ft_memset(ctx->block,0, sizeof(ctx->iblock));
-		}
-		ctx->block[ctx->iblock++] = 0;
-	}
-	if (ctx->x == FT_DGST_X64)
-	{
-		ibits_x64 = ctx->idata * 8;
-		ft_memrev(&ibits_x64, sizeof(ibits_x64));
-		ft_memcpy(&ctx->block[ctx->iblock], &ibits_x64, sizeof(ibits_x64));
-		ft_sha512_transform(ctx);
-	}
-	else
-	{
-		ibits_x32 = ctx->idata * 8;
-		ft_memrev(&ibits_x32, sizeof(ibits_x32));
-		ft_memcpy(&ctx->block[ctx->iblock], &ibits_x32, sizeof(ibits_x32));
-		ft_sha256_transform(ctx);
-	}
 	return (EXIT_SUCCESS);
 }

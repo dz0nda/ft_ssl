@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/14 08:19:12 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/19 16:15:55 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/20 08:43:18 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -100,30 +100,5 @@ int				ft_sha512_transform(t_dgst_ctx *ctx)
 	i = -1;
 	while (++i < 8)
 		ctx->state.x_64[i] += state[i];
-	return (EXIT_SUCCESS);
-}
-
-int				ft_sha512_final(t_dgst_ctx *ctx)
-{
-	int			i;
-	int			pad;
-	__uint128_t	ibits;
-
-	i = ctx->iblock;
-	pad = ft_get_size_aligned(ctx->iblock + 16, 128);
-	ibits = ctx->idata * 8;
-	ctx->block[ctx->iblock++] = 0x80;
-	while (++i < (pad - 16))
-	{
-		if (ctx->iblock == ctx->mbs)
-		{
-			ft_sha512_transform(ctx);
-			ctx->iblock = 0;
-			ft_memset(ctx->block, 0, sizeof(ctx->iblock));
-		}
-		ctx->block[ctx->iblock++] = 0;
-	}
-	ft_memrev(&ibits, sizeof(ibits));
-	ft_memcpy(&ctx->block[ctx->iblock], &ibits, sizeof(ibits));
 	return (EXIT_SUCCESS);
 }

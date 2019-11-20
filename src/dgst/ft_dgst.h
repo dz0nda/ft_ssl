@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/19 12:18:59 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/19 19:33:17 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/20 10:01:01 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -151,10 +151,7 @@ typedef struct  s_digest_context
 
 typedef struct s_dgst_dist
 {
-    t_dgst_process      *init;
     t_dgst_process      *transform;
-    t_dgst_process      *final;
-    t_dgst_dist_result  *result;
 }               t_dgst_dist;
 
 
@@ -165,10 +162,15 @@ typedef struct  s_digest
   t_dgst_dist dist;
 }               t_dgst;
 
-char 	    *ft_dgst(int dist, const char *arg, unsigned int arg_len, char *md);
-int       ft_dgst_init(t_dgst *dgst, int cmd_key);
+// char 	    *ft_dgst(int dist, const char *arg, unsigned int arg_len, char *md);
 char      *ft_dgst_file(int cmd_key, char *filename, int outp, char *cmd_dgst);
-char      *ft_dgst_string(int cmd_key, char *cmd_arg, unsigned int cmd_arg_len, char *cmd_dgst);
+char      *ft_dgst_string(int cmd_key, char *cmd_arg, unsigned int cmd_arg_len, char *md);
+
+int       ft_dgst_init(t_dgst *dgst, int cmd_key);
+
+int			ft_dgst_finalize(t_dgst_ctx *ctx);
+int			ft_dgst_pad(t_dgst_ctx *ctx);
+char        *ft_dgst_result(t_dgst_ctx *ctx, char *cmd_dgst);
 
 unsigned int	    ft_get_size_aligned(size_t offset, size_t align);
 
@@ -179,19 +181,15 @@ unsigned int	    ft_get_size_aligned(size_t offset, size_t align);
 
 int			ft_md5_init(t_dgst_ctx *ctx);
 int 		ft_md5_transform(t_dgst_ctx *ctx);
-int			ft_md5_final(t_dgst_ctx *ctx);
 
 int			ft_sha1_init(t_dgst_ctx *ctx);
 int 		ft_sha1_transform(t_dgst_ctx *ctx);
-int			ft_sha1_final(t_dgst_ctx *ctx);
 
 int			ft_sha256_init(t_dgst_ctx *ctx);
 int			ft_sha256_transform(t_dgst_ctx *ctx);
-int			ft_sha256_final(t_dgst_ctx *ctx);
 
 int			ft_sha512_init(t_dgst_ctx *ctx);
 int			ft_sha512_transform(t_dgst_ctx *ctx);
-int			ft_sha512_final(t_dgst_ctx *ctx);
 
 int			ft_sha384_init(t_dgst_ctx *ctx);
 int			ft_sha224_init(t_dgst_ctx *ctx);

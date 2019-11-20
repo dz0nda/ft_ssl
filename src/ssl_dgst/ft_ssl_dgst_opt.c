@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/09 21:17:47 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/19 20:06:24 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/20 09:59:08 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,7 +25,7 @@ int		ft_ssl_dgst_opt_p(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[], int opt
 	ftssl_dgst->iarg++;
 	ft_bzero(ftssl_dgst->md, sizeof(ftssl_dgst->md));
 	// ft_dgst_file(ftssl_dgst->cmd_key, NULL, FT_SSL_TRUE, ftssl_dgst->md);
-	ft_dgst(ftssl_dgst->cmd_key, NULL, FT_SSL_TRUE, ftssl_dgst->md);
+	ft_dgst_file(ftssl_dgst->cmd_key, NULL, FT_SSL_TRUE, ftssl_dgst->md);
 	ftssl_dgst->outp_dist(ftssl_dgst->cmd_name, NULL, 0, ftssl_dgst->md);
 	return (EXIT_SUCCESS);
 }
@@ -44,9 +44,9 @@ static int		ft_ssl_dgst_opt_s(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[], 
 	ft_bzero(ftssl_dgst->md, sizeof(ftssl_dgst->md));
 	// ft_dgst_string(ftssl_dgst->cmd_key, argv[ftssl_dgst->iarg], ft_strlen(argv[ftssl_dgst->iarg]), ftssl_dgst->md);
 	if (argv[ftssl_dgst->iarg] == NULL)
-		ft_dgst(ftssl_dgst->cmd_key, "", 0, ftssl_dgst->md);
+		ft_dgst_string(ftssl_dgst->cmd_key, "", 0, ftssl_dgst->md);
 	else
-		ft_dgst(ftssl_dgst->cmd_key, argv[ftssl_dgst->iarg], ft_strlen(argv[ftssl_dgst->iarg]), ftssl_dgst->md);
+		ft_dgst_string(ftssl_dgst->cmd_key, argv[ftssl_dgst->iarg], ft_strlen(argv[ftssl_dgst->iarg]), ftssl_dgst->md);
 	if (argv[ftssl_dgst->iarg] == NULL)
 		ftssl_dgst->outp_dist(ftssl_dgst->cmd_name, "", 1, ftssl_dgst->md);
 	else
