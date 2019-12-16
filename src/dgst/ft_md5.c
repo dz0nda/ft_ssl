@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 23:07:42 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/19 14:26:47 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/16 15:59:08 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -95,7 +95,6 @@ int     		ft_md5_transform(t_dgst_ctx *ctx)
         ctx->state.x_32[i] += state[i];
 	return (EXIT_SUCCESS);
 }
-
 
 int			ft_md5_final(t_dgst_ctx *ctx)
 {
