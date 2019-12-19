@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 20:10:56 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/19 20:03:49 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/19 23:40:07 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,6 +17,7 @@
 # include "../ssl_dgst/ft_ssl_dgst.h"
 # include "../ssl_cipher/ft_ssl_cipher.h"
 # include "../ssl_stdrd/ft_ssl_stdrd.h"
+# include "../ssl_core/ft_ssl_core.h"
 
 # define FTSSL_SHMODE_DISABLED  0
 # define FTSSL_SHMODE_ENABLED   1
@@ -29,10 +30,10 @@ typedef int     	t_ftssl_dist_dispatch(char *dist_name);
 
 typedef enum				e_ftssl_dist_enum
 {
-	FTSSL_PRGM,
 	FTSSL_DGST,
 	FTSSL_CIPHER,
-	FTSSL_STDRD,
+	FTSSL_STDRD, 
+	FTSSL_CORE,
 	FTSSL_DIST_E
 }							t_ftssl_dist_e;
 
