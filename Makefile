@@ -6,7 +6,7 @@
 #    By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/11/11 05:46:03 by dzonda       #+#   ##    ##    #+#        #
-#    Updated: 2019/12/20 14:12:00 by dzonda      ###    #+. /#+    ###.fr      #
+#    Updated: 2019/12/20 16:05:21 by dzonda      ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -38,8 +38,7 @@ SUBFILE = \
 			dgst/ft_dgst.c \
 			dgst/ft_dgst_init.c \
 			dgst/ft_dgst_debug.c \
-			dgst/ft_dgst_rotate.c \
-			dgst/ft_dgst_swap_shift.c \
+			dgst/ft_dgst_utils.c \
 			dgst/ft_dgst_file.c \
 			dgst/ft_dgst_string.c \
 			dgst/ft_dgst_result.c \
