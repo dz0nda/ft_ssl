@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/08 14:07:28 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/20 16:03:52 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/20 17:33:42 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -77,10 +77,7 @@ char        *ft_dgst_result(t_dgst_ctx *ctx, char *cmd_dgst)
 		    ctx->state.x_64[i] = ft_swap_uint(ctx->state.x_64[i], sizeof(ctx->state.x_64[i])); 
 		else if (ctx->x == FT_DGST_X32 && ctx->endian == FT_DGST_ENDIAN_BIG)
 			ctx->state.x_32[i] = ft_swap_uint(ctx->state.x_32[i], sizeof(ctx->state.x_32[i]));
-		if (ctx->x == FT_DGST_X64)
-			p = (uint8_t *)&ctx->state.x_64[i];
-		else
-			p = (uint8_t *)&ctx->state.x_32[i];
+		p = (ctx->x == FT_DGST_X64) ? (uint8_t *)&ctx->state.x_64[i] : (uint8_t *)&ctx->state.x_32[i];
 		while (++j < (ctx->x / 2))
 		{
 			ft_bzero(s, sizeof(s));
