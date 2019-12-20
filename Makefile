@@ -6,7 +6,7 @@
 #    By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/11/11 05:46:03 by dzonda       #+#   ##    ##    #+#        #
-#    Updated: 2019/12/19 20:51:29 by dzonda      ###    #+. /#+    ###.fr      #
+#    Updated: 2019/12/20 14:12:00 by dzonda      ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -33,8 +33,7 @@ SUBFILE = \
 			ssl/ft_ssl_init.c \
 			ssl/ft_ssl_shell.c \
 			ssl/ft_ssl_dist.c \
-			ssl/ft_ssl_prgm_dist.c \
-			ssl/ft_ssl_usage.c \
+			ssl/ft_ssl_core.c \
 			\
 			dgst/ft_dgst.c \
 			dgst/ft_dgst_init.c \
