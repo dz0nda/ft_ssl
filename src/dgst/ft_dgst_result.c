@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/16 16:06:25 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/16 16:44:48 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/20 16:03:52 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,7 +26,7 @@ char		    *ft_dgst_result_x32(t_dgst_ctx *ctx, char *cmd_dgst)
 	{
 		j = -1;
         if (ctx->endian == FT_DGST_ENDIAN_BIG)
-		    ctx->state.x_32[i] = ft_swap_uint_x32(ctx->state.x_32[i]); 
+		    ctx->state.x_32[i] = ft_swap_uint(ctx->state.x_32[i], sizeof(ctx->state.x_32[i]));
 		p = (uint8_t *)&ctx->state.x_32[i];
 		while (++j < 4)
 		{
@@ -51,7 +51,7 @@ char        *ft_dgst_result_x64(t_dgst_ctx *ctx, char *cmd_dgst)
 	{
 		j = -1;
         if (ctx->endian == FT_DGST_ENDIAN_BIG)
-		    ctx->state.x_64[i] = ft_swap_uint_x64(ctx->state.x_64[i]); 
+		    ctx->state.x_64[i] = ft_swap_uint(ctx->state.x_64[i], sizeof(ctx->state.x_64[i])); 
 		p = (uint8_t *)&ctx->state.x_64[i];
 		while (++j < 8)
 		{

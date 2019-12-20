@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/14 08:19:12 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/20 08:43:18 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/20 16:03:52 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,7 +36,7 @@ static void		ft_sha512_transform_word(uint64_t *w, const void *data)
 	i = -1;
 	m = (uint64_t *)data;
 	while (++i < 16)
-		w[i] = ft_swap_uint_x64(m[i]);
+		w[i] = ft_swap_uint(m[i], sizeof(m[i]));
 	while (i < 80)
 	{
 		s0 = FT_DGST_ROTR_X64(w[i - 15], 1) ^ FT_DGST_ROTR_X64(w[i - 15], 8) ^ FT_DGST_SHFR(w[i - 15], 7);

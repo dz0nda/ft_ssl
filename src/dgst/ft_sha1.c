@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 23:11:52 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/19 14:26:15 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/20 16:03:52 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,11 +33,11 @@ static void     ft_sha1_transform_word(uint32_t *w, const void *data)
     rotator = 0;
     m = (uint32_t *)data;
     while (++i < 16)
-        w[i] = ft_swap_uint_x32(m[i]);
+        w[i] = ft_swap_uint(m[i], sizeof(m[i]));
     while (i < 80)
     {
         rotator = (w[i-3] ^ w[i-8] ^ w[i-14] ^ w[i-16]);
-        w[i] = ft_rotate_left_x32(rotator, 1);
+        w[i] = ft_rotate_x32(rotator, 1, FT_ROT_LEFT);
         i++;
     }
 	if (FT_DGST_DEBUG)
@@ -82,10 +82,10 @@ int				ft_sha1_transform(t_dgst_ctx *ctx)
 	while (++i < 80)
 	{
 		ft_sha1_transform_fk(fk, i, state[1], state[2], state[3]);
-		tmp = ft_rotate_left_x32(state[0], 5) + fk[0] + state[4] + fk[1] + w[i];
+		tmp = ft_rotate_x32(state[0], 5, FT_ROT_LEFT) + fk[0] + state[4] + fk[1] + w[i];
 		state[4] = state[3];
 		state[3] = state[2];
-		state[2] = ft_rotate_left_x32(state[1], 30);
+		state[2] = ft_rotate_x32(state[1], 30, FT_ROT_LEFT);
 		state[1] = state[0];
 		state[0] = tmp;
 	}
