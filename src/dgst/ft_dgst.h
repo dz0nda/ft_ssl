@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/19 12:18:59 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/20 16:04:22 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/21 19:47:56 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -169,10 +169,14 @@ typedef struct  s_digest
 }               t_dgst;
 
 // char 	    *ft_dgst(int dist, const char *arg, unsigned int arg_len, char *md);
+
 char      *ft_dgst_file(int cmd_key, char *filename, int outp, char *cmd_dgst);
 char      *ft_dgst_string(int cmd_key, char *cmd_arg, unsigned int cmd_arg_len, char *md);
 
 int       ft_dgst_init(t_dgst *dgst, int cmd_key);
+
+int         ft_dgst_update_file(t_dgst *dgst, const char *filename, unsigned int outp);
+int	        ft_dgst_update_string(t_dgst *dgst, const char *arg, unsigned int arg_len);
 
 int			ft_dgst_finalize(t_dgst_ctx *ctx);
 int			ft_dgst_pad(t_dgst_ctx *ctx);
@@ -214,9 +218,6 @@ uint32_t		ft_shift_x32(uint32_t word, uint32_t bits, t_dgst_rot_e);
 uint64_t		ft_rotate_x64(uint64_t word, uint64_t bits, t_dgst_rot_e);
 uint64_t		ft_shift_x64(uint64_t word, uint64_t bits, t_dgst_rot_e);
 uint64_t        ft_swap_uint(uint64_t val, size_t len);
-
-char*				ft_dgst_result_x32(t_dgst_ctx *ctx, char *cmd_dgst);
-char*				ft_dgst_result_x64(t_dgst_ctx *ctx, char *cmd_dgst);
 
 
 void      ft_dgst_update_words_debug(uint32_t *w, int n);
