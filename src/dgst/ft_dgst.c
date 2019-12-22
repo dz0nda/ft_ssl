@@ -6,87 +6,52 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/08 14:07:28 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/20 09:59:38 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/21 19:47:38 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_dgst.h"
 
-unsigned int		ft_get_size_aligned(size_t offset, size_t align)
+char		*ft_dgst_file(int cmd_key, char *filename, int outp,
+		char *md)
 {
-	return (offset + (align - (offset % align) % align));
+	int		fd;
+	t_dgst	dgst;
+
+	fd = 0;
+	ft_memset(&dgst, 0, sizeof(dgst));
+	ft_dgst_init(&dgst, cmd_key);
+	ft_dgst_update_file(&dgst, filename, outp);
+	ft_dgst_pad(&dgst.ctx);
+	if (dgst.ctx.iblock == dgst.ctx.mbs)
+	{
+		dgst.dist.transform(&dgst.ctx);
+		dgst.ctx.iblock = 0;
+		ft_memset(&dgst.ctx.block, 0, sizeof(dgst.ctx.block));
+	}
+	ft_dgst_finalize(&dgst.ctx);
+	dgst.dist.transform(&dgst.ctx);
+	ft_dgst_result(&dgst.ctx, md);
+	return (md);
 }
 
-int			ft_dgst_pad(t_dgst_ctx *ctx)
+char 	*ft_dgst_string(int dist, char *arg, unsigned int arg_len, char *md)
 {
-	unsigned int i;
-	unsigned int pad;
+	t_dgst	dgst;
 
-	i = ctx->iblock;
-	pad = ft_get_size_aligned(ctx->iblock + ctx->x, ctx->mbs);
-	ctx->block[ctx->iblock++] = 0x80;
-	while (++i < (pad - ctx->x))
+	ft_memset(&dgst, 0, sizeof(dgst));
+	ft_dgst_init(&dgst, dist);
+	ft_dgst_update_string(&dgst, arg, arg_len);
+	ft_dgst_pad(&dgst.ctx);
+	if (dgst.ctx.iblock == dgst.ctx.mbs)
 	{
-		if (ctx->iblock == ctx->mbs)
-			break ;
-		ctx->block[ctx->iblock++] = 0;
+		dgst.dist.transform(&dgst.ctx);
+		dgst.ctx.iblock = 0;
+		ft_memset(&dgst.ctx.block, 0, sizeof(dgst.ctx.block));
 	}
-	return (EXIT_SUCCESS);
-}
-
-int			ft_dgst_finalize(t_dgst_ctx *ctx)
-{
-	uint64_t 	ibits_x32;
-	__uint128_t	ibits_x64;
-
-	while (ctx->iblock < ctx->mbs - ctx->x)
-		ctx->block[ctx->iblock++] = 0;
-	if (ctx->x == FT_DGST_X64)
-	{
-		ibits_x64 = ctx->idata * 8;
-		if (ctx->endian == FT_DGST_ENDIAN_BIG)
-			ft_memrev(&ibits_x64, sizeof(ibits_x64));
-		ft_memcpy(&ctx->block[ctx->iblock], &ibits_x64, sizeof(ibits_x64));
-		// ft_sha512_transform(ctx);
-	}
-	else
-	{
-		ibits_x32 = ctx->idata * 8;
-		if (ctx->endian == FT_DGST_ENDIAN_BIG)
-			ft_memrev(&ibits_x32, sizeof(ibits_x32));
-		ft_memcpy(&ctx->block[ctx->iblock], &ibits_x32, sizeof(ibits_x32));
-		// ft_sha256_transform(ctx);
-	}
-	return (EXIT_SUCCESS);
-}
-
-char        *ft_dgst_result(t_dgst_ctx *ctx, char *cmd_dgst)
-{
-	unsigned int		i;
-	unsigned int		j;
-	char	s[6];
-	uint8_t	*p;
-
-	i = -1;
-	ft_bzero(ctx->dgst, sizeof(ctx->dgst));
-	while (++i < ctx->sts)
-	{
-		j = -1;
-        if (ctx->x == FT_DGST_X64 && ctx->endian == FT_DGST_ENDIAN_BIG)
-		    ctx->state.x_64[i] = ft_swap_uint_x64(ctx->state.x_64[i]); 
-		else if (ctx->x == FT_DGST_X32 && ctx->endian == FT_DGST_ENDIAN_BIG)
-			ctx->state.x_32[i] = ft_swap_uint_x32(ctx->state.x_32[i]);
-		if (ctx->x == FT_DGST_X64)
-			p = (uint8_t *)&ctx->state.x_64[i];
-		else
-			p = (uint8_t *)&ctx->state.x_32[i];
-		while (++j < (ctx->x / 2))
-		{
-			ft_bzero(s, sizeof(s));
-			ft_itoa(p[j], s, 16);
-			ft_strcat(cmd_dgst, s);
-		}
-	}
-	return (cmd_dgst);
+	ft_dgst_finalize(&dgst.ctx);
+	dgst.dist.transform(&dgst.ctx);
+	ft_dgst_result(&dgst.ctx, md);
+	return (md);
 }

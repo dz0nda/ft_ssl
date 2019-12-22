@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 22:14:00 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/19 19:38:03 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/21 19:37:23 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,6 +22,16 @@ typedef struct  s_ftssl_dgst    t_ftssl_dgst;
 
 typedef int     t_ftssl_dgst_opt(t_ftssl_dgst *, int, char *[], int);
 typedef int     t_ftssl_dgst_outp(char *, char *, int , char *);
+
+typedef enum    s_ftssl_digest_err_key
+{
+    FTSSL_DGST_ERR_NO,
+    FTSSL_DGST_ERR_OPT,
+    FTSSL_DGST_ERR_ARG,
+    FTSSL_DGST_ERR_FILE,
+    FTSSL_DGST_ERR_DIR,
+    FTSSL_DGST_ERR
+}               t_ftssl_dgst_err_key;
 
 typedef enum    s_ftssl_digest_opt_key
 {
@@ -74,11 +84,6 @@ int	    ft_ssl_dgst_output(char *cmd_name, char *cmd_arg, int cmd_arg_len, char 
 int		ft_ssl_dgst_output_q(char *cmd_name, char *cmd_arg, int cmd_arg_len, char *md);
 int		ft_ssl_dgst_output_r(char *cmd_name, char *cmd_arg, int cmd_arg_len, char *md);
 
-int     ft_ssl_dgst_error_opt(char *cmd, char *opt);
-int     ft_ssl_dgst_error_opt_arg(char *cmd, char *opt);
-int     ft_ssl_dgst_error_file(char *cmd, char *arg);
-int     ft_ssl_dgst_error_dir(char *cmd, char *arg);
-
-void    ft_ssl_dgst_usage(char *cmd);
+int     ft_ssl_dgst_error(char *cmd, char *arg, int err);
 
 #endif

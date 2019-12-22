@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/09 21:17:47 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/20 09:59:08 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/20 14:27:33 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,7 +39,7 @@ static int		ft_ssl_dgst_opt_s(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[], 
 {	
 	(void)opt_key;
 	if (!(ftssl_dgst->iarg + 1 < argc))
-		return (ft_ssl_dgst_error_opt_arg(ftssl_dgst->cmd_name, argv[ftssl_dgst->iarg] + 1));
+		return (ft_ssl_dgst_error(ftssl_dgst->cmd_name, argv[ftssl_dgst->iarg] + 1, FTSSL_DGST_ERR_ARG));
 	ftssl_dgst->iarg++;
 	ft_bzero(ftssl_dgst->md, sizeof(ftssl_dgst->md));
 	// ft_dgst_string(ftssl_dgst->cmd_key, argv[ftssl_dgst->iarg], ft_strlen(argv[ftssl_dgst->iarg]), ftssl_dgst->md);
@@ -155,5 +155,5 @@ int		ft_ssl_dgst_opt(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[])
 	while (++i < FT_SSL_DGST_OPT)
 		if (ft_strcmp(opt, opt_d[i].opt_name) == 0)
 			return (opt_d[i].opt_dist(ftssl_dgst, argc, argv, opt_d[i].opt_key));
-	return (ft_ssl_dgst_error_opt(ftssl_dgst->cmd_name, opt));
+	return (ft_ssl_dgst_error(ftssl_dgst->cmd_name, opt, FTSSL_DGST_ERR_OPT));
 }

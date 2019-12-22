@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 22:12:50 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/18 18:53:51 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/20 13:07:59 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,7 +26,7 @@ int			ft_ssl(int argc, const char *argv[])
 		if (ftssl.shmode == FTSSL_SHMODE_ENABLED)
 			if (ft_ssl_shell(&ftssl.sh) == EXIT_FAILURE)
 				break ;
-		err = ft_ssl_dist_exec(ftssl.sh.argc, ftssl.sh.argv);
+		err = ft_ssl_dispatch(ftssl.sh.argc, ftssl.sh.argv);
 		if (ftssl.shmode == FTSSL_SHMODE_DISABLED)
 			break ;
 	}

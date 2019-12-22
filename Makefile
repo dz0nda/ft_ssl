@@ -6,7 +6,7 @@
 #    By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/11/11 05:46:03 by dzonda       #+#   ##    ##    #+#        #
-#    Updated: 2019/12/19 20:51:29 by dzonda      ###    #+. /#+    ###.fr      #
+#    Updated: 2019/12/21 19:49:49 by dzonda      ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -33,17 +33,14 @@ SUBFILE = \
 			ssl/ft_ssl_init.c \
 			ssl/ft_ssl_shell.c \
 			ssl/ft_ssl_dist.c \
-			ssl/ft_ssl_prgm_dist.c \
-			ssl/ft_ssl_usage.c \
+			ssl/ft_ssl_core.c \
 			\
 			dgst/ft_dgst.c \
 			dgst/ft_dgst_init.c \
+			dgst/ft_dgst_update.c \
+			dgst/ft_dgst_final.c \
 			dgst/ft_dgst_debug.c \
-			dgst/ft_dgst_rotate.c \
-			dgst/ft_dgst_swap_shift.c \
-			dgst/ft_dgst_file.c \
-			dgst/ft_dgst_string.c \
-			dgst/ft_dgst_result.c \
+			dgst/ft_dgst_utils.c \
 			dgst/ft_md5.c \
 			dgst/ft_sha1.c \
 			dgst/ft_sha224.c \
@@ -58,7 +55,6 @@ SUBFILE = \
 			ssl_dgst/ft_ssl_dgst_arg.c \
 			ssl_dgst/ft_ssl_dgst_output.c \
 			ssl_dgst/ft_ssl_dgst_error.c \
-			ssl_dgst/ft_ssl_dgst_usage.c \
 			\
 			ssl_cipher/ft_ssl_cipher.c \
 			ssl_cipher/ft_ssl_cipher_dist.c \

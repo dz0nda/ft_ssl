@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/19 12:18:59 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/20 10:01:01 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/12/21 19:47:56 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -89,6 +89,12 @@ typedef enum    s_digest_command_enum
     FT_DGST_CMD
 }               t_dgst_cmd_e;
 
+typedef enum    e_digest_rotate_enum
+{
+    FT_ROT_LEFT,
+    FT_ROT_RIGHT
+}               t_dgst_rot_e;
+
 typedef enum    s_digest_enum
 {
   FT_MD5_MBS        = 64,
@@ -163,10 +169,14 @@ typedef struct  s_digest
 }               t_dgst;
 
 // char 	    *ft_dgst(int dist, const char *arg, unsigned int arg_len, char *md);
+
 char      *ft_dgst_file(int cmd_key, char *filename, int outp, char *cmd_dgst);
 char      *ft_dgst_string(int cmd_key, char *cmd_arg, unsigned int cmd_arg_len, char *md);
 
 int       ft_dgst_init(t_dgst *dgst, int cmd_key);
+
+int         ft_dgst_update_file(t_dgst *dgst, const char *filename, unsigned int outp);
+int	        ft_dgst_update_string(t_dgst *dgst, const char *arg, unsigned int arg_len);
 
 int			ft_dgst_finalize(t_dgst_ctx *ctx);
 int			ft_dgst_pad(t_dgst_ctx *ctx);
@@ -198,17 +208,16 @@ int			ft_sha224_init(t_dgst_ctx *ctx);
  *      This interface connect to the sha functions
 */
 
-uint32_t		ft_rotate_left_x32(uint32_t word, uint32_t bits);
-uint32_t		ft_rotate_right_x32(uint32_t word, uint32_t bits);
-uint32_t		ft_shift_right_x32(uint32_t word, uint32_t bits);
-uint32_t    ft_swap_uint_x32(uint32_t val);
-char*				ft_dgst_result_x32(t_dgst_ctx *ctx, char *cmd_dgst);
 
-uint64_t		ft_rotate_left_x64(uint64_t word, uint64_t bits);
-uint64_t		ft_rotate_right_x64(uint64_t word, uint64_t bits);
-uint64_t		ft_shift_right_x64(uint64_t word, uint64_t bits);
-uint64_t    ft_swap_uint_x64(uint64_t val);
-char*				ft_dgst_result_x64(t_dgst_ctx *ctx, char *cmd_dgst);
+/*
+ *  dgst_utils
+*/
+
+uint32_t		ft_rotate_x32(uint32_t word, uint32_t bits, t_dgst_rot_e);
+uint32_t		ft_shift_x32(uint32_t word, uint32_t bits, t_dgst_rot_e);
+uint64_t		ft_rotate_x64(uint64_t word, uint64_t bits, t_dgst_rot_e);
+uint64_t		ft_shift_x64(uint64_t word, uint64_t bits, t_dgst_rot_e);
+uint64_t        ft_swap_uint(uint64_t val, size_t len);
 
 
 void      ft_dgst_update_words_debug(uint32_t *w, int n);
