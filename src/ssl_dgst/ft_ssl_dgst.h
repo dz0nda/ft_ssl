@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 22:14:00 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/21 19:37:23 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/05 22:06:51 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,6 +71,12 @@ typedef struct  s_ftssl_dgst
     t_ftssl_dgst_outp   *outp_dist;
 }               t_ftssl_dgst;
 
+typedef struct  s_ftssl_dgst_interface
+{
+    t_ftssl_dgst_dist   dist[FT_DGST_CMD];
+    t_ftssl_dgst_opt_d  opt[FT_SSL_DGST_OPT];
+}               t_ftssl_dgst_i;
+
 int     ft_ssl_dgst(int cmd_key, char *cmd_name, int argc, char *argv[]);
 int     ft_ssl_dgst_dispatch_dist(char *dist_name);
 
@@ -85,5 +91,13 @@ int		ft_ssl_dgst_output_q(char *cmd_name, char *cmd_arg, int cmd_arg_len, char *
 int		ft_ssl_dgst_output_r(char *cmd_name, char *cmd_arg, int cmd_arg_len, char *md);
 
 int     ft_ssl_dgst_error(char *cmd, char *arg, int err);
+
+
+
+int		ft_ssl_dgst_opt_p(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[], int opt_key);
+int		ft_ssl_dgst_opt_s(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[], int opt_key);
+int		ft_ssl_dgst_opt_outp(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[], int opt_key);
+int		ft_ssl_dgst_opt_dist(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[], int opt_key);
+
 
 #endif
