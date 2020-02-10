@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/19 17:49:26 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/05 22:06:42 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/10 22:58:01 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,6 +42,13 @@ t_ftssl_dgst_i  g_ftssl_dgst_i = {
 		{ "sha256", FT_SSL_DGST_OPT_SHA256, ft_ssl_dgst_opt_dist },
 		{ "sha384", FT_SSL_DGST_OPT_SHA384, ft_ssl_dgst_opt_dist },
 		{ "sha512", FT_SSL_DGST_OPT_SHA512, ft_ssl_dgst_opt_dist }
+    },
+    .err = {
+        { FTSSL_DGST_ERR_NO,        ft_ssl_dgst_err_unexpected },
+        { FTSSL_DGST_ERR_OPT,       ft_ssl_dgst_err_opt },
+        { FTSSL_DGST_ERR_OPT_ARG,   ft_ssl_dgst_err_opt_arg },
+        { FTSSL_DGST_ERR_FILE,      ft_ssl_dgst_err_file },
+        { FTSSL_DGST_ERR_DIR,       ft_ssl_dgst_err_dir }
     }
 };
 
@@ -75,6 +82,19 @@ int		ft_ssl_dgst_opt(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[])
 		opt = argv[ftssl_dgst->iarg] + 1;
 	while (++i < FT_SSL_DGST_OPT)
 		if (ft_strcmp(opt, opt_d[i].opt_name) == 0)
-			return ((opt_d)[i].opt_dist(ftssl_dgst, argc, argv, opt_d[i].opt_key));
-	return (ft_ssl_dgst_error(ftssl_dgst->cmd_name, opt, FTSSL_DGST_ERR_OPT));
+			return (opt_d[i].opt_dist(ftssl_dgst, argc, argv, opt_d[i].opt_key));
+	return (ft_ssl_dispatch_err(ftssl_dgst->cmd_name, opt, FTSSL_DGST_ERR_OPT));
+}
+
+int     ft_ssl_dispatch_err(char *cmd, char *arg, int err)
+{
+    int i;
+    t_ftssl_dgst_err_d *err_d;
+
+	i = -1;
+    err_d = g_ftssl_dgst_i.err;
+    while (++i < FTSSL_DGST_ERR)
+        if (err == err_d[i].err_key)
+            break;
+    return (err_d[i].err_dist(cmd, arg, err));
 }

@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/04 22:14:00 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/05 22:06:51 by dzonda      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/10 23:07:17 by dzonda      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,13 +21,14 @@
 typedef struct  s_ftssl_dgst    t_ftssl_dgst;
 
 typedef int     t_ftssl_dgst_opt(t_ftssl_dgst *, int, char *[], int);
+typedef int     t_ftssl_dgst_err(char *, char *, int);
 typedef int     t_ftssl_dgst_outp(char *, char *, int , char *);
 
 typedef enum    s_ftssl_digest_err_key
 {
     FTSSL_DGST_ERR_NO,
     FTSSL_DGST_ERR_OPT,
-    FTSSL_DGST_ERR_ARG,
+    FTSSL_DGST_ERR_OPT_ARG,
     FTSSL_DGST_ERR_FILE,
     FTSSL_DGST_ERR_DIR,
     FTSSL_DGST_ERR
@@ -55,6 +56,12 @@ typedef struct  s_ftssl_dgst_option_dispatch
     t_ftssl_dgst_opt    *opt_dist;
 }               t_ftssl_dgst_opt_d;
 
+typedef struct  s_ftssl_dgst_error_dispatch
+{
+    int                 err_key;
+    t_ftssl_dgst_err    *err_dist;
+}               t_ftssl_dgst_err_d;
+
 typedef struct  s_ftssl_dgst_dist
 {
     char    *dist_name;
@@ -75,15 +82,14 @@ typedef struct  s_ftssl_dgst_interface
 {
     t_ftssl_dgst_dist   dist[FT_DGST_CMD];
     t_ftssl_dgst_opt_d  opt[FT_SSL_DGST_OPT];
+    t_ftssl_dgst_err_d  err[FTSSL_DGST_ERR];
 }               t_ftssl_dgst_i;
 
 int     ft_ssl_dgst(int cmd_key, char *cmd_name, int argc, char *argv[]);
-int     ft_ssl_dgst_dispatch_dist(char *dist_name);
 
 int		ft_ssl_dgst_parse_opt(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[]);
 int		ft_ssl_dgst_parse_arg(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[]);
 
-int		ft_ssl_dgst_opt(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[]);
 int		ft_ssl_dgst_arg(t_ftssl_dgst *ftssl_dgst, char *arg);
 
 int	    ft_ssl_dgst_output(char *cmd_name, char *cmd_arg, int cmd_arg_len, char *md);
@@ -92,12 +98,32 @@ int		ft_ssl_dgst_output_r(char *cmd_name, char *cmd_arg, int cmd_arg_len, char *
 
 int     ft_ssl_dgst_error(char *cmd, char *arg, int err);
 
+/*
+ *  DISPATCHER
+*/
 
+int     ft_ssl_dgst_dispatch_dist(char *dist_name);
+int		ft_ssl_dgst_opt(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[]);
+int     ft_ssl_dispatch_err(char *cmd, char *arg, int err);
+
+/*
+ *  OPT 
+*/
 
 int		ft_ssl_dgst_opt_p(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[], int opt_key);
 int		ft_ssl_dgst_opt_s(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[], int opt_key);
 int		ft_ssl_dgst_opt_outp(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[], int opt_key);
 int		ft_ssl_dgst_opt_dist(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[], int opt_key);
 
+/*
+ *  ERR 
+*/
+
+int   ft_ssl_dgst_err_unexpected(char *cmd, char *arg, int err);
+int   ft_ssl_dgst_err_opt(char *cmd, char *arg, int err);
+int   ft_ssl_dgst_err_opt_arg(char *cmd, char *arg, int err);
+int   ft_ssl_dgst_err_file(char *cmd, char *arg, int err);
+int   ft_ssl_dgst_err_dir(char *cmd, char *arg, int err);
+void  ft_ssl_dgst_err_usage(char *cmd);
 
 #endif
