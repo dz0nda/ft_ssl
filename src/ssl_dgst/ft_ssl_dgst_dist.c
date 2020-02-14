@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ft_ssl_dgst_dist.c                               .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/11/19 17:49:26 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/10 22:58:01 by dzonda      ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_ssl_dgst_dist.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dzonda <dzonda@student.le-101.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/19 17:49:26 by dzonda            #+#    #+#             */
+/*   Updated: 2020/02/14 16:33:39 by dzonda           ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 
 #include "ft_ssl_dgst.h"
 
@@ -32,30 +32,35 @@ t_ftssl_dgst_i  g_ftssl_dgst_i = {
         { "sha512", FT_SHA512   }
     },
     .opt = {
-		{ "p", 		FT_SSL_DGST_OPT_P, 		ft_ssl_dgst_opt_p	 },
-        { "q", 		FT_SSL_DGST_OPT_Q, 		ft_ssl_dgst_opt_outp },
-        { "r", 		FT_SSL_DGST_OPT_R, 		ft_ssl_dgst_opt_outp },
-		{ "s", 		FT_SSL_DGST_OPT_S, 		ft_ssl_dgst_opt_s  	 },
-		{ "md5", 	FT_SSL_DGST_OPT_MD5, 	ft_ssl_dgst_opt_dist },
-		{ "sha1", 	FT_SSL_DGST_OPT_SHA1, 	ft_ssl_dgst_opt_dist },
-		{ "sha224", FT_SSL_DGST_OPT_SHA224, ft_ssl_dgst_opt_dist },
-		{ "sha256", FT_SSL_DGST_OPT_SHA256, ft_ssl_dgst_opt_dist },
-		{ "sha384", FT_SSL_DGST_OPT_SHA384, ft_ssl_dgst_opt_dist },
-		{ "sha512", FT_SSL_DGST_OPT_SHA512, ft_ssl_dgst_opt_dist }
+		{ FT_SSL_DGST_OPT_P,        "p",        ft_ssl_dgst_opt_p	 },
+        { FT_SSL_DGST_OPT_Q,        "q", 		ft_ssl_dgst_opt_outp },
+        { FT_SSL_DGST_OPT_R,        "r", 		ft_ssl_dgst_opt_outp },
+		{ FT_SSL_DGST_OPT_S,        "s", 	 	ft_ssl_dgst_opt_s  	 },
+		{ FT_SSL_DGST_OPT_MD5,      "md5", 	    ft_ssl_dgst_opt_dist },
+		{ FT_SSL_DGST_OPT_SHA1,     "sha1",     ft_ssl_dgst_opt_dist },
+		{ FT_SSL_DGST_OPT_SHA224,   "sha224",   ft_ssl_dgst_opt_dist },
+		{ FT_SSL_DGST_OPT_SHA256,   "sha256",   ft_ssl_dgst_opt_dist },
+		{ FT_SSL_DGST_OPT_SHA384,   "sha384",   ft_ssl_dgst_opt_dist },
+		{ FT_SSL_DGST_OPT_SHA512,   "sha512",   ft_ssl_dgst_opt_dist }
     },
     .err = {
-        { FTSSL_DGST_ERR_NO,        ft_ssl_dgst_err_unexpected },
-        { FTSSL_DGST_ERR_OPT,       ft_ssl_dgst_err_opt },
-        { FTSSL_DGST_ERR_OPT_ARG,   ft_ssl_dgst_err_opt_arg },
-        { FTSSL_DGST_ERR_FILE,      ft_ssl_dgst_err_file },
-        { FTSSL_DGST_ERR_DIR,       ft_ssl_dgst_err_dir }
+        { FTSSL_DGST_ERR_NO,        "Unexpected error.",                ft_ssl_dgst_err_unexpected  },
+        { FTSSL_DGST_ERR_OPT,       "illegal option -- ",               ft_ssl_dgst_err_opt         },
+        { FTSSL_DGST_ERR_OPT_ARG,   "option requires an argument -- ",  ft_ssl_dgst_err_opt         },
+        { FTSSL_DGST_ERR_FILE,      ": No such file or directory",      ft_ssl_dgst_err_filedir     },
+        { FTSSL_DGST_ERR_DIR,       ": Is a directory",                 ft_ssl_dgst_err_filedir     }
+    },
+    .outp = {
+        { FTSSL_DGST_OUTP_DEFAULT, ft_ssl_dgst_output   },
+        { FTSSL_DGST_OUTP_QUIET, ft_ssl_dgst_output_q   },
+        { FTSSL_DGST_OUTP_REVERSE, ft_ssl_dgst_output_r }
     }
 };
 
 int     ft_ssl_dgst_dispatch_dist(char *dist_name)
 {
     int i;
-    
+
     i = -1;
     while (++i < FT_DGST_CMD)
     {
@@ -96,5 +101,18 @@ int     ft_ssl_dispatch_err(char *cmd, char *arg, int err)
     while (++i < FTSSL_DGST_ERR)
         if (err == err_d[i].err_key)
             break;
-    return (err_d[i].err_dist(cmd, arg, err));
+    return (err_d[i].err_dist(cmd, arg, err_d[i].err_msg));
+}
+
+int	    ftssl_dgst_dispatch_outp(char *cmd_name, char *cmd_arg, int cmd_arg_len, char *md, int outp)
+{
+    int i;
+    t_ftssl_dgst_outp_d *outp_d;
+    
+    i = -1;
+    outp_d = g_ftssl_dgst_i.outp;
+    while (++i < FTSSL_DGST_OUTP)
+        if (outp == outp_d[i].outp_key)
+            break;
+    return (outp_d[i].outp_dist(cmd_name, cmd_arg, cmd_arg_len, md));
 }
