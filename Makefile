@@ -1,15 +1,15 @@
 # **************************************************************************** #
-#                                                           LE - /             #
-#                                                               /              #
-#    Makefile                                         .::    .:/ .      .::    #
-#                                                  +:+:+   +:    +:  +:+:+     #
-#    By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+      #
-#                                                  #+#   #+    #+    #+#       #
-#    Created: 2019/11/11 05:46:03 by dzonda       #+#   ##    ##    #+#        #
-#    Updated: 2019/12/21 19:49:49 by dzonda      ###    #+. /#+    ###.fr      #
-#                                                          /                   #
-#                                                         /                    #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: dzonda <dzonda@student.le-101.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/11/11 05:46:03 by dzonda            #+#    #+#              #
+#    Updated: 2020/02/14 16:07:38 by dzonda           ###   ########lyon.fr    #
+#                                                                              #
 # **************************************************************************** #
+
 
 NAME = ft_ssl
 SRCDIR = src
@@ -27,7 +27,12 @@ SUBDIR = \
 			ssl \
 			ssl_cipher \
 			ssl_dgst \
+			ssl_dgst/err \
+			ssl_dgst/opt \
+			ssl_dgst/output \
+			ssl_dgst/parser \
 			ssl_stdrd
+
 SUBFILE = \
 			ssl/ft_ssl.c \
 			ssl/ft_ssl_init.c \
@@ -50,11 +55,17 @@ SUBFILE = \
 			\
 			ssl_dgst/ft_ssl_dgst.c \
 			ssl_dgst/ft_ssl_dgst_dist.c \
-			ssl_dgst/ft_ssl_dgst_parse.c \
-			ssl_dgst/ft_ssl_dgst_opt.c \
-			ssl_dgst/ft_ssl_dgst_arg.c \
-			ssl_dgst/ft_ssl_dgst_output.c \
-			ssl_dgst/ft_ssl_dgst_error.c \
+			ssl_dgst/err/ft_ssl_dgst_err.c \
+			ssl_dgst/err/ft_ssl_dgst_err_usage.c \
+			ssl_dgst/opt/ft_ssl_dgst_opt_dist.c \
+			ssl_dgst/opt/ft_ssl_dgst_opt_p.c \
+			ssl_dgst/opt/ft_ssl_dgst_opt_s.c \
+			ssl_dgst/opt/ft_ssl_dgst_opt_outp.c \
+			ssl_dgst/output/ft_ssl_dgst_output_q.c \
+			ssl_dgst/output/ft_ssl_dgst_output_r.c \
+			ssl_dgst/output/ft_ssl_dgst_output.c \
+			ssl_dgst/parser/ft_ssl_dgst_parse_opt.c \
+			ssl_dgst/parser/ft_ssl_dgst_parse_arg.c \
 			\
 			ssl_cipher/ft_ssl_cipher.c \
 			ssl_cipher/ft_ssl_cipher_dist.c \
