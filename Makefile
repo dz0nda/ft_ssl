@@ -6,7 +6,7 @@
 #    By: dzonda <dzonda@student.le-101.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 05:46:03 by dzonda            #+#    #+#              #
-#    Updated: 2020/02/14 16:07:38 by dzonda           ###   ########lyon.fr    #
+#    Updated: 2020/02/29 17:18:48 by dzonda           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,11 +19,12 @@ LIBDIR = libft
 MAKEFILE_NAME = Makefile-$(lastword $(subst /, ,$(NAME)))
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -Wunused -Wunreachable-code
+CFLAGS = -g3 -ggdb# -Wall -Wextra -Werror -Wunused -Wunreachable-code
 LDFLAGS = -Llibft 
 LDLIBS = -lft 
 SUBDIR = \
 			dgst \
+			dgst/hash \
 			ssl \
 			ssl_cipher \
 			ssl_dgst \
@@ -46,12 +47,12 @@ SUBFILE = \
 			dgst/ft_dgst_final.c \
 			dgst/ft_dgst_debug.c \
 			dgst/ft_dgst_utils.c \
-			dgst/ft_md5.c \
-			dgst/ft_sha1.c \
-			dgst/ft_sha224.c \
-			dgst/ft_sha256.c \
-			dgst/ft_sha384.c \
-			dgst/ft_sha512.c \
+			dgst/hash/ft_md5.c \
+			dgst/hash/ft_sha1.c \
+			dgst/hash/ft_sha224.c \
+			dgst/hash/ft_sha256.c \
+			dgst/hash/ft_sha384.c \
+			dgst/hash/ft_sha512.c \
 			\
 			ssl_dgst/ft_ssl_dgst.c \
 			ssl_dgst/ft_ssl_dgst_dist.c \
