@@ -1,15 +1,15 @@
 # **************************************************************************** #
-#                                                           LE - /             #
-#                                                               /              #
-#    Makefile                                         .::    .:/ .      .::    #
-#                                                  +:+:+   +:    +:  +:+:+     #
-#    By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+      #
-#                                                  #+#   #+    #+    #+#       #
-#    Created: 2019/11/10 21:08:47 by dzonda       #+#   ##    ##    #+#        #
-#    Updated: 2019/11/11 17:54:14 by dzonda      ###    #+. /#+    ###.fr      #
-#                                                          /                   #
-#                                                         /                    #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: dzonda <dzonda@student.le-101.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/11/10 21:08:47 by dzonda            #+#    #+#              #
+#    Updated: 2020/02/29 17:54:19 by dzonda           ###   ########lyon.fr    #
+#                                                                              #
 # **************************************************************************** #
+
 
 NAME = libft.a
 SRCDIR = src
@@ -20,6 +20,7 @@ MAKEFILE_NAME = Makefile-$(lastword $(subst /, ,$(NAME)))
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 SUBDIR = \
+			bits \
 			gnl \
 			is \
 			lst \
@@ -29,6 +30,9 @@ SUBDIR = \
 			to
 
 SUBFILE = \
+			bits/ft_rotate.c \
+			bits/ft_shift.c \
+			bits/ft_swap.c \
 			gnl/get_next_line.c \
 			put/putchar_fd.c \
 			put/putnbr.c \
