@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ft_sha512.c                                      .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/11/14 08:19:12 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/20 16:03:52 by dzonda      ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_sha512.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dzonda <dzonda@student.le-101.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/14 08:19:12 by dzonda            #+#    #+#             */
+/*   Updated: 2020/02/29 13:00:17 by dzonda           ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 
 #include "ft_dgst.h"
 
@@ -23,6 +23,32 @@ int			ft_sha512_init(t_dgst_ctx *ctx)
 	ctx->state.x_64[5] = 0x9b05688c2b3e6c1f;
 	ctx->state.x_64[6] = 0x1f83d9abfb41bd6b;
 	ctx->state.x_64[7] = 0x5be0cd19137e2179;
+	return (EXIT_SUCCESS);
+}
+
+int			ft_sha512224_init(t_dgst_ctx *ctx)
+{
+	ctx->state.x_64[0] = 0x8C3D37C819544DA2;
+	ctx->state.x_64[1] = 0x73E1996689DCD4D6;
+	ctx->state.x_64[2] = 0x1DFAB7AE32FF9C82;
+	ctx->state.x_64[3] = 0x679DD514582F9FCF;
+	ctx->state.x_64[4] = 0x0F6D2B697BD44DA8;
+	ctx->state.x_64[5] = 0x77E36F7304C48942;
+	ctx->state.x_64[6] = 0x3F9D85A86A1D36C8;
+	ctx->state.x_64[7] = 0x1112E6AD91D692A1;
+	return (EXIT_SUCCESS);
+}
+
+int			ft_sha512256_init(t_dgst_ctx *ctx)
+{
+	ctx->state.x_64[0] = 0x22312194FC2BF72C;
+	ctx->state.x_64[1] = 0x9F555FA3C84C64C2;
+	ctx->state.x_64[2] = 0x2393B86B6F53B151;
+	ctx->state.x_64[3] = 0x963877195940EABD;
+	ctx->state.x_64[4] = 0x96283EE2A88EFFE3;
+	ctx->state.x_64[5] = 0xBE5E1E2553863992;
+	ctx->state.x_64[6] = 0x2B0199FC2C85B8AA;
+	ctx->state.x_64[7] = 0x0EB72DDC81C52CA2;
 	return (EXIT_SUCCESS);
 }
 
@@ -100,5 +126,7 @@ int				ft_sha512_transform(t_dgst_ctx *ctx)
 	i = -1;
 	while (++i < 8)
 		ctx->state.x_64[i] += state[i];
+	ctx->iblock = 0;
+	ft_memset(ctx->block, 0, sizeof(ctx->block));
 	return (EXIT_SUCCESS);
 }

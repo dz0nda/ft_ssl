@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 17:49:26 by dzonda            #+#    #+#             */
-/*   Updated: 2020/02/14 16:33:39 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2020/02/18 19:25:49 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ t_ftssl_dgst_dist   g_ftssl_dgst_dist[FT_DGST_CMD] = {
     { "sha224", FT_SHA224   },
     { "sha256", FT_SHA256   },
     { "sha384", FT_SHA384   },
-    { "sha512", FT_SHA512   }
+    { "sha512", FT_SHA512   },
+    { "sha512224", FT_SHA512224 },
+    { "sha512256", FT_SHA512256 }
 };
 
 t_ftssl_dgst_i  g_ftssl_dgst_i = {
@@ -29,7 +31,9 @@ t_ftssl_dgst_i  g_ftssl_dgst_i = {
         { "sha224", FT_SHA224   },
         { "sha256", FT_SHA256   },
         { "sha384", FT_SHA384   },
-        { "sha512", FT_SHA512   }
+        { "sha512", FT_SHA512   },
+        { "sha512224", FT_SHA512224 },
+        { "sha512256", FT_SHA512256 }
     },
     .opt = {
 		{ FT_SSL_DGST_OPT_P,        "p",        ft_ssl_dgst_opt_p	 },

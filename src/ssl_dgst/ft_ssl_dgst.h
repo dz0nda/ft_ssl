@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 22:14:00 by dzonda            #+#    #+#             */
-/*   Updated: 2020/02/14 18:50:54 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2020/02/15 19:23:42 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ typedef struct  s_ftssl_dgst
 typedef struct  s_ftssl_dgst_arg
 {
     int argc;
-    char *argv[];
-}               t_ftssl_dgst_arg;
+    char **argv;
+}               t_ftssl_dgst_args;
 
 typedef struct  s_ftssl_dgst_interface
 {
@@ -131,8 +131,8 @@ int	    ftssl_dgst_dispatch_outp(char *cmd_name, char *cmd_arg, int cmd_arg_len,
  *  PARSER
 */
 
-int		ft_ssl_dgst_parse_opt(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[]);
-int		ft_ssl_dgst_parse_arg(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[]);
+int		ft_ssl_dgst_parse_opt(t_ftssl_dgst *ftssl_dgst, t_ftssl_dgst_args args);
+int		ft_ssl_dgst_parse_arg(t_ftssl_dgst *ftssl_dgst, t_ftssl_dgst_args args);
 
 /*
  *  OPT 

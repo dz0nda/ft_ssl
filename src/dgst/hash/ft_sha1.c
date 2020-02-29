@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ft_sha1.c                                        .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/11/04 23:11:52 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/20 16:03:52 by dzonda      ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_sha1.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dzonda <dzonda@student.le-101.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/04 23:11:52 by dzonda            #+#    #+#             */
+/*   Updated: 2020/02/29 13:00:49 by dzonda           ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 
 #include "ft_dgst.h"
 
@@ -22,6 +22,32 @@ int			ft_sha1_init(t_dgst_ctx *ctx)
     ctx->state.x_32[4] = 0xc3d2e1f0;
 	return (EXIT_SUCCESS);
 }
+
+
+static void     ft_sha1_transform_fk(uint32_t fk[2], int j, int b, int c, int d)
+{
+	if (j < 20)
+	{
+		fk[0] = (b & c) | ((~b) & d);
+		fk[1] = 0x5A827999;
+	}
+	else if (j < 40)
+	{
+		fk[0] = b ^ c ^ d;
+		fk[1] = 0x6ED9EBA1;
+	}
+	else if (j < 60)
+	{
+		fk[0] = (b & c) | (b & d) | (c & d);
+		fk[1] = 0x8F1BBCDC;
+	}
+	else
+	{
+		fk[0] = b ^ c ^ d;
+		fk[1] = 0xCA62C1D6;
+	}
+}
+
 
 static void     ft_sha1_transform_word(uint32_t *w, const void *data)
 {
@@ -42,30 +68,6 @@ static void     ft_sha1_transform_word(uint32_t *w, const void *data)
     }
 	if (FT_DGST_DEBUG)
 		ft_dgst_update_words_debug(w, 80);
-}
-
-static void     ft_sha1_transform_fk(uint32_t fk[2], int j, int b, int c, int d)
-{
-	if (j < 20)
-	{
-		fk[0] = (b & c) | ((~b) & d);
-		fk[1] = 0x5A827999;
-	}
-	else if (j < 40)
-	{
-		fk[0] = b ^ c ^ d;
-		fk[1] = 0x6ED9EBA1;
-	}
-    else if (j < 60)
-	{
-		fk[0] = (b & c) | (b & d) | (c & d);
-		fk[1] = 0x8F1BBCDC;
-	}
-	else
-	{
-		fk[0] = b ^ c ^ d;
-		fk[1] = 0xCA62C1D6;
-	}
 }
 
 int				ft_sha1_transform(t_dgst_ctx *ctx)
@@ -92,6 +94,8 @@ int				ft_sha1_transform(t_dgst_ctx *ctx)
     i = -1;
     while (++i < ctx->sts)
         ctx->state.x_32[i] += state[i];
+	ctx->iblock = 0;
+	ft_memset(ctx->block, 0, sizeof(ctx->block));
 	return (EXIT_SUCCESS);
 }
 

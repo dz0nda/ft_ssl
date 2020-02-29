@@ -1,52 +1,53 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ft_dgst_update.c                                 .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/12/21 19:36:38 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/21 19:47:16 by dzonda      ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_dgst_update.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dzonda <dzonda@student.le-101.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/21 19:36:38 by dzonda            #+#    #+#             */
+/*   Updated: 2020/02/29 16:00:47 by dzonda           ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 
 #include "ft_dgst.h"
 
-int     ft_dgst_update_file(t_dgst *dgst, const char *filename, unsigned int outp)
+int 	ft_dgst_input(t_dgst *dgst, uint8_t *msg, unsigned int msg_len)
+{
+	int	i;
+	t_dgst_ctx *ctx;
+
+	i = -1;
+	ctx = &dgst->ctx;
+	while (++i < msg_len)
+	{
+		dgst->ctx.block[dgst->ctx.iblock++] = msg[i];
+		ctx->idata++;
+		if (dgst->ctx.iblock == dgst->ctx.mbs)
+			dgst->dist.transform(&dgst->ctx);
+	}
+	return EXIT_SUCCESS;
+}
+
+int     ft_dgst_input_file(t_dgst *dgst, const char *filename, unsigned int outp)
 {
 	int fd;
+	char buf[4096];
+	int  nbuf = 0;
 
 	fd = 0;
+	ft_memset(buf, 0, sizeof(buf));
 	if (filename != NULL && (fd = open(filename, O_RDONLY)) == -1)
 		return (EXIT_FAILURE);
-	while ((dgst->ctx.iblock = read(fd, dgst->ctx.block, dgst->ctx.mbs))
-			== dgst->ctx.mbs)
+	while ((nbuf = read(fd, buf, dgst->ctx.mbs)) > 0)
 	{
-		dgst->ctx.idata += dgst->ctx.iblock;
-		dgst->dist.transform(&dgst->ctx);
+		ft_dgst_input(dgst, buf, nbuf);
 		if (outp == FT_SSL_TRUE)
-			ft_putstr((const char *)dgst->ctx.block);
-		ft_memset(dgst->ctx.block, 0, sizeof(dgst->ctx.block));
+			ft_putstr(buf);
+		ft_memset(buf, 0, sizeof(buf));
 	}
 	if (filename != NULL)
 		close(fd);
-	if (outp == FT_SSL_TRUE)
-		ft_putstr((const char *)dgst->ctx.block);
-	dgst->ctx.idata += dgst->ctx.iblock;
-	return (EXIT_SUCCESS);
-}
-
-int	    ft_dgst_update_string(t_dgst *dgst, const char *arg, unsigned int arg_len)
-{
-	while (dgst->ctx.idata < arg_len)
-	{
-		dgst->ctx.block[dgst->ctx.iblock++] = arg[dgst->ctx.idata++];
-		if (dgst->ctx.iblock == dgst->ctx.mbs)
-		{
-			dgst->dist.transform(&dgst->ctx);
-			dgst->ctx.iblock = 0;
-		}
-	}
 	return (EXIT_SUCCESS);
 }

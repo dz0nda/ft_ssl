@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ft_dgst.h                                        .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/11/19 12:18:59 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/21 19:47:56 by dzonda      ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_dgst.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dzonda <dzonda@student.le-101.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/19 12:18:59 by dzonda            #+#    #+#             */
+/*   Updated: 2020/02/29 21:51:31 by dzonda           ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 #ifndef FT_DGST_H
 # define FT_DGST_H
 
@@ -78,6 +78,8 @@ typedef struct  s_digest_context  t_dgst_ctx;
 typedef     int  t_dgst_process(t_dgst_ctx *);
 typedef     char*	  t_dgst_dist_result(t_dgst_ctx *, char *);
 
+typedef     int t_dgst_ft(t_dgst_ctx *);
+
 typedef enum    s_digest_command_enum
 {
     FT_MD5,
@@ -86,8 +88,17 @@ typedef enum    s_digest_command_enum
     FT_SHA256,
     FT_SHA384,
     FT_SHA512,
+    FT_SHA512224,
+    FT_SHA512256,
     FT_DGST_CMD
 }               t_dgst_cmd_e;
+
+typedef enum    s_digest_arg_type
+{
+  FT_DGST_FILE,
+  FT_DGST_FILE_OUTPUT,
+  FT_DGST_STRING
+}               t_dgst_arg_type;
 
 typedef enum    e_digest_rotate_enum
 {
@@ -116,7 +127,7 @@ typedef enum    s_digest_enum
   FT_SHA256_STATE   = FT_SHA256_HS / 4,
   
   FT_SHA224_MBS     = FT_SHA256_MBS,
-  FT_SHA224_HS      = FT_SHA256_HS,
+  FT_SHA224_HS      = 28,
   FT_SHA224_HBS     = FT_SHA256_HBS,
   FT_SHA224_ENDIAN  = FT_SHA256_ENDIAN,
   FT_SHA224_STATE   = FT_SHA256_STATE - 1,
@@ -128,10 +139,22 @@ typedef enum    s_digest_enum
   FT_SHA512_STATE   = FT_SHA512_HS / 8,
 
   FT_SHA384_MBS     = FT_SHA512_MBS,
-  FT_SHA384_HS      = FT_SHA512_HS,
+  FT_SHA384_HS      = 48,
   FT_SHA384_HBS     = FT_SHA512_HBS,
   FT_SHA384_ENDIAN  = FT_SHA512_ENDIAN,
-  FT_SHA384_STATE   = FT_SHA512_STATE - 2
+  FT_SHA384_STATE   = FT_SHA512_STATE - 2,
+
+  FT_SHA512224_MBS     = FT_SHA512_MBS,
+  FT_SHA512224_HS      = FT_SHA224_HS,
+  FT_SHA512224_HBS     = FT_SHA512_HBS,
+  FT_SHA512224_ENDIAN  = FT_SHA512_ENDIAN,
+  FT_SHA512224_STATE   = FT_SHA512_STATE - 4,
+
+  FT_SHA512256_MBS     = FT_SHA512_MBS,
+  FT_SHA512256_HS      = FT_SHA256_HS,
+  FT_SHA512256_HBS     = FT_SHA512_HBS,
+  FT_SHA512256_ENDIAN  = FT_SHA512_ENDIAN,
+  FT_SHA512256_STATE   = FT_SHA256_STATE,
 }               t_dgst_e;
 
 typedef union   s_digest_state
@@ -160,6 +183,17 @@ typedef struct s_dgst_dist
     t_dgst_process      *transform;
 }               t_dgst_dist;
 
+typedef struct  s_digest_dispatcher
+{
+  int   dgst_key;
+  int   dgst_hash_size;
+  int   dgst_message_block_size;
+  int   dgst_endian;
+  int   dgst_state_size;
+  int   dgst_x;
+  t_dgst_ft *dgst_init;
+  t_dgst_ft *dgst_compress;
+}               t_digest_dispatch;
 
 typedef struct  s_digest
 {
@@ -168,21 +202,18 @@ typedef struct  s_digest
   t_dgst_dist dist;
 }               t_dgst;
 
-// char 	    *ft_dgst(int dist, const char *arg, unsigned int arg_len, char *md);
+char	   *ft_dgst(int dgst_key, char *arg, int arg_type, char *md, int outp);
+int     ft_dgst_init(t_dgst *dgst, int cmd_key);
+int     ft_dgst_input(t_dgst *dgst, uint8_t *msg, unsigned int msg_len);
+int     ft_dgst_input_file(t_dgst *dgst, const char *filename, unsigned int outp);
+int			ft_dgst_pad(t_dgst *dgst);
+int			ft_dgst_finalize(t_dgst *dgst);
+char    *ft_dgst_result(t_dgst_ctx *ctx, char *cmd_dgst);
 
-char      *ft_dgst_file(int cmd_key, char *filename, int outp, char *cmd_dgst);
-char      *ft_dgst_string(int cmd_key, char *cmd_arg, unsigned int cmd_arg_len, char *md);
+/*
+ *  New one
+ */
 
-int       ft_dgst_init(t_dgst *dgst, int cmd_key);
-
-int         ft_dgst_update_file(t_dgst *dgst, const char *filename, unsigned int outp);
-int	        ft_dgst_update_string(t_dgst *dgst, const char *arg, unsigned int arg_len);
-
-int			ft_dgst_finalize(t_dgst_ctx *ctx);
-int			ft_dgst_pad(t_dgst_ctx *ctx);
-char        *ft_dgst_result(t_dgst_ctx *ctx, char *cmd_dgst);
-
-unsigned int	    ft_get_size_aligned(size_t offset, size_t align);
 
 /*
  *      init: Init the dgst state
@@ -203,6 +234,8 @@ int			ft_sha512_transform(t_dgst_ctx *ctx);
 
 int			ft_sha384_init(t_dgst_ctx *ctx);
 int			ft_sha224_init(t_dgst_ctx *ctx);
+int			ft_sha512224_init(t_dgst_ctx *ctx);
+int			ft_sha512256_init(t_dgst_ctx *ctx);
 
 /*
  *      This interface connect to the sha functions

@@ -1,24 +1,24 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ft_md5.c                                         .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/11/04 23:07:42 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/20 16:00:00 by dzonda      ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_md5.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dzonda <dzonda@student.le-101.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/04 23:07:42 by dzonda            #+#    #+#             */
+/*   Updated: 2020/02/29 13:00:44 by dzonda           ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 
 #include "ft_dgst.h"
 
 int			ft_md5_init(t_dgst_ctx *ctx)
 {
 	ctx->state.x_32[0] = 0x67452301;
-    ctx->state.x_32[1] = 0xefcdab89;
-    ctx->state.x_32[2] = 0x98badcfe;
-    ctx->state.x_32[3] = 0x10325476;
+	ctx->state.x_32[1] = 0xefcdab89;
+	ctx->state.x_32[2] = 0x98badcfe;
+	ctx->state.x_32[3] = 0x10325476;
 	return (EXIT_SUCCESS);
 }
 
@@ -90,9 +90,11 @@ int     		ft_md5_transform(t_dgst_ctx *ctx)
 		state[2] = state[1];
 		state[1] = state[1] + ft_rotate_x32(fg[0], ks[1], FT_ROT_LEFT);
 	}
-    i = -1;
-    while (++i < ctx->sts)
-        ctx->state.x_32[i] += state[i];
+	i = -1;
+	while (++i < ctx->sts)
+		ctx->state.x_32[i] += state[i];
+	ctx->iblock = 0;
+	ft_memset(ctx->block, 0, sizeof(ctx->block));
 	return (EXIT_SUCCESS);
 }
 

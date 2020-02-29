@@ -12,15 +12,16 @@ int		ft_ssl_dgst_opt_s(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[], int opt
 		return (ft_ssl_dispatch_err(ftssl_dgst->cmd_name, argv[ftssl_dgst->iarg] + 1, FTSSL_DGST_ERR_OPT_ARG));
 	ftssl_dgst->iarg++;
 	ft_bzero(ftssl_dgst->md, sizeof(ftssl_dgst->md));
-	// ft_dgst_string(ftssl_dgst->cmd_key, argv[ftssl_dgst->iarg], ft_strlen(argv[ftssl_dgst->iarg]), ftssl_dgst->md);
 	if (argv[ftssl_dgst->iarg] == NULL)
-		ft_dgst_string(ftssl_dgst->cmd_key, "", 0, ftssl_dgst->md);
-	else
-		ft_dgst_string(ftssl_dgst->cmd_key, argv[ftssl_dgst->iarg], ft_strlen(argv[ftssl_dgst->iarg]), ftssl_dgst->md);
-	if (argv[ftssl_dgst->iarg] == NULL)
+	{
+		ft_dgst(ftssl_dgst->cmd_key, "", FT_DGST_STRING, ftssl_dgst->md, FT_SSL_FALSE); // ft_dgst_string(ftssl_dgst->cmd_key, "", 0, ftssl_dgst->md);
 		ftssl_dgst_dispatch_outp(ftssl_dgst->cmd_name, "", 1, ftssl_dgst->md, ftssl_dgst->outp_key);
+	}
 	else
+	{
+		ft_dgst(ftssl_dgst->cmd_key, argv[ftssl_dgst->iarg], FT_DGST_STRING, ftssl_dgst->md, FT_SSL_FALSE); // ft_dgst_string(ftssl_dgst->cmd_key, argv[ftssl_dgst->iarg], ft_strlen(argv[ftssl_dgst->iarg]), ftssl_dgst->md);
 		ftssl_dgst_dispatch_outp(ftssl_dgst->cmd_name, argv[ftssl_dgst->iarg], ft_strlen(argv[ftssl_dgst->iarg]), ftssl_dgst->md, ftssl_dgst->outp_key);
+	}
 	ftssl_dgst->iarg++;
 	// ft_putendl(ftssl_dgst->md);
 	return (EXIT_SUCCESS);

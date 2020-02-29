@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 12:57:49 by dzonda            #+#    #+#             */
-/*   Updated: 2020/02/14 13:16:32 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2020/02/15 19:21:20 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ int			ft_isopt(int iarg, int argc, char *argv)
 	return (0);
 }
 
-int			ft_ssl_dgst_parse_opt(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[])
+int			ft_ssl_dgst_parse_opt(t_ftssl_dgst *ftssl_dgst, t_ftssl_dgst_args args)
 {
-	while (ft_isopt(ftssl_dgst->iarg, argc, argv[ftssl_dgst->iarg]))
-		if (ft_ssl_dgst_opt(ftssl_dgst, argc, argv) == EXIT_FAILURE)
+	while (ft_isopt(ftssl_dgst->iarg, args.argc, args.argv[ftssl_dgst->iarg]))
+		if (ft_ssl_dgst_opt(ftssl_dgst, args.argc, args.argv) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
