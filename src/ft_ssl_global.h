@@ -8,5 +8,6 @@
 
 # define FT_SSL_TRUE    1
 # define FT_SSL_FALSE   0
+# define FT_SSL_NOFOUND -1
 
 #endif
