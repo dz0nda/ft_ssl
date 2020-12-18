@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ssl.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dzonda <dzonda@student.le-101.fr>          +#+  +:+       +#+        */
+/*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 22:12:50 by dzonda            #+#    #+#             */
-/*   Updated: 2020/03/05 22:00:11 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2020/07/04 00:46:09 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 const t_ftssl_dist_t		g_ftssl_dist[FTSSL_DIST_MAX] = {
 	{ FTSSL_CORE, ft_ssl_core_dispatch_dist, FT_CORE_CMD, ft_ssl_core },
-	{ FTSSL_DGST, ft_ssl_dgst_dispatch_dist, FT_DGST_CMD, ft_ssl_dgst },
+	{ FTSSL_DGST, ft_ssl_dgst_dispatch_dist, FT_SHA_VERSION, ft_ssl_dgst },
 	{ FTSSL_CIPHER, ft_ssl_cipher_dispatch_dist, FT_CIPHER_CMD, ft_ssl_cipher },
 	{ FTSSL_STDRD, ft_ssl_stdrd_dispatch_dist, FT_STDRD_CMD, ft_ssl_stdrd }
 };

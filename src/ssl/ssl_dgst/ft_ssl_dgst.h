@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 22:14:00 by dzonda            #+#    #+#             */
-/*   Updated: 2020/07/01 21:41:58 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2020/07/04 00:46:15 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ typedef struct  s_ftssl_dgst
 
 typedef struct  s_ftssl_dgst_interface
 {
-    t_ftssl_dgst_dist   dist[FT_DGST_CMD];
+    t_ftssl_dgst_dist   dist[FT_SHA_VERSION];
     t_ftssl_dgst_opt_d  opt[FT_SSL_DGST_OPT];
     t_ftssl_dgst_err_d  err[FTSSL_DGST_ERR];
     t_ftssl_dgst_outp_d outp[FTSSL_DGST_OUTP];

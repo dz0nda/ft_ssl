@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 12:18:59 by dzonda            #+#    #+#             */
-/*   Updated: 2020/07/03 17:34:55 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2020/07/04 00:46:56 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,11 @@ typedef struct  s_digest_context  t_dgst_ctx;
 
 typedef     int  t_dgst_process(t_dgst_ctx *);
 typedef     char*	  t_dgst_dist_result(t_dgst_ctx *, char *);
+typedef     int  t_sha_step(t_dgst_ctx *);
 
 typedef     int t_dgst_ft(t_dgst_ctx *);
 
-typedef enum    s_digest_command_enum
+typedef enum    s_sha_version
 {
     FT_MD5,
     FT_SHA1,
@@ -75,8 +76,8 @@ typedef enum    s_digest_command_enum
     FT_SHA512,
     FT_SHA512224,
     FT_SHA512256,
-    FT_DGST_CMD
-}               t_dgst_cmd_e;
+    FT_SHA_VERSION
+}               e_sha_version;
 
 typedef enum    s_digest_arg_type
 {
@@ -162,30 +163,13 @@ typedef struct  s_digest_context
     char        dgst[FT_SHA512_HS];
 }               t_dgst_ctx;
 
-
-typedef struct s_dgst_dist
+typedef struct s_sha_dist
 {
-    t_dgst_process      *transform;
-}               t_dgst_dist;
-
-typedef struct  s_digest_dispatcher
-{
-  int   dgst_key;
-  int   dgst_hash_size;
-  int   dgst_message_block_size;
-  int   dgst_endian;
-  int   dgst_state_size;
-  int   dgst_x;
-  t_dgst_ft *dgst_init;
-  t_dgst_ft *dgst_compress;
-}               t_digest_dispatch;
-
-typedef struct  s_digest
-{
-  int         dist_enum;
-  t_dgst_ctx  ctx;
-  t_dgst_dist dist;
-}               t_dgst;
+    int              sha_version;
+    t_sha_step      *init;
+    t_sha_step      *hash;
+    t_sha_step      *final;
+}               t_sha_dist;
 
 /*
  *      init: Init the dgst state
@@ -194,15 +178,19 @@ typedef struct  s_digest
 
 int			ft_md5_init(t_dgst_ctx *ctx);
 int 		ft_md5_transform(t_dgst_ctx *ctx);
+int			ft_md5_final(t_dgst_ctx *ctx);
 
 int			ft_sha1_init(t_dgst_ctx *ctx);
 int 		ft_sha1_transform(t_dgst_ctx *ctx);
+int			ft_sha1_final(t_dgst_ctx *ctx);
 
 int			ft_sha256_init(t_dgst_ctx *ctx);
 int			ft_sha256_transform(t_dgst_ctx *ctx);
+int			ft_sha256_final(t_dgst_ctx *ctx);
 
 int			ft_sha512_init(t_dgst_ctx *ctx);
 int			ft_sha512_transform(t_dgst_ctx *ctx);
+int			ft_sha512_final(t_dgst_ctx *ctx);
 
 int			ft_sha384_init(t_dgst_ctx *ctx);
 int			ft_sha224_init(t_dgst_ctx *ctx);

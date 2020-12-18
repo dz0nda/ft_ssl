@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ssl_dgst_opt_dist.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dzonda <dzonda@student.le-101.fr>          +#+  +:+       +#+        */
+/*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 21:22:25 by dzonda            #+#    #+#             */
-/*   Updated: 2020/03/08 18:18:44 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2020/07/04 00:46:09 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int		ft_ssl_dgst_opt_dist(t_ftssl_dgst *ftssl_dgst, int opt_key)
 {
-	const int opt_dist[FT_DGST_CMD][2] = {
+	const int opt_dist[FT_SHA_VERSION][2] = {
 		{ FT_SSL_DGST_OPT_MD5, FT_MD5 },
 		{ FT_SSL_DGST_OPT_SHA1, FT_SHA1 },
 		{ FT_SSL_DGST_OPT_SHA224, FT_SHA224 },
@@ -26,10 +26,10 @@ int		ft_ssl_dgst_opt_dist(t_ftssl_dgst *ftssl_dgst, int opt_key)
     int i;
 
   i = -1;
-	while (++i < FT_DGST_CMD)
+	while (++i < FT_SHA_VERSION)
 		if (opt_key == opt_dist[i][0])
 			break ;
-	if (i == FT_DGST_CMD)
+	if (i == FT_SHA_VERSION)
 		return (EXIT_FAILURE);
 	ftssl_dgst->cmd_key = opt_dist[i][1];
 	if (ftssl_dgst->args.argv[ftssl_dgst->iarg][0] == '-')

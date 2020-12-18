@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ssl_dgst_dist.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dzonda <dzonda@student.le-101.fr>          +#+  +:+       +#+        */
+/*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 17:49:26 by dzonda            #+#    #+#             */
-/*   Updated: 2020/03/20 19:09:25 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2020/07/04 00:46:09 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "ft_ssl_dgst.h"
 
-t_ftssl_dgst_dist   g_ftssl_dgst_dist[FT_DGST_CMD] = {
+t_ftssl_dgst_dist   g_ftssl_dgst_dist[FT_SHA_VERSION] = {
     { "md5", 	FT_MD5      },
     { "sha1", 	FT_SHA1     },
     { "sha224", FT_SHA224   },
@@ -67,7 +67,7 @@ int     ft_ssl_dgst_dispatch_dist(char *dist_name)
     int i;
 
     i = -1;
-    while (++i < FT_DGST_CMD)
+    while (++i < FT_SHA_VERSION)
     {
         if (dist_name == NULL)
             ft_putendl_fd(dist_name, STDERR_FILENO);

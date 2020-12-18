@@ -1,7 +1,12 @@
-#include "ft_dgst.h"
+#include "ft_sha.h"
 
 int			ft_sha384_init(t_dgst_ctx *ctx)
 {
+    ctx->hs = FT_SHA384_HS;
+	ctx->mbs = FT_SHA384_MBS;
+	ctx->endian = FT_DGST_ENDIAN_BIG;
+	ctx->sts = FT_SHA384_STATE;
+	ctx->x = FT_DGST_X64;
     ctx->state.x_64[0] = 0xcbbb9d5dc1059ed8;
     ctx->state.x_64[1] = 0x629a292a367cd507;
     ctx->state.x_64[2] = 0x9159015a3070dd17;
