@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 12:18:59 by dzonda            #+#    #+#             */
-/*   Updated: 2020/07/04 00:47:28 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2020/12/19 21:39:27 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FT_DGST_H
 
 # include "../../ft_ssl_global.h"
-# include "../sha/ft_sha.h"
+# include "../sha/ft_hash.h"
 
 # define FT_DGST_ROTL_X32(word, bits)   \
   ((word << bits) | (word >> (32 - bits)))

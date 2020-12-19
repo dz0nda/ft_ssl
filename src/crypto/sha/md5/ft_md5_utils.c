@@ -1,4 +1,16 @@
-#include "ft_sha.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_md5_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/04 23:07:42 by dzonda            #+#    #+#             */
+/*   Updated: 2020/12/19 22:15:50 by dzonda           ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_hash.h"
 
 uint32_t     ft_md5_hash_f(int i, int b, int c, int d)
 {
@@ -11,7 +23,7 @@ uint32_t     ft_md5_hash_f(int i, int b, int c, int d)
 	return c ^ (b | (~d));
 }
 
-static uint32_t     ft_md5_hash_g(int i)
+uint32_t     ft_md5_hash_g(int i)
 {
 	if (i < 16)
 		return (i);
@@ -22,7 +34,7 @@ static uint32_t     ft_md5_hash_g(int i)
 	return (7 * i) % 16;
 }
 
-static uint32_t     ft_md5_hash_k(int i)
+uint32_t     ft_md5_hash_k(int i)
 {
 	const uint32_t k[64] = { 0xd76aa478, 0xe8c7b756, 0x242070db, 0xc1bdceee, 0xf57c0faf, 
 		0x4787c62a, 0xa8304613, 0xfd469501, 0x698098d8, 0x8b44f7af, 0xffff5bb1, 0x895cd7be,
@@ -38,7 +50,7 @@ static uint32_t     ft_md5_hash_k(int i)
 	return k[i];
 }
 
-static uint32_t     ft_md5_hash_s(int i)
+uint32_t     ft_md5_hash_s(int i)
 {
 	const uint32_t s[64] = { 7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17,
 		22, 5,  9, 14, 20,  5,  9, 14, 20,  5,  9, 14, 20,  5,  9, 14, 20, 4, 11, 16,

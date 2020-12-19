@@ -1,38 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sha.h                                           :+:      :+:    :+:   */
+/*   ft_hash.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 12:18:59 by dzonda            #+#    #+#             */
-/*   Updated: 2020/07/04 00:46:56 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2020/12/19 22:22:24 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_SHA_H
-# define FT_SHA_H
+#ifndef FT_HASH_H
+# define FT_HASH_H
 
 # include "../../ft_ssl_global.h"
+# include "ft_ctx.h"
+# include "ft_md5.h"
+# include "ft_sha1.h"
+# include "ft_sha256.h"
+# include "ft_sha512.h"
 
-# define FT_DGST_SHA256_SIGMA_W0(word)  \
-  (FT_DGST_ROTR_X32(word, 7) ^ FT_DGST_ROTR_X32(word, 18) ^ \
-    FT_DGST_SHFR(word, 3))
-# define FT_DGST_SHA256_SIGMA_W1(word)  \
-  (FT_DGST_ROTR_X32(word, 17) ^ FT_DGST_ROTR_X32(word, 19) ^ \
-    FT_DGST_SHFR(word, 10))
+// # define FT_DGST_SHA256_SIGMA_W0(word)  \
+//   (FT_DGST_ROTR_X32(word, 7) ^ FT_DGST_ROTR_X32(word, 18) ^ \
+//     FT_DGST_SHFR(word, 3))
+// # define FT_DGST_SHA256_SIGMA_W1(word)  \
+//   (FT_DGST_ROTR_X32(word, 17) ^ FT_DGST_ROTR_X32(word, 19) ^ \
+//     FT_DGST_SHFR(word, 10))
 
-# define FT_DGST_SHA256_SIGMA_CH(x, y, z) \
-  ((x & y) ^ ((~x) & z))
-# define FT_DGST_SHA256_SIGMA_MAJ(x, y, z) \
-  ((x & y) ^ (x & z) ^ (y & z))
+// # define FT_DGST_SHA256_SIGMA_CH(x, y, z) \
+//   ((x & y) ^ ((~x) & z))
+// # define FT_DGST_SHA256_SIGMA_MAJ(x, y, z) \
+//   ((x & y) ^ (x & z) ^ (y & z))
 
-# define FT_DGST_SHA256_SIGMA_T0(word) \
-  (FT_DGST_ROTR_X32(word, 6) ^ FT_DGST_ROTR_X32(word, 11) ^ \
-    FT_DGST_ROTR_X32(word, 25))
-# define FT_DGST_SHA256_SIGMA_T1(word) \
-  (FT_DGST_ROTR_X32(word, 2) ^ FT_DGST_ROTR_X32(word, 13) ^ \
-    FT_DGST_ROTR_X32(word, 22))
+// # define FT_DGST_SHA256_SIGMA_T0(word) \
+//   (FT_DGST_ROTR_X32(word, 6) ^ FT_DGST_ROTR_X32(word, 11) ^ \
+//     FT_DGST_ROTR_X32(word, 25))
+// # define FT_DGST_SHA256_SIGMA_T1(word) \
+//   (FT_DGST_ROTR_X32(word, 2) ^ FT_DGST_ROTR_X32(word, 13) ^ \
+//     FT_DGST_ROTR_X32(word, 22))
 
 /*
  *  
@@ -94,11 +99,11 @@ typedef enum    e_digest_rotate_enum
 
 typedef enum    s_digest_enum
 {
-  FT_MD5_MBS        = 64,
-  FT_MD5_HS         = 16,                        
-  FT_MD5_HSB        = 128,                   
-  FT_MD5_ENDIAN     = FT_DGST_ENDIAN_LITTLE,
-  FT_MD5_STATE      = FT_MD5_HS / 4,
+  // FT_MD5_MBS        = 64,
+  // FT_MD5_HS         = 16,                        
+  // FT_MD5_HSB        = 128,                   
+  // FT_MD5_ENDIAN     = FT_DGST_ENDIAN_LITTLE,
+  // FT_MD5_STATE      = FT_MD5_HS / 4,
 
   FT_SHA1_MBS       = 64,
   FT_SHA1_HS        = 20,
@@ -143,25 +148,25 @@ typedef enum    s_digest_enum
   FT_SHA512256_STATE   = FT_SHA256_STATE,
 }               t_dgst_e;
 
-typedef union   s_digest_state
-{
-  uint32_t      x_32[FT_SHA512_STATE];
-  uint64_t      x_64[FT_SHA512_STATE];
-}               t_dgst_st;
+// typedef union   s_digest_state
+// {
+//   uint32_t      x_32[FT_SHA512_STATE];
+//   uint64_t      x_64[FT_SHA512_STATE];
+// }               t_dgst_st;
 
-typedef struct  s_digest_context
-{
-    unsigned int        hs;
-    unsigned int          mbs;
-    unsigned int          endian;
-    unsigned int         sts;
-    unsigned int         x;
-    unsigned int         idata;
-    unsigned int         iblock;
-    t_dgst_st   state;
-    uint8_t     block[FT_SHA512_MBS];
-    char        dgst[FT_SHA512_HS];
-}               t_dgst_ctx;
+// typedef struct  s_digest_context
+// {
+//     unsigned int        hs;
+//     unsigned int          mbs;
+//     unsigned int          endian;
+//     unsigned int         sts;
+//     unsigned int         x;
+//     unsigned int         idata;
+//     unsigned int         iblock;
+//     t_dgst_st   state;
+//     uint8_t     block[FT_SHA512_MBS];
+//     char        dgst[FT_SHA512_HS];
+// }               t_dgst_ctx;
 
 typedef struct s_sha_dist
 {
@@ -176,26 +181,26 @@ typedef struct s_sha_dist
  *      transform: Process block of size 'mbs'
 */
 
-int			ft_md5_init(t_dgst_ctx *ctx);
-int 		ft_md5_transform(t_dgst_ctx *ctx);
-int			ft_md5_final(t_dgst_ctx *ctx);
+// int			ft_md5_init(t_dgst_ctx *ctx);
+// int 		ft_md5_transform(t_dgst_ctx *ctx);
+// int			ft_md5_final(t_dgst_ctx *ctx);
 
-int			ft_sha1_init(t_dgst_ctx *ctx);
-int 		ft_sha1_transform(t_dgst_ctx *ctx);
-int			ft_sha1_final(t_dgst_ctx *ctx);
+// int			ft_sha1_init(t_dgst_ctx *ctx);
+// int 		ft_sha1_transform(t_dgst_ctx *ctx);
+// int			ft_sha1_final(t_dgst_ctx *ctx);
 
-int			ft_sha256_init(t_dgst_ctx *ctx);
-int			ft_sha256_transform(t_dgst_ctx *ctx);
-int			ft_sha256_final(t_dgst_ctx *ctx);
+// int			ft_sha256_init(t_dgst_ctx *ctx);
+// int			ft_sha256_transform(t_dgst_ctx *ctx);
+// int			ft_sha256_final(t_dgst_ctx *ctx);
 
-int			ft_sha512_init(t_dgst_ctx *ctx);
-int			ft_sha512_transform(t_dgst_ctx *ctx);
-int			ft_sha512_final(t_dgst_ctx *ctx);
+// int			ft_sha512_init(t_dgst_ctx *ctx);
+// int			ft_sha512_transform(t_dgst_ctx *ctx);
+// int			ft_sha512_final(t_dgst_ctx *ctx);
 
-int			ft_sha384_init(t_dgst_ctx *ctx);
-int			ft_sha224_init(t_dgst_ctx *ctx);
-int			ft_sha512224_init(t_dgst_ctx *ctx);
-int			ft_sha512256_init(t_dgst_ctx *ctx);
+// int			ft_sha384_init(t_dgst_ctx *ctx);
+// int			ft_sha224_init(t_dgst_ctx *ctx);
+// int			ft_sha512224_init(t_dgst_ctx *ctx);
+// int			ft_sha512256_init(t_dgst_ctx *ctx);
 
 /*
  *      This interface connect to the sha functions
