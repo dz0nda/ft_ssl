@@ -6,26 +6,24 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 22:12:50 by dzonda            #+#    #+#             */
-/*   Updated: 2020/07/04 00:46:09 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2020/12/21 13:44:01 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl_core.h"
 
-const t_ftssl_dist_t		g_ftssl_dist[FTSSL_DIST_MAX] = {
-	{ FTSSL_CORE, ft_ssl_core_dispatch_dist, FT_CORE_CMD, ft_ssl_core },
-	{ FTSSL_DGST, ft_ssl_dgst_dispatch_dist, FT_SHA_VERSION, ft_ssl_dgst },
-	{ FTSSL_CIPHER, ft_ssl_cipher_dispatch_dist, FT_CIPHER_CMD, ft_ssl_cipher },
-	{ FTSSL_STDRD, ft_ssl_stdrd_dispatch_dist, FT_STDRD_CMD, ft_ssl_stdrd }
+const t_ftssl_dist_t		g_ftssl_dist[FTSSL_DIST] = {
+	{ FTSSL_DGST, ft_ssl_dgst },
+	{ FTSSL_CIPHER, ft_ssl_cipher },
+	{ FTSSL_CORE, ft_ssl_core }
 };
-
 
 static int		ft_ssl_error(int argc, char *argv[])
 {
 	(void)argc;
 	ft_putstr_fd("ftssl:Error: '", STDERR_FILENO);
 	ft_putstr_fd(argv[0], STDERR_FILENO);
-	ft_putendl_fd("' is an invalid command.", STDERR_FILENO);
+	ft_putendl_fd("' is an invalid command.\n", STDERR_FILENO);
 	ft_ssl_usage();
 	return (EXIT_SUCCESS);
 }
@@ -39,12 +37,9 @@ static int						ft_ssl_dispatch(int argc, char *argv[])
 	key_cmd = -1;
 	if (argv[0] == NULL)
 		return (EXIT_SUCCESS);
-	while (++key_dist < FTSSL_DIST_MAX)
-	{
-		if ((key_cmd = g_ftssl_dist[key_dist].dist_check(argv[0]))
-					!= g_ftssl_dist[key_dist].dist_dispatch_max)
-			return (g_ftssl_dist[key_dist].dist_ft(key_cmd, argv[0], argc - 1, argv + 1));
-	}
+	while (++key_dist < FTSSL_DIST)
+		if ((key_cmd = g_ftssl_dist[key_dist].dist_ft(argc, argv)) != FT_SSL_DIST_NOT_FOUND)
+			return (key_cmd);
 	return (ft_ssl_error(argc, argv));
 }
 

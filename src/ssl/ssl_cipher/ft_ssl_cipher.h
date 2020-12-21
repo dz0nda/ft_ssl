@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 22:13:32 by dzonda            #+#    #+#             */
-/*   Updated: 2020/07/03 17:14:34 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2020/12/21 13:01:45 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,22 @@
 
 # include "../../ft_ssl_global.h"
 
-typedef enum		e_cipher_command_enum
-{
-	FT_BASE64,
-	FT_DES,
-	FT_CIPHER_CMD
-}					t_cipher_cmd_e;
+# define FT_SSL_CIPHER_NOT_FOUND      -42
 
-typedef struct  s_ftssl_cipher_dist
+typedef enum		e_ftssl_cipher_dist_enum
+{
+	FT_SSL_BASE64,
+	FT_SSL_DES,
+	FT_SSL_CIPHER_DIST
+}					t_ftssl_cipher_dist_e;
+
+typedef struct      s_ftssl_cipher_dist
 {
     char    *dist_name;
     int     dist_key;
-}               t_ftssl_cipher_dist;
+}                   t_ftssl_cipher_dist;
 
-typedef struct  s_ftssl_cipher
-{
-    int          cmd_key;
-    char                *cmd_name;
-}               t_ftssl_cipher;
-
-int					ft_ssl_cipher(int cmd_key, char *cmd_name, int argc, char *argv[]);
-int     			ft_ssl_cipher_dispatch_dist(char *dist_name);
+int					ft_ssl_cipher(int argc, char *argv[]);
+int     			ft_ssl_cipher_dist(int argc, char *argv[]);
 
 #endif

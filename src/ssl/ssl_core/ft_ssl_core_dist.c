@@ -3,31 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ssl_core_dist.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dzonda <dzonda@student.le-101.fr>          +#+  +:+       +#+        */
+/*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 21:11:08 by dzonda            #+#    #+#             */
-/*   Updated: 2020/03/03 21:11:42 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2020/12/21 13:42:24 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl_core.h"
 
-t_ftssl_core_dist           g_ftssl_core_dist[FT_CORE_CMD] = {
-    { "help", FT_HELP }
-};
-
-int     ft_ssl_core_dispatch_dist(char *dist_name)
+int     ft_ssl_core_dist(int argc, char *argv[])
 {
-    int i;
+    static t_ftssl_core_dist    ftssl_core_dist[FT_SSL_CORE_DIST] = {
+        { "help", FT_SSL_HELP }
+    };
+    int dist_key;
     
-    i = -1;
-    while (++i < FT_CORE_CMD)
+    dist_key = -1;
+    if (argc != -42 && ft_strequ(argv[0], ""))
+        return (FT_SSL_DIST_NOT_FOUND);
+    while (++dist_key < FT_SSL_CORE_DIST)
     {
-        if (dist_name == NULL)
-            ft_putendl(dist_name);
-        else
-            if (ft_strcmp(dist_name, g_ftssl_core_dist[i].dist_name) == 0)
-                break;
+        if (argc == -42)
+            ft_putendl_fd(ftssl_core_dist[dist_key].dist_name, STDERR_FILENO);
+        else if (ft_strequ(argv[0], ftssl_core_dist[dist_key].dist_name))
+        	return (ft_ssl_usage());
     }
-    return (i);
+    return (FT_SSL_DIST_NOT_FOUND);
 }
