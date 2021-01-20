@@ -6,10 +6,9 @@
 #    By: dzonda <dzonda@student.le-101.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 05:46:03 by dzonda            #+#    #+#              #
-#    Updated: 2020/02/29 23:37:33 by dzonda           ###   ########lyon.fr    #
+#    Updated: 2020/02/29 23:43:46 by dzonda           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
-
 
 NAME = ft_ssl
 SRCDIR = src
