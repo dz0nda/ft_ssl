@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 17:49:26 by dzonda            #+#    #+#             */
-/*   Updated: 2020/12/22 00:36:55 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/01/20 15:33:10 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 #include "ft_ssl_dgst.h"
 
 t_ftssl_dgst_dist   g_ftssl_dgst_dist[FT_HASH_VERSION] = {
-    { "md5", 	FT_MD5      },
-    { "sha1", 	FT_SHA1     },
-    { "sha224", FT_SHA224   },
-    { "sha256", FT_SHA256   },
-    { "sha384", FT_SHA384   },
-    { "sha512", FT_SHA512   },
-    { "sha512224", FT_SHA512224 },
-    { "sha512256", FT_SHA512256 }
+    { "md5", 	    FT_MD5      },
+    { "sha1", 	    FT_SHA1     },
+    { "sha224",     FT_SHA224   },
+    { "sha256",     FT_SHA256   },
+    { "sha384",     FT_SHA384   },
+    { "sha512",     FT_SHA512   },
+    { "sha512224",  FT_SHA512224 },
+    { "sha512256",  FT_SHA512256 }
 };
 
 int     ft_ssl_dgst_dist(int argc, char *argv[], t_ftssl_dgst *ftssl_dgst)

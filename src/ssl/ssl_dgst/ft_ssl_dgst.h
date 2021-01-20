@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 22:14:00 by dzonda            #+#    #+#             */
-/*   Updated: 2020/12/22 16:20:42 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/01/19 23:02:30 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #ifndef FT_SSL_DGST_H
 # define FT_SSL_DGST_H
 
-# include "../../crypto/sha/ft_hash.h"
+# include "../../crypto/dgst/ft_dgst.h"
 
 # define FTSSL_DGST_MAX_BUFFER      8192
 # define FT_SSL_DGST_NOT_FOUND      -42
