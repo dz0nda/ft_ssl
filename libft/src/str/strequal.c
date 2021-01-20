@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strdup.c                                           :+:      :+:    :+:   */
+/*   strequal.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/12 20:13:02 by dzonda            #+#    #+#             */
-/*   Updated: 2020/12/20 21:36:33 by dzonda           ###   ########lyon.fr   */
+/*   Created: 2017/12/12 20:12:48 by dzonda            #+#    #+#             */
+/*   Updated: 2020/12/18 09:51:22 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "ft_str.h"
 
-char			*ft_strdup(const char *s1)
+int		ft_strequal(const char *s1, const char *s2)
 {
-	int			i;
-	size_t		len;
-	char		*dest;
-
-	i = -1;
-	if ((len = ft_strlen(s1)) == 0)
-		return (NULL);
-	if ((dest = ft_strnew(len)) == NULL)
-		return (NULL);
-	while (s1[++i])
-		dest[i] = s1[i];
-	return (dest);
+  if (ft_strcmp(s1, s2) == 0)
+    return 1;
+  return 0;
 }

@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ft_str.h                                         .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: dzonda <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/12/13 03:34:19 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/13 06:24:12 by dzonda      ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_str.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/12/13 03:34:19 by dzonda            #+#    #+#             */
+/*   Updated: 2020/12/18 09:51:41 by dzonda           ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef FT_STR_H
 # define FT_STR_H
@@ -51,5 +51,6 @@ void				ft_stradel(char ***array);
 size_t				ft_stralen(char **array);
 char				**ft_stradup(char **array);
 char    *ft_strrev(char *s);
+int			ft_strequal(const char *s1, const char *s2);
 
 #endif

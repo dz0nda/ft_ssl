@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dzonda <dzonda@student.le-101.fr>          +#+  +:+       +#+         #
+#    By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/10 21:08:47 by dzonda            #+#    #+#              #
-#    Updated: 2020/02/29 17:54:19 by dzonda           ###   ########lyon.fr    #
+#    Updated: 2020/12/18 09:52:02 by dzonda           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,8 @@ SUBFILE = \
 			is/isupper.c \
 			is/isspace.c \
 			is/isalnum.c \
+			is/isdir.c \
+			is/isreg.c \
 			lst/lstdelone.c \
 			lst/lstmap.c \
 			lst/lstadd.c \
@@ -100,6 +102,7 @@ SUBFILE = \
 			str/strncpy.c \
 			str/stradel.c \
 			str/striter.c \
+			str/strequal.c \
 			to/atoi.c \
 			to/itoa.c \
 			to/nbrlen.c \
