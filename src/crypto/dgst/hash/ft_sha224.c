@@ -1,37 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sha256_init.c                                   :+:      :+:    :+:   */
+/*   ft_sha224.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 23:12:09 by dzonda            #+#    #+#             */
-/*   Updated: 2021/01/07 16:23:13 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/01/19 23:01:12 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_hash.h"
-
-int			ft_sha256_init(t_dgst_ctx *ctx, unsigned int msg_len)
-{
-	ctx->hs = FT_SHA256_HS;
-	ctx->mbs = FT_SHA256_MBS;
-	ctx->endian = FT_DGST_ENDIAN_BIG;
-	ctx->sts = FT_SHA256_STATE;
-	ctx->x = FT_DGST_X32;
-	ctx->state.x_32[0] = 0x6a09e667;
-	ctx->state.x_32[1] = 0xbb67ae85;
-	ctx->state.x_32[2] = 0x3c6ef372;
-	ctx->state.x_32[3] = 0xa54ff53a;
-	ctx->state.x_32[4] = 0x510e527f;
-	ctx->state.x_32[5] = 0x9b05688c;
-	ctx->state.x_32[6] = 0x1f83d9ab;
-	ctx->state.x_32[7] = 0x5be0cd19;
-	ctx->len.x_32 = msg_len * 8;
-	ft_memrev(&ctx->len.x_32, sizeof(ctx->len.x_32));
-	ctx->padding = ft_get_size_aligned(ctx->len.x_32 + ctx->x, ctx->mbs) - ctx->x;
-	return (EXIT_SUCCESS);
-}
 
 int			ft_sha224_init(t_dgst_ctx *ctx, unsigned int msg_len)
 {
@@ -52,4 +31,19 @@ int			ft_sha224_init(t_dgst_ctx *ctx, unsigned int msg_len)
 	ft_memrev(&ctx->len.x_32, sizeof(ctx->len.x_32));
 	ctx->padding = ft_get_size_aligned(ctx->len.x_32 + ctx->x, ctx->mbs) - ctx->x;
 	return (EXIT_SUCCESS);
+}
+
+int			ft_sha224_pre_process(t_dgst_ctx *ctx, uint8_t *msg, unsigned int msg_len)
+{
+  return (ft_sha256_pre_process(ctx, msg, msg_len));
+}
+
+int			ft_sha224_transform(t_dgst_ctx *ctx)
+{
+	return (ft_sha256_transform(ctx));
+}
+
+char		*ft_sha224_final(t_dgst_ctx *ctx, char *cmd_dgst)
+{
+	return (ft_sha256_final(ctx, cmd_dgst));
 }

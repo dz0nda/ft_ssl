@@ -1,46 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_hash.h                                          :+:      :+:    :+:   */
+/*   ft_dgst.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 12:18:59 by dzonda            #+#    #+#             */
-/*   Updated: 2021/01/07 16:17:59 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/01/19 23:02:17 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_HASH_H
-# define FT_HASH_H
+#ifndef FT_DGST_H
+# define FT_DGST_H
 
 # include "../../ft_ssl_global.h"
-# include "ft_ctx.h"
-# include "./md5/ft_md5.h"
-# include "./sha/ft_sha.h"
-
-/*
- *  
- *  Enum :
- *      MBS : Message Block Size
- *      HS  : Hash Size
- *      HSB : Hash Size in Bits
- *  
- *  Structure context :
- *      hs    : Hash size
- *      mbs   : Message block size
- *      endian    : Endian type (Big or Little)
- *      sts : Length of array state
- *      len_input : Length total of input
- *      len_block : Length of block (max: 2 * mbs)
- *      state     : Array of variables processed
- *      block     : Data to be processed (len: 2 * mbs)
-*/
-
-# define FT_DGST_ENDIAN_LITTLE    0
-# define FT_DGST_ENDIAN_BIG       1
-
-# define FT_DGST_X32   8
-# define FT_DGST_X64   16
+# include "./hash/ft_hash.h"
 
 typedef struct      s_digest_context  t_dgst_ctx;
 
