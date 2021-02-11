@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 22:14:00 by dzonda            #+#    #+#             */
-/*   Updated: 2021/01/19 23:02:30 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/02/11 18:27:59 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 typedef struct  s_ftssl_dgst    t_ftssl_dgst;
 
-typedef int     t_ftssl_dgst_opt(t_ftssl_dgst *, int);
+typedef int     t_ftssl_dgst_opt(t_ftssl_dgst *, int, char *[]);
 typedef int     t_ftssl_dgst_err(t_ftssl_dgst *, char *);
 typedef int     t_ftssl_dgst_error(int, char *, char *);
 typedef int     t_ftssl_dgst_outp(t_ftssl_dgst *);
@@ -84,11 +84,12 @@ typedef struct  s_ftssl_dgst_output_dispatch
 
 typedef struct  s_ftssl_dgst_dist
 {
-    char        *dist_name;
-    int         dist_key;
-    // t_sha_step      *init;
-    // t_sha_step      *hash;
-    // t_sha_step_final      *final;
+    int                 key;
+    char                *name;
+    t_dgst_init    *init;
+    t_dgst_pre_process  *pre_process;
+    t_dgst_process         *hash;
+    t_dgst_final   *final;
 }               t_ftssl_dgst_dist;
 
 typedef struct  s_ftssl_dgst_arg
@@ -101,8 +102,8 @@ typedef struct  s_ftssl_dgst_arg
 typedef struct  s_ftssl_dgst
 {
     int                 iarg;
+    int                 argi;
     int                 cmd_key;
-    char                *cmd_name;
     char                *cmd_arg;
     t_ftssl_dgst_dist   dist;
     int                 inpt_key;
@@ -110,12 +111,13 @@ typedef struct  s_ftssl_dgst
     int                 flag_r;
     int                 flag_q;
     char 	            md[FTSSL_DGST_MAX_BUFFER];
-    t_ftssl_dgst_args   args;
+    // t_ftssl_dgst_args   args;
+    int                 err;
 }               t_ftssl_dgst;
 
 typedef struct  s_ftssl_dgst_interface
 {
-    t_ftssl_dgst_dist   dist[FT_HASH_VERSION];
+    t_ftssl_dgst_dist   dist[FT_DGST_VERSION];
     t_ftssl_dgst_opt_d  opt[FT_SSL_DGST_OPT];
     t_ftssl_dgst_err_d  err[FTSSL_DGST_ERR];
     t_ftssl_dgst_outp_d outp[FTSSL_DGST_OUTP];
@@ -126,7 +128,9 @@ int			ft_ssl_dgst_exec(t_ftssl_dgst *ftssl_dgst);
 int		ft_ssl_dgst_get_input(char *file, char **input);
 
 int     ft_ssl_dgst_dist(int argc, char *argv[], t_ftssl_dgst *ftssl_dgst);
-int		ft_ssl_dgst_option(t_ftssl_dgst *ftssl_dgst);
+char    *ft_ssl_dgst_dist_execute(uint8_t *msg, unsigned int msg_len, char *md, t_ftssl_dgst *ftssl_dgst);
+
+int		ft_ssl_dgst_option(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[]);
 int     ft_ssl_dgst_error(int err_key, t_ftssl_dgst *ftssl_dgst);
 int     ft_ssl_dgst_output(t_ftssl_dgst *ftssl_dgst);
 

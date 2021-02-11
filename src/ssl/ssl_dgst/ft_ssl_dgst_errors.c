@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 17:49:26 by dzonda            #+#    #+#             */
-/*   Updated: 2020/12/18 11:24:08 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/02/04 10:50:52 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ static void     ft_ssl_dgst_err_usage(char *cmd)
     ft_putstr_fd(cmd, STDERR_FILENO);
     ft_putendl_fd(" [-pqr] [-s string] [files ...]", STDERR_FILENO);
 }
-
-// dist, dist_arg, err,
 
 int   ft_ssl_dgst_err_fd(int err, char *dist, char *dist_arg)
 {
@@ -66,6 +64,5 @@ int   ft_ssl_dgst_error(int err_key, t_ftssl_dgst *ftssl_dgst)
     { FTSSL_DGST_ERR_DIR,     ft_ssl_dgst_err_fd     }
   };
 
-  return (err[err_key].err_dist(err_key, ftssl_dgst->cmd_name, ftssl_dgst->cmd_arg));
+  return (err[err_key].err_dist(err_key, ftssl_dgst->dist.name, ftssl_dgst->cmd_arg));
 }
-

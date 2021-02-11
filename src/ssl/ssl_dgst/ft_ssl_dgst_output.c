@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 17:49:26 by dzonda            #+#    #+#             */
-/*   Updated: 2020/12/22 00:32:19 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/02/04 15:28:32 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int				ft_ssl_dgst_output_string(t_ftssl_dgst *ftssl_dgst)
 	}
 	else
 	{
-		while (ftssl_dgst->cmd_name[++i] != '\0')
-			ft_putchar(ft_toupper(ftssl_dgst->cmd_name[i]));
+		while (ftssl_dgst->dist.name[++i] != '\0')
+			ft_putchar(ft_toupper(ftssl_dgst->dist.name[i]));
 		ft_putstr(" (");
 		ft_putchar('\"');
 		ft_putstr(ftssl_dgst->cmd_arg);
@@ -53,8 +53,8 @@ int				ft_ssl_dgst_output_file(t_ftssl_dgst *ftssl_dgst)
 	}
 	else
 	{
-		while (ftssl_dgst->cmd_name[++i] != '\0')
-			ft_putchar(ft_toupper(ftssl_dgst->cmd_name[i]));
+		while (ftssl_dgst->dist.name[++i] != '\0')
+			ft_putchar(ft_toupper(ftssl_dgst->dist.name[i]));
 		ft_putstr(" (");
 		ft_putstr(ftssl_dgst->cmd_arg);
 		ft_putstr(") = ");

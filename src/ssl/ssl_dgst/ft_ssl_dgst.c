@@ -6,33 +6,11 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 13:05:36 by dzonda            #+#    #+#             */
-/*   Updated: 2020/12/22 23:46:20 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/02/04 16:58:09 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl_dgst.h"
-
-static int			ft_isopt(t_ftssl_dgst_args args)
-{
-	if (args.iarg < args.argc)
-		if (*args.argv[args.iarg] == '-' && args.argv[args.iarg][1] != '\0')
-			return (1);
-	return (0);
-}
-
-int 		ft_isemptyarg(int iarg, int argc, char *md)
-{
-	if (iarg == argc && ft_strlen(md) == 0)
-		return (1);
-	return (0);
-}
-
-int 		ft_isarg(int iarg, int argc)
-{
-	if (iarg < argc)
-		return (1);
-	return (0);
-}
 
 int		ft_ssl_dgst_get_input(char *file, char **input)
 {
@@ -61,32 +39,24 @@ int		ft_ssl_dgst_get_input(char *file, char **input)
 	return (length);
 }
 
-int			ft_ssl_dgst_exec_file(t_ftssl_dgst *ftssl_dgst)
+int			ft_ssl_dgst_exec_file(t_ftssl_dgst *ftssl_dgst, char *cmd_arg)
 {
 	char *s = NULL;
 	char *tmp = NULL;
 	int length = 0;
 
 	s = NULL;
+	ftssl_dgst->cmd_arg = cmd_arg;
 	length = ft_ssl_dgst_get_input(ftssl_dgst->cmd_arg, &s);
 	if (ftssl_dgst->cmd_arg != NULL && ftssl_dgst->outp_key != FTSSL_DGST_OUTP_QUIET)
 		ftssl_dgst->outp_key = FTSSL_DGST_OUTP_FILE;
 	tmp = ftssl_dgst->cmd_arg;
  	ftssl_dgst->cmd_arg = s;
 	ft_bzero(ftssl_dgst->md, sizeof(ftssl_dgst->md));
-	ft_hash(ftssl_dgst->cmd_key, (uint8_t *)ftssl_dgst->cmd_arg, length, ftssl_dgst->md);
+	ft_ssl_dgst_dist_execute((uint8_t *)s, length, ftssl_dgst->md, ftssl_dgst);
  	ftssl_dgst->cmd_arg = tmp;
 	ft_ssl_dgst_output(ftssl_dgst);
 	ft_strdel(&s);
-	return (EXIT_SUCCESS);
-}
-
-int			ft_ssl_dgst_exec(t_ftssl_dgst *ftssl_dgst)
-{
-	ft_bzero(ftssl_dgst->md, sizeof(ftssl_dgst->md));
-	ft_hash(ftssl_dgst->cmd_key, (uint8_t *)ftssl_dgst->cmd_arg, ft_strlen(ftssl_dgst->cmd_arg), ftssl_dgst->md);
-	ft_ssl_dgst_output(ftssl_dgst);
-
 	return (EXIT_SUCCESS);
 }
 
@@ -97,24 +67,34 @@ int     ft_ssl_dgst(int argc, char *argv[])
 	ft_memset(&ftssl_dgst, 0, sizeof(ftssl_dgst));
 	if (ft_ssl_dgst_dist(argc, argv, &ftssl_dgst) == FT_SSL_DGST_NOT_FOUND)
 		return (FT_SSL_DGST_NOT_FOUND);
-	while (ft_isopt(ftssl_dgst.args))
+	argc -= 1;
+	argv += 1;
+	while (ft_ssl_dgst_option(&ftssl_dgst, argc, argv) == EXIT_SUCCESS)
+		ftssl_dgst.argi++;
+	if (ftssl_dgst.err == 1)
+		return (ft_ssl_dgst_error(FTSSL_DGST_ERR_OPT, &ftssl_dgst));
+	if (ftssl_dgst.argi == argc && ft_strlen(ftssl_dgst.md) == 0)
+		return (ft_ssl_dgst_exec_file(&ftssl_dgst, NULL));
+	while (ftssl_dgst.argi < argc)
 	{
-		if (ft_ssl_dgst_option(&ftssl_dgst) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
-		ftssl_dgst.args.iarg++;
-	}
-	if (ft_isemptyarg(ftssl_dgst.args.iarg, ftssl_dgst.args.argc, ftssl_dgst.md))
-		return (ft_ssl_dgst_exec_file(&ftssl_dgst));
-	while (ft_isarg(ftssl_dgst.args.iarg, ftssl_dgst.args.argc))
-	{
-		ftssl_dgst.cmd_arg = ftssl_dgst.args.argv[ftssl_dgst.args.iarg];
-		if (ft_isreg(ftssl_dgst.cmd_arg))
-			ft_ssl_dgst_exec_file(&ftssl_dgst);
-		else if (ft_isdir(ftssl_dgst.cmd_arg))
+		if (ft_isreg(argv[ftssl_dgst.argi]))
+			ft_ssl_dgst_exec_file(&ftssl_dgst, argv[ftssl_dgst.argi]);
+		else if (ft_isdir(argv[ftssl_dgst.argi]))
 			ft_ssl_dgst_error(FTSSL_DGST_ERR_DIR, &ftssl_dgst);
 		else
 			ft_ssl_dgst_error(FTSSL_DGST_ERR_FILE, &ftssl_dgst);
-		ftssl_dgst.args.iarg++;
+	// while (ft_ssl_dgst_execute(&ftssl_dgst) == EXIT_SUCCESS)
+	// {
+	// while (ft_isarg(ftssl_dgst.argi, ftssl_dgst.args.argc))
+	// {
+		// ftssl_dgst.cmd_arg = ftssl_dgst.args.argv[ftssl_dgst.argi];
+		// if (ft_isreg(ftssl_dgst.cmd_arg))
+		// 	ft_ssl_dgst_exec_file(&ftssl_dgst);
+		// else if (ft_isdir(ftssl_dgst.cmd_arg))
+		// 	ft_ssl_dgst_error(FTSSL_DGST_ERR_DIR, &ftssl_dgst);
+		// else
+		// 	ft_ssl_dgst_error(FTSSL_DGST_ERR_FILE, &ftssl_dgst);
+		ftssl_dgst.argi++;
 	}
 	return (EXIT_SUCCESS);
 }
