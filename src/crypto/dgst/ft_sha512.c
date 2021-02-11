@@ -6,11 +6,11 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 08:19:12 by dzonda            #+#    #+#             */
-/*   Updated: 2021/01/19 23:01:44 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/02/03 13:05:37 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_hash.h"
+#include "ft_dgst.h"
 
 int			ft_sha512_init(t_dgst_ctx *ctx, unsigned int msg_len)
 {
@@ -29,7 +29,7 @@ int			ft_sha512_init(t_dgst_ctx *ctx, unsigned int msg_len)
 	ctx->state.x_64[7] = 0x5be0cd19137e2179;
 	ctx->len.x_64 = msg_len * 8;
 	ft_memrev(&ctx->len.x_64, sizeof(ctx->len.x_64));
-	ctx->padding = ft_get_size_aligned(ctx->len.x_64 + ctx->x, ctx->mbs) - ctx->x;
+	ctx->padding = ft_align_bits(ctx->len.x_64 + ctx->x, ctx->mbs) - ctx->x;
 	return (EXIT_SUCCESS);
 }
 
@@ -38,7 +38,7 @@ int			ft_sha512_pre_process(t_dgst_ctx *ctx, uint8_t *msg, unsigned int msg_len)
 	int i;
 	unsigned int 	pad;
 
-	pad = ft_get_size_aligned(msg_len + ctx->x + 1, ctx->mbs);
+	pad = ft_align_bits(msg_len + ctx->x + 1, ctx->mbs);
 	ctx->msg_len = pad;
 	ctx->msg = (uint8_t *)ft_memalloc(ctx->msg_len);
 	ft_memmove(ctx->msg, msg, msg_len);

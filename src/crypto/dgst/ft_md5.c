@@ -6,11 +6,11 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 23:07:42 by dzonda            #+#    #+#             */
-/*   Updated: 2021/01/19 23:00:54 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/02/03 13:05:37 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_hash.h"
+#include "ft_dgst.h"
 
 int			ft_md5_init(t_dgst_ctx *ctx, unsigned int msg_len)
 {
@@ -24,7 +24,7 @@ int			ft_md5_init(t_dgst_ctx *ctx, unsigned int msg_len)
 	ctx->state.x_32[2] = 0x98badcfe;
 	ctx->state.x_32[3] = 0x10325476;
 	ctx->len.x_32 = msg_len * 8;
-	ctx->padding = ft_get_size_aligned(ctx->len.x_32 + ctx->x, ctx->mbs) - ctx->x;
+	ctx->padding = ft_align_bits(ctx->len.x_32 + ctx->x, ctx->mbs) - ctx->x;
 	return (EXIT_SUCCESS);
 }
 

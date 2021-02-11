@@ -6,11 +6,11 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 23:11:52 by dzonda            #+#    #+#             */
-/*   Updated: 2021/01/19 23:01:04 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/02/03 12:58:35 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_hash.h"
+#include "ft_dgst.h"
 
 uint32_t     ft_sha1_hash_f(int j, int b, int c, int d)
 {

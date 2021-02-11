@@ -6,11 +6,11 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 23:07:42 by dzonda            #+#    #+#             */
-/*   Updated: 2021/01/19 23:00:47 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/02/03 12:58:35 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_hash.h"
+#include "ft_dgst.h"
 
 uint32_t     ft_md5_hash_f(int i, int b, int c, int d)
 {

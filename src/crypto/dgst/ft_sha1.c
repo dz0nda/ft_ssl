@@ -6,11 +6,11 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 23:11:52 by dzonda            #+#    #+#             */
-/*   Updated: 2021/01/19 23:01:07 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/02/11 18:21:47 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_hash.h"
+#include "ft_dgst.h"
 
 int			ft_sha1_init(t_dgst_ctx *ctx, unsigned int msg_len)
 {
@@ -26,30 +26,8 @@ int			ft_sha1_init(t_dgst_ctx *ctx, unsigned int msg_len)
 	ctx->state.x_32[4] = 0xc3d2e1f0;
 	ctx->len.x_32 = msg_len * 8;
 	ft_memrev(&ctx->len.x_32, sizeof(ctx->len.x_32));
-	ctx->padding = ft_get_size_aligned(ctx->len.x_32 + ctx->x, ctx->mbs) - ctx->x;
+	ctx->padding = ft_align_bits(ctx->len.x_32 + ctx->x, ctx->mbs) - ctx->x;
 	return (EXIT_SUCCESS);
-}
-
-static uint32_t     ft_sha1_hash_f(int j, int b, int c, int d)
-{
-	if (j < 20)
-		return (b & c) | ((~b) & d);
-	else if (j < 40)
-		return b ^ c ^ d;
-	else if (j < 60)
-		return (b & c) | (b & d) | (c & d);
-	return b ^ c ^ d;
-}
-
-static uint32_t     ft_sha1_hash_k(int j)
-{
-	if (j < 20)
-		return 0x5A827999;
-	else if (j < 40)
-		return 0x6ED9EBA1;
-	else if (j < 60)
-		return 0x8F1BBCDC;
-	return 0xCA62C1D6;
 }
 
 static void     ft_sha1_process_words(uint32_t *w, const void *data)

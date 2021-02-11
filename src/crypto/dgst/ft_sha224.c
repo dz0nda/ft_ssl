@@ -6,11 +6,11 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 23:12:09 by dzonda            #+#    #+#             */
-/*   Updated: 2021/01/19 23:01:12 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/02/03 13:05:37 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_hash.h"
+#include "ft_dgst.h"
 
 int			ft_sha224_init(t_dgst_ctx *ctx, unsigned int msg_len)
 {
@@ -29,7 +29,7 @@ int			ft_sha224_init(t_dgst_ctx *ctx, unsigned int msg_len)
 	ctx->state.x_32[7] = 0xbefa4fa4;
 	ctx->len.x_32 = msg_len * 8;
 	ft_memrev(&ctx->len.x_32, sizeof(ctx->len.x_32));
-	ctx->padding = ft_get_size_aligned(ctx->len.x_32 + ctx->x, ctx->mbs) - ctx->x;
+	ctx->padding = ft_align_bits(ctx->len.x_32 + ctx->x, ctx->mbs) - ctx->x;
 	return (EXIT_SUCCESS);
 }
 
