@@ -6,7 +6,7 @@
 #    By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/10 21:08:47 by dzonda            #+#    #+#              #
-#    Updated: 2020/12/18 09:52:02 by dzonda           ###   ########lyon.fr    #
+#    Updated: 2021/02/03 13:05:13 by dzonda           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SUBDIR = \
 			to
 
 SUBFILE = \
+			bits/ft_align_bits.c \
 			bits/ft_rotate.c \
 			bits/ft_shift.c \
 			bits/ft_swap.c \
