@@ -12,7 +12,7 @@
 
 #include "ft_ssl_core.h"
 
-int     ft_ssl_core(int argc, char *argv[])
+int		ft_ssl_core(int argc, char *argv[])
 {
 	if (ft_ssl_core_dist(argc, argv) == FT_SSL_DIST_NOT_FOUND)
 		return (FT_SSL_DIST_NOT_FOUND);

@@ -54,12 +54,13 @@ int			ft_sha512256_init(t_dgst_ctx *ctx, unsigned int msg_len)
 	return (EXIT_SUCCESS);
 }
 
-int				ft_sha512256_pre_process(t_dgst_ctx *ctx, uint8_t *msg, unsigned int msg_len)
+int			ft_sha512256_pre_process(t_dgst_ctx *ctx, uint8_t *msg,
+	unsigned int msg_len)
 {
-  return (ft_sha512_pre_process(ctx, msg, msg_len));
+	return (ft_sha512_pre_process(ctx, msg, msg_len));
 }
 
-int				ft_sha512256transform(t_dgst_ctx *ctx)
+int			ft_sha512256transform(t_dgst_ctx *ctx)
 {
 	return (ft_sha512_transform(ctx));
 }

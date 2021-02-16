@@ -33,10 +33,11 @@ int			ft_sha256_init(t_dgst_ctx *ctx, unsigned int msg_len)
 	return (EXIT_SUCCESS);
 }
 
-int			ft_sha256_pre_process(t_dgst_ctx *ctx, uint8_t *msg, unsigned int msg_len)
+int			ft_sha256_pre_process(t_dgst_ctx *ctx, uint8_t *msg,
+	unsigned int msg_len)
 {
-	int i;
-	unsigned int 	pad;
+	int				i;
+	unsigned int	pad;
 
 	pad = ft_align_bits(msg_len + ctx->x + 1, ctx->mbs);
 	ctx->msg_len = pad;
@@ -46,13 +47,14 @@ int			ft_sha256_pre_process(t_dgst_ctx *ctx, uint8_t *msg, unsigned int msg_len)
 	i = msg_len;
 	while (++i < (pad - ctx->x))
 		ctx->msg[i] = 0;
-  ft_memcpy(&ctx->msg[i], &ctx->len.x_32, sizeof(ctx->len.x_32));
-  return (EXIT_SUCCESS);
+	ft_memcpy(&ctx->msg[i], &ctx->len.x_32, sizeof(ctx->len.x_32));
+	return (EXIT_SUCCESS);
 }
 
-int 		ft_sha256_process_words(uint8_t block[FT_SHA512_MBS], uint32_t w[64])
+int			ft_sha256_process_words(uint8_t block[FT_SHA512_MBS],
+	uint32_t w[64])
 {
-	int i;
+	int		i;
 
 	i = -1;
 	while (++i < 64)
@@ -60,24 +62,25 @@ int 		ft_sha256_process_words(uint8_t block[FT_SHA512_MBS], uint32_t w[64])
 		if (i < 16)
 			w[i] = ft_swap_uint32((uint32_t *)&block[i * 4]);
 		else if (i < 64)
-			w[i] = w[i - 16] + ft_sha256_wsigma0(w[i - 15]) + w[i - 7] + ft_sha256_wsigma1(w[i - 2]);
+			w[i] = w[i - 16] + ft_sha256_wsigma0(w[i - 15]) + w[i - 7]
+					+ ft_sha256_wsigma1(w[i - 2]);
 	}
 	return (EXIT_SUCCESS);
 }
 
 int			ft_sha256_transform(t_dgst_ctx *ctx)
 {
-	unsigned int			i;
-	uint32_t	state[8];
-	uint32_t	w[64];
-  uint32_t	sigma[2];
+	unsigned int	i;
+	uint32_t		state[8];
+	uint32_t		w[64];
+	uint32_t		sigma[2];
 
 	i = -1;
 	ft_memcpy(state, ctx->state.x_32, sizeof(state));
 	ft_sha256_process_words(ctx->block, w);
 	while (++i < 64)
 	{
-    sigma[0] = ft_sha256_sigma0(state, w[i], i);
+		sigma[0] = ft_sha256_sigma0(state, w[i], i);
 		sigma[1] = ft_sha256_sigma1(state);
 		state[7] = state[6];
 		state[6] = state[5];

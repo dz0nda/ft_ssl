@@ -19,12 +19,12 @@ int				ft_ssl_dgst_output_string(t_ftssl_dgst *ftssl_dgst)
 	i = -1;
 	if (ftssl_dgst->flag_r == 1)
 	{
-			ft_putstr(ftssl_dgst->md);
-			if (ftssl_dgst->cmd_arg != NULL)
-				ft_putchar(' ');
-			ft_putchar('\"');
-			ft_putstr(ftssl_dgst->cmd_arg);
-			ft_putendl("\"");
+		ft_putstr(ftssl_dgst->md);
+		if (ftssl_dgst->cmd_arg != NULL)
+			ft_putchar(' ');
+		ft_putchar('\"');
+		ft_putstr(ftssl_dgst->cmd_arg);
+		ft_putendl("\"");
 	}
 	else
 	{
@@ -72,10 +72,10 @@ int				ft_ssl_dgst_output_default(t_ftssl_dgst *ftssl_dgst)
 int				ft_ssl_dgst_output(t_ftssl_dgst *ftssl_dgst)
 {
 	static t_ftssl_dgst_outp_d	outp[FTSSL_DGST_OUTP] = {
-		{ FTSSL_DGST_OUTP_DEFAULT, 	ft_ssl_dgst_output_default   },
-		{ FTSSL_DGST_OUTP_QUIET, 		ft_ssl_dgst_output_default   },
-		{ FTSSL_DGST_OUTP_STRING, 	ft_ssl_dgst_output_string },
-		{ FTSSL_DGST_OUTP_FILE, 		ft_ssl_dgst_output_file }
+		{ FTSSL_DGST_OUTP_DEFAULT, ft_ssl_dgst_output_default },
+		{ FTSSL_DGST_OUTP_QUIET, ft_ssl_dgst_output_default },
+		{ FTSSL_DGST_OUTP_STRING, ft_ssl_dgst_output_string },
+		{ FTSSL_DGST_OUTP_FILE, ft_ssl_dgst_output_file }
 	};
 
 	return (outp[ftssl_dgst->outp_key].outp_dist(ftssl_dgst));

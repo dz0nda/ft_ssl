@@ -33,9 +33,10 @@ int			ft_sha224_init(t_dgst_ctx *ctx, unsigned int msg_len)
 	return (EXIT_SUCCESS);
 }
 
-int			ft_sha224_pre_process(t_dgst_ctx *ctx, uint8_t *msg, unsigned int msg_len)
+int			ft_sha224_pre_process(t_dgst_ctx *ctx, uint8_t *msg,
+	unsigned int msg_len)
 {
-  return (ft_sha256_pre_process(ctx, msg, msg_len));
+	return (ft_sha256_pre_process(ctx, msg, msg_len));
 }
 
 int			ft_sha224_transform(t_dgst_ctx *ctx)

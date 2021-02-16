@@ -14,14 +14,17 @@
 
 int		ft_ssl_dgst_get_input(char *file, char **input)
 {
-	int fd;
-	char *tmp;
-	char buf[4096];
-	int  nbuf = 0;
-	int length = 0;
+	int		fd;
+	char	*tmp;
+	char	buf[4096];
+	int		nbuf;
+	int		length;
 
 	fd = 0;
 	tmp = NULL;
+	ft_bzero(buf, 4096);
+	nbuf = 0;
+	length = 0;
 	if (file != NULL && (fd = open(file, O_RDONLY)) == -1)
 		return (EXIT_FAILURE);
 	while ((nbuf = read(fd, buf, 4096)) > 0)
@@ -35,32 +38,34 @@ int		ft_ssl_dgst_get_input(char *file, char **input)
 		length += nbuf;
 		ft_strdel(&tmp);
 	}
-
 	return (length);
 }
 
-int			ft_ssl_dgst_exec_file(t_ftssl_dgst *ftssl_dgst, char *cmd_arg)
+int		ft_ssl_dgst_exec_file(t_ftssl_dgst *ftssl_dgst, char *cmd_arg)
 {
-	char *s = NULL;
-	char *tmp = NULL;
-	int length = 0;
+	char	*s;
+	char	*tmp;
+	int		length;
 
 	s = NULL;
+	tmp = NULL;
+	length = 0;
 	ftssl_dgst->cmd_arg = cmd_arg;
 	length = ft_ssl_dgst_get_input(ftssl_dgst->cmd_arg, &s);
-	if (ftssl_dgst->cmd_arg != NULL && ftssl_dgst->outp_key != FTSSL_DGST_OUTP_QUIET)
+	if (ftssl_dgst->cmd_arg != NULL
+	&& ftssl_dgst->outp_key != FTSSL_DGST_OUTP_QUIET)
 		ftssl_dgst->outp_key = FTSSL_DGST_OUTP_FILE;
 	tmp = ftssl_dgst->cmd_arg;
- 	ftssl_dgst->cmd_arg = s;
+	ftssl_dgst->cmd_arg = s;
 	ft_bzero(ftssl_dgst->md, sizeof(ftssl_dgst->md));
 	ft_ssl_dgst_dist_execute((uint8_t *)s, length, ftssl_dgst->md, ftssl_dgst);
- 	ftssl_dgst->cmd_arg = tmp;
+	ftssl_dgst->cmd_arg = tmp;
 	ft_ssl_dgst_output(ftssl_dgst);
 	ft_strdel(&s);
 	return (EXIT_SUCCESS);
 }
 
-int     ft_ssl_dgst(int argc, char *argv[])
+int		ft_ssl_dgst(int argc, char *argv[])
 {
 	t_ftssl_dgst			ftssl_dgst;
 
@@ -83,17 +88,6 @@ int     ft_ssl_dgst(int argc, char *argv[])
 			ft_ssl_dgst_error(FTSSL_DGST_ERR_DIR, &ftssl_dgst);
 		else
 			ft_ssl_dgst_error(FTSSL_DGST_ERR_FILE, &ftssl_dgst);
-	// while (ft_ssl_dgst_execute(&ftssl_dgst) == EXIT_SUCCESS)
-	// {
-	// while (ft_isarg(ftssl_dgst.argi, ftssl_dgst.args.argc))
-	// {
-		// ftssl_dgst.cmd_arg = ftssl_dgst.args.argv[ftssl_dgst.argi];
-		// if (ft_isreg(ftssl_dgst.cmd_arg))
-		// 	ft_ssl_dgst_exec_file(&ftssl_dgst);
-		// else if (ft_isdir(ftssl_dgst.cmd_arg))
-		// 	ft_ssl_dgst_error(FTSSL_DGST_ERR_DIR, &ftssl_dgst);
-		// else
-		// 	ft_ssl_dgst_error(FTSSL_DGST_ERR_FILE, &ftssl_dgst);
 		ftssl_dgst.argi++;
 	}
 	return (EXIT_SUCCESS);

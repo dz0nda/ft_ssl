@@ -41,7 +41,7 @@ static void		ft_ssl_shell_parse(t_ftssl_sh *sh, char *buffer)
 	sh->argc = i;
 }
 
-int			ft_ssl_shell_reset(t_ftssl_sh *sh)
+int				ft_ssl_shell_reset(t_ftssl_sh *sh)
 {
 	int i;
 
@@ -52,7 +52,7 @@ int			ft_ssl_shell_reset(t_ftssl_sh *sh)
 	return (EXIT_SUCCESS);
 }
 
-int		ft_ssl_shell_init(t_ftssl_sh *sh, int argc, const char *argv[])
+int				ft_ssl_shell_init(t_ftssl_sh *sh, int argc, const char *argv[])
 {
 	int i;
 

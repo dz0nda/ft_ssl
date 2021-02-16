@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef FT_SSL_CIPHER_H
 # define FT_SSL_CIPHER_H
 
@@ -25,13 +24,13 @@ typedef enum		e_ftssl_cipher_dist_enum
 	FT_SSL_CIPHER_DIST
 }					t_ftssl_cipher_dist_e;
 
-typedef struct      s_ftssl_cipher_dist
+typedef struct		s_ftssl_cipher_dist
 {
-    char    *dist_name;
-    int     dist_key;
-}                   t_ftssl_cipher_dist;
+	char	*dist_name;
+	int		dist_key;
+}					t_ftssl_cipher_dist;
 
 int					ft_ssl_cipher(int argc, char *argv[]);
-int     			ft_ssl_cipher_dist(int argc, char *argv[]);
+int					ft_ssl_cipher_dist(int argc, char *argv[]);
 
 #endif

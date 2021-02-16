@@ -12,16 +12,15 @@
 
 #include "ft_ssl_core.h"
 
-
 int		ft_ssl_usage(void)
 {
 	static t_ftssl_core_usage_dist		ftssl_usage_dist[FTSSL_DIST] = {
-		{ "Help commands:",           ft_ssl_core 	},
-		{ "Message Digest commands:", ft_ssl_dgst 	},
-		{ "Cipher commands:",         ft_ssl_cipher },
+		{ "Help commands:", ft_ssl_core },
+		{ "Message Digest commands:", ft_ssl_dgst },
+		{ "Cipher commands:", ft_ssl_cipher },
 	};
-	int			key_dist;
-	
+	int									key_dist;
+
 	key_dist = -1;
 	while (++key_dist < FTSSL_DIST)
 	{

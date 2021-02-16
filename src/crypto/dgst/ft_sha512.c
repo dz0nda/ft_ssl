@@ -12,7 +12,7 @@
 
 #include "ft_dgst.h"
 
-int			ft_sha512_init(t_dgst_ctx *ctx, unsigned int msg_len)
+int		ft_sha512_init(t_dgst_ctx *ctx, unsigned int msg_len)
 {
 	ctx->hs = FT_SHA512_HS;
 	ctx->mbs = FT_SHA512_MBS;
@@ -33,10 +33,11 @@ int			ft_sha512_init(t_dgst_ctx *ctx, unsigned int msg_len)
 	return (EXIT_SUCCESS);
 }
 
-int			ft_sha512_pre_process(t_dgst_ctx *ctx, uint8_t *msg, unsigned int msg_len)
+int		ft_sha512_pre_process(t_dgst_ctx *ctx, uint8_t *msg,
+	unsigned int msg_len)
 {
-	int i;
-	unsigned int 	pad;
+	int				i;
+	unsigned int	pad;
 
 	pad = ft_align_bits(msg_len + ctx->x + 1, ctx->mbs);
 	ctx->msg_len = pad;
@@ -46,11 +47,11 @@ int			ft_sha512_pre_process(t_dgst_ctx *ctx, uint8_t *msg, unsigned int msg_len)
 	i = msg_len;
 	while (++i < (pad - ctx->x))
 		ctx->msg[i] = 0;
-  ft_memcpy(&ctx->msg[i], &ctx->len.x_64, sizeof(ctx->len.x_64));
-  return (EXIT_SUCCESS);
+	ft_memcpy(&ctx->msg[i], &ctx->len.x_64, sizeof(ctx->len.x_64));
+	return (EXIT_SUCCESS);
 }
 
-int 		ft_sha512_process_words(uint8_t block[FT_SHA512_MBS], uint64_t w[80])
+int		ft_sha512_process_words(uint8_t block[FT_SHA512_MBS], uint64_t w[80])
 {
 	int i;
 
@@ -60,12 +61,13 @@ int 		ft_sha512_process_words(uint8_t block[FT_SHA512_MBS], uint64_t w[80])
 		if (i < 16)
 			w[i] = ft_swap_uint64((uint64_t *)&block[i * 8]);
 		else if (i < 80)
-			w[i] = w[i - 16] + ft_sha512_wsigma0(w[i - 15]) + w[i - 7] + ft_sha512_wsigma1(w[i - 2]);
+			w[i] = w[i - 16] + ft_sha512_wsigma0(w[i - 15]) + w[i - 7]
+					+ ft_sha512_wsigma1(w[i - 2]);
 	}
 	return (EXIT_SUCCESS);
 }
 
-int				ft_sha512_transform(t_dgst_ctx *ctx)
+int		ft_sha512_transform(t_dgst_ctx *ctx)
 {
 	uint64_t	state[8];
 	uint64_t	w[80];
@@ -95,12 +97,12 @@ int				ft_sha512_transform(t_dgst_ctx *ctx)
 	return (EXIT_SUCCESS);
 }
 
-char		*ft_sha512_final(t_dgst_ctx *ctx, char *cmd_dgst)
+char	*ft_sha512_final(t_dgst_ctx *ctx, char *cmd_dgst)
 {
-	unsigned int		i;
-	unsigned int		j;
-	char	s[6];
-	uint8_t	*p;
+	unsigned int	i;
+	unsigned int	j;
+	char			s[6];
+	uint8_t			*p;
 
 	i = -1;
 	while (++i < ctx->sts)

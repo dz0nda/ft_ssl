@@ -12,24 +12,24 @@
 
 #include "ft_dgst.h"
 
-uint32_t     ft_sha1_hash_f(int j, int b, int c, int d)
+uint32_t	ft_sha1_hash_f(int j, int b, int c, int d)
 {
 	if (j < 20)
 		return (b & c) | ((~b) & d);
 	else if (j < 40)
-		return b ^ c ^ d;
+		return (b ^ c ^ d);
 	else if (j < 60)
 		return (b & c) | (b & d) | (c & d);
-	return b ^ c ^ d;
+	return (b ^ c ^ d);
 }
 
-uint32_t     ft_sha1_hash_k(int j)
+uint32_t	ft_sha1_hash_k(int j)
 {
 	if (j < 20)
-		return 0x5A827999;
+		return (0x5A827999);
 	else if (j < 40)
-		return 0x6ED9EBA1;
+		return (0x6ED9EBA1);
 	else if (j < 60)
-		return 0x8F1BBCDC;
-	return 0xCA62C1D6;
+		return (0x8F1BBCDC);
+	return (0xCA62C1D6);
 }
