@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 20:12:48 by dzonda            #+#    #+#             */
-/*   Updated: 2020/12/18 09:51:22 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/02/18 16:14:27 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		ft_strequal(const char *s1, const char *s2)
 {
-  if (ft_strcmp(s1, s2) == 0)
-    return 1;
-  return 0;
+	if (ft_strcmp(s1, s2) == 0)
+		return (1);
+	return (0);
 }

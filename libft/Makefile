@@ -34,6 +34,7 @@ SUBFILE = \
 			bits/ft_rotate.c \
 			bits/ft_shift.c \
 			bits/ft_swap.c \
+			gnl/ft_get_input.c \
 			gnl/get_next_line.c \
 			put/putchar_fd.c \
 			put/putnbr.c \

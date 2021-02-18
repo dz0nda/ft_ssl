@@ -1,19 +1,18 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ft_putnbr_fd.c                                   .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: dzonda <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/12/12 20:12:14 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/12 11:38:13 by dzonda      ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   puthexapad.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/12/12 20:12:14 by dzonda            #+#    #+#             */
+/*   Updated: 2021/02/18 16:12:41 by dzonda           ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_put.h"
 
-void		ft_puthexapad(int nb, size_t len)
+void	ft_puthexapad(int nb, size_t len)
 {
-    ft_puthexapad_fd(nb, len, 1);
+	ft_puthexapad_fd(nb, len, 1);
 }

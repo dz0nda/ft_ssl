@@ -1,20 +1,19 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ft_putnbrendl.c                                  .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: dzonda <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/12/12 20:12:04 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/12 11:38:12 by dzonda      ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   putnbrendl_fd.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/12/12 20:12:04 by dzonda            #+#    #+#             */
+/*   Updated: 2021/02/18 16:12:38 by dzonda           ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_put.h"
 
-void    ft_putnbrendl_fd(int nb, int fd)
+void	ft_putnbrendl_fd(int nb, int fd)
 {
-    ft_putnbr_fd(nb, fd);
-    ft_putchar_fd('\n', fd);
+	ft_putnbr_fd(nb, fd);
+	ft_putchar_fd('\n', fd);
 }
