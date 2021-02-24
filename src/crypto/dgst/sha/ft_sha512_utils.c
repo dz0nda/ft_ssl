@@ -6,11 +6,11 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 08:19:12 by dzonda            #+#    #+#             */
-/*   Updated: 2021/02/03 12:58:35 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/02/23 22:05:16 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_dgst.h"
+#include "ft_sha.h"
 
 uint64_t		ft_sha512_wsigma0(uint64_t word)
 {
