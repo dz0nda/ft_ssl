@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 20:10:16 by dzonda            #+#    #+#             */
-/*   Updated: 2021/02/18 16:14:51 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/03/03 10:08:24 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ char	*ft_itoa(int input, char *buffer, int radix)
 
 	i = 0;
 	sign = '\0';
-	tmp = 0;
 	if (input == 0)
 		buffer[i++] = '0';
 	if (input < 0)
