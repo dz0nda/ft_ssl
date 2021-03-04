@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 23:12:09 by dzonda            #+#    #+#             */
-/*   Updated: 2021/02/23 23:09:22 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/03/03 11:12:36 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ int			ft_sha256_init(t_sha256_ctx *ctx, unsigned int msg_len)
 {
 	ctx->hs = FT_SHA256_HS;
 	ctx->mbs = FT_SHA256_MBS;
-	// ctx->endian = FT_DGST_ENDIAN_BIG;
 	ctx->state_len = FT_SHA256_STATE;
-	// FT_DGST_X32 = FT_DGST_X32;
 	ctx->state[0] = 0x6a09e667;
 	ctx->state[1] = 0xbb67ae85;
 	ctx->state[2] = 0x3c6ef372;
@@ -35,7 +33,7 @@ int			ft_sha256_pre_process(t_sha256_ctx *ctx, uint8_t *msg,
 {
 	int				i;
 	unsigned int	pad;
-	uint64_t	length;
+	uint64_t		length;
 
 	pad = ft_align_bits(msg_len + 8 + 1, ctx->mbs);
 	ctx->msg_len = pad;
@@ -48,7 +46,6 @@ int			ft_sha256_pre_process(t_sha256_ctx *ctx, uint8_t *msg,
 	length = msg_len * 8;
 	ft_memrev(&length, sizeof(length));
 	ft_memcpy(&ctx->msg[i], &length, sizeof(length));
-	// ft_memcpy(&ctx->msg[i], &ctx->len.x_32, sizeof(ctx->len.x_32));
 	return (EXIT_SUCCESS);
 }
 
@@ -126,7 +123,6 @@ char		*ft_sha256_final(t_sha256_ctx *ctx, char *cmd_dgst)
 		p = (uint8_t *)&ctx->state[i];
 		while (++j < 4)
 			ft_itoa(p[j], &cmd_dgst[ft_strlen(cmd_dgst)], 16);
-
 	}
 	return (cmd_dgst);
 }

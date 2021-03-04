@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 17:49:26 by dzonda            #+#    #+#             */
-/*   Updated: 2021/02/04 10:50:52 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/03/03 22:35:13 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ int				ft_ssl_dgst_err_no(int err, char *dist, char *dist_arg)
 	return (EXIT_FAILURE);
 }
 
-int				ft_ssl_dgst_error(int err_key, t_ftssl_dgst *ftssl_dgst)
+int				ft_ssl_dgst_error(int err_key, t_ftssl_dgst *ctx, char *arg)
 {
-	const s_ftssl_dgst_errorno err[FTSSL_DGST_ERR] = {
+	const t_ftssl_dgst_err_d err[FTSSL_DGST_ERR] = {
 		{ FTSSL_DGST_ERR_NO, ft_ssl_dgst_err_no },
 		{ FTSSL_DGST_ERR_OPT, ft_ssl_dgst_err_option },
 		{ FTSSL_DGST_ERR_OPT_ARG, ft_ssl_dgst_err_option },
@@ -64,6 +64,5 @@ int				ft_ssl_dgst_error(int err_key, t_ftssl_dgst *ftssl_dgst)
 		{ FTSSL_DGST_ERR_DIR, ft_ssl_dgst_err_fd }
 	};
 
-	return (err[err_key].err_dist(err_key, ftssl_dgst->dist.name,
-		ftssl_dgst->cmd_arg));
+	return (err[err_key].err_dist(err_key, ctx->distrib.name_lower, arg));
 }

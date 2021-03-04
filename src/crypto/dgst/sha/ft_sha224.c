@@ -16,9 +16,7 @@ int			ft_sha224_init(t_sha256_ctx *ctx, unsigned int msg_len)
 {
 	ctx->hs = FT_SHA224_HS;
 	ctx->mbs = FT_SHA224_MBS;
-	// ctx->endian = FT_DGST_ENDIAN_BIG;
 	ctx->state_len = FT_SHA224_STATE;
-	// ctx->x = FT_DGST_X32;
 	ctx->state[0] = 0xc1059ed8;
 	ctx->state[1] = 0x367cd507;
 	ctx->state[2] = 0x3070dd17;
@@ -27,9 +25,6 @@ int			ft_sha224_init(t_sha256_ctx *ctx, unsigned int msg_len)
 	ctx->state[5] = 0x68581511;
 	ctx->state[6] = 0x64f98fa7;
 	ctx->state[7] = 0xbefa4fa4;
-	// ctx->len.x_32 = msg_len * 8;
-	// ft_memrev(&ctx->len.x_32, sizeof(ctx->len.x_32));
-	// ctx->padding = ft_align_bits(ctx->len.x_32 + ctx->x, ctx->mbs) - ctx->x;
 	return (EXIT_SUCCESS);
 }
 

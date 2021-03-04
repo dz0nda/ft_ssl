@@ -16,9 +16,7 @@ int			ft_sha512224_init(t_sha512_ctx *ctx, unsigned int msg_len)
 {
 	ctx->hs = FT_SHA512224_HS;
 	ctx->mbs = FT_SHA512224_MBS;
-	// ctx->endian = FT_SHA512224_ENDIAN;
 	ctx->state_len = FT_SHA512224_STATE;
-	// ctx->x = FT_DGST_X64;
 	ctx->state[0] = 0x8C3D37C819544DA2;
 	ctx->state[1] = 0x73E1996689DCD4D6;
 	ctx->state[2] = 0x1DFAB7AE32FF9C82;
@@ -27,9 +25,6 @@ int			ft_sha512224_init(t_sha512_ctx *ctx, unsigned int msg_len)
 	ctx->state[5] = 0x77E36F7304C48942;
 	ctx->state[6] = 0x3F9D85A86A1D36C8;
 	ctx->state[7] = 0x1112E6AD91D692A1;
-	// ctx->len.x_64 = msg_len * 8;
-	// ft_memrev(&ctx->len.x_64, sizeof(ctx->len.x_64));
-	// ctx->padding = ft_align_bits(ctx->len.x_64 + ctx->x, ctx->mbs) - ctx->x;
 	return (EXIT_SUCCESS);
 }
 
@@ -37,9 +32,7 @@ int			ft_sha512256_init(t_sha512_ctx *ctx, unsigned int msg_len)
 {
 	ctx->hs = FT_SHA512256_HS;
 	ctx->mbs = FT_SHA512256_MBS;
-	// ctx->endian = FT_SHA512256_ENDIAN;
 	ctx->state_len = FT_SHA512256_STATE;
-	// ctx->x = FT_DGST_X64;
 	ctx->state[0] = 0x22312194FC2BF72C;
 	ctx->state[1] = 0x9F555FA3C84C64C2;
 	ctx->state[2] = 0x2393B86B6F53B151;
@@ -48,9 +41,6 @@ int			ft_sha512256_init(t_sha512_ctx *ctx, unsigned int msg_len)
 	ctx->state[5] = 0xBE5E1E2553863992;
 	ctx->state[6] = 0x2B0199FC2C85B8AA;
 	ctx->state[7] = 0x0EB72DDC81C52CA2;
-	// ctx->len.x_64 = msg_len * 8;
-	// ft_memrev(&ctx->len.x_64, sizeof(ctx->len.x_64));
-	// ctx->padding = ft_align_bits(ctx->len.x_64 + ctx->x, ctx->mbs) - ctx->x;
 	return (EXIT_SUCCESS);
 }
 

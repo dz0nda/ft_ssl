@@ -6,61 +6,45 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 17:49:26 by dzonda            #+#    #+#             */
-/*   Updated: 2021/02/04 18:12:56 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/03/03 22:37:22 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl_dgst.h"
 
-int		ft_ssl_dgst_opt_p(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[])
+int		ft_ssl_dgst_opt_p(t_ftssl_dgst *ctx, int argc, char *argv[])
 {
-	char	*s;
-	int		length;
-
-	s = NULL;
-	length = 0;
-	length = ft_ssl_dgst_get_input(NULL, &s);
-	ft_putstr(s);
-	ft_bzero(ftssl_dgst->md, sizeof(ftssl_dgst->md));
-	ft_ssl_dgst_dist_execute((uint8_t *)s, ft_strlen(s),
-		ftssl_dgst->md, ftssl_dgst);
-	ft_ssl_dgst_output(ftssl_dgst);
-	ft_strdel(&s);
+	ctx->opt.output_print = 1;
+	ft_ssl_dgst_output(FTSSL_DGST_OUTP_DEFAULT, ctx, NULL);
+	ctx->opt.output_print = 0;
 	return (EXIT_SUCCESS);
 }
 
-int		ft_ssl_dgst_opt_r(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[])
+int		ft_ssl_dgst_opt_r(t_ftssl_dgst *ctx, int argc, char *argv[])
 {
-	ftssl_dgst->flag_r = 1;
+	ctx->opt.reverse = 1;
 	return (EXIT_SUCCESS);
 }
 
-int		ft_ssl_dgst_opt_q(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[])
+int		ft_ssl_dgst_opt_q(t_ftssl_dgst *ctx, int argc, char *argv[])
 {
-	ftssl_dgst->outp_key = FTSSL_DGST_OUTP_QUIET;
+	ctx->opt.output = FTSSL_DGST_OUTP_QUIET;
 	return (EXIT_SUCCESS);
 }
 
-int		ft_ssl_dgst_opt_s(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[])
+int		ft_ssl_dgst_opt_s(t_ftssl_dgst *ctx, int argc, char *argv[])
 {
-	char	*cmd_arg;
+	char *arg;
 
-	if (!(ftssl_dgst->argi + 1 < argc))
-		return (ft_ssl_dgst_error(FTSSL_DGST_ERR_OPT_ARG, ftssl_dgst));
-	ftssl_dgst->argi++;
-	if (ftssl_dgst->outp_key != FTSSL_DGST_OUTP_QUIET)
-		ftssl_dgst->outp_key = FTSSL_DGST_OUTP_STRING;
-	cmd_arg = (argv[ftssl_dgst->argi] != NULL) ? argv[ftssl_dgst->argi] : "";
-	ftssl_dgst->cmd_arg = (argv[ftssl_dgst->argi] == NULL) ? ""
-		: argv[ftssl_dgst->argi];
-	ft_bzero(ftssl_dgst->md, sizeof(ftssl_dgst->md));
-	ft_ssl_dgst_dist_execute((uint8_t *)cmd_arg, ft_strlen(cmd_arg),
-		ftssl_dgst->md, ftssl_dgst);
-	ft_ssl_dgst_output(ftssl_dgst);
+	arg = argv[ctx->argi] + 1;
+	if (!(ctx->argi + 1 < argc))
+		return (ft_ssl_dgst_error(FTSSL_DGST_ERR_OPT_ARG, ctx, arg));
+	ctx->argi++;
+	ft_ssl_dgst_output(FTSSL_DGST_OUTP_STRING, ctx, argv[ctx->argi]);
 	return (EXIT_SUCCESS);
 }
 
-int		ft_ssl_dgst_option(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[])
+int		ft_ssl_dgst_option(t_ftssl_dgst *ctx, int argc, char *argv[])
 {
 	static t_ftssl_dgst_opt_d	ft_ssl_dgst_opt[FT_SSL_DGST_OPT] = {
 		{ FT_SSL_DGST_OPT_P, "p", ft_ssl_dgst_opt_p },
@@ -72,15 +56,11 @@ int		ft_ssl_dgst_option(t_ftssl_dgst *ftssl_dgst, int argc, char *argv[])
 	char						*opt;
 
 	opt_key = -1;
-	if (ftssl_dgst->argi >= argc || *argv[ftssl_dgst->argi] != '-'
-	|| argv[ftssl_dgst->argi][1] == '\0')
-		return (EXIT_FAILURE);
-	opt = argv[ftssl_dgst->argi] + 1;
-	while (++opt_key < 4)
+	opt = argv[ctx->argi] + 1;
+	while (++opt_key < FT_SSL_DGST_OPT)
 		if (ft_strequ(opt, ft_ssl_dgst_opt[opt_key].opt_name))
-			return (ft_ssl_dgst_opt[opt_key].opt_dist(ftssl_dgst, argc, argv));
-	if (ft_ssl_dgst_dist(argc, argv, ftssl_dgst) != FT_SSL_DGST_NOT_FOUND)
+			return (ft_ssl_dgst_opt[opt_key].opt_dist(ctx, argc, argv));
+	if (ft_ssl_dgst_dist(ctx, argc, argv) != FT_SSL_DGST_NOT_FOUND)
 		return (EXIT_SUCCESS);
-	ftssl_dgst->err = 1;
-	return (EXIT_FAILURE);
+	return (ft_ssl_dgst_error(FTSSL_DGST_ERR_OPT, ctx, opt));
 }

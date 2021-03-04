@@ -16,25 +16,20 @@ int				ft_sha1_init(t_sha1_ctx *ctx, unsigned int msg_len)
 {
 	ctx->hs = FT_SHA1_HS;
 	ctx->mbs = FT_SHA1_MBS;
-	// ctx->endian = FT_DGST_ENDIAN_BIG;
-	// FT_SHA1_STATE = FT_SHA1_STATE;
 	ctx->state[0] = 0x67452301;
 	ctx->state[1] = 0xefcdab89;
 	ctx->state[2] = 0x98badcfe;
 	ctx->state[3] = 0x10325476;
 	ctx->state[4] = 0xc3d2e1f0;
-	// ctx->len.x_32 = msg_len * 8;
-	// ft_memrev(&ctx->len.x_32, sizeof(ctx->len.x_32));
-	// ctx->padding = ft_align_bits(ctx->len.x_32 + FT_DGST_X32, ctx->mbs) - FT_DGST_X32;
 	return (EXIT_SUCCESS);
 }
 
-int			ft_sha1_pre_process(t_sha1_ctx *ctx, uint8_t *msg,
+int				ft_sha1_pre_process(t_sha1_ctx *ctx, uint8_t *msg,
 	unsigned int msg_len)
 {
 	int				i;
 	unsigned int	pad;
-	uint64_t	length;
+	uint64_t		length;
 
 	pad = ft_align_bits(msg_len + 8 + 1, ctx->mbs);
 	ctx->msg_len = pad;
@@ -47,7 +42,6 @@ int			ft_sha1_pre_process(t_sha1_ctx *ctx, uint8_t *msg,
 	length = msg_len * 8;
 	ft_memrev(&length, sizeof(length));
 	ft_memcpy(&ctx->msg[i], &length, sizeof(length));
-	// ft_memcpy(&ctx->msg[i], &ctx->len.x_32, sizeof(ctx->len.x_32));
 	return (EXIT_SUCCESS);
 }
 
@@ -105,11 +99,10 @@ int				ft_sha1_transform(t_sha1_ctx *ctx)
 			ft_memset(ctx->block, 0, sizeof(ctx->block));
 		}
 	}
-	// ft_memdel((void *)&ctx->msg);
 	return (EXIT_SUCCESS);
 }
 
-char		*ft_sha1_final(t_sha1_ctx *ctx, char *cmd_dgst)
+char			*ft_sha1_final(t_sha1_ctx *ctx, char *cmd_dgst)
 {
 	int		i;
 	int		j;

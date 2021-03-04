@@ -23,15 +23,11 @@ int			ft_md5_init(t_md5_ctx *ctx, unsigned int msg_len)
 	return (EXIT_SUCCESS);
 }
 
-	// ctx->len.x_32 = msg_len * 8;
-	// ctx->padding = ft_align_bits(ctx->len.x_32 + ctx->x, ctx->mbs) - ctx->x;
-
-
 int			ft_md5_pad(t_md5_ctx *ctx, uint8_t *msg, unsigned int msg_len)
 {
 	int				i;
-	unsigned int				pad;
-	uint64_t	length;
+	unsigned int	pad;
+	uint64_t		length;
 
 	pad = ft_align_bits(msg_len + 8 + 1, ctx->mbs);
 	ctx->msg_len = pad;
@@ -63,7 +59,7 @@ int			ft_md5_process(uint32_t state[8], uint32_t words[80])
 		state[1] = state[1] + ft_rotl_uint32(sigma, ft_md5_hash_s(i));
 	}
 	return (EXIT_SUCCESS);
-} 
+}
 
 int			ft_md5_transform(t_md5_ctx *ctx)
 {

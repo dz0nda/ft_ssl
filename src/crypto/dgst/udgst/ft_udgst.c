@@ -12,7 +12,7 @@
 
 #include "ft_udgst.h"
 
-char		*ft_udgst_final(t_udgst *ctx, char *md)
+char	*ft_udgst_final(t_udgst *ctx, char *md)
 {
 	if (ctx->key < FT_SHA1)
 		return (ft_md5_final((t_md5_ctx *)&ctx->ctx, md));
@@ -84,31 +84,3 @@ char	*ft_udgst(int key, uint8_t *msg, unsigned int msg_len, char *md)
 	ft_udgst_final(&ctx, md);
 	return (md);
 }
-
-// char	*ft_ssl_dgst_dist_execute(uint8_t *msg, unsigned int msg_len, char *md,
-// 	t_ftssl_dgst *ftssl_dgst)
-// {
-// 	t_dgst_ctx	ctx;
-// 	int			i;
-// 	uint8_t		*data;
-
-// 	ft_udgst(ftssl_dgst->dist.key, msg, msg_len, md);
-// 	// ft_memset(&ctx, 0, sizeof(ctx));
-// 	// i = -1;
-// 	// ftssl_dgst->dist.init(&ctx, msg_len);
-// 	// ftssl_dgst->dist.pre_process(&ctx, msg, msg_len);
-// 	// // data = &ctx.msg[0];
-// 	// // while (ctx.msg_len--)
-// 	// // {
-// 	// // 	ctx.block[ctx.iblock++] = *data++;
-// 	// // 	if (ctx.iblock == ctx.mbs)
-// 	// // 	{
-// 	// 		ftssl_dgst->dist.hash(&ctx);
-// 	// // 		ctx.iblock = 0;
-// 	// // 		ft_memset(ctx.block, 0, sizeof(ctx.block));
-// 	// // 	}
-// 	// // }
-// 	// // ft_memdel((void *)&ctx.msg);
-// 	// ftssl_dgst->dist.final(&ctx, md);
-// 	return (md);
-// }
