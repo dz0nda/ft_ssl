@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 08:19:12 by dzonda            #+#    #+#             */
-/*   Updated: 2021/03/04 11:10:13 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 14:15:43 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int			ft_sha512224_init(t_sha512_ctx *ctx)
 {
-	ctx->hs = FT_SHA512224_HS;
-	ctx->mbs = FT_SHA512224_MBS;
+	ctx->hash_size = FT_SHA512224_HASH_SIZE;
+	ctx->msg_block_size = FT_SHA512224_MSG_BLOCK_SIZE;
 	ctx->state_len = FT_SHA512224_STATE;
 	ctx->state[0] = 0x8C3D37C819544DA2;
 	ctx->state[1] = 0x73E1996689DCD4D6;
@@ -30,8 +30,8 @@ int			ft_sha512224_init(t_sha512_ctx *ctx)
 
 int			ft_sha512256_init(t_sha512_ctx *ctx)
 {
-	ctx->hs = FT_SHA512256_HS;
-	ctx->mbs = FT_SHA512256_MBS;
+	ctx->hash_size = FT_SHA512256_HASH_SIZE;
+	ctx->msg_block_size = FT_SHA512256_MSG_BLOCK_SIZE;
 	ctx->state_len = FT_SHA512256_STATE;
 	ctx->state[0] = 0x22312194FC2BF72C;
 	ctx->state[1] = 0x9F555FA3C84C64C2;
@@ -52,7 +52,7 @@ int			ft_sha512256_pre_process(t_sha512_ctx *ctx, uint8_t *msg,
 
 int			ft_sha512256transform(t_sha512_ctx *ctx)
 {
-	return (ft_sha512_transform(ctx));
+	return (ft_sha512_process(ctx));
 }
 
 char		*ft_sha512256_final(t_sha512_ctx *ctx, char *cmd_dgst)

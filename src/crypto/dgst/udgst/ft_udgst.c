@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 17:49:26 by dzonda            #+#    #+#             */
-/*   Updated: 2021/03/04 11:13:13 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 14:10:38 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ char	*ft_udgst_final(t_udgst *ctx, char *md)
 int		ft_udgst_process(t_udgst *ctx)
 {
 	if (ctx->key < FT_SHA1)
-		return (ft_md5_transform((t_md5_ctx *)&ctx->ctx));
+		return (ft_md5_process((t_md5_ctx *)&ctx->ctx));
 	else if (ctx->key < FT_SHA224)
-		return (ft_sha1_transform((t_sha1_ctx *)&ctx->ctx));
+		return (ft_sha1_process((t_sha1_ctx *)&ctx->ctx));
 	else if (ctx->key < FT_SHA384)
-		return (ft_sha256_transform((t_sha256_ctx *)&ctx->ctx));
+		return (ft_sha256_process((t_sha256_ctx *)&ctx->ctx));
 	else if (ctx->key < FT_DGST_VERSION)
-		return (ft_sha512_transform((t_sha512_ctx *)&ctx->ctx));
+		return (ft_sha512_process((t_sha512_ctx *)&ctx->ctx));
 	return (EXIT_FAILURE);
 }
 

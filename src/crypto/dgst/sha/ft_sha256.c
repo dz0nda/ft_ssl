@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 23:12:09 by dzonda            #+#    #+#             */
-/*   Updated: 2021/03/04 11:29:34 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 14:20:16 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int			ft_sha256_init(t_sha256_ctx *ctx)
 {
-	ctx->hs = FT_SHA256_HS;
-	ctx->mbs = FT_SHA256_MBS;
+	ctx->hash_size = FT_SHA256_HASH_SIZE;
+	ctx->msg_block_size = FT_SHA256_MSG_BLOCK_SIZE;
 	ctx->state_len = FT_SHA256_STATE;
 	ctx->state[0] = 0x6a09e667;
 	ctx->state[1] = 0xbb67ae85;
@@ -35,7 +35,7 @@ int			ft_sha256_pre_process(t_sha256_ctx *ctx, uint8_t *msg,
 	int				pad;
 	uint64_t		length;
 
-	pad = ft_align_bits(msg_len + 8 + 1, ctx->mbs);
+	pad = ft_align_bits(msg_len + FT_DGST_X32 + 1, ctx->msg_block_size);
 	ctx->msg_len = pad;
 	ctx->msg = (uint8_t *)ft_memalloc(ctx->msg_len);
 	ft_memmove(ctx->msg, msg, msg_len);
@@ -49,10 +49,10 @@ int			ft_sha256_pre_process(t_sha256_ctx *ctx, uint8_t *msg,
 	return (EXIT_SUCCESS);
 }
 
-int			ft_sha256_process_hash(t_sha256_ctx *ctx, uint32_t state[8],
-	uint32_t w[64])
+static int	ft_sha256_process_hash(t_sha256_ctx *ctx, uint32_t state[8])
 {
 	int			i;
+	uint32_t	w[64];
 	uint32_t	sigma[2];
 
 	i = -1;
@@ -77,22 +77,21 @@ int			ft_sha256_process_hash(t_sha256_ctx *ctx, uint32_t state[8],
 	return (EXIT_SUCCESS);
 }
 
-int			ft_sha256_transform(t_sha256_ctx *ctx)
+int			ft_sha256_process(t_sha256_ctx *ctx)
 {
 	unsigned int	i;
 	uint32_t		state[8];
-	uint32_t		w[64];
 	uint8_t			*data;
 
 	data = &ctx->msg[0];
 	while (ctx->msg_len--)
 	{
 		ctx->block[ctx->iblock++] = *data++;
-		if (ctx->iblock == ctx->mbs)
+		if (ctx->iblock == ctx->msg_block_size)
 		{
 			i = -1;
 			ft_memcpy(state, ctx->state, sizeof(state));
-			ft_sha256_process_hash(ctx, state, w);
+			ft_sha256_process_hash(ctx, state);
 			i = -1;
 			while (++i < 8)
 				ctx->state[i] += state[i];
@@ -111,7 +110,7 @@ char		*ft_sha256_final(t_sha256_ctx *ctx, char *cmd_dgst)
 	uint8_t	*p;
 
 	i = -1;
-	ft_bzero(cmd_dgst, ctx->hs);
+	ft_bzero(cmd_dgst, ctx->hash_size);
 	while (++i < ctx->state_len)
 	{
 		j = -1;

@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 12:18:59 by dzonda            #+#    #+#             */
-/*   Updated: 2021/03/04 11:11:26 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 14:19:20 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,57 +23,41 @@
 
 typedef enum			e_sha_enum
 {
-	FT_SHA1_MBS = 64,
-	FT_SHA1_HS = 20,
-	FT_SHA1_HBS = 160,
-	FT_SHA1_ENDIAN = 1,
-	FT_SHA1_STATE = FT_SHA1_HS / 4,
+	FT_SHA1_MSG_BLOCK_SIZE = 64,
+	FT_SHA1_HASH_SIZE = 20,
+	FT_SHA1_STATE = 5,
 
-	FT_SHA256_MBS = 64,
-	FT_SHA256_HS = 32,
-	FT_SHA256_HBS = 256,
-	FT_SHA256_ENDIAN = 1,
-	FT_SHA256_STATE = FT_SHA256_HS / 4,
+	FT_SHA256_MSG_BLOCK_SIZE = 64,
+	FT_SHA256_HASH_SIZE = 32,
+	FT_SHA256_STATE = 8,
 
-	FT_SHA224_MBS = FT_SHA256_MBS,
-	FT_SHA224_HS = 28,
-	FT_SHA224_HBS = FT_SHA256_HBS,
-	FT_SHA224_ENDIAN = FT_SHA256_ENDIAN,
-	FT_SHA224_STATE = FT_SHA256_STATE - 1,
+	FT_SHA224_MSG_BLOCK_SIZE = FT_SHA256_MSG_BLOCK_SIZE,
+	FT_SHA224_HASH_SIZE = 28,
+	FT_SHA224_STATE = 7,
 
-	FT_SHA512_MBS = 128,
-	FT_SHA512_HS = 64,
-	FT_SHA512_HBS = 512,
-	FT_SHA512_ENDIAN = 1,
-	FT_SHA512_STATE = FT_SHA512_HS / 8,
+	FT_SHA512_MSG_BLOCK_SIZE = 128,
+	FT_SHA512_HASH_SIZE = 64,
+	FT_SHA512_STATE = 8,
 
-	FT_SHA384_MBS = FT_SHA512_MBS,
-	FT_SHA384_HS = 48,
-	FT_SHA384_HBS = FT_SHA512_HBS,
-	FT_SHA384_ENDIAN = FT_SHA512_ENDIAN,
-	FT_SHA384_STATE = FT_SHA512_STATE - 2,
+	FT_SHA384_MSG_BLOCK_SIZE = FT_SHA512_MSG_BLOCK_SIZE,
+	FT_SHA384_HASH_SIZE = 48,
+	FT_SHA384_STATE = 6,
 
-	FT_SHA512224_MBS = FT_SHA512_MBS,
-	FT_SHA512224_HS = FT_SHA224_HS,
-	FT_SHA512224_HBS = FT_SHA512_HBS,
-	FT_SHA512224_ENDIAN = FT_SHA512_ENDIAN,
-	FT_SHA512224_STATE = FT_SHA512_STATE - 4,
+	FT_SHA512224_MSG_BLOCK_SIZE = FT_SHA512_MSG_BLOCK_SIZE,
+	FT_SHA512224_HASH_SIZE = FT_SHA224_HASH_SIZE,
+	FT_SHA512224_STATE = 8,
 
-	FT_SHA512256_MBS = FT_SHA512_MBS,
-	FT_SHA512256_HS = FT_SHA256_HS,
-	FT_SHA512256_HBS = FT_SHA512_HBS,
-	FT_SHA512256_ENDIAN = FT_SHA512_ENDIAN,
-	FT_SHA512256_STATE = FT_SHA512_STATE,
+	FT_SHA512256_MSG_BLOCK_SIZE = FT_SHA512_MSG_BLOCK_SIZE,
+	FT_SHA512256_HASH_SIZE = FT_SHA256_HASH_SIZE,
+	FT_SHA512256_STATE = 8,
 }						t_sha_enum;
 
 typedef struct		s_sha1_context
 {
-	int				hs;
-	int				mbs;
+	int				hash_size;
+	int				msg_block_size;
 	int				iblock;
 	uint32_t		state[FT_SHA1_STATE];
-	uint32_t		words[80];
-	uint64_t		len;
 	uint8_t			block[128];
 	uint8_t			*msg;
 	unsigned int	msg_len;
@@ -81,13 +65,11 @@ typedef struct		s_sha1_context
 
 typedef struct		s_sha256_context
 {
-	int				hs;
-	int				mbs;
+	int				hash_size;
+	int				msg_block_size;
 	int				iblock;
 	int				state_len;
 	uint32_t		state[FT_SHA256_STATE];
-	uint32_t		words[64];
-	uint64_t		len;
 	uint8_t			block[128];
 	uint8_t			*msg;
 	unsigned int	msg_len;
@@ -95,13 +77,11 @@ typedef struct		s_sha256_context
 
 typedef struct		s_sha512_context
 {
-	int				hs;
-	int				mbs;
+	int				hash_size;
+	int				msg_block_size;
 	int				iblock;
 	int				state_len;
 	uint64_t		state[FT_SHA512_STATE];
-	uint64_t		words[80];
-	uint64_t		len;
 	uint8_t			block[128];
 	uint8_t			*msg;
 	unsigned int	msg_len;
@@ -114,7 +94,7 @@ typedef struct		s_sha512_context
 int					ft_sha1_init(t_sha1_ctx *ctx);
 int					ft_sha1_pre_process(t_sha1_ctx *ctx, uint8_t *msg,
 	unsigned int msg_len);
-int					ft_sha1_transform(t_sha1_ctx *ctx);
+int					ft_sha1_process(t_sha1_ctx *ctx);
 char				*ft_sha1_final(t_sha1_ctx *ctx, char *cmd_dgst);
 uint32_t			ft_sha1_hash_f(int j, int b, int c, int d);
 uint32_t			ft_sha1_hash_k(int j);
@@ -136,7 +116,7 @@ char				*ft_sha224_final(t_sha256_ctx *ctx, char *cmd_dgst);
 int					ft_sha256_init(t_sha256_ctx *ctx);
 int					ft_sha256_pre_process(t_sha256_ctx *ctx, uint8_t *msg,
 	unsigned int msg_len);
-int					ft_sha256_transform(t_sha256_ctx *ctx);
+int					ft_sha256_process(t_sha256_ctx *ctx);
 char				*ft_sha256_final(t_sha256_ctx *ctx, char *cmd_dgst);
 int					ft_sha256_wsigma0(uint32_t word);
 int					ft_sha256_wsigma1(uint32_t word);
@@ -161,7 +141,7 @@ char				*ft_sha384final(t_sha512_ctx *ctx, char *cmd_dgst);
 int					ft_sha512_init(t_sha512_ctx *ctx);
 int					ft_sha512_pre_process(t_sha512_ctx *ctx, uint8_t *msg,
 	unsigned int msg_len);
-int					ft_sha512_transform(t_sha512_ctx *ctx);
+int					ft_sha512_process(t_sha512_ctx *ctx);
 char				*ft_sha512_final(t_sha512_ctx *ctx, char *cmd_dgst);
 
 uint64_t			ft_sha512_wsigma0(uint64_t word);

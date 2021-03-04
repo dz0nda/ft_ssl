@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 12:18:59 by dzonda            #+#    #+#             */
-/*   Updated: 2021/03/04 11:09:16 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 14:16:22 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,16 @@
 typedef enum		e_md5_enum
 {
 	FT_MD5_MESSAGE_BLOCK_SIZE = 64,
-	FT_MD5_HS = 16,
-	FT_MD5_HSB = 128,
-	FT_MD5_ENDIAN = 0,
+	FT_MD5_HASH_SIZE = 16,
 	FT_MD5_STATE = 4,
 }					t_md5_enum;
 
 typedef struct		s_md5_context
 {
-	int				hs;
-	int				mbs;
+	int				hash_size;
+	int				msg_block_size;
 	int				iblock;
 	uint32_t		state[FT_MD5_STATE];
-	uint32_t		words[80];
-	uint64_t		len;
 	uint8_t			block[128];
 	uint8_t			*msg;
 	unsigned int	msg_len;
@@ -44,7 +40,7 @@ typedef struct		s_md5_context
 int					ft_md5_init(t_md5_ctx *ctx);
 int					ft_md5_pad(t_md5_ctx *ctx, uint8_t *msg,
 	unsigned int msg_len);
-int					ft_md5_transform(t_md5_ctx *ctx);
+int					ft_md5_process(t_md5_ctx *ctx);
 char				*ft_md5_final(t_md5_ctx *ctx, char *cmd_dgst);
 uint32_t			ft_md5_hash_f(int i, int b, int c, int d);
 uint32_t			ft_md5_hash_g(int i);

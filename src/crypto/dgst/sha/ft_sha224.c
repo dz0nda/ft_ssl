@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 23:12:09 by dzonda            #+#    #+#             */
-/*   Updated: 2021/03/04 11:09:37 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 14:15:43 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int			ft_sha224_init(t_sha256_ctx *ctx)
 {
-	ctx->hs = FT_SHA224_HS;
-	ctx->mbs = FT_SHA224_MBS;
+	ctx->hash_size = FT_SHA224_HASH_SIZE;
+	ctx->msg_block_size = FT_SHA224_MSG_BLOCK_SIZE;
 	ctx->state_len = FT_SHA224_STATE;
 	ctx->state[0] = 0xc1059ed8;
 	ctx->state[1] = 0x367cd507;
@@ -36,7 +36,7 @@ int			ft_sha224_pre_process(t_sha256_ctx *ctx, uint8_t *msg,
 
 int			ft_sha224_transform(t_sha256_ctx *ctx)
 {
-	return (ft_sha256_transform(ctx));
+	return (ft_sha256_process(ctx));
 }
 
 char		*ft_sha224_final(t_sha256_ctx *ctx, char *cmd_dgst)

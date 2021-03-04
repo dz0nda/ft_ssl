@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 08:19:12 by dzonda            #+#    #+#             */
-/*   Updated: 2021/03/04 11:09:47 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 14:15:43 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int		ft_sha384_init(t_sha512_ctx *ctx)
 {
-	ctx->hs = FT_SHA384_HS;
-	ctx->mbs = FT_SHA384_MBS;
+	ctx->hash_size = FT_SHA384_HASH_SIZE;
+	ctx->msg_block_size = FT_SHA384_MSG_BLOCK_SIZE;
 	ctx->state_len = FT_SHA384_STATE;
 	ctx->state[0] = 0xcbbb9d5dc1059ed8;
 	ctx->state[1] = 0x629a292a367cd507;
@@ -36,7 +36,7 @@ int		ft_sha384_pre_process(t_sha512_ctx *ctx, uint8_t *msg,
 
 int		ft_sha384_transform(t_sha512_ctx *ctx)
 {
-	return (ft_sha512_transform(ctx));
+	return (ft_sha512_process(ctx));
 }
 
 char	*ft_sha384_final(t_sha512_ctx *ctx, char *cmd_dgst)

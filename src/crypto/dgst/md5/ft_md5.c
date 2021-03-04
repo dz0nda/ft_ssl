@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 23:07:42 by dzonda            #+#    #+#             */
-/*   Updated: 2021/03/04 11:12:41 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 14:20:32 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int			ft_md5_init(t_md5_ctx *ctx)
 {
-	ctx->hs = FT_MD5_HS;
-	ctx->mbs = FT_MD5_MESSAGE_BLOCK_SIZE;
+	ctx->hash_size = FT_MD5_HASH_SIZE;
+	ctx->msg_block_size = FT_MD5_MESSAGE_BLOCK_SIZE;
 	ctx->state[0] = 0x67452301;
 	ctx->state[1] = 0xefcdab89;
 	ctx->state[2] = 0x98badcfe;
@@ -29,7 +29,7 @@ int			ft_md5_pad(t_md5_ctx *ctx, uint8_t *msg, unsigned int msg_len)
 	int				pad;
 	uint64_t		length;
 
-	pad = ft_align_bits(msg_len + 8 + 1, ctx->mbs);
+	pad = ft_align_bits(msg_len + 8 + 1, ctx->msg_block_size);
 	ctx->msg_len = pad;
 	ctx->msg = (uint8_t *)ft_memalloc(ctx->msg_len);
 	ft_memmove(ctx->msg, msg, msg_len);
@@ -42,13 +42,15 @@ int			ft_md5_pad(t_md5_ctx *ctx, uint8_t *msg, unsigned int msg_len)
 	return (EXIT_SUCCESS);
 }
 
-int			ft_md5_process(uint32_t state[8], uint32_t words[80])
+static int	ft_md5_process_hash(t_md5_ctx *ctx, uint32_t state[8])
 {
 	unsigned int	i;
+	uint32_t		words[80];
 	uint32_t		sigma;
 
 	i = -1;
 	sigma = 0;
+	ft_memcpy(words, ctx->block, sizeof(words));
 	while (++i < 64)
 	{
 		sigma = ft_md5_hash_f(i, state[1], state[2], state[3]) + state[0]
@@ -61,7 +63,7 @@ int			ft_md5_process(uint32_t state[8], uint32_t words[80])
 	return (EXIT_SUCCESS);
 }
 
-int			ft_md5_transform(t_md5_ctx *ctx)
+int			ft_md5_process(t_md5_ctx *ctx)
 {
 	unsigned int	i;
 	uint32_t		state[FT_MD5_STATE];
@@ -74,8 +76,7 @@ int			ft_md5_transform(t_md5_ctx *ctx)
 		if (ctx->iblock == FT_MD5_MESSAGE_BLOCK_SIZE)
 		{
 			ft_memcpy(state, ctx->state, sizeof(state));
-			ft_memcpy(ctx->words, ctx->block, sizeof(ctx->words));
-			ft_md5_process(state, ctx->words);
+			ft_md5_process_hash(ctx, state);
 			i = -1;
 			while (++i < FT_MD5_STATE)
 				ctx->state[i] += state[i];

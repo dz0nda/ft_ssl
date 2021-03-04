@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 23:11:52 by dzonda            #+#    #+#             */
-/*   Updated: 2021/03/04 11:27:57 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 14:20:08 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int				ft_sha1_init(t_sha1_ctx *ctx)
 {
-	ctx->hs = FT_SHA1_HS;
-	ctx->mbs = FT_SHA1_MBS;
+	ctx->hash_size = FT_SHA1_HASH_SIZE;
+	ctx->msg_block_size = FT_SHA1_MSG_BLOCK_SIZE;
 	ctx->state[0] = 0x67452301;
 	ctx->state[1] = 0xefcdab89;
 	ctx->state[2] = 0x98badcfe;
@@ -31,7 +31,7 @@ int				ft_sha1_pre_process(t_sha1_ctx *ctx, uint8_t *msg,
 	int				pad;
 	uint64_t		length;
 
-	pad = ft_align_bits(msg_len + 8 + 1, ctx->mbs);
+	pad = ft_align_bits(msg_len + FT_DGST_X32 + 1, ctx->msg_block_size);
 	ctx->msg_len = pad;
 	ctx->msg = (uint8_t *)ft_memalloc(ctx->msg_len);
 	ft_memmove(ctx->msg, msg, msg_len);
@@ -45,12 +45,12 @@ int				ft_sha1_pre_process(t_sha1_ctx *ctx, uint8_t *msg,
 	return (EXIT_SUCCESS);
 }
 
-static void		ft_sha1_process_hash(t_sha1_ctx *ctx, uint32_t state[5],
-	uint32_t w[80])
+static void		ft_sha1_process_hash(t_sha1_ctx *ctx, uint32_t state[5])
 {
 	int			i;
 	uint32_t	rotator;
 	uint32_t	*m;
+	uint32_t	w[80];
 	uint32_t	tmp;
 
 	i = -1;
@@ -74,22 +74,21 @@ static void		ft_sha1_process_hash(t_sha1_ctx *ctx, uint32_t state[5],
 	}
 }
 
-int				ft_sha1_transform(t_sha1_ctx *ctx)
+int				ft_sha1_process(t_sha1_ctx *ctx)
 {
 	unsigned int	i;
 	uint32_t		state[FT_SHA1_STATE];
-	uint32_t		w[80];
 	uint8_t			*data;
 
 	data = &ctx->msg[0];
 	while (ctx->msg_len--)
 	{
 		ctx->block[ctx->iblock++] = *data++;
-		if (ctx->iblock == ctx->mbs)
+		if (ctx->iblock == ctx->msg_block_size)
 		{
 			i = -1;
 			ft_memcpy(state, ctx->state, sizeof(state));
-			ft_sha1_process_hash(ctx, state, w);
+			ft_sha1_process_hash(ctx, state);
 			i = -1;
 			while (++i < FT_SHA1_STATE)
 				ctx->state[i] += state[i];
