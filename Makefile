@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dzonda <dzonda@student.le-101.fr>          +#+  +:+       +#+         #
+#    By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 05:46:03 by dzonda            #+#    #+#              #
-#    Updated: 2020/02/29 23:43:46 by dzonda           ###   ########lyon.fr    #
+#    Updated: 2021/03/04 11:19:05 by dzonda           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,9 @@ LIBDIR = libft
 MAKEFILE_NAME = Makefile-$(lastword $(subst /, ,$(NAME)))
 
 CC = gcc
-CFLAGS = -g3 -ggdb# -Wall -Wextra -Werror -Wunused -Wunreachable-code
-LDFLAGS = -Llibft 
-LDLIBS = -lft 
+CFLAGS = -Wall -Wextra -Werror -Wunused -Wunreachable-code
+LDFLAGS = -Llibft
+LDLIBS = -lft
 
 include $(SRCDIR)/src.mk 
 
@@ -70,7 +70,7 @@ clean:
 	@echo $(MAKEFILE_NAME): Clean done !
 
 fclean:
-	$(HIDE)$(MAKE) $(LIBDIR) clean
+	$(HIDE)$(MAKE) $(LIBDIR) fclean
 	$(HIDE)$(RM) $(OBJDIR) $(ERRIGNORE)
 	$(HIDE)$(RM) $(NAME) $(ERRIGNORE)
 	@echo $(MAKEFILE_NAME): Fclean done !
