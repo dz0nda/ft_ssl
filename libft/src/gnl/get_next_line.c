@@ -1,19 +1,18 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   get_next_line.c                                  .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: dzonda <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/01/12 17:43:12 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/12 11:37:37 by dzonda      ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/12 17:43:12 by dzonda            #+#    #+#             */
+/*   Updated: 2021/02/18 16:35:46 by dzonda           ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_get_next_line.h"
 
-int					ft_gnl_init(int fd, t_line **list, t_line **stack)
+int		ft_gnl_init(int fd, t_line **list, t_line **stack)
 {
 	if (*list == NULL)
 	{
@@ -41,10 +40,10 @@ int					ft_gnl_init(int fd, t_line **list, t_line **stack)
 	return (1);
 }
 
-int					ft_fill(t_line *stack, char **line)
+int		ft_fill(t_line *stack, char **line)
 {
-	int				i;
-	char			*tmp;
+	int		i;
+	char	*tmp;
 
 	i = 0;
 	if (stack->index != 0 || (ft_strcmp(stack->str, "") != 0))
@@ -65,7 +64,7 @@ int					ft_fill(t_line *stack, char **line)
 	return (1);
 }
 
-int					get_next_line(int fd, char **line)
+int		get_next_line(int fd, char **line)
 {
 	static t_line	*list;
 	t_line			*stack;

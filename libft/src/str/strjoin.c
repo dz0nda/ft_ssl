@@ -1,22 +1,21 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ft_strjoin.c                                     .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: dzonda <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/12/12 20:13:22 by dzonda       #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/12 11:38:26 by dzonda      ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   strjoin.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/12/12 20:13:22 by dzonda            #+#    #+#             */
+/*   Updated: 2021/02/18 16:14:27 by dzonda           ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_str.h"
 
-char		*ft_strjoin(const char *s1, const char *s2)
+char	*ft_strjoin(const char *s1, const char *s2)
 {
 	int		i;
-	int 	j;
+	int		j;
 	char	*str;
 
 	i = 0;
@@ -30,6 +29,6 @@ char		*ft_strjoin(const char *s1, const char *s2)
 		str[j++] = s1[i++];
 	i = -1;
 	while (s2[i] != '\0')
-		str[j++] = s2[i++];	
+		str[j++] = s2[i++];
 	return (str);
 }

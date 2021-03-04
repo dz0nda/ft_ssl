@@ -1,15 +1,15 @@
 # **************************************************************************** #
-#                                                           LE - /             #
-#                                                               /              #
-#    Makefile                                         .::    .:/ .      .::    #
-#                                                  +:+:+   +:    +:  +:+:+     #
-#    By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+      #
-#                                                  #+#   #+    #+    #+#       #
-#    Created: 2019/11/10 21:08:47 by dzonda       #+#   ##    ##    #+#        #
-#    Updated: 2019/11/11 17:54:14 by dzonda      ###    #+. /#+    ###.fr      #
-#                                                          /                   #
-#                                                         /                    #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/11/10 21:08:47 by dzonda            #+#    #+#              #
+#    Updated: 2021/02/03 13:05:13 by dzonda           ###   ########lyon.fr    #
+#                                                                              #
 # **************************************************************************** #
+
 
 NAME = libft.a
 SRCDIR = src
@@ -20,6 +20,7 @@ MAKEFILE_NAME = Makefile-$(lastword $(subst /, ,$(NAME)))
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 SUBDIR = \
+			bits \
 			gnl \
 			is \
 			lst \
@@ -29,6 +30,11 @@ SUBDIR = \
 			to
 
 SUBFILE = \
+			bits/ft_align_bits.c \
+			bits/ft_rotate.c \
+			bits/ft_shift.c \
+			bits/ft_swap.c \
+			gnl/ft_get_input.c \
 			gnl/get_next_line.c \
 			put/putchar_fd.c \
 			put/putnbr.c \
@@ -57,6 +63,8 @@ SUBFILE = \
 			is/isupper.c \
 			is/isspace.c \
 			is/isalnum.c \
+			is/isdir.c \
+			is/isreg.c \
 			lst/lstdelone.c \
 			lst/lstmap.c \
 			lst/lstadd.c \
@@ -96,6 +104,7 @@ SUBFILE = \
 			str/strncpy.c \
 			str/stradel.c \
 			str/striter.c \
+			str/strequal.c \
 			to/atoi.c \
 			to/itoa.c \
 			to/nbrlen.c \

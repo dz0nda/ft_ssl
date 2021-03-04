@@ -1,18 +1,20 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   libft.h                                          .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: dzonda <dzonda@student.le-101.fr>          +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/07/09 20:43:25 by dz0nda       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/10 19:55:47 by dzonda      ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libft.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/09 20:43:25 by dz0nda            #+#    #+#             */
+/*   Updated: 2021/02/19 00:46:54 by dzonda           ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include "./src/bits/ft_bits.h"
+# include "./src/gnl/ft_get_next_line.h"
 # include "./src/is/ft_is.h"
 # include "./src/mem/ft_mem.h"
 # include "./src/str/ft_str.h"
