@@ -6,13 +6,13 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 08:19:12 by dzonda            #+#    #+#             */
-/*   Updated: 2021/02/23 23:13:32 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 11:10:13 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_sha.h"
 
-int			ft_sha512224_init(t_sha512_ctx *ctx, unsigned int msg_len)
+int			ft_sha512224_init(t_sha512_ctx *ctx)
 {
 	ctx->hs = FT_SHA512224_HS;
 	ctx->mbs = FT_SHA512224_MBS;
@@ -28,7 +28,7 @@ int			ft_sha512224_init(t_sha512_ctx *ctx, unsigned int msg_len)
 	return (EXIT_SUCCESS);
 }
 
-int			ft_sha512256_init(t_sha512_ctx *ctx, unsigned int msg_len)
+int			ft_sha512256_init(t_sha512_ctx *ctx)
 {
 	ctx->hs = FT_SHA512256_HS;
 	ctx->mbs = FT_SHA512256_MBS;

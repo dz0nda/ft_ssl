@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 12:18:59 by dzonda            #+#    #+#             */
-/*   Updated: 2021/02/23 23:32:11 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 11:11:26 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef enum			e_sha_enum
 	FT_SHA512256_HS = FT_SHA256_HS,
 	FT_SHA512256_HBS = FT_SHA512_HBS,
 	FT_SHA512256_ENDIAN = FT_SHA512_ENDIAN,
-	FT_SHA512256_STATE = FT_SHA256_STATE,
+	FT_SHA512256_STATE = FT_SHA512_STATE,
 }						t_sha_enum;
 
 typedef struct		s_sha1_context
@@ -111,7 +111,7 @@ typedef struct		s_sha512_context
 **  SHA1 functions
 */
 
-int					ft_sha1_init(t_sha1_ctx *ctx, unsigned int msg_len);
+int					ft_sha1_init(t_sha1_ctx *ctx);
 int					ft_sha1_pre_process(t_sha1_ctx *ctx, uint8_t *msg,
 	unsigned int msg_len);
 int					ft_sha1_transform(t_sha1_ctx *ctx);
@@ -123,7 +123,7 @@ uint32_t			ft_sha1_hash_k(int j);
 **  SHA224 functions
 */
 
-int					ft_sha224_init(t_sha256_ctx *ctx, unsigned int msg_len);
+int					ft_sha224_init(t_sha256_ctx *ctx);
 int					ft_sha224_pre_process(t_sha256_ctx *ctx, uint8_t *msg,
 	unsigned int msg_len);
 int					ft_sha224_transform(t_sha256_ctx *ctx);
@@ -133,7 +133,7 @@ char				*ft_sha224_final(t_sha256_ctx *ctx, char *cmd_dgst);
 **  SHA256 functions
 */
 
-int					ft_sha256_init(t_sha256_ctx *ctx, unsigned int msg_len);
+int					ft_sha256_init(t_sha256_ctx *ctx);
 int					ft_sha256_pre_process(t_sha256_ctx *ctx, uint8_t *msg,
 	unsigned int msg_len);
 int					ft_sha256_transform(t_sha256_ctx *ctx);
@@ -148,7 +148,7 @@ int					ft_sha256_sigma1(uint32_t state[8]);
 **  SHA384 functions
 */
 
-int					ft_sha384_init(t_sha512_ctx *ctx, unsigned int msg_len);
+int					ft_sha384_init(t_sha512_ctx *ctx);
 int					ft_sha384_pre_process(t_sha512_ctx *ctx, uint8_t *msg,
 	unsigned int msg_len);
 int					ft_sha384_transform(t_sha512_ctx *ctx);
@@ -158,7 +158,7 @@ char				*ft_sha384final(t_sha512_ctx *ctx, char *cmd_dgst);
 **  SHA512 functions
 */
 
-int					ft_sha512_init(t_sha512_ctx *ctx, unsigned int msg_len);
+int					ft_sha512_init(t_sha512_ctx *ctx);
 int					ft_sha512_pre_process(t_sha512_ctx *ctx, uint8_t *msg,
 	unsigned int msg_len);
 int					ft_sha512_transform(t_sha512_ctx *ctx);
@@ -173,8 +173,8 @@ uint64_t			ft_sha512_sigma1(uint64_t state[8]);
 **  SHA512256 functions
 */
 
-int					ft_sha512224_init(t_sha512_ctx *ctx, unsigned int msg_len);
-int					ft_sha512256_init(t_sha512_ctx *ctx, unsigned int msg_len);
+int					ft_sha512224_init(t_sha512_ctx *ctx);
+int					ft_sha512256_init(t_sha512_ctx *ctx);
 int					ft_sha512256_pre_process(t_sha512_ctx *ctx, uint8_t *msg,
 	unsigned int msg_len);
 int					ft_sha512256_transform(t_sha512_ctx *ctx);

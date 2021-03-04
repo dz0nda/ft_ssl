@@ -6,13 +6,13 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 23:11:52 by dzonda            #+#    #+#             */
-/*   Updated: 2021/02/23 23:05:53 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 11:27:57 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_sha.h"
 
-int				ft_sha1_init(t_sha1_ctx *ctx, unsigned int msg_len)
+int				ft_sha1_init(t_sha1_ctx *ctx)
 {
 	ctx->hs = FT_SHA1_HS;
 	ctx->mbs = FT_SHA1_MBS;
@@ -28,7 +28,7 @@ int				ft_sha1_pre_process(t_sha1_ctx *ctx, uint8_t *msg,
 	unsigned int msg_len)
 {
 	int				i;
-	unsigned int	pad;
+	int				pad;
 	uint64_t		length;
 
 	pad = ft_align_bits(msg_len + 8 + 1, ctx->mbs);
@@ -45,22 +45,32 @@ int				ft_sha1_pre_process(t_sha1_ctx *ctx, uint8_t *msg,
 	return (EXIT_SUCCESS);
 }
 
-static void		ft_sha1_process_words(uint32_t *w, const void *data)
+static void		ft_sha1_process_hash(t_sha1_ctx *ctx, uint32_t state[5],
+	uint32_t w[80])
 {
 	int			i;
 	uint32_t	rotator;
 	uint32_t	*m;
+	uint32_t	tmp;
 
 	i = -1;
 	rotator = 0;
-	m = (uint32_t *)data;
-	while (++i < 16)
-		w[i] = ft_swap_uint32(&m[i]);
-	while (i < 80)
+	m = (uint32_t *)ctx->block;
+	while (++i < 80)
 	{
-		rotator = (w[i - 3] ^ w[i - 8] ^ w[i - 14] ^ w[i - 16]);
-		w[i] = ft_rotl_uint32(rotator, 1);
-		i++;
+		if (i < 16)
+			w[i] = ft_swap_uint32(&m[i]);
+		else
+			w[i] = ft_rotl_uint32((w[i - 3] ^ w[i - 8] ^ w[i - 14] ^ w[i - 16]),
+				1);
+		tmp = ft_rotl_uint32(state[0], 5)
+			+ ft_sha1_hash_f(i, state[1], state[2], state[3])
+			+ state[4] + ft_sha1_hash_k(i) + w[i];
+		state[4] = state[3];
+		state[3] = state[2];
+		state[2] = ft_rotl_uint32(state[1], 30);
+		state[1] = state[0];
+		state[0] = tmp;
 	}
 }
 
@@ -69,7 +79,6 @@ int				ft_sha1_transform(t_sha1_ctx *ctx)
 	unsigned int	i;
 	uint32_t		state[FT_SHA1_STATE];
 	uint32_t		w[80];
-	uint32_t		tmp;
 	uint8_t			*data;
 
 	data = &ctx->msg[0];
@@ -80,18 +89,7 @@ int				ft_sha1_transform(t_sha1_ctx *ctx)
 		{
 			i = -1;
 			ft_memcpy(state, ctx->state, sizeof(state));
-			ft_sha1_process_words(w, ctx->block);
-			while (++i < 80)
-			{
-				tmp = ft_rotl_uint32(state[0], 5)
-					+ ft_sha1_hash_f(i, state[1], state[2], state[3])
-					+ state[4] + ft_sha1_hash_k(i) + w[i];
-				state[4] = state[3];
-				state[3] = state[2];
-				state[2] = ft_rotl_uint32(state[1], 30);
-				state[1] = state[0];
-				state[0] = tmp;
-			}
+			ft_sha1_process_hash(ctx, state, w);
 			i = -1;
 			while (++i < FT_SHA1_STATE)
 				ctx->state[i] += state[i];
@@ -106,7 +104,6 @@ char			*ft_sha1_final(t_sha1_ctx *ctx, char *cmd_dgst)
 {
 	int		i;
 	int		j;
-	char	s[4];
 	uint8_t	*p;
 
 	i = -1;

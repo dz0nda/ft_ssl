@@ -6,13 +6,13 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 23:12:09 by dzonda            #+#    #+#             */
-/*   Updated: 2021/03/03 11:12:36 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 11:29:34 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_sha.h"
 
-int			ft_sha256_init(t_sha256_ctx *ctx, unsigned int msg_len)
+int			ft_sha256_init(t_sha256_ctx *ctx)
 {
 	ctx->hs = FT_SHA256_HS;
 	ctx->mbs = FT_SHA256_MBS;
@@ -32,7 +32,7 @@ int			ft_sha256_pre_process(t_sha256_ctx *ctx, uint8_t *msg,
 	unsigned int msg_len)
 {
 	int				i;
-	unsigned int	pad;
+	int				pad;
 	uint64_t		length;
 
 	pad = ft_align_bits(msg_len + 8 + 1, ctx->mbs);
@@ -49,19 +49,30 @@ int			ft_sha256_pre_process(t_sha256_ctx *ctx, uint8_t *msg,
 	return (EXIT_SUCCESS);
 }
 
-int			ft_sha256_process_words(uint8_t block[FT_SHA512_MBS],
+int			ft_sha256_process_hash(t_sha256_ctx *ctx, uint32_t state[8],
 	uint32_t w[64])
 {
-	int		i;
+	int			i;
+	uint32_t	sigma[2];
 
 	i = -1;
 	while (++i < 64)
 	{
 		if (i < 16)
-			w[i] = ft_swap_uint32((uint32_t *)&block[i * 4]);
+			w[i] = ft_swap_uint32((uint32_t *)&ctx->block[i * 4]);
 		else if (i < 64)
 			w[i] = w[i - 16] + ft_sha256_wsigma0(w[i - 15]) + w[i - 7]
 					+ ft_sha256_wsigma1(w[i - 2]);
+		sigma[0] = ft_sha256_sigma0(state, w[i], i);
+		sigma[1] = ft_sha256_sigma1(state);
+		state[7] = state[6];
+		state[6] = state[5];
+		state[5] = state[4];
+		state[4] = state[3] + sigma[0];
+		state[3] = state[2];
+		state[2] = state[1];
+		state[1] = state[0];
+		state[0] = sigma[0] + sigma[1];
 	}
 	return (EXIT_SUCCESS);
 }
@@ -71,7 +82,6 @@ int			ft_sha256_transform(t_sha256_ctx *ctx)
 	unsigned int	i;
 	uint32_t		state[8];
 	uint32_t		w[64];
-	uint32_t		sigma[2];
 	uint8_t			*data;
 
 	data = &ctx->msg[0];
@@ -82,20 +92,7 @@ int			ft_sha256_transform(t_sha256_ctx *ctx)
 		{
 			i = -1;
 			ft_memcpy(state, ctx->state, sizeof(state));
-			ft_sha256_process_words(ctx->block, w);
-			while (++i < 64)
-			{
-				sigma[0] = ft_sha256_sigma0(state, w[i], i);
-				sigma[1] = ft_sha256_sigma1(state);
-				state[7] = state[6];
-				state[6] = state[5];
-				state[5] = state[4];
-				state[4] = state[3] + sigma[0];
-				state[3] = state[2];
-				state[2] = state[1];
-				state[1] = state[0];
-				state[0] = sigma[0] + sigma[1];
-			}
+			ft_sha256_process_hash(ctx, state, w);
 			i = -1;
 			while (++i < 8)
 				ctx->state[i] += state[i];
@@ -111,7 +108,6 @@ char		*ft_sha256_final(t_sha256_ctx *ctx, char *cmd_dgst)
 {
 	int		i;
 	int		j;
-	char	s[4];
 	uint8_t	*p;
 
 	i = -1;

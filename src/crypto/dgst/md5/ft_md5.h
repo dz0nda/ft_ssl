@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 12:18:59 by dzonda            #+#    #+#             */
-/*   Updated: 2021/02/23 22:08:57 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 11:09:16 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct		s_md5_context
 ** MD5 functions
 */
 
-int					ft_md5_init(t_md5_ctx *ctx, unsigned int msg_len);
+int					ft_md5_init(t_md5_ctx *ctx);
 int					ft_md5_pad(t_md5_ctx *ctx, uint8_t *msg,
 	unsigned int msg_len);
 int					ft_md5_transform(t_md5_ctx *ctx);

@@ -6,13 +6,13 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 23:12:09 by dzonda            #+#    #+#             */
-/*   Updated: 2021/02/23 23:09:01 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 11:09:37 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_sha.h"
 
-int			ft_sha224_init(t_sha256_ctx *ctx, unsigned int msg_len)
+int			ft_sha224_init(t_sha256_ctx *ctx)
 {
 	ctx->hs = FT_SHA224_HS;
 	ctx->mbs = FT_SHA224_MBS;

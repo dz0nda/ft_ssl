@@ -6,13 +6,13 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 08:19:12 by dzonda            #+#    #+#             */
-/*   Updated: 2021/03/03 11:10:34 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 11:12:04 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_sha.h"
 
-int		ft_sha512_init(t_sha512_ctx *ctx, unsigned int msg_len)
+int		ft_sha512_init(t_sha512_ctx *ctx)
 {
 	ctx->hs = FT_SHA512_HS;
 	ctx->mbs = FT_SHA512_MBS;
@@ -32,7 +32,7 @@ int		ft_sha512_pre_process(t_sha512_ctx *ctx, uint8_t *msg,
 	unsigned int msg_len)
 {
 	int				i;
-	unsigned int	pad;
+	int				pad;
 	__uint128_t		length;
 
 	pad = ft_align_bits(msg_len + FT_DGST_X64 + 1, ctx->mbs);

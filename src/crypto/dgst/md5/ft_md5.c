@@ -6,13 +6,13 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 23:07:42 by dzonda            #+#    #+#             */
-/*   Updated: 2021/02/23 19:04:30 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 11:12:41 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_md5.h"
 
-int			ft_md5_init(t_md5_ctx *ctx, unsigned int msg_len)
+int			ft_md5_init(t_md5_ctx *ctx)
 {
 	ctx->hs = FT_MD5_HS;
 	ctx->mbs = FT_MD5_MESSAGE_BLOCK_SIZE;
@@ -26,7 +26,7 @@ int			ft_md5_init(t_md5_ctx *ctx, unsigned int msg_len)
 int			ft_md5_pad(t_md5_ctx *ctx, uint8_t *msg, unsigned int msg_len)
 {
 	int				i;
-	unsigned int	pad;
+	int				pad;
 	uint64_t		length;
 
 	pad = ft_align_bits(msg_len + 8 + 1, ctx->mbs);
@@ -92,7 +92,6 @@ char		*ft_md5_final(t_md5_ctx *ctx, char *cmd_dgst)
 	unsigned int	i;
 	unsigned int	j;
 	uint8_t			*p;
-	unsigned int	pad;
 
 	i = -1;
 	while (++i < FT_MD5_STATE)

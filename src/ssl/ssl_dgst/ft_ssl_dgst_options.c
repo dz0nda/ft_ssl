@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 17:49:26 by dzonda            #+#    #+#             */
-/*   Updated: 2021/03/03 22:37:22 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 11:13:53 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int		ft_ssl_dgst_opt_p(t_ftssl_dgst *ctx, int argc, char *argv[])
 {
+	(void)argc;
+	(void)argv;
 	ctx->opt.output_print = 1;
 	ft_ssl_dgst_output(FTSSL_DGST_OUTP_DEFAULT, ctx, NULL);
 	ctx->opt.output_print = 0;
@@ -22,12 +24,16 @@ int		ft_ssl_dgst_opt_p(t_ftssl_dgst *ctx, int argc, char *argv[])
 
 int		ft_ssl_dgst_opt_r(t_ftssl_dgst *ctx, int argc, char *argv[])
 {
+	(void)argc;
+	(void)argv;
 	ctx->opt.reverse = 1;
 	return (EXIT_SUCCESS);
 }
 
 int		ft_ssl_dgst_opt_q(t_ftssl_dgst *ctx, int argc, char *argv[])
 {
+	(void)argc;
+	(void)argv;
 	ctx->opt.output = FTSSL_DGST_OUTP_QUIET;
 	return (EXIT_SUCCESS);
 }
