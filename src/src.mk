@@ -6,7 +6,7 @@
 #    By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/29 23:36:16 by dzonda            #+#    #+#              #
-#    Updated: 2021/02/24 01:27:15 by dzonda           ###   ########lyon.fr    #
+#    Updated: 2021/03/11 20:52:09 by dzonda           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ SUBDIR = \
 			crypto/dgst/md5 \
 			crypto/dgst/sha \
 			crypto/dgst/udgst \
+			crypto/cipher \
+			crypto/cipher/base64 \
 			ssl \
 			ssl/ssl_core \
 			ssl/ssl_cipher \
@@ -40,10 +42,15 @@ SUBFILE = \
 			crypto/dgst/sha/ft_sha512256.c \
 			crypto/dgst/udgst/ft_udgst.c \
 			\
+			crypto/cipher/base64/ft_base64.c \
+			crypto/cipher/base64/ft_base64_debug.c \
+			\
 			ssl/ssl_dgst/ft_ssl_dgst.c \
 			ssl/ssl_dgst/ft_ssl_dgst_options.c \
 			ssl/ssl_dgst/ft_ssl_dgst_output.c \
 			ssl/ssl_dgst/ft_ssl_dgst_errors.c \
 			\
 			ssl/ssl_cipher/ft_ssl_cipher.c \
-			ssl/ssl_cipher/ft_ssl_cipher_dist.c \
+			ssl/ssl_cipher/ft_ssl_cipher_base64.c \
+			ssl/ssl_cipher/ft_ssl_cipher_base64_options.c \
+			ssl/ssl_cipher/ft_ssl_cipher_base64_errors.c \
