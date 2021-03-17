@@ -6,7 +6,7 @@
 #    By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/29 23:36:16 by dzonda            #+#    #+#              #
-#    Updated: 2021/03/11 20:52:09 by dzonda           ###   ########lyon.fr    #
+#    Updated: 2021/03/17 12:26:25 by dzonda           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SUBDIR = \
 			crypto/dgst/udgst \
 			crypto/cipher \
 			crypto/cipher/base64 \
+			crypto/cipher/des \
 			ssl \
 			ssl/ssl_core \
 			ssl/ssl_cipher \
@@ -44,6 +45,7 @@ SUBFILE = \
 			\
 			crypto/cipher/base64/ft_base64.c \
 			crypto/cipher/base64/ft_base64_debug.c \
+			crypto/cipher/des/ft_des.c \
 			\
 			ssl/ssl_dgst/ft_ssl_dgst.c \
 			ssl/ssl_dgst/ft_ssl_dgst_options.c \
@@ -54,3 +56,6 @@ SUBFILE = \
 			ssl/ssl_cipher/ft_ssl_cipher_base64.c \
 			ssl/ssl_cipher/ft_ssl_cipher_base64_options.c \
 			ssl/ssl_cipher/ft_ssl_cipher_base64_errors.c \
+			ssl/ssl_cipher/ft_ssl_cipher_des.c \
+			ssl/ssl_cipher/ft_ssl_cipher_des_options.c \
+			ssl/ssl_cipher/ft_ssl_cipher_des_errors.c \
