@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 22:13:32 by dzonda            #+#    #+#             */
-/*   Updated: 2021/03/11 21:04:13 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/03/17 12:22:22 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FT_SSL_CIPHER_H
 
 # include "../../crypto/cipher/base64/ft_base64.h"
+# include "../../crypto/cipher/des/ft_des.h"
 
 # define FT_SSL_CIPHER_NOT_FOUND      -42
 
@@ -68,8 +69,23 @@ typedef enum			e_ftssl_cipher_opt_key
 	FT_SSL_CIPHER_OPT
 }						t_ftssl_cipher_opt_key;
 
+typedef enum			e_ftssl_cipher_opt_des_key
+{
+	FT_SSL_CIPHER_DES_OPT_A,
+	FT_SSL_CIPHER_DES_OPT_D,
+	FT_SSL_CIPHER_DES_OPT_E,
+	FT_SSL_CIPHER_DES_OPT_I,
+	FT_SSL_CIPHER_DES_OPT_K,
+	FT_SSL_CIPHER_DES_OPT_O,
+	FT_SSL_CIPHER_DES_OPT_P,
+	FT_SSL_CIPHER_DES_OPT_S,
+	FT_SSL_CIPHER_DES_OPT_V,
+	FT_SSL_CIPHER_DES_OPT
+}						t_ftssl_cipher_opt_des_key;
+
 typedef int				t_ftssl_cipher_opt_ft(t_ftssl_cipher *ctx, int argc, char *argv[]);
 typedef void				t_ftssl_base64_ft(char *msg);
+typedef void				t_ftssl_des_ft(char *msg);
 
 typedef struct			s_ftssl_cipher_option_dispatch
 {
@@ -83,6 +99,12 @@ typedef struct			s_ftssl_base64_dispatch
 	int					mode;
 	t_ftssl_base64_ft	*base64_mode;
 }						t_ftssl_base64_d;
+
+typedef struct			s_ftssl_des_dispatch
+{
+	int					mode;
+	t_ftssl_des_ft	*des_mode;
+}						t_ftssl_des_d;
 
 int					ft_ssl_cipher(int argc, char *argv[]);
 int					ft_ssl_cipher_dist(t_ftssl_cipher *ctx, int argc, char *argv[]);
@@ -100,5 +122,7 @@ int					ft_ssl_cipher_base64_error(t_ftssl_cipher *ctx, int argc, char *argv[]);
 */
 
 int					ft_ssl_cipher_des(int argc, char *argv[]);
+int					ft_ssl_cipher_des_option(t_ftssl_cipher *ctx, int argc, char *argv[]);
+int					ft_ssl_cipher_des_error(t_ftssl_cipher *ctx, int argc, char *argv[]);
 
 #endif
