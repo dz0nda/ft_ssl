@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 19:11:57 by dzonda            #+#    #+#             */
-/*   Updated: 2021/03/17 12:18:06 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/03/18 14:04:58 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ int		ft_ssl_cipher_des_opt_s(t_ftssl_cipher *ctx, int argc, char *argv[])
 }
 
 /*
- * ft_ssl_cipher_des_opt_p
+ * ft_ssl_cipher_des_opt_v
  *
  * Description:
  *   -v: initialization vector in hex is the next argument

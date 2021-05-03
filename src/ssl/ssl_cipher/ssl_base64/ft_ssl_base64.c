@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 19:11:57 by dzonda            #+#    #+#             */
-/*   Updated: 2021/03/17 11:50:12 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/05/03 15:23:26 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int		ft_ssl_cipher_base64_debug(t_ftssl_cipher *ctx)
 int		ft_ssl_cipher_base64_exec(t_ftssl_cipher *ctx, int argc, char *argv[])
 {
 	static t_ftssl_base64_d		ftssl_base64[2] = {
-		{ FT_SSL_CIPHER_ENCODE, ft_ssl_base64 },
-		{ FT_SSL_CIPHER_DECODE, ft_ssl_base64_decode },
+		{ FT_SSL_CIPHER_ENCODE, ft_base64_encode },
+		{ FT_SSL_CIPHER_DECODE, ft_base64_decode },
 	};
 	char 	*msg = NULL;
 	int		msg_len = 0;
@@ -50,7 +50,7 @@ int		ft_ssl_cipher_base64(int argc, char *argv[])
 	t_ftssl_cipher	ctx;
 
 	// printf("Hello base64\n\n");
-	// ft_ssl_base64(argv[1]);
+	// ft_base64_encode(argv[1]);
 	ft_memset(&ctx, 0, sizeof(ctx));
 	ctx.dist.dist_name = argv[0];
 	ctx.opt.mode = FT_SSL_CIPHER_ENCODE;
@@ -65,7 +65,7 @@ int		ft_ssl_cipher_base64(int argc, char *argv[])
 		ctx.argi++;
 	}
 
-	ft_ssl_cipher_base64_debug(&ctx);
+	// ft_ssl_cipher_base64_debug(&ctx);
 	ft_ssl_cipher_base64_exec(&ctx, argc, argv);
 
 	return (EXIT_SUCCESS);
