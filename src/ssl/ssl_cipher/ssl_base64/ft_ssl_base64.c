@@ -1,72 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ssl_cipher_base64.c                             :+:      :+:    :+:   */
+/*   ft_ssl_base64.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 19:11:57 by dzonda            #+#    #+#             */
-/*   Updated: 2021/05/03 15:23:26 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/06/29 14:16:46 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl_cipher.h"
-#include <limits.h>
-#include <arpa/inet.h>
-#include <errno.h>
+#include "ft_ssl_base64.h"
 
-int		ft_ssl_cipher_base64_debug(t_ftssl_cipher *ctx)
-{
-	printf("\n-----\n");
-	printf("opt.input = %s\n", ctx->opt.input);
-	printf("opt.output = %s\n", ctx->opt.output);
-	printf("\n-----\n");
-	return (EXIT_SUCCESS);
-}
+int ft_ssl_base64(int argc, char *argv[]) {
+  t_ssl_base64 ctx;
 
-int		ft_ssl_cipher_base64_exec(t_ftssl_cipher *ctx, int argc, char *argv[])
-{
-	static t_ftssl_base64_d		ftssl_base64[2] = {
-		{ FT_SSL_CIPHER_ENCODE, ft_base64_encode },
-		{ FT_SSL_CIPHER_DECODE, ft_base64_decode },
-	};
-	char 	*msg = NULL;
-	int		msg_len = 0;
+  ft_memset(&ctx, 0, sizeof(ctx));
 
-	if (ctx->opt.input == NULL)
-		ctx->opt.input = argv[ctx->argi];
-	msg_len = ft_get_input(ctx->opt.input, &msg);
-	printf("msg: %s\n", msg);
-	printf("msg_len: %d\n", msg_len);
-	if (msg == NULL || msg_len < 1)
-		return (EXIT_FAILURE);
-	ftssl_base64[ctx->opt.mode].base64_mode(msg);
-	ft_strdel(&msg);
-	return (EXIT_SUCCESS);
-}
+  if (ft_ssl_base64_parse(&ctx, argc - 1, argv + 1) == FT_EXFAIL)
+    return (FT_EXFAIL);
 
-int		ft_ssl_cipher_base64(int argc, char *argv[])
-{
-	t_ftssl_cipher	ctx;
+  if (ft_ssl_base64_exec(&ctx, argc - 1, argv + 1) == FT_EXFAIL)
+    return (FT_EXFAIL);
 
-	// printf("Hello base64\n\n");
-	// ft_base64_encode(argv[1]);
-	ft_memset(&ctx, 0, sizeof(ctx));
-	ctx.dist.dist_name = argv[0];
-	ctx.opt.mode = FT_SSL_CIPHER_ENCODE;
-	argc -= 1;
-	argv += 1;
-	while (ctx.argi < argc)
-	{
-		if (*argv[ctx.argi] != '-' || argv[ctx.argi][1] == '\0')
-			break ;
-		if (ft_ssl_cipher_base64_option(&ctx, argc, argv) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
-		ctx.argi++;
-	}
-
-	// ft_ssl_cipher_base64_debug(&ctx);
-	ft_ssl_cipher_base64_exec(&ctx, argc, argv);
-
-	return (EXIT_SUCCESS);
+  return (EXIT_SUCCESS);
 }

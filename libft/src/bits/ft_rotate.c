@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_rotate.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dzonda <dzonda@student.le-101.fr>          +#+  +:+       +#+        */
+/*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 17:41:54 by dzonda            #+#    #+#             */
-/*   Updated: 2020/03/01 14:58:13 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/06/10 15:54:12 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_bits.h"
+
+uint32_t	ft_rotl(uint32_t word, uint32_t bits)
+{
+	return (ft_rotl_uint32(word, bits));
+}
+
+uint32_t	ft_rotr(uint32_t word, uint32_t bits)
+{
+	return (ft_rotr_uint32(word, bits));
+}
 
 uint32_t	ft_rotr_uint32(uint32_t word, uint32_t bits)
 {

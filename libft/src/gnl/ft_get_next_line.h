@@ -6,22 +6,24 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 16:47:05 by dzonda            #+#    #+#             */
-/*   Updated: 2021/02/18 16:36:18 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 13:05:39 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_GET_NEXT_LINE_H
 # define FT_GET_NEXT_LINE_H
 
+# include "../ft_libft_global.h"
+# include "../str/ft_str.h"
+
 # define GNL_BUFF_SIZE 3
 
-# include <string.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
-# include "../str/ft_str.h"
+// # include <string.h>
+// # include <stdlib.h>
+// # include <unistd.h>
+// # include <sys/types.h>
+// # include <sys/stat.h>
+// # include <fcntl.h>
 
 typedef struct		s_line
 {
@@ -32,6 +34,5 @@ typedef struct		s_line
 }					t_line;
 
 int					get_next_line(const int fd, char **line);
-int					ft_get_input(char *file, char **input);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 23:07:42 by dzonda            #+#    #+#             */
-/*   Updated: 2021/03/04 14:20:32 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/07/12 16:04:32 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,22 @@ char		*ft_md5_final(t_md5_ctx *ctx, char *cmd_dgst)
 	unsigned int	i;
 	unsigned int	j;
 	uint8_t			*p;
+	char c[3];
 
 	i = -1;
 	while (++i < FT_MD5_STATE)
 	{
 		p = (uint8_t *)&ctx->state[i];
 		j = -1;
-		while (++j < 4)
-			ft_itoa(p[j], &cmd_dgst[ft_strlen(cmd_dgst)], 16);
+		while (++j < 4) {
+			ft_memset(c, 0, sizeof(c));
+			ft_itoa(p[j], c, 16);
+			if (c[1] == 0) {
+				c[1] = c[0];
+				c[0] = '0';
+			}
+			ft_memcpy(&cmd_dgst[ft_strlen(cmd_dgst)], c, 2);
+		}
 	}
 	return (cmd_dgst);
 }

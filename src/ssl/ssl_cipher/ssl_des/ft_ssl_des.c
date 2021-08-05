@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ssl_cipher_des.c                                :+:      :+:    :+:   */
+/*   ft_ssl_des.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,48 +10,36 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl_cipher.h"
+#include "ft_ssl_des.h"
 
-int		ft_ssl_cipher_des_exec(t_ftssl_cipher *ctx, int argc, char *argv[])
+int		ft_ssl_des_ecb(int argc, char *argv[])
 {
-	static t_ftssl_des_d		ftssl_des[2] = {
-		{ FT_SSL_CIPHER_ENCODE, ft_des },
-		{ FT_SSL_CIPHER_DECODE, ft_des_decode },
-	};
-	char 	*msg = NULL;
-	int		msg_len = 0;
+	t_ssl_des	ctx;
 
-	if (ctx->opt.input == NULL)
-		ctx->opt.input = argv[ctx->argi];
-	msg_len = ft_get_input(ctx->opt.input, &msg);
-	printf("msg: %s\n", msg);
-	printf("msg_len: %d\n", msg_len);
-	if (msg == NULL || msg_len < 1)
-		return (EXIT_FAILURE);
-	ftssl_des[ctx->opt.mode].des_mode(msg);
-	ft_strdel(&msg);
+	ft_memset(&ctx, 0, sizeof(ctx));
+	ctx.opt.mode = FT_SSL_DES_ENCODE;
+
+	if (ft_ssl_des_parse(&ctx, argc - 1, argv + 1) == FT_EXFAIL)
+		return (FT_EXFAIL);
+
+	if (ft_ssl_des_exec(&ctx, argc - 1, argv + 1) == FT_EXFAIL)
+		return (FT_EXFAIL);
+
 	return (EXIT_SUCCESS);
 }
 
-int		ft_ssl_cipher_des(int argc, char *argv[])
+int		ft_ssl_des_cbc(int argc, char *argv[])
 {
-	t_ftssl_cipher	ctx;
+	t_ssl_des	ctx;
 
 	ft_memset(&ctx, 0, sizeof(ctx));
-	ctx.dist.dist_name = argv[0];
-	ctx.opt.mode = FT_SSL_CIPHER_ENCODE;
-	argc -= 1;
-	argv += 1;
-	while (ctx.argi < argc)
-	{
-		if (*argv[ctx.argi] != '-' || argv[ctx.argi][1] == '\0')
-			break ;
-		if (ft_ssl_cipher_des_option(&ctx, argc, argv) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
-		ctx.argi++;
-	}
+	ctx.opt.mode = FT_SSL_DES_ENCODE;
 
-	ft_ssl_cipher_des_exec(&ctx, argc, argv);
+	if (ft_ssl_des_parse(&ctx, argc - 1, argv + 1) == FT_EXFAIL)
+		return (FT_EXFAIL);
+
+	if (ft_ssl_des_exec(&ctx, argc - 1, argv + 1) == FT_EXFAIL)
+		return (FT_EXFAIL);
 
 	return (EXIT_SUCCESS);
 }

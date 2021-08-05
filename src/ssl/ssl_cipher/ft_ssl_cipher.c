@@ -6,17 +6,19 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 19:11:57 by dzonda            #+#    #+#             */
-/*   Updated: 2021/03/09 17:00:35 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/08/05 20:38:10 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl_cipher.h"
 
-int		ft_ssl_cipher_dist(t_ftssl_cipher *ctx, int argc, char *argv[])
+int		ft_ssl_cipher_dist(t_ssl_cipher *ctx, int argc, char *argv[])
 {
-	static t_ftssl_cipher_dist	dist[FT_SSL_CIPHER_DIST] = {
-		{ "base64", FT_SSL_BASE64, ft_ssl_cipher_base64 },
-		{ "des", FT_SSL_DES, ft_ssl_cipher_des }
+	static t_ssl_cipher_dist	dist[FT_SSL_CIPHER_DIST] = {
+		{ "base64", FT_SSL_CIPHER_BASE64, ft_ssl_base64 },
+		{ "des", FT_SSL_CIPHER_DES, ft_ssl_des_ecb },
+		{ "des-ecb", FT_SSL_CIPHER_DES_ECB, ft_ssl_des_ecb },
+		{ "des-cbc", FT_SSL_CIPHER_DES_CBC, ft_ssl_des_cbc },
 	};
 	int							dist_key;
 
@@ -36,7 +38,7 @@ int		ft_ssl_cipher_dist(t_ftssl_cipher *ctx, int argc, char *argv[])
 
 int		ft_ssl_cipher(int argc, char *argv[])
 {
-	t_ftssl_cipher	ctx;
+	t_ssl_cipher	ctx;
 
 	ft_memset(&ctx, 0, sizeof(ctx));
 	if (ft_ssl_cipher_dist(&ctx, argc, argv) == FT_SSL_CIPHER_NOT_FOUND)

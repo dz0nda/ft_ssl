@@ -6,253 +6,60 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 12:18:59 by dzonda            #+#    #+#             */
-/*   Updated: 2021/03/17 10:49:03 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/06/29 13:50:24 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_base64.h"
-const char base64chars[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
-void 	ft_ssl_base64_debug_struct(t_base64_ctx ctx)
-{
-	printf("\n-----\n");
-	printf("iblock: %d\n", ctx.iblock);
-	printf("state[0]: %c, state[1]: %c, state[2]: %c\n", ctx.state[0], ctx.state[1], ctx.state[2]);
-	printf("\n-----\n");
-}
+void ft_b64_enc_pad(unsigned char *dst, size_t dst_len, size_t src_len, int *idst) {
+  int pad;
 
-void print_word_as_bits(char val) {
-  for (int i = 5; 0 <= i; i--) {
-    printf("%c", (val & (1 << i)) ? '1' : '0');
+  pad = src_len % 3;
+  while (pad > 0 && pad < 3) {
+    dst[*idst] = '=';
+    pad += 1;
+    *idst += 1; 
   }
 }
 
-void print_byte_as_bits_2(char *state) {
+void  ft_b64_enc_block(unsigned char *dst, t_uint32 block, int i, int *idst) {
+  static const t_uchar b64_encode[] =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
-	int i = 0;
-	int j = 0;
-	char chunks[4][6];
-
-	while (i < 3)
-	{
-		char val = state[i];
-		for (int i = 7; 0 <= i; i--) {
-			++j;
-			printf("%c", (val & (1 << i)) ? '1' : '0');
-			if (j % 6 == 0)
-				printf(" ");
-		}
-		i++;
-	}
+  if (!(i % 3)) {
+    dst[(*idst)++] = b64_encode[(t_uchar)(block >> 18) & 0x3F];
+    dst[(*idst)++] = b64_encode[(t_uchar)(block >> 12) & 0x3F];
+    dst[(*idst)++] = b64_encode[(t_uchar)(block >> 6) & 0x3F];
+    dst[(*idst)++] = b64_encode[(t_uchar)block & 0x3F];
+  } else if (i % 3 == 2) {
+    dst[(*idst)++] = b64_encode[(t_uchar)(block >> 10) & 0x3F];
+    dst[(*idst)++] = b64_encode[(t_uchar)(block >> 4) & 0x3F];
+    dst[(*idst)++] = b64_encode[(t_uchar)(block << 2) & 0x3F];
+  } else if (i % 3 == 1) {
+    dst[(*idst)++] = b64_encode[(t_uchar)(block >> 2) & 0x3F];
+    dst[(*idst)++] = b64_encode[(t_uchar)(block << 4) & 0x3F];
+  }
 }
 
-// void print_bits(char * val, unsigned char * bytes, size_t num_bytes) {
-//   printf("(%*s)= [ ", 16, val);
-//   for (size_t i = 0; i < num_bytes; i++) {
-//     print_byte_as_bits(bytes[i]);
-//     printf(" ");
-//   }
-//   printf("] => [ ");
+void ft_b64_enc(unsigned char *dst, size_t dst_len, unsigned char *src, size_t src_len) {
+  t_uint32 block = 0;
+  int i = 0;
+  int idst = 0;
 
+  while (i < src_len) {
+    block = (block << 8) | (uint32_t)src[i++];
 
-// 	char state[3];
-// 	int istate = 0;
+    if (!(i % 3)) {
+      ft_b64_enc_block(dst, block, i, &idst);
+      block = 0;
+    }
+  }
 
-// 	for (size_t i = 0; i < num_bytes; i++) {
-// 		ft_memcpy(&state[i], &bytes[i], sizeof(char));
-// 		if (++istate == 3)
-// 		{
-// 			print_byte_as_bits_2(state);
-// 			istate = 0;
-// 			printf(" ");
-// 		}
-//   }
-// 	// ft_memcpy(&state[3], "c", sizeof(char));
-// 	// print_byte_as_bits_2(state);
-// 	printf("]\n");
-// }
+  if (i % 3)
+    ft_b64_enc_block(dst, block, i, &idst);
 
+  ft_b64_enc_pad(dst, dst_len, src_len, &idst);
 
-void 	ft_ssl_base64_length(char *msg)
-{
-	int length_bytes = ft_strlen(msg);
-	int length_bits = ft_strlen(msg) * 8;
-	// int length_chunks = length_bits / 24;
-	// int length_chunks = ft_align_bits(length_bits, 24);
-	int pad_length_bits = ft_align_bits(length_bits, 24);
-	int length_chunks = pad_length_bits / 24;
-
-	printf("msg: %s\n", msg);
-	printf("length in bytes: %d\nlength in bits: %d -> padded length: %d\n", length_bytes, length_bits, pad_length_bits);
-	printf("length chunks: %d\n", length_chunks);
-}
-
-void 	ft_ssl_base64_process(char *state, int len) {
-
-	int i = 0;
-	int j = 0;
-	char chunks[4][6];
-
-	printf("[ ");
-	while (len--)
-	{
-		char val = state[i];
-		for (int i = 7; 0 <= i; i--) {
-			++j;
-			printf("%c", (val & (1 << i)) ? '1' : '0');
-			if (j % 6 == 0)
-				printf(" ");
-		}
-		i++;
-	}
-	printf(" ]\n");
-}
-
-
-void 	ft_ssl_base64_process2_debug(t_base64_ctx ctx, char *msg, int i)
-{
-
-		SHOW(char, msg[i]);
-		SHOW(char, msg[i + 1]);
-		SHOW(char, msg[i + 2]);
-
-		SHOW(uint32_t, ((uint32_t)msg[i]) << 16);
-		SHOW(uint32_t, ((uint32_t)msg[i + 1]) << 8);
-		SHOW(uint32_t, (uint32_t)msg[i + 2]);
-
-		SHOW(uint32_t, ctx.base64_state);
-
-		int k = 0;
-
-		while (++k < 18)
-		  SHOW(uint32_t, ctx.base64_state >> k);
-
-	  // SHOW(uint32_t, ctx.base64_state >> 18);
-	  // SHOW(uint32_t, ctx.base64_state >> 12);
-	  // SHOW(uint32_t, ctx.base64_state >> 6);
-	  // SHOW(uint32_t, ctx.base64_state);
-
-	  SHOW(uint32_t, (ctx.base64_state >> 18) & 63);
-	  SHOW(uint32_t, (ctx.base64_state >> 12) & 63);
-	  SHOW(uint32_t, (ctx.base64_state >> 6) & 63);
-	  SHOW(uint32_t, ctx.base64_state & 0x3F);
-
-		// SHOW(char, ctx.words[0]);
-	  // SHOW(char, ctx.words[1]);
-	  // SHOW(char, ctx.words[2]);
-	  // SHOW(char, ctx.words[3]);
-
-		// k = -1;
-		// while (++k < 4)
-		// 	printf("w[%d]: %c - ", k, base64chars[ctx.words[k]]);
-		// printf("\n");
-}
-
-void 	ft_ssl_base64_process2(char *msg)
-{
-	t_base64_ctx ctx;
-	int length_bytes = ft_strlen(msg);
-	int i = 0;
-
-	ft_memset(&ctx, 0, sizeof(ctx));
-
-	while (i < length_bytes)
-	{
-		ctx.base64_state = ((uint32_t)msg[i]) << 16;
-
-		if((i + 1) < length_bytes)
-			ctx.base64_state += ((uint32_t)msg[i + 1]) << 8;
-	
-		if((i + 2) < length_bytes)
-			ctx.base64_state += msg[i + 2];
-
-		ctx.words[0] = (uint8_t)(ctx.base64_state >> 18) & 0x3F;
-		ctx.words[1] = (uint8_t)(ctx.base64_state >> 12) & 0x3F;
-		ctx.words[2] = (uint8_t)(ctx.base64_state >> 6) & 0x3F;
-		ctx.words[3] = (uint8_t)ctx.base64_state & 0x3F;
-
-		ft_ssl_base64_process2_debug(ctx, msg, i);
-
-
-
-		// print_word_as_bits(ctx.words[0]);
-		// printf(" ");
-		// print_word_as_bits(ctx.words[1]);
-		// printf(" ");
-		// print_word_as_bits(ctx.words[2]);
-		// printf(" ");
-		// print_word_as_bits(ctx.words[3]);
-
-		i += 3;
-		// ft_memcpy(&ctx.state[ctx.iblock], &msg[i], sizeof(char));
-		// if (ctx.iblock == 2)
-		// {
-		// 	ft_ssl_base64_process(ctx.state, ctx.iblock + 1);
-		// 	// ft_memset(&ctx.state, 0, sizeof(ctx.state));
-		// 	ctx.iblock = 0;	
-		// }
-		// else
-		// 	ctx.iblock += 1;
-	}
-}
-
-void 	ft_ssl_base64_exec(char *msg)
-{
-	t_base64_ctx ctx;
-	int length_bytes = ft_strlen(msg);
-	int i = 0;
-
-
-	ft_memset(&ctx, 0, sizeof(ctx));
-
-	while (i < length_bytes)
-	{
-		ft_memcpy(&ctx.state[ctx.iblock], &msg[i], sizeof(char));
-		if (ctx.iblock == 2)
-		{
-			ft_ssl_base64_process(ctx.state, ctx.iblock + 1);
-			// ft_memset(&ctx.state, 0, sizeof(ctx.state));
-			ctx.iblock = 0;	
-		}
-		else
-			ctx.iblock += 1;
-		i++;
-	}
-
-	if (ctx.iblock != 0)
-	{
-		printf("\n\nThere is %d bytes left\n", 3 - ctx.iblock);
-		ft_ssl_base64_process(ctx.state, ctx.iblock);
-	}
-
-	ft_ssl_base64_debug_struct(ctx);
-	ft_memset(&ctx, 0, sizeof(ctx));
-
-	i = 0;
-
-
-
-	ft_ssl_base64_debug_struct(ctx);
-
-	// if (ctx.iblock != 0)
-	// {
-	// 	printf("\n\nThere is %d bytes left\n", 3 - ctx.iblock);
-	// 	ft_ssl_base64_process(ctx.state, ctx.iblock);
-	// }
-}
-
-void 	ft_ssl_base64(char *msg)
-{
-	printf("base64 encode:\n");
-	printf("msg: %s\n", msg);
-	// ft_ssl_base64_length(msg);
-  // print_bits(msg, (unsigned char*)msg, ft_strlen(msg));
-	// ft_ssl_base64_exec(msg);
-	ft_ssl_base64_process2(msg);
-}
-
-void 	ft_ssl_base64_decode(char *msg)
-{
-	printf("base64 decode:\n");
-	printf("msg: %s\n", msg);
+  dst[idst] = '\0';
 }

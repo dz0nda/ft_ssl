@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 12:18:59 by dzonda            #+#    #+#             */
-/*   Updated: 2021/03/17 10:23:39 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/06/29 13:59:59 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,21 @@
 
 # include "../../../ft_ssl_global.h"
 
-#define SHOW(T,V) do { T x = V; print_bits(#T, #V, (unsigned char*) &x, sizeof(x)); } while(0)
+/*
+**	Encode
+*/
+void 	ft_b64_enc(unsigned char *dst, size_t dst_len, unsigned char *src, size_t src_len);
 
+/*
+**	Decode
+*/
+void 	ft_b64_dec(unsigned char *dst, size_t dst_len, unsigned char *src, size_t src_len);
 
-typedef struct		s_base64_context
-{
-	int		iblock;
-	char 	state[3];
-	char 	words[4];
-	// uint32_t base64_state : 24;
-	uint32_t base64_state;
-	int 	pad;
-}					t_base64_ctx;
-
-
-void 	ft_ssl_base64(char *msg);
-void 	ft_ssl_base64_decode(char *msg);
-
+/*
+**	Tools
+*/
+int ft_base64_get_encoded_len(int src_len);
+int ft_base64_get_decoded_len(unsigned char *src, int src_len);
 
 void        print_byte_as_bits(char val);
 void 				print_bits(char * ty, char * val, unsigned char * bytes, size_t num_bytes);

@@ -6,7 +6,7 @@
 #    By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 05:46:03 by dzonda            #+#    #+#              #
-#    Updated: 2021/03/04 11:19:05 by dzonda           ###   ########lyon.fr    #
+#    Updated: 2021/06/14 12:47:31 by dzonda           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LIBDIR = libft
 MAKEFILE_NAME = Makefile-$(lastword $(subst /, ,$(NAME)))
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -Wunused -Wunreachable-code
+CFLAGS = -g -g3#-Wall -Wextra -Werror -Wunused -Wunreachable-code
 LDFLAGS = -Llibft
 LDLIBS = -lft
 
