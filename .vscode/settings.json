@@ -1,0 +1,18 @@
+{
+  "files.associations": {
+    "ft_ssl_base64.h": "c",
+    "ft_ssl_des.h": "c",
+    "string": "c",
+    "array": "c",
+    "string_view": "c",
+    "ranges": "c",
+    "limits.h": "c",
+    "random": "c",
+    "cstdlib": "c",
+    "complex": "c",
+    "hashtable": "c",
+    "initializer_list": "c",
+    "utility": "c",
+    "ft_put.h": "c"
+  }
+}

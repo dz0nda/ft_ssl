@@ -1,0 +1,31 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "ft_ssl",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/ft_ssl",
+      "args": [
+        "des",
+        "-p",
+        "dzonda",
+        "-i",
+        "plain",
+        "-o",
+        "my_encrypted",
+      ],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "lldb",
+      "preLaunchTask": "C/C++: Build"
+    }
+  ]
+}
+
+//7096167711952381870
