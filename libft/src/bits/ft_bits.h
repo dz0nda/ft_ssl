@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 03:34:07 by dzonda            #+#    #+#             */
-/*   Updated: 2021/08/09 09:15:31 by user42           ###   ########lyon.fr   */
+/*   Updated: 2021/08/09 10:34:53 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@
 /*
  *  INTEROPERABILITY
  */
-
-typedef unsigned char t_uchar;
 
 #ifdef __APPLE__
 
