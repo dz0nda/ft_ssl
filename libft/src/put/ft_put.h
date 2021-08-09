@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_put.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 03:34:15 by dzonda            #+#    #+#             */
-/*   Updated: 2021/06/15 15:01:01 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/07/25 11:34:07 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef FT_PUT_H
 # define FT_PUT_H
 
-# include "../to/ft_to.h"
+# include "../ft_libft_global.h"
 
 int 	ft_putchar_fd(char c, int fd);
 int	  ft_putchar(char c);

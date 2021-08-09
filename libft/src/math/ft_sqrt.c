@@ -12,7 +12,7 @@
 
 #include "ft_math.h"
 
-double ft_sqrt(int num) {
+double ft_sqrt(double num) {
   double tmp;
   double sqrt;
 

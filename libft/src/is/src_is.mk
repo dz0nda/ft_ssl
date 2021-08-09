@@ -10,5 +10,4 @@ SUBFILES_IS = \
 			is/ft_isupper.c \
 			is/ft_isspace.c \
 			is/ft_isalnum.c \
-			is/ft_ishex.c \
 			is/ft_isdigitstr.c

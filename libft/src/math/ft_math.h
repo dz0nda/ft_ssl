@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_math.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 03:34:07 by dzonda            #+#    #+#             */
-/*   Updated: 2021/06/10 15:07:24 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/07/25 11:33:56 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_MATH_H
 #define FT_MATH_H
 
-double ft_sqrt(int num);
+# include "../ft_libft_global.h"
+
+double ft_sqrt(double num);
 
 #endif

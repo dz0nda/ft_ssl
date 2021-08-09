@@ -3,19 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bits.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 03:34:07 by dzonda            #+#    #+#             */
-/*   Updated: 2021/06/16 13:01:40 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/08/09 09:15:31 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_BITS_H
-# define FT_BITS_H
+#define FT_BITS_H
 
-# include "../put/ft_put.h"
+#include "../ft_libft_global.h"
 
-# define SHOW(T,V) do { T x = V; ft_printb(#V, (unsigned char*) &x, sizeof(x)); } while(0)
+#define HEXDUMP_COLS 16
+#define SHOW(T, V)                                 \
+  do {                                             \
+    T x = V;                                       \
+    ft_printb(#V, (unsigned char *)&x, sizeof(x)); \
+  } while (0)
+
+/*
+ *  INTEROPERABILITY
+ */
+
+typedef unsigned char t_uchar;
+
+#ifdef __APPLE__
+
+typedef uint8_t t_uint8;
+typedef uint16_t t_uint16;
+typedef uint32_t t_uint32;
+typedef uint64_t t_uint64;
+
+#endif
+#ifdef __linux__
+
+typedef uint8_t t_uint8;
+typedef uint16_t t_uint16;
+typedef uint32_t t_uint32;
+typedef uint64_t t_uint64;
+
+#endif
 
 unsigned int ft_align_bits(size_t offset, size_t align);
 
@@ -38,5 +66,10 @@ uint64_t ft_rotl_uint64(uint64_t word, uint64_t bits);
 uint64_t ft_shiftr_uint64(uint64_t word, uint64_t bits);
 uint64_t ft_shiftl_uint64(uint64_t word, uint64_t bits);
 uint64_t ft_swap_uint64(uint64_t *val);
+
+void ft_set_bit(t_uint8 *dst, int index, int value);
+int ft_get_bit(const t_uint8 *src, int index);
+
+void ft_hexdump(void *mem, unsigned int len);
 
 #endif
