@@ -6,5 +6,4 @@ SUBFILES_TOOLS = \
 			tools/ft_isdir.c \
 			tools/ft_isopt.c \
 			tools/ft_isreg.c \
-			tools/ft_get_random.c \
-			tools/ft_ishexstr.c
+			tools/ft_get_random.c
