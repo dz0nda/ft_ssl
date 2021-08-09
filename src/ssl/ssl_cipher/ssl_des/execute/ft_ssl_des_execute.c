@@ -12,75 +12,30 @@
 
 #include "ft_ssl_des.h"
 
-char 	msg[] = { 0x40, 0x03, 0x06, 0x0e, 0x8d, 0xb0, 0xd2, 0x6f, 0xfd, 0xf2, 0xe1, 0x74, 0x49, 0x29, 0x22, 0xf8 }; // "abcdefgh"; //"0123456789ABCDEF";
-// char 	msg[] = { 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68 }; // "abcdefgh"; //"0123456789ABCDEF";
+char msg[] = {
+    0x40, 0x03, 0x06, 0x0e, 0x8d, 0xb0, 0xd2, 0x6f,
+    0xfd, 0xf2, 0xe1, 0x74, 0x49, 0x29, 0x22, 0xf8};  // "abcdefgh";
+                                                      // //"0123456789ABCDEF";
+// char 	msg[] = { 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68 }; //
+// "abcdefgh"; //"0123456789ABCDEF";
 
-int		msg_len = 0;
+int msg_len = 0;
 
 // int		ft_ssl_des_exec_base64(t_ssl_des *ctx, int argc, char *argv[]) {
 
 // }
 
-#ifndef HEXDUMP_COLS
-#define HEXDUMP_COLS 16
-#endif
- 
-void hexdump(void *mem, unsigned int len)
-{
-        unsigned int i, j;
-        
-        for(i = 0; i < len + ((len % HEXDUMP_COLS) ? (HEXDUMP_COLS - len % HEXDUMP_COLS) : 0); i++)
-        {
-                /* print offset */
-                if(i % HEXDUMP_COLS == 0)
-                {
-                        printf("0x%06x: ", i);
-                }
- 
-                /* print hex data */
-                if(i < len)
-                {
-                        printf("%02x ", 0xFF & ((char*)mem)[i]);
-                }
-                else /* end of block, just aligning for ASCII dump */
-                {
-                        printf("   ");
-                }
-                
-                /* print ASCII dump */
-                if(i % HEXDUMP_COLS == (HEXDUMP_COLS - 1))
-                {
-                        for(j = i - (HEXDUMP_COLS - 1); j <= i; j++)
-                        {
-                                if(j >= len) /* end of block, not really printing */
-                                {
-                                        putchar(' ');
-                                }
-                                else if(isprint(((char*)mem)[j])) /* printable char */
-                                {
-                                        putchar(0xFF & ((char*)mem)[j]);        
-                                }
-                                else /* other char */
-                                {
-                                        putchar('.');
-                                }
-                        }
-                        putchar('\n');
-                }
-        }
-}
+static int ft_ouptput(char *file, char *output, int breaker) {
+  int fd;
+  int i;
+  int length;
 
-static int		ft_ouptput(char *file, char *output, int breaker)
-{
-	int		fd;
-	int		i;
-	int		length;
-
-	fd = 1;
-	i = 0;
-	length = breaker;
-	if (file != NULL && (fd = open(file, O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR)) == -1)
-		return (0);
+  fd = 1;
+  i = 0;
+  length = breaker;
+  if (file != NULL &&
+      (fd = open(file, O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR)) == -1)
+    return (0);
 
   // if (breaker > 0) {
   //     while (i + breaker < length) {
@@ -93,53 +48,89 @@ static int		ft_ouptput(char *file, char *output, int breaker)
   write(fd, &output[i], length);
   // if (breaker) write(fd, "\n", 1);
 
-	return (length);
+  return (length);
 }
 
+int ft_ssl_des_exec(t_ssl_des *ctx, int argc, char *argv[]) {
+  static t_des_ecb_d ft_des_ecb[2] = {
+      {FT_DES_ECB_ENC, ft_des_ecb_encrypt},
+      {FT_DES_ECB_DEC, ft_des_ecb_decrypt},
+  };
+  static t_des_cbc_d ft_des_cbc[2] = {
+      {FT_DES_CBC_ENC, ft_des_cbc_encrypt},
+      {FT_DES_ECB_DEC, ft_des_cbc_decrypt},
+  };
+  char *cipher = NULL;
+  char *input = NULL;
+  int input_len = 0;
 
-int		ft_ssl_des_exec(t_ssl_des *ctx, int argc, char *argv[])
-{
-	static t_ssl_des_d		ftssl_des[2] = {
-		{ FT_SSL_DES_ENC, ft_des },
-		{ FT_SSL_DES_DEC, ft_des_decode },
-	
-	};
-	char *cipher = NULL;
-	char 	*input = NULL;
-	int		input_len = 0;
+  if (ctx->opt.input == NULL) ctx->opt.input = argv[ctx->argi];
+  input_len = ft_get_input(ctx->opt.input, &input);
+  // printf("%s\n", input);
 
-	if (ctx->opt.input == NULL)
-		ctx->opt.input = argv[ctx->argi];
-	input_len = ft_get_input(ctx->opt.input, &input);
+  // printf("input len %d\n", input_len);
 
-	ft_ssl_des_exec_pre_process(ctx);
+  if ((ctx->opt.mode == FT_DES_ECB_DEC || ctx->opt.mode == FT_DES_CBC_DEC) &&
+      ctx->opt.encode == FT_DES_B64_CODE) {
+    input[--input_len] = '\0';
 
-        printf("key: %s\n", ctx->opt.key);
-        printf("iv: %s\n", ctx->opt.iv);
-        
+    int dst_len = ft_b64_get_decoded_len(input, input_len);
 
-        int len = ft_des_cbc(ctx->opt.key, input, input_len, &cipher, ctx->opt.iv);
-	// int len = ftssl_des[ctx->opt.mode].des_mode(ctx->opt.key, input, input_len, &cipher);
+    char *dst = (char *)ft_memalloc(dst_len + 1);
 
-	// hexdump(cipher, len);
+    ft_b64_dec(dst, dst_len, input, input_len);
 
-	if (ft_strlen(ctx->opt.salt)) {
-		// char *tmp = ft_strdup(cipher); // here !
-                char *tmp = ft_memalloc(len);
-                ft_memcpy(tmp, cipher, len);
-		free(cipher);
-		cipher = ft_memalloc(len + 16 + 1);
-		ft_memset(cipher, '\0', len + 16 + 1);
-		ft_memcpy(&cipher[0], "Salted__", 8);
-		ft_memcpy(&cipher[8], ctx->opt.salt, 8);
-		ft_memcpy(&cipher[16], tmp, len);
-		free(tmp);
-		len +=  16;
-	}
+    free(input);
 
-	// hexdump(cipher, len);
+    input = dst;
+    input_len = dst_len;
+  }
+  // printf("%s %d\n", input, input_len);
 
-	ft_ouptput(ctx->opt.output, cipher, len);
+  ft_ssl_des_exec_pre_process(ctx);
 
-	return (EXIT_SUCCESS);
+  // printf("key: %s\n", ctx->opt.key);
+  // printf("iv: %s\n", ctx->opt.iv);
+
+  // int len = ft_des_ebc(ctx->opt.key, input, input_len, &cipher, ctx->opt.iv);
+  int len = 0;
+
+  if (ctx->opt.mode == FT_DES_ECB_ENC || ctx->opt.mode == FT_DES_ECB_DEC)
+    len = ft_des_ecb[ctx->opt.mode].des_mode(ctx->opt.key, input, input_len,
+                                             &cipher);
+  else
+    len = ft_des_cbc[ctx->opt.mode].des_mode(ctx->opt.key, input, input_len,
+                                             &cipher, ctx->opt.iv);
+
+  // hexdump(cipher, len);
+
+  if ((ctx->opt.mode == FT_DES_ECB_ENC || ctx->opt.mode == FT_DES_CBC_ENC) &&
+      ft_strlen(ctx->opt.salt)) {
+    // char *tmp = ft_strdup(cipher); // here !
+    char *tmp = ft_memalloc(len);
+    ft_memcpy(tmp, cipher, len);
+    free(cipher);
+    cipher = ft_memalloc(len + 16 + 1);
+    ft_memset(cipher, '\0', len + 16 + 1);
+    ft_memcpy(&cipher[0], "Salted__", 8);
+    ft_memcpy(&cipher[8], ctx->opt.salt, 8);
+    ft_memcpy(&cipher[16], tmp, len);
+    free(tmp);
+    len += 16;
+  }
+
+  // hexdump(cipher, len);
+  if ((ctx->opt.mode == FT_DES_ECB_ENC || ctx->opt.mode == FT_DES_CBC_ENC) &&
+      ctx->opt.encode == FT_DES_B64_CODE) {
+    int dst_len = ft_b64_get_encoded_len(len);
+    char *dst = (char *)ft_memalloc(dst_len + 1);
+
+    ft_b64_enc(dst, dst_len, cipher, len);
+
+    ft_write_output(ctx->opt.output, dst, 64);
+  } else {
+    ft_ouptput(ctx->opt.output, cipher, len);
+  }
+
+  return (EXIT_SUCCESS);
 }
