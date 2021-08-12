@@ -35,11 +35,11 @@ int ft_ssl_des_opt_a(t_ssl_des *ctx, int argc, char *argv[]) {
  *   FT_EXOK
  */
 int ft_ssl_des_opt_d(t_ssl_des *ctx, int argc, char *argv[]) {
-  if (ctx->opt.mode == FT_DES_ECB_ENC || ctx->opt.mode == FT_DES_ECB_DEC)
-    ctx->opt.mode = FT_DES_ECB_DEC;
-  else
-    ctx->opt.mode = FT_DES_CBC_DEC;
-
+  // if (ctx->opt.mode == FT_DES_ECB_ENC || ctx->opt.mode == FT_DES_ECB_DEC)
+  //   ctx->opt.mode = FT_DES_ECB_DEC;
+  // else
+  //   ctx->opt.mode = FT_DES_CBC_DEC;
+  ctx->opt.mode = FT_DES_DEC;
   return (FT_EXOK);
 }
 
@@ -52,11 +52,11 @@ int ft_ssl_des_opt_d(t_ssl_des *ctx, int argc, char *argv[]) {
  *   FT_EXOK
  */
 int ft_ssl_des_opt_e(t_ssl_des *ctx, int argc, char *argv[]) {
-  if (ctx->opt.mode == FT_DES_ECB_ENC || ctx->opt.mode == FT_DES_ECB_DEC)
-    ctx->opt.mode = FT_DES_ECB_ENC;
-  else
-    ctx->opt.mode = FT_DES_CBC_ENC;
-
+  // if (ctx->opt.mode == FT_DES_ECB_ENC || ctx->opt.mode == FT_DES_ECB_DEC)
+  //   ctx->opt.mode = FT_DES_ECB_ENC;
+  // else
+  //   ctx->opt.mode = FT_DES_CBC_ENC;
+  ctx->opt.mode = FT_DES_ENC;
   return (FT_EXOK);
 }
 

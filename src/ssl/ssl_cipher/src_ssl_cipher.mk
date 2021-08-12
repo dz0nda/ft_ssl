@@ -18,5 +18,6 @@ SUBFILES_SSL_CIPHER = \
 			ssl/ssl_cipher/ssl_des/ft_ssl_des.c \
 			ssl/ssl_cipher/ssl_des/options/ft_ssl_des_options.c \
 			ssl/ssl_cipher/ssl_des/options/ft_ssl_des_parse.c \
-			ssl/ssl_cipher/ssl_des/execute/ft_ssl_des_execute.c \
-			ssl/ssl_cipher/ssl_des/execute/ft_ssl_des_execute_init.c
+			ssl/ssl_cipher/ssl_des/execute/ft_ssl_des_exec_key.c \
+			ssl/ssl_cipher/ssl_des/execute/ft_ssl_des_exec_enc.c \
+			ssl/ssl_cipher/ssl_des/execute/ft_ssl_des_exec_dec.c

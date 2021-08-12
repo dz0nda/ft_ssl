@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ssl_cipher.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 19:11:57 by dzonda            #+#    #+#             */
-/*   Updated: 2021/08/05 20:38:10 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/08/09 13:32:23 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,16 @@ int		ft_ssl_cipher_dist(t_ssl_cipher *ctx, int argc, char *argv[])
 {
 	static t_ssl_cipher_dist	dist[FT_SSL_CIPHER_DIST] = {
 		{ "base64", FT_SSL_CIPHER_BASE64, ft_ssl_base64 },
-		{ "des", FT_SSL_CIPHER_DES, ft_ssl_des_ecb },
-		{ "des-ecb", FT_SSL_CIPHER_DES_ECB, ft_ssl_des_ecb },
-		{ "des-cbc", FT_SSL_CIPHER_DES_CBC, ft_ssl_des_cbc },
+		{ "des", FT_SSL_CIPHER_DES, ft_ssl_des },
+		{ "des-ecb", FT_SSL_CIPHER_DES_ECB, ft_ssl_des },
+		{ "des-cbc", FT_SSL_CIPHER_DES_CBC, ft_ssl_des },
 	};
+	// static t_ssl_cipher_dist	dist[FT_SSL_CIPHER_DIST] = {
+	// 	{ "base64", FT_SSL_CIPHER_BASE64, ft_ssl_base64 },
+	// 	{ "des", FT_SSL_CIPHER_DES, ft_ssl_des_ecb },
+	// 	{ "des-ecb", FT_SSL_CIPHER_DES_ECB, ft_ssl_des_ecb },
+	// 	{ "des-cbc", FT_SSL_CIPHER_DES_CBC, ft_ssl_des_cbc },
+	// };
 	int							dist_key;
 
 	dist_key = -1;

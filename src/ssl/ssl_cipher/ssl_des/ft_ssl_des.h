@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 22:13:32 by dzonda            #+#    #+#             */
-/*   Updated: 2021/08/09 08:48:12 by user42           ###   ########lyon.fr   */
+/*   Updated: 2021/08/12 17:13:38 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define FT_SSL_DES_H
 
 #include "../../../crypto/cipher/des/ft_des.h"
+#include "../../../crypto/cipher/kdf/ft_kdf.h"
 #include "../ssl_b64/ft_ssl_b64.h"
 
 #define FT_SSL_DES_ENCODE 0
@@ -27,6 +28,10 @@
 // sizeof(x)); } while(0)
 
 #define FT_DES_B64_CODE 1
+#define FT_DES_ENC 0
+#define FT_DES_DEC 1
+
+typedef enum e_des_mode { FT_DES_ECB, FT_DES_CBC, FT_DES_MODE_MAX } t_des_mode;
 
 typedef struct s_ssl_des_option {
   int mode;
@@ -38,6 +43,11 @@ typedef struct s_ssl_des_option {
   char key[17];
   char iv[17];
 } t_ssl_des_opt;
+
+typedef struct s_ssl_des_context {
+  t_des_mode mode_key;
+  char *mode_str;
+} t_ssl_des_ctx;
 
 typedef struct s_ssl_des {
   int argi;
@@ -86,6 +96,7 @@ typedef struct s_des_cbc_dispatch {
 **	DES
 */
 
+int ft_ssl_des(int argc, char *argv[]);
 int ft_ssl_des_ecb(int argc, char *argv[]);
 int ft_ssl_des_cbc(int argc, char *argv[]);
 int ft_ssl_des_option(t_ssl_des *ctx, int argc, char *argv[]);
@@ -95,6 +106,7 @@ int ft_ssl_des_error(t_ssl_des *ctx, int argc, char *argv[]);
 **	Options
 */
 int ft_ssl_des_parse(t_ssl_des *ctx, int argc, char *argv[]);
+int ft_ssl_des_dispatch_opt(t_ssl_des *ctx, int argc, char *argv[]);
 
 // int ft_ssl_b64_option(t_ssl_base64 *ctx, int argc, char *argv[]);
 int ft_ssl_des_opt_a(t_ssl_des *ctx, int argc, char *argv[]);
@@ -111,7 +123,13 @@ int ft_ssl_des_opt_v(t_ssl_des *ctx, int argc, char *argv[]);
 **	Execute
 */
 int ft_ssl_des_exec(t_ssl_des *ctx, int argc, char *argv[]);
+int ft_ssl_des_exec_enc(t_ssl_des_ctx ctx, t_ssl_des_opt opt);
+int ft_ssl_des_exec_dec(t_ssl_des_ctx ctx, t_ssl_des_opt opt);
+int ft_ssl_des_exec_key(t_ssl_des *ctx);
 int ft_ssl_des_exec_pre_process(t_ssl_des *ctx);
 int ft_ssl_des_exec_handle_password(t_ssl_des *ctx);
 int ft_ssl_des_exec_handle_salt(t_ssl_des *ctx);
+
+int ft_ouptput(char *file, char *output, int breaker);
+
 #endif
