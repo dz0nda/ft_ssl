@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/09 20:43:25 by dz0nda            #+#    #+#             */
-/*   Updated: 2021/08/09 10:35:04 by user42           ###   ########lyon.fr   */
+/*   Updated: 2021/08/09 12:06:10 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,10 @@ typedef struct s_arg {
   int c;
   const char **v;
 } t_arg;
+
+typedef struct s_map_istr {
+  int key;
+  char *value;
+} t_map_istr;
 
 #endif

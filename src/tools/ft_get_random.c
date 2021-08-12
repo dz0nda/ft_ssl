@@ -3,32 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_random.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:43:12 by dzonda            #+#    #+#             */
-/*   Updated: 2021/07/11 14:43:40 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2021/08/12 17:18:29 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_tools.h"
 
-int ft_get_random(char *dst) {
-  int fd;
-  char myRandomData[8];
-  ssize_t result;
+int ft_get_random(char *dst, int size) {
+  int fd = -1;
+  int res = -1;
 
   fd = open("/dev/urandom", O_RDONLY);
   if (fd < 0) {
-      // ft_putendl_fd("Something went wrong when generating random number", STDERR_FILENO);
     return (-1);
   }
 
-  result = read(fd, myRandomData, sizeof myRandomData);
-  if (result < 0) {
-    // ft_putendl_fd("Something went wrong when generating random number", STDERR_FILENO);
+  res = read(fd, dst, size);
+  if (res < 0) {
     return (-1);
   }
-  ft_memcpy(dst, myRandomData, 8);
+  // ft_memcpy(dst, myRandomData, 8);
 
-  return (result);
+  return (res);
+}
+
+int ft_get_pass(char *dst, int size) {
+  char pass[256];
+
+  ft_bzero(pass, 256);
+
+  if (readpassphrase("enter des encryption password: ", dst, size, 0) == NULL)
+    return (FT_EXFAIL);
+  if (readpassphrase("Verifying - enter des encryption password: ", pass, 256,
+                     0) == NULL)
+    return (FT_EXFAIL);
+
+  if (ft_memcmp(dst, pass, 256) != 0) {
+    ft_putendl_fd("Verify failure", STDERR_FILENO);
+    ft_putendl_fd("bad password read", STDERR_FILENO);
+    return (FT_EXFAIL);
+  }
+
+  return (FT_EXOK);
 }

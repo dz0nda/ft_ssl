@@ -6,13 +6,13 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 20:08:57 by dzonda            #+#    #+#             */
-/*   Updated: 2021/08/09 09:10:02 by user42           ###   ########lyon.fr   */
+/*   Updated: 2021/08/12 16:56:57 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_to.h"
 
-int ft_hextoi(char *hex) {
+uint64_t ft_hextoi(char *hex) {
   uint64_t val = 0;
   while (*hex) {
     // get current character then increment
@@ -28,6 +28,6 @@ int ft_hextoi(char *hex) {
     else
       return 0;
   }
-
+  // return val;
   return (ft_swap_uint64(&val));
 }

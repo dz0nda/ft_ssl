@@ -2,55 +2,127 @@
 
 TEST_DES_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-. "$TEST_DES_DIR/tools/checker.sh"
+. "$TEST_DES_DIR/des/test_des_cbc.sh"
+. "$TEST_DES_DIR/des/test_des_ecb.sh"
 
-DES_PERSO="./ft_ssl des "
-DES_ORIGIN="openssl des-ecb "
+# DES_ECB_PERSO="./ft_ssl des "
+# DES_ECB_ORIGIN="openssl des-ecb "
 
-test_des_encode_key ()
-{
-	printf "des -> %s" "$1"
+# DES_CBC_PERSO="./ft_ssl des-cbc "
+# DES_CBC_ORIGIN="openssl des-cbc "
+
+# test_des_ecb_key ()
+# {
+# 	printf "des-ecb key -> %s" "$1"
  
-  (echo "$2" | eval ${DES_PERSO} -k "$3" -o my_des)
-  (echo "$2" | eval ${DES_ORIGIN} -K "$3" -out origin_des)
+# 	echo -n "$2" > plaintext
 
-	test_check my_des origin_des
+#   eval ${DES_ECB_PERSO} -k "$3" -i plaintext -o my_des
+#   eval ${DES_ECB_ORIGIN} -K "$3" -in plaintext -out origin_des
 
-	rm my_des
-	rm origin_des
-}
+# 	test_check my_des origin_des
 
-test_des_encode_pass ()
-{
-	printf "des -> %s" "$1"
+#   eval ${DES_ECB_PERSO} -d -k "$3" -i my_des -o my_plaintext
+#   eval ${DES_ECB_ORIGIN} -d -K "$3" -in origin_des -out origin_plaintext
+
+# 	test_check my_plaintext origin_plaintext
+
+# 	rm plaintext
+# 	rm my_des
+# 	rm origin_des
+# 	rm my_plaintext
+# 	rm origin_plaintext
+# }
+
+# test_des_cbc_key ()
+# {
+# 	printf "des-cbc key -> %s" "$1"
  
-  (echo "$2" | eval ${DES_PERSO} -p "$3" -s '16F7A4A5146BC9BE' -o my_des)
-  (echo "$2" | eval ${DES_ORIGIN} -pass "pass:$3" -S '16F7A4A5146BC9BE' -out origin_des)
+# 	echo -n "$2" > plaintext
 
-	test_check my_des origin_des
+#   eval ${DES_CBC_PERSO} -k "$3" -v "$3" -i plaintext -o my_des
+#   eval ${DES_CBC_ORIGIN} -K "$3" -iv "$3" -in plaintext -out origin_des
 
-	rm my_des
-	rm origin_des
-}
+# 	test_check my_des origin_des
 
-test_des_encode_key 'des encode key' 'abcdefgh' '133457799BBCDFF1'
-test_des_encode_key 'des encode key' 'abcdefghabcdefgh' '133457799BBCDFF1'
-test_des_encode_key 'des encode key' 'abcdefghabcdefghe' '133457799BBCDFF1'
-test_des_encode_key 'des encode key' 'abcdefgha' '133457799BBCDFF1'
+#   eval ${DES_CBC_PERSO} -d -k "$3" -v "$3" -i my_des -o my_plaintext
+#   eval ${DES_CBC_ORIGIN} -d -K "$3" -iv "$3" -in origin_des -out origin_plaintext
 
-test_des_encode_pass 'des encode pass' 'abcdefgh' 'dzonda'
-test_des_encode_pass 'des encode pass' 'abcdefghabcdefgh' 'markus'
-test_des_encode_pass 'des encode pass' 'abcdefghabcdefghe' 'dracaufeu'
-test_des_encode_pass 'des encode pass' 'abcdefgha' 'pikachu'
+# 	test_check my_plaintext origin_plaintext
 
+# 	rm plaintext
+# 	rm my_des
+# 	rm origin_des
+# 	rm my_plaintext
+# 	rm origin_plaintext
+# }
 
-# echo ""
+# test_des_ecb_pass ()
+# {
+# 	printf "des-ecb pass -> %s" "$1"
+ 
+# 	echo -n "$2" > plaintext
 
-# echo "0123456789" | openssl des-ecb -K 7F7432CA7CCE3D61 -S 488843243FBFF7D9
-# echo ""
-# echo "0123456789" | ./ft_ssl des-ecb -k 7F7432CA7CCE3D61 -s 488843243FBFF7D9
-# echo ""
-# echo "0123456789" > tmp; ./ft_ssl des-ecb -k 7F7432CA7CCE3D61 -s 488843243FBFF7D9 -i tmp
-# echo ""
-# echo "0123456789" | ./ft_ssl des-ecb -k 7F7432CA7CCE3D61 -s 488843243FBFF7D9 -o tmp; cat tmp
-# echo ""
+#   eval ${DES_ECB_PERSO} -p "$3" -s '16F7A4A5146BC9BE' -i plaintext -o my_des
+#   eval ${DES_ECB_ORIGIN} -md md5 -pass "pass:$3" -S '16F7A4A5146BC9BE' -in plaintext -out origin_des
+
+# 	test_check my_des origin_des
+
+#   eval ${DES_ECB_PERSO} -d -p "$3" -s '16F7A4A5146BC9BE' -i my_des -o my_plaintext
+#   eval ${DES_ECB_ORIGIN} -d -md md5 -pass "pass:$3" -S '16F7A4A5146BC9BE' -in origin_des -out origin_plaintext
+
+# 	test_check my_plaintext origin_plaintext
+
+# 	rm plaintext
+# 	rm my_des
+# 	rm origin_des
+# 	rm my_plaintext
+# 	rm origin_plaintext
+# }
+
+# test_des_cbc_pass ()
+# {
+# 	printf "des-cbc pass -> %s" "$1"
+ 
+# 	echo -n "$2" > plaintext
+
+#   eval ${DES_CBC_PERSO} -p "$3" -s '16F7A4A5146BC9BE' -i plaintext -o my_des
+#   eval ${DES_CBC_ORIGIN} -md md5 -pass "pass:$3" -S '16F7A4A5146BC9BE' -in plaintext -out origin_des
+
+# 	test_check my_des origin_des
+
+#   eval ${DES_CBC_PERSO} -d -p "$3" -s '16F7A4A5146BC9BE' -i my_des -o my_plaintext
+#   eval ${DES_CBC_ORIGIN} -d -md md5 -pass "pass:$3" -S '16F7A4A5146BC9BE' -in origin_des -out origin_plaintext
+
+# 	test_check my_plaintext origin_plaintext
+
+# 	rm plaintext
+# 	rm my_des
+# 	rm origin_des
+# 	rm my_plaintext
+# 	rm origin_plaintext
+# }
+
+test_des_ecb_key 'less than block size string' 'abcdefg' '133457799BBCDFF1'
+test_des_ecb_key 'block size string' 'abcdefgh' '133457799BBCDFF1'
+test_des_ecb_key 'block size string + 1' 'abcdefgha' '133457799BBCDFF1'
+test_des_ecb_key 'double block size string' 'abcdefghabcdefgh' '133457799BBCDFF1'
+test_des_ecb_key 'double block size string + 1' 'abcdefghabcdefghe' '133457799BBCDFF1'
+
+test_des_ecb_pass 'less than block size string' 'abcdefg' 'dzonda'
+test_des_ecb_pass 'block size string' 'abcdefgh' 'carapuce'
+test_des_ecb_pass 'block size string + 1' 'abcdefgha' 'pikachu'
+test_des_ecb_pass 'double block size string' 'abcdefghabcdefgh' 'markus'
+test_des_ecb_pass 'double block size string + 1' 'abcdefghabcdefghe' 'dracaufeu'
+
+test_des_cbc_key 'less than block size string' 'abcdefg' '133457799BBCDFF1'
+test_des_cbc_key 'bock size string' 'abcdefgh' '133457799BBCDFF1'
+test_des_cbc_key 'block size string + 1' 'abcdefgha' '133457799BBCDFF1'
+test_des_cbc_key 'double block size string' 'abcdefghabcdefgh' '133457799BBCDFF1'
+test_des_cbc_key 'double block size string + 1' 'abcdefghabcdefghe' '133457799BBCDFF1'
+
+test_des_cbc_pass 'less than block size string' 'abcdefg' 'dzonda'
+test_des_cbc_pass 'block size string' 'abcdefgh' 'carapuce'
+test_des_cbc_pass 'block size string + 1' 'abcdefgha' 'pikachu'
+test_des_cbc_pass 'double block size string' 'abcdefghabcdefgh' 'markus'
+test_des_cbc_pass 'double block size string + 1' 'abcdefghabcdefghe' 'dracaufeu'
