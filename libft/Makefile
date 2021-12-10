@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+         #
+#    By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/10 21:08:47 by dzonda            #+#    #+#              #
-#    Updated: 2021/08/09 09:21:04 by user42           ###   ########lyon.fr    #
+#    Updated: 2021/08/12 17:49:38 by dzonda           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,13 +68,7 @@ endif
 
 # Print step: $(1) step name, $(2) target name, $(3) color
 define print_step
-	$(HIDE)echo -n "$(MAKEFILE_NAME): "
-
-	$(HIDE)$(3)
-	$(HIDE)echo -n [$(1)]
-	$(HIDE)$(COLOR_DISABLE)
-	
-	$(HIDE)echo " \t ->" $(2)
+	$(HIDE)echo "$(MAKEFILE_NAME): [$(1)] \t -> $(2)"
 endef
 
 # **************************************************************************** #
