@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_b64_enc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 12:18:59 by dzonda            #+#    #+#             */
-/*   Updated: 2021/08/09 08:01:56 by user42           ###   ########lyon.fr   */
+/*   Updated: 2021/08/12 18:44:18 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void ft_b64_enc_block(t_uchar *dst, t_uint32 block, int i, int *idst) {
   }
 }
 
-void ft_b64_enc(t_uchar *dst, size_t dst_len, t_uchar *src, size_t src_len) {
+void ft_b64_enc(char *dst, size_t dst_len, char *src, size_t src_len) {
   t_uint32 block = 0;
   int i = 0;
   int idst = 0;

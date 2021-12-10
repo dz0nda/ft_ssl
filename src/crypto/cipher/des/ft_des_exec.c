@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_des_exec.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 12:18:59 by dzonda            #+#    #+#             */
-/*   Updated: 2021/08/10 13:31:02 by user42           ###   ########lyon.fr   */
+/*   Updated: 2021/08/12 17:58:00 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void ft_des_permutation_final(char *cipher, ubyte e[8]) {
   int i, j;
 
   for (i = 0; i < 64; ++i) {
-    ft_set_bit(cipher, i, ft_get_bit(e, IP2[i] - 1));
+    ft_set_bit((t_uint8 *)cipher, i, ft_get_bit(e, IP2[i] - 1));
   }
 }
 

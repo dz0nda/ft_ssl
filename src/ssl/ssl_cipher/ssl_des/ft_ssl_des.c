@@ -74,7 +74,7 @@ int ft_ssl_des(int argc, char *argv[]) {
   ft_memset(&ctx, 0, sizeof(ctx));
 
   arg.c = argc;
-  arg.v = argv;
+  arg.v = (const char **)argv;
 
   if (ft_ssl_des_parse(&des, argc - 1, argv + 1) == FT_EXFAIL)
     return (FT_EXFAIL);

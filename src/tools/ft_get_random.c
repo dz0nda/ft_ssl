@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_random.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:43:12 by dzonda            #+#    #+#             */
-/*   Updated: 2021/08/12 17:18:29 by user42           ###   ########lyon.fr   */
+/*   Updated: 2021/08/12 18:10:33 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int ft_get_random(char *dst, int size) {
   if (res < 0) {
     return (-1);
   }
-  // ft_memcpy(dst, myRandomData, 8);
 
   return (res);
 }

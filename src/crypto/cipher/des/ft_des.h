@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_des.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 12:18:59 by dzonda            #+#    #+#             */
-/*   Updated: 2021/08/08 14:44:39 by user42           ###   ########lyon.fr   */
+/*   Updated: 2021/08/12 17:50:46 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_DES_H
 #define FT_DES_H
 
-#include <bsd/readpassphrase.h>
+// #include <bsd/readpassphrase.h>
 
 #include "../../../ft_ssl_global.h"
 #include "../../dgst/udgst/ft_udgst.h"

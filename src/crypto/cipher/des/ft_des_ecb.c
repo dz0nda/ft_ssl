@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_des_ecb.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 12:18:59 by dzonda            #+#    #+#             */
-/*   Updated: 2021/08/08 16:51:33 by user42           ###   ########lyon.fr   */
+/*   Updated: 2021/08/12 17:57:16 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int ft_des_ecb_encrypt(char *key, char *msg, int msg_len, char **cipher) {
 
   int i = 0;
   while (i < len) {
-    ft_des_exec(&(*cipher)[i], subkeys, &(*cipher)[i]);
+    ft_des_exec((t_uchar *)&(*cipher)[i], subkeys, &(*cipher)[i]);
     i += 8;
   }
 
@@ -62,7 +62,7 @@ int ft_des_ecb_decrypt(char *key, char *msg, int msg_len, char **cipher) {
 
   int i = 0;
   while (i < len) {
-    ft_des_exec(&(*cipher)[i], subkeys, &(*cipher)[i]);
+    ft_des_exec((t_uchar *)&(*cipher)[i], subkeys, &(*cipher)[i]);
     i += 8;
   }
 

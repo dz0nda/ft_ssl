@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_des_cbc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 12:18:59 by dzonda            #+#    #+#             */
-/*   Updated: 2021/08/10 23:40:19 by user42           ###   ########lyon.fr   */
+/*   Updated: 2022/02/11 12:18:59 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int ft_des_cbc_encrypt(char *key, char *msg, int msg_len, char **cipher,
       (*cipher)[i + j] ^= iv[j];
     }
 
-    ft_des_exec(&(*cipher)[i], subkeys, &(*cipher)[i]);
+    ft_des_exec((t_uchar *)&(*cipher)[i], subkeys, &(*cipher)[i]);
     ft_memcpy(iv, &(*cipher)[i], 8);
 
     i += 8;
@@ -72,7 +72,7 @@ int ft_des_cbc_decrypt(char *key, char *msg, int msg_len, char **cipher,
   int i = 0;
   while (i < len) {
     ft_memcpy(t, &(*cipher)[i], 8);
-    ft_des_exec(&(*cipher)[i], subkeys, &(*cipher)[i]);
+    ft_des_exec((t_uchar *)&(*cipher)[i], subkeys, &(*cipher)[i]);
 
     int j = -1;
     while (++j < 8) {

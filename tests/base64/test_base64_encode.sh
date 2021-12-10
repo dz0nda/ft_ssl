@@ -5,20 +5,20 @@ TEST_BASE64_ENCODE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null &&
 
 test_base64_encode ()
 {
-	printf "base64 -> %s" "$1"
+	printf "base64 encode -> %s" "$1"
  
   (echo "$2" | eval ${BASE64_PERSO}) > my_base64
   (echo "$2" | eval ${BASE64_ORIGIN}) > origin_base64
 
 	test_check my_base64 origin_base64
 
-	rm my_base64
-	rm origin_base64
+	# rm my_base64
+	# rm origin_base64
 }
 
 test_base64_encode_file ()
 {
-	printf "base64 -> %s" "$1"
+	printf "base64 encode file -> %s" "$1"
  
 	echo "$2" > tmp
 

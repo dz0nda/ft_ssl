@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TEST_BASE64_DECODE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+TEST_BASE64_DECODE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )"
 . "$TEST_BASE64_DECODE_DIR/../tools/checker.sh"
 
 test_base64_decode ()
@@ -27,7 +27,7 @@ test_base64_decode_file ()
 
 	test_check my_base64 origin_base64
 
-	rm tmp
-	rm my_base64
-	rm origin_base64
+	# rm tmp
+	# rm my_base64
+	# rm origin_base64
 }

@@ -13,8 +13,6 @@
 #ifndef FT_KDF_H
 #define FT_KDF_H
 
-#include <bsd/readpassphrase.h>
-
 #include "../../../ft_ssl_global.h"
 #include "../../dgst/udgst/ft_udgst.h"
 
