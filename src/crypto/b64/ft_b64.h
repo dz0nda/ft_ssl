@@ -13,7 +13,7 @@
 #ifndef FT_B64_H
 #define FT_B64_H
 
-#include "../../../ft_ssl_global.h"
+#include "../../ft_ssl_global.h"
 
 /*
 **	Encode

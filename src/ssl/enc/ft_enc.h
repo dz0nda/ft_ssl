@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ssl_cipher.h                                    :+:      :+:    :+:   */
+/*   ft_enc.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,11 +13,11 @@
 #ifndef FT_SSL_CIPHER_H
 #define FT_SSL_CIPHER_H
 
-#include "../../crypto/cipher/b64/ft_b64.h"
-#include "../../crypto/cipher/des/ft_des.h"
-#include "../../crypto/cipher/kdf/ft_kdf.h"
-#include "./ssl_b64/ft_ssl_b64.h"
-#include "./ssl_des/ft_ssl_des.h"
+#include "../../crypto/b64/ft_b64.h"
+#include "../../crypto/des/ft_des.h"
+#include "../../crypto/kdf/ft_kdf.h"
+#include "ssl_b64/ft_ssl_b64.h"
+#include "ssl_des/ft_ssl_des.h"
 
 #define FT_SSL_CIPHER_NOT_FOUND -42
 

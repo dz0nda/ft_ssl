@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl_dgst.h"
+#include "ft_dgst.h"
 
 static void		ft_ssl_dgst_err_usage(char *cmd)
 {

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ssl_core.h                                      :+:      :+:    :+:   */
+/*   ft_core.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,8 +13,8 @@
 #ifndef FT_SSL_CORE_H
 # define FT_SSL_CORE_H
 
-# include "../ssl_dgst/ft_ssl_dgst.h"
-# include "../ssl_cipher/ft_ssl_cipher.h"
+# include "../dgst/ft_dgst.h"
+# include "../enc/ft_enc.h"
 
 # define FTSSL_SHMAX_CMD        8192
 # define FTSSL_SHMAX_BUFFER     8192

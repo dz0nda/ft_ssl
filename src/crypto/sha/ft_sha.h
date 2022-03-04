@@ -13,7 +13,7 @@
 #ifndef FT_SHA_H
 # define FT_SHA_H
 
-# include "../../../ft_ssl_global.h"
+# include "../../ft_ssl_global.h"
 
 # define FT_DGST_ENDIAN_LITTLE    0
 # define FT_DGST_ENDIAN_BIG       1

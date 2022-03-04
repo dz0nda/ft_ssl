@@ -13,8 +13,8 @@
 #ifndef FT_SSL_DES_H
 #define FT_SSL_DES_H
 
-#include "../../../crypto/cipher/des/ft_des.h"
-#include "../../../crypto/cipher/kdf/ft_kdf.h"
+#include "../../../crypto/des/ft_des.h"
+#include "../../../crypto/kdf/ft_kdf.h"
 #include "../ssl_b64/ft_ssl_b64.h"
 
 #define FT_SSL_DES_ENCODE 0

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl_cipher.h"
+#include "ft_enc.h"
 
 t_ftssl_cipher_dist		g_ftssl_cipher_dist[FT_SSL_CIPHER_DIST] = {
 	{ "base64", FT_SSL_BASE64 },

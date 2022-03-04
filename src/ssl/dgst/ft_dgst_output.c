@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl_dgst.h"
+#include "ft_dgst.h"
 
 int		ft_ssl_dgst_output_string(t_ftssl_dgst *ctx, char *arg, char *md)
 {

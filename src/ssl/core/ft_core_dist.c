@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl_core.h"
+#include "ft_core.h"
 
 int		ft_ssl_core_dist(int argc, char *argv[])
 {

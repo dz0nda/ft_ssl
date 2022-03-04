@@ -13,7 +13,7 @@
 #ifndef FT_KDF_H
 #define FT_KDF_H
 
-#include "../../../ft_ssl_global.h"
+#include "../../ft_ssl_global.h"
 #include "../udgst/ft_udgst.h"
 
 /*

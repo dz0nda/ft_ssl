@@ -13,7 +13,7 @@
 #ifndef FT_SSL_H
 #define FT_SSL_H
 
-#include "./ssl_core/ft_ssl_core.h"
+#include "./core/ft_core.h"
 
 typedef struct s_ftssl_dist
 {

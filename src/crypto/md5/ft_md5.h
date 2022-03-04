@@ -13,7 +13,7 @@
 #ifndef FT_MD5_H
 # define FT_MD5_H
 
-# include "../../../ft_ssl_global.h"
+# include "../../ft_ssl_global.h"
 
 typedef enum		e_md5_enum
 {

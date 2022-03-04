@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl_core.h"
+#include "ft_core.h"
 
 static void		ft_ssl_shell_parse(t_ftssl_sh *sh, char *buffer)
 {

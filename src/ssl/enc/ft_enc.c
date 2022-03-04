@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl_cipher.h"
+#include "ft_enc.h"
 
 int		ft_ssl_cipher_dist(t_ssl_cipher *ctx, int argc, char *argv[])
 {

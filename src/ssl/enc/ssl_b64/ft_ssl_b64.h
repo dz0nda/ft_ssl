@@ -13,7 +13,7 @@
 #ifndef FT_SSL_BASE64_H
 #define FT_SSL_BASE64_H
 
-#include "../../../crypto/cipher/b64/ft_b64.h"
+#include "../../../crypto/b64/ft_b64.h"
 
 typedef int t_ftssl_cipher_ft(int argc, char *argv[]);
 
