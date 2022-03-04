@@ -16,7 +16,7 @@
 // #include <bsd/readpassphrase.h>
 
 #include "../../../ft_ssl_global.h"
-#include "../../dgst/udgst/ft_udgst.h"
+#include "../udgst/ft_udgst.h"
 
 #define FT_BYTE_LEN 8
 

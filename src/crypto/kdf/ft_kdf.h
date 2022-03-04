@@ -14,7 +14,7 @@
 #define FT_KDF_H
 
 #include "../../../ft_ssl_global.h"
-#include "../../dgst/udgst/ft_udgst.h"
+#include "../udgst/ft_udgst.h"
 
 /*
 **	KDF
