@@ -41,7 +41,7 @@ DEPS = $(OBJS:.o=.d)
 CC = gcc
 CFLAGS = -g -g3#-Wall -Wextra -Werror -Wunused -Wunreachable-code
 LDFLAGS = -Llibft
-LDLIBS = -lft -lbsd # for readpassphrase
+LDLIBS = -lft #-lbsd # for readpassphrase
 
 MAKEFILE_NAME = Makefile-$(lastword $(subst /, ,$(NAME)))
 VERBOSE = FALSE
