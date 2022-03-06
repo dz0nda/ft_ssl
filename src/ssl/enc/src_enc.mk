@@ -1,5 +1,6 @@
 SUBDIRS_ENC = \
 			ssl/enc \
+			ssl/enc/cli \
 			ssl/enc/ssl_b64 \
 			ssl/enc/ssl_b64/options \
 			ssl/enc/ssl_b64/execute \
@@ -9,6 +10,9 @@ SUBDIRS_ENC = \
 
 SUBFILES_ENC = \
 			ssl/enc/ft_enc.c \
+			ssl/enc/cli/ft_enc_options.c \
+			ssl/enc/cli/ft_enc_ciphers.c \
+			ssl/enc/cli/ft_enc_help.c \
 			\
 			ssl/enc/ssl_b64/ft_ssl_b64.c \
 			ssl/enc/ssl_b64/options/ft_ssl_b64_parse.c \

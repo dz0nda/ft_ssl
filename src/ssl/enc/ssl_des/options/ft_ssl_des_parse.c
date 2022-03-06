@@ -12,7 +12,7 @@
 
 #include "../ft_ssl_des.h"
 
-static int ft_ssl_des_option_err(t_ssl_des *ctx, int argc, char *argv[]) {
+static int ft_ssl_des_option_err(t_ssl_des* ctx, int argc, char* argv[]) {
   ft_putstr_fd("des: ", STDERR_FILENO);
   ft_putstr_fd(argv[ctx->argi], STDERR_FILENO);
   ft_putstr_fd(": ", STDERR_FILENO);
@@ -28,8 +28,8 @@ static int ft_ssl_des_option_err(t_ssl_des *ctx, int argc, char *argv[]) {
  * Returns:
  *   function pointer or des error
  */
-int ft_ssl_des_dispatch_opt(t_ssl_des *ctx, int argc, char *argv[]) {
-  static t_ssl_des_opt_d ft_ssl_cipher_opt[FT_SSL_DES_OPT] = {
+int ft_ssl_des_dispatch_opt(t_ssl_des* ctx, int argc, char* argv[]) {
+  static t_ssl_des_opt_d ft_enc_opt[FT_SSL_DES_OPT] = {
       {FT_SSL_DES_OPT_A, "a", ft_ssl_des_opt_a},
       {FT_SSL_DES_OPT_D, "d", ft_ssl_des_opt_d},
       {FT_SSL_DES_OPT_E, "e", ft_ssl_des_opt_e},
@@ -41,13 +41,13 @@ int ft_ssl_des_dispatch_opt(t_ssl_des *ctx, int argc, char *argv[]) {
       {FT_SSL_DES_OPT_O, "v", ft_ssl_des_opt_v},
   };
   int opt_key;
-  char *opt;
+  char* opt;
 
   opt_key = -1;
   opt = argv[ctx->argi] + 1;
   while (++opt_key < FT_SSL_DES_OPT)
-    if (ft_strequ(opt, ft_ssl_cipher_opt[opt_key].opt_name))
-      return (ft_ssl_cipher_opt[opt_key].opt_dist(ctx, argc, argv));
+    if (ft_strequ(opt, ft_enc_opt[opt_key].opt_name))
+      return (ft_enc_opt[opt_key].opt_dist(ctx, argc, argv));
   return (ft_ssl_des_option_err(ctx, argc, argv));
 }
 
@@ -59,7 +59,7 @@ int ft_ssl_des_dispatch_opt(t_ssl_des *ctx, int argc, char *argv[]) {
  * Returns:
  *   FT_EXFAIL if the opt function fail, otherwise FT_EXOK
  */
-int ft_ssl_des_parse(t_ssl_des *ctx, int argc, char *argv[]) {
+int ft_ssl_des_parse(t_ssl_des* ctx, int argc, char* argv[]) {
   while (ctx->argi < argc) {
     if (!ft_isopt(argv[ctx->argi])) break;
     if (ft_ssl_des_dispatch_opt(ctx, argc, argv) == FT_EXFAIL)

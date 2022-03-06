@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 22:12:50 by dzonda            #+#    #+#             */
-/*   Updated: 2021/08/12 18:04:34 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2022/03/05 14:50:02 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	ft_ssl_error(int argc, char *argv[])
 	(void)argc;
 	ft_putstr_fd("ftssl:Error: '", STDERR_FILENO);
 	ft_putstr_fd(argv[0], STDERR_FILENO);
-	ft_putendl_fd("' is an invalid command.\n", STDERR_FILENO);
+		ft_putendl_fd("' is an invalid command.\n", STDERR_FILENO);
 	ft_ssl_usage();
 	return (EXIT_SUCCESS);
 }
@@ -26,7 +26,7 @@ static int	ft_ssl_dispatch(int argc, char *argv[])
 {
 	static t_ftssl_dist_t	ftssl_dist[FTSSL_DIST] = {
 		{ FTSSL_DGST, ft_ssl_dgst },
-		{ FTSSL_CIPHER, ft_ssl_cipher },
+		{ FTSSL_CIPHER, ft_enc },
 		{ FTSSL_CORE, ft_ssl_core }
 	};
 	int						key_dist;

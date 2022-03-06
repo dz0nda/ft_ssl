@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ssl_cipher_dist.c                               :+:      :+:    :+:   */
+/*   ft_enc_dist.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -17,7 +17,7 @@ t_ftssl_cipher_dist		g_ftssl_cipher_dist[FT_SSL_CIPHER_DIST] = {
 	{ "des", FT_SSL_DES }
 };
 
-int		ft_ssl_cipher_dist(int argc, char *argv[])
+int		ft_enc_dist(int argc, char *argv[])
 {
 	static t_ftssl_cipher_dist	ftssl_cipher_dist[FT_SSL_CIPHER_DIST] = {
 		{ "base64", FT_SSL_BASE64 },

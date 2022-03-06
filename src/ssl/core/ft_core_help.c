@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ssl_help.c                                      :+:      :+:    :+:   */
+/*   ft_core_help.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 21:13:21 by dzonda            #+#    #+#             */
-/*   Updated: 2020/12/21 13:42:33 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2022/03/05 14:13:54 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		ft_ssl_usage(void)
 	static t_ftssl_core_usage_dist		ftssl_usage_dist[FTSSL_DIST] = {
 		{ "Help commands:", ft_ssl_core },
 		{ "Message Digest commands:", ft_ssl_dgst },
-		{ "Cipher commands:", ft_ssl_cipher },
+		{ "Cipher commands:", ft_enc },
 	};
 	int									key_dist;
 

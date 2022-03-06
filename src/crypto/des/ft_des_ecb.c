@@ -6,30 +6,31 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 12:18:59 by dzonda            #+#    #+#             */
-/*   Updated: 2021/08/12 17:57:16 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2022/03/05 19:10:51 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_des.h"
 
-int ft_des_ecb_encrypt(char *key, char *msg, int msg_len, char **cipher) {
+int ft_des_ecb_encrypt(char* key, char* msg, int msg_len, char** cipher, char* iv) {
   // t_des ctx;
   t_uint64 nkey = 0;
-  t_des_subkeys subkeys = {0};
+  t_des_subkeys subkeys = { 0 };
 
   // ft_memset(&ctx, 0, sizeof(ctx));
 
   // ft_memcpy(&ctx.nkey, key, 8);
   ft_memcpy(&nkey, key, 8);
 
-  int len = ft_des_pad(msg, msg_len, cipher);
+  int len =
+    ft_des_pad(msg, msg_len, cipher);
 
   // ft_des_gensubkeys(key, ctx.ks, 0);
   ft_des_gensubkeys(nkey, subkeys, 0);
 
   int i = 0;
   while (i < len) {
-    ft_des_exec((t_uchar *)&(*cipher)[i], subkeys, &(*cipher)[i]);
+    ft_des_exec((t_uchar*)&(*cipher)[i], subkeys, &(*cipher)[i]);
     i += 8;
   }
 
@@ -37,20 +38,26 @@ int ft_des_ecb_encrypt(char *key, char *msg, int msg_len, char **cipher) {
   // printf("%s\n", *cipher);
 }
 
-int ft_des_ecb_decrypt(char *key, char *msg, int msg_len, char **cipher) {
+int ft_des_ecb_decrypt(
+  char* key,
+  char* msg,
+  int msg_len,
+  char** cipher,
+  char* iv) {
   // printf("des decode:\n");
   // t_des ctx;
   t_uint64 nkey = 0;
-  t_des_subkeys subkeys = {0};
+  t_des_subkeys subkeys = { 0 };
 
   int len = msg_len;
 
-  *cipher = (char *)ft_memalloc(len);
+  *cipher = (char*)ft_memalloc(len);
 
   if (ft_strncmp("Salted__", &msg[0], 8) == 0) {
     len -= 16;
     ft_memcpy(cipher[0], &msg[16], len);
-  } else {
+  }
+  else {
     ft_memcpy(cipher[0], msg, len);
   }
 
@@ -62,7 +69,7 @@ int ft_des_ecb_decrypt(char *key, char *msg, int msg_len, char **cipher) {
 
   int i = 0;
   while (i < len) {
-    ft_des_exec((t_uchar *)&(*cipher)[i], subkeys, &(*cipher)[i]);
+    ft_des_exec((t_uchar*)&(*cipher)[i], subkeys, &(*cipher)[i]);
     i += 8;
   }
 

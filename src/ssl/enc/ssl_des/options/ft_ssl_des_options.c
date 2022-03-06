@@ -21,7 +21,7 @@
  * Returns:
  *   FT_EXOK
  */
-int ft_ssl_des_opt_a(t_ssl_des *ctx, int argc, char *argv[]) {
+int ft_ssl_des_opt_a(t_ssl_des* ctx, int argc, char* argv[]) {
   ctx->opt.encode = FT_DES_B64_CODE;
   return (FT_EXOK);
 }
@@ -34,7 +34,7 @@ int ft_ssl_des_opt_a(t_ssl_des *ctx, int argc, char *argv[]) {
  * Returns:
  *   FT_EXOK
  */
-int ft_ssl_des_opt_d(t_ssl_des *ctx, int argc, char *argv[]) {
+int ft_ssl_des_opt_d(t_ssl_des* ctx, int argc, char* argv[]) {
   // if (ctx->opt.mode == FT_DES_ECB_ENC || ctx->opt.mode == FT_DES_ECB_DEC)
   //   ctx->opt.mode = FT_DES_ECB_DEC;
   // else
@@ -51,7 +51,7 @@ int ft_ssl_des_opt_d(t_ssl_des *ctx, int argc, char *argv[]) {
  * Returns:
  *   FT_EXOK
  */
-int ft_ssl_des_opt_e(t_ssl_des *ctx, int argc, char *argv[]) {
+int ft_ssl_des_opt_e(t_ssl_des* ctx, int argc, char* argv[]) {
   // if (ctx->opt.mode == FT_DES_ECB_ENC || ctx->opt.mode == FT_DES_ECB_DEC)
   //   ctx->opt.mode = FT_DES_ECB_ENC;
   // else
@@ -68,7 +68,7 @@ int ft_ssl_des_opt_e(t_ssl_des *ctx, int argc, char *argv[]) {
  * Returns:
  *   FT_EXOK or FT_EXFAIL if argument is NULL
  */
-int ft_ssl_des_opt_i(t_ssl_des *ctx, int argc, char *argv[]) {
+int ft_ssl_des_opt_i(t_ssl_des* ctx, int argc, char* argv[]) {
   if ((ctx->opt.input = argv[++ctx->argi]) == NULL) return (FT_EXFAIL);
   return (FT_EXOK);
 }
@@ -81,7 +81,7 @@ int ft_ssl_des_opt_i(t_ssl_des *ctx, int argc, char *argv[]) {
  * Returns:
  *   FT_EXOK or FT_EXFAIL if argument is NULL
  */
-int ft_ssl_des_opt_k(t_ssl_des *ctx, int argc, char *argv[]) {
+int ft_ssl_des_opt_k(t_ssl_des* ctx, int argc, char* argv[]) {
   if (!ft_ishexstr(argv[++ctx->argi])) return (FT_EXFAIL);
   ft_memcpy(ctx->opt.key, argv[ctx->argi], sizeof(ctx->opt.key));
   return (FT_EXOK);
@@ -95,7 +95,7 @@ int ft_ssl_des_opt_k(t_ssl_des *ctx, int argc, char *argv[]) {
  * Returns:
  *   FT_EXOK or FT_EXFAIL if argument is NULL
  */
-int ft_ssl_des_opt_o(t_ssl_des *ctx, int argc, char *argv[]) {
+int ft_ssl_des_opt_o(t_ssl_des* ctx, int argc, char* argv[]) {
   if ((ctx->opt.output = argv[++ctx->argi]) == NULL) return (FT_EXFAIL);
   return (FT_EXOK);
 }
@@ -108,11 +108,11 @@ int ft_ssl_des_opt_o(t_ssl_des *ctx, int argc, char *argv[]) {
  * Returns:
  *   FT_EXOK or FT_EXFAIL if argument is NULL
  */
-int ft_ssl_des_opt_p(t_ssl_des *ctx, int argc, char *argv[]) {
+int ft_ssl_des_opt_p(t_ssl_des* ctx, int argc, char* argv[]) {
   if ((argv[++ctx->argi]) == NULL) return (FT_EXFAIL);
   ft_memcpy(
-      ctx->opt.pass, argv[ctx->argi],
-      (ft_strlen(argv[ctx->argi]) > 256) ? 256 : ft_strlen(argv[ctx->argi]));
+    ctx->opt.pass, argv[ctx->argi],
+    (ft_strlen(argv[ctx->argi]) > 256) ? 256 : ft_strlen(argv[ctx->argi]));
   return (FT_EXOK);
 }
 
@@ -124,7 +124,7 @@ int ft_ssl_des_opt_p(t_ssl_des *ctx, int argc, char *argv[]) {
  * Returns:
  *   FT_EXOK or FT_EXFAIL if argument is NULL
  */
-int ft_ssl_des_opt_s(t_ssl_des *ctx, int argc, char *argv[]) {
+int ft_ssl_des_opt_s(t_ssl_des* ctx, int argc, char* argv[]) {
   if (!ft_ishexstr(argv[++ctx->argi])) return (FT_EXFAIL);
   ft_memcpy(ctx->opt.salt, argv[ctx->argi], sizeof(ctx->opt.salt));
   return (FT_EXOK);
@@ -138,7 +138,7 @@ int ft_ssl_des_opt_s(t_ssl_des *ctx, int argc, char *argv[]) {
  * Returns:
  *   FT_EXOK or FT_EXFAIL if argument is NULL
  */
-int ft_ssl_des_opt_v(t_ssl_des *ctx, int argc, char *argv[]) {
+int ft_ssl_des_opt_v(t_ssl_des* ctx, int argc, char* argv[]) {
   if (!ft_ishexstr(argv[++ctx->argi])) return (FT_EXFAIL);
   ft_memcpy(ctx->opt.iv, argv[ctx->argi], sizeof(ctx->opt.iv));
   return (FT_EXOK);
