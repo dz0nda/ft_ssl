@@ -6,34 +6,34 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 19:11:57 by dzonda            #+#    #+#             */
-/*   Updated: 2022/03/06 23:19:37 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2022/03/11 10:12:40 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_ssl_des.h"
 
-int ft_enc_get_key(t_ssl_des* ctx) {
-  t_uint64 toint = 0;
+// int ft_enc_get_key(t_ssl_des* ctx) {
+//   t_uint64 toint = 0;
 
-  if (!ft_strlen(ctx->opt.key)) {
-    if (!ft_strlen(ctx->opt.pass)) ft_get_pass(ctx->opt.pass, 256);
+//   if (!ft_strlen(ctx->opt.key)) {
+//     if (!ft_strlen(ctx->opt.pass)) ft_get_pass(ctx->opt.pass, 256);
 
-    if (!ft_strlen(ctx->opt.salt)) ft_get_random(ctx->opt.salt, 8);
+//     if (!ft_strlen(ctx->opt.salt)) ft_get_random(ctx->opt.salt, 8);
 
-    toint = ft_hextoi(ctx->opt.salt);
-    ft_memcpy(ctx->opt.salt, &toint, sizeof(toint));
+//     toint = ft_hextoi(ctx->opt.salt);
+//     ft_memcpy(ctx->opt.salt, &toint, sizeof(toint));
 
-    ft_kdf(ctx->opt.pass, (t_uchar*)ctx->opt.salt, ctx->opt.key, ctx->opt.iv);
-  }
+//     ft_kdf(ctx->opt.pass, (t_uchar*)ctx->opt.salt, ctx->opt.key, ctx->opt.iv);
+//   }
 
-  toint = ft_hextoi(ctx->opt.key);
-  ft_memcpy(ctx->opt.key, &toint, sizeof(toint));
+//   toint = ft_hextoi(ctx->opt.key);
+//   ft_memcpy(ctx->opt.key, &toint, sizeof(toint));
 
-  toint = ft_hextoi(ctx->opt.iv);
-  ft_memcpy(ctx->opt.iv, &toint, sizeof(toint));
+//   toint = ft_hextoi(ctx->opt.iv);
+//   ft_memcpy(ctx->opt.iv, &toint, sizeof(toint));
 
-  return (FT_EXOK);
-}
+//   return (FT_EXOK);
+// }
 
 int ft_ssl_des_exec_key(t_ssl_des* ctx) {
   t_uint64 toint = 0;
@@ -50,7 +50,10 @@ int ft_ssl_des_exec_key(t_ssl_des* ctx) {
   }
 
   toint = ft_hextoi(ctx->opt.key);
+  printf("%llu\n", toint);
+
   ft_memcpy(ctx->opt.key, &toint, sizeof(toint));
+  printf("%x\n", ctx->opt.key);
 
   toint = ft_hextoi(ctx->opt.iv);
   ft_memcpy(ctx->opt.iv, &toint, sizeof(toint));

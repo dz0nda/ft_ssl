@@ -6,13 +6,13 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 22:13:32 by dzonda            #+#    #+#             */
-/*   Updated: 2022/03/06 22:55:41 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2022/03/12 19:25:15 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "ft_enc_cli.h"
 
-const t_enc_opt enc_opt[FT_ENC_OPT_MAX] = {
+const t_enc_opt_t opt_table[FT_ENC_OPT_MAX] = {
     {
         FT_ENC_OPT_A,
         "a",
@@ -79,8 +79,8 @@ void ft_enc_opt_dispatch(char** ctx, int argc, char* argv[]) {
     // char* arg = *(argv)+1;
     while (++i < FT_ENC_OPT_MAX) {
         const* arg = *(ctx + enc_opt[i].opt_key);
-        if (ft_strequ(*(argv)+1, enc_opt[i].opt_name)) {
-            enc_opt[i].ft(ctx[enc_opt[i].opt_key], argc, argv + 1);
+        if (ft_strequ(*(argv)+1, opt_table[i].opt_name)) {
+            opt_table[i].ft(ctx[opt_table[i].opt_key], argc, argv + 1);
         }
     }
 }

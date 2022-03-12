@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 22:13:32 by dzonda            #+#    #+#             */
-/*   Updated: 2022/03/06 23:08:21 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2022/03/12 15:37:30 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,15 @@ typedef enum e_ssl_cipher_key {
 // # define FT_SALT_LEN    sizeof(char) * 17
 // # define FT_IV_LEN      sizeof(char) * 17
 
+typedef struct s_cipher
+{
+  char pass[FT_PASS_LEN];
+  char key[FT_KEY_LEN];
+  char salt[FT_SALT_LEN];
+  char iv[FT_IV_LEN];
+} t_ciph;
+
+
 
 typedef struct s_enc {
   char* in;
@@ -94,6 +103,10 @@ typedef struct s_enc {
   char* ctx[FT_ENC_OPT_MAX];
 } t_enc;
 
+int ft_enc(int argc, char* argv[]);
+int ft_enc_get_key(t_ciph* enc_ciph, char* ctx[FT_ENC_OPT_MAX]);
+
+
 typedef struct s_ssl_cipher_dist {
   char* dist_name;
   int  dist_key;
@@ -105,6 +118,7 @@ typedef struct s_ssl_cipher {
   t_ssl_cipher_dist dist;
 } t_ssl_cipher;
 
-int ft_enc(int argc, char* argv[]);
+int		ft_enc_old(int argc, char* argv[]);
+
 
 #endif

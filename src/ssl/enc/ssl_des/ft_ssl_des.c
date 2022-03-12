@@ -12,7 +12,7 @@
 
 #include "ft_ssl_des.h"
 
-int ft_ouptput(char *file, char *output, int breaker) {
+int ft_ouptput(char* file, char* output, int breaker) {
   int fd;
   int i;
   int length;
@@ -22,7 +22,7 @@ int ft_ouptput(char *file, char *output, int breaker) {
   i = 0;
   length = breaker;
   if (file != NULL &&
-      (fd = open(file, O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR)) == -1)
+    (fd = open(file, O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR)) == -1)
     return (0);
 
   // if (breaker > 0) {
@@ -39,10 +39,10 @@ int ft_ouptput(char *file, char *output, int breaker) {
   return (length);
 }
 
-static int ft_ssl_des_init(t_ssl_des_ctx *ctx, const char *cmd) {
-  const t_map_istr des_mode[FT_DES_MODE_MAX] = {{FT_DES_ECB, "ecb"},
-                                                {FT_DES_CBC, "cbc"}};
-  char **cmd_split = NULL;
+static int ft_ssl_des_init(t_ssl_des_ctx* ctx, const char* cmd) {
+  const t_map_istr des_mode[FT_DES_MODE_MAX] = { {FT_DES_ECB, "ecb"},
+                                                {FT_DES_CBC, "cbc"} };
+  char** cmd_split = NULL;
   int key = -1;
 
   if ((cmd_split = ft_strsplit(cmd, '-')) == NULL) {
@@ -62,7 +62,7 @@ static int ft_ssl_des_init(t_ssl_des_ctx *ctx, const char *cmd) {
   return (FT_EXOK);
 }
 
-int ft_ssl_des(int argc, char *argv[]) {
+int ft_ssl_des(int argc, char* argv[]) {
   t_arg arg;
   t_ssl_des des;
   t_ssl_des_opt opt;
@@ -74,7 +74,7 @@ int ft_ssl_des(int argc, char *argv[]) {
   ft_memset(&ctx, 0, sizeof(ctx));
 
   arg.c = argc;
-  arg.v = (const char **)argv;
+  arg.v = (const char**)argv;
 
   if (ft_ssl_des_parse(&des, argc - 1, argv + 1) == FT_EXFAIL)
     return (FT_EXFAIL);
@@ -88,7 +88,8 @@ int ft_ssl_des(int argc, char *argv[]) {
 
   if (opt.mode == FT_DES_ENC) {
     ft_ssl_des_exec_enc(ctx, opt);
-  } else {
+  }
+  else {
     ft_ssl_des_exec_dec(ctx, opt);
   }
 

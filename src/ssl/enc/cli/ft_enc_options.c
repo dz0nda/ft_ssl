@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 17:49:26 by dzonda            #+#    #+#             */
-/*   Updated: 2022/03/06 09:50:35 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2022/03/07 22:20:33 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,16 @@ char* ft_enc_opt_k(char* ctx, int argc, char* argv[]) {
   // if (!ft_ishexstr(*argv) {
   //   return (FT_EXFAIL);
   // }
-  int len = ft_strlen(*argv);
+  // int len = ft_strlen(*argv);
 
-  if (!len) {
-    return (FT_EXFAIL); // Missiing arg
-  }
+  // if (!len) {
+  //   return (FT_EXFAIL); // Missiing arg
+  // }
 
-  ft_bzero(ctx, FT_KEY_LEN);
-  ft_memcpy(ctx, *argv, len > FT_KEY_LEN ? FT_KEY_LEN : len);
+  // ft_bzero(ctx, FT_KEY_LEN);
+  // ft_memcpy(ctx, *argv, len > FT_KEY_LEN ? FT_KEY_LEN : len);
 
-  return (FT_EXOK);
+  return (*argv);
 }
 
 /*

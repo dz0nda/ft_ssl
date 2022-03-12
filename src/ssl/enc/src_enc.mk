@@ -10,6 +10,8 @@ SUBDIRS_ENC = \
 
 SUBFILES_ENC = \
 			ssl/enc/ft_enc.c \
+			ssl/enc/ft_enc_key.c \
+			ssl/enc/ft_enc_old.c \
 			ssl/enc/cli/ft_enc_options.c \
 			ssl/enc/cli/ft_enc_ciphers.c \
 			ssl/enc/cli/ft_enc_help.c \

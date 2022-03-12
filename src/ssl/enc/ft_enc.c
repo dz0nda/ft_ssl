@@ -12,59 +12,29 @@
 
 #include "ft_enc.h"
 
-int		ft_enc_dist(t_ssl_cipher* ctx, int argc, char* argv[])
-{
-	static t_ssl_cipher_dist dist[FT_SSL_CIPHER_DIST] = {
-		{ "base64", 	FT_SSL_CIPHER_BASE64, ft_ssl_base64 },
-		{ "des", 		FT_SSL_CIPHER_DES, ft_ssl_des },
-		{ "des-ecb",	FT_SSL_CIPHER_DES_ECB, ft_ssl_des },
-		{ "des-cbc", 	FT_SSL_CIPHER_DES_CBC, ft_ssl_des },
-	};
-	// static t_ssl_cipher_dist	dist[FT_SSL_CIPHER_DIST] = {
-	// 	{ "base64", FT_SSL_CIPHER_BASE64, ft_ssl_base64 },
-	// 	{ "des", FT_SSL_CIPHER_DES, ft_ssl_des_ecb },
-	// 	{ "des-ecb", FT_SSL_CIPHER_DES_ECB, ft_ssl_des_ecb },
-	// 	{ "des-cbc", FT_SSL_CIPHER_DES_CBC, ft_ssl_des_cbc },
-	// };
-	int							dist_key;
-
-	dist_key = -1;
-	while (++dist_key < FT_SSL_CIPHER_DIST)
-	{
-		if (argc == -42)
-			ft_putendl_fd(dist[dist_key].dist_name, STDERR_FILENO);
-		else if (ft_strequ(argv[0], dist[dist_key].dist_name))
-		{
-			ctx->dist = dist[dist_key];
-			return(dist_key);
-		}
-	}
-	return (FT_SSL_CIPHER_NOT_FOUND);
-}
-
-// int		ft_enc_ciphers()
-
 int		ft_enc(int argc, char* argv[])
 {
-	// return (ft_enc_help());
-	t_ssl_cipher	ctx;
+	// return (ft_enc_old(argc, argv));
+
+	t_arg arg;
 	t_enc enc;
+	t_ciph enc_ciph;
 
-	// if (argv[0] != "enc") {
-		// parse_alias_command(&ctx, argv[0]) 
-	//}
-
-	// while ()
-	//	parse_ciphername(&ctx, argc, argv)
-
-	// printsf("%s-%s\n", argv[0], argv[1]);
-
-	argv++;
+	ft_memset(&arg, 0, sizeof(arg));
 	ft_memset(&enc, 0, sizeof(enc));
+	ft_memset(&enc_ciph, 0, sizeof(enc_ciph));
+
+	argv++; // todo
+	// if (!ft_strequ("enc", argv[0])) {
+	// 	if (ft_enc_get_ciph(enc.cipher, *argv) == FT_EXFAIL) {
+	// 		printf("errooor\n");
+	// 		// return (FT_EXFAIL);
+	// 	}
+	// 	argc -= 1;
+	// 	argv += 1;
+	// }
 
 	ft_enc_opt_init(enc.enc_opt);
-
-	int i = -1;
 
 	/* Get ciphers (-des, -des-ecb, ...) */
 	while (*argv && ft_isopt(*argv)) {
@@ -75,7 +45,7 @@ int		ft_enc(int argc, char* argv[])
 		argv += 1;
 	}
 
-	i = -1;
+	int i = -1;
 	char* s = NULL;
 	while (*argv && ft_isopt(*argv)) {
 		while (++i < FT_ENC_OPT_MAX) {
@@ -84,33 +54,52 @@ int		ft_enc(int argc, char* argv[])
 				break;
 			}
 		}
-		// ft_enc_opt_dispatch(enc.ctx, argc, argv);
-		// printf("%s\n", *argv);
+
 		argc -= 2;
 		argv += 2;
 		i = -1;
 	}
+
+	printf("%s:%s\n", enc.ctx[FT_ENC_OPT_K], enc.ctx[FT_ENC_OPT_I]);
+
+	// // calc key
+	ft_enc_get_key(&enc_ciph, enc.ctx);
 
 	// open_input
 	t_in in;
 
 	ft_memset(&in, 0, sizeof(in));
 	in.len = ft_get_input(enc.ctx[FT_ENC_OPT_I], &in.data);
-
 	if (!in.len || !in.data) {
 		return (ft_get_input_404(enc.ctx[FT_ENC_OPT_I]));
 	}
 
+	printf("%d:%s\n", in.len, in.data);
+	printf("%x:%x\n", enc_ciph.key, enc_ciph.iv);
+
+	// // perform b64 if decrypt + b64 enabled
+
+	// // perform cipher if cypher passed
+
 	int len = 0;
 	char* cipher = NULL;
+	if (enc.cipher[0] != NULL && enc.cipher[1] != NULL) {
+		printf(".here\n");
 
-	// perform b64 if decrypt + b64 enabled
+		len = enc.cipher[0](enc_ciph.key, in.data, in.len, &cipher, enc_ciph.iv);
+	}
+	// // salt if encrypt
 
-	// perform cipher if cypher passed
+	// // perform b64 if encrypt + b64 enbled
+	// // int dst_len = ft_b64_get_encoded_len(len);
+	// // char* dst = (char*)ft_memalloc(dst_len + 1);
 
-	// perform b64 if encrypt + b64 enbled
-	// ft_memset(&ctx, 0, sizeof(ctx));
-	// if (ft_enc_dist(&ctx, argc, argv) == FT_SSL_CIPHER_NOT_FOUND)
-	// 	return (FT_SSL_CIPHER_NOT_FOUND);
-	// return (ctx.dist.dist_ft(argc, argv));
+	// ft_b64_enc(dst, dst_len, cipher, len);
+
+	// // ft_write_output(enc.ctx[FT_ENC_OPT_O], dst, 64);
+
+	ft_ouptput(enc.ctx[FT_ENC_OPT_O], cipher, len);
+
+	return (FT_EXOK);
+
 }

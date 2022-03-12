@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 17:49:26 by dzonda            #+#    #+#             */
-/*   Updated: 2022/03/06 23:14:07 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2022/03/12 15:49:58 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@
 //   char* opt;
 //   t_enc_opt_ft* ft;
 // } t_enc_opt_d;
+# define FT_ENC_E 0
+# define FT_ENC_D 1
+
+# define FT_ENC_B64 0
+# define FT_DEC_B64 1
+
 typedef char* t_enc_opt_ft(char* ctx, int argc, char* argv[]);
 
 typedef enum e_enc_option_key {
@@ -41,12 +47,22 @@ typedef enum e_enc_option_key {
   FT_ENC_OPT_MAX
 } t_enc_opt_k;
 
-typedef struct s_enc_option {
+typedef struct s_enc_option_table {
   t_enc_opt_k opt_key;
   char* opt_name;
   char* opt_description;
   t_enc_opt_ft* ft;
-} t_enc_opt;
+} t_enc_opt_t;
+
+typedef struct s_enc_cli_option {
+  char* cipher;
+  int b64;
+  char* in;
+  char* key;
+  char* out;
+  char* pass;
+  char* iv;
+} t_enc_cli_opt;
 
 /*
 **	Cyphers
@@ -83,7 +99,7 @@ typedef struct s_enc_cipher {
 
 int		ft_enc_help(void);
 
-int ft_enc_get_ciph(t_enc_ciph* cipher[2], char* name);
+int ft_enc_get_ciph(t_enc_cyph_ft* cipher[2], char* name);
 
 void ft_enc_opt_init(t_enc_opt ctx_opt[FT_ENC_OPT_MAX]);
 

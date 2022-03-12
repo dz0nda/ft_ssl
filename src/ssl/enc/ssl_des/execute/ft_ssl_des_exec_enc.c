@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 19:11:57 by dzonda            #+#    #+#             */
-/*   Updated: 2022/03/05 23:44:39 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2022/03/11 14:43:14 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ int ft_ssl_des_exec_enc(t_ssl_des_ctx ctx, t_ssl_des_opt opt) {
     ft_putstr_fd(": No such file or diectory\n", STDERR_FILENO);
     return (FT_EXFAIL);
   }
+
+  printf("%d:%s\n", input_len, input);
+  printf("%x:%x\n", opt.key, opt.iv);
 
   if (ctx.mode_key == FT_DES_ECB) {
     len = ft_des_ecb_encrypt(opt.key, input, input_len, &cipher, opt.iv);
