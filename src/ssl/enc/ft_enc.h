@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 22:13:32 by dzonda            #+#    #+#             */
-/*   Updated: 2022/03/12 15:37:30 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2022/03/14 22:17:34 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,7 @@ typedef struct s_enc {
 } t_enc;
 
 int ft_enc(int argc, char* argv[]);
-int ft_enc_get_key(t_ciph* enc_ciph, char* ctx[FT_ENC_OPT_MAX]);
-
+int ft_enc_get_key(t_ciph* enc_ciph, t_enc_opt* opt);
 
 typedef struct s_ssl_cipher_dist {
   char* dist_name;

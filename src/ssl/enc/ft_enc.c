@@ -19,12 +19,18 @@ int		ft_enc(int argc, char* argv[])
 	t_arg arg;
 	t_enc enc;
 	t_ciph enc_ciph;
+	t_enc_opt opt;
 
 	ft_memset(&arg, 0, sizeof(arg));
+	arg.c = argc;
+	arg.v = argv;
+
 	ft_memset(&enc, 0, sizeof(enc));
+	ft_memset(&opt, 0, sizeof(opt));
 	ft_memset(&enc_ciph, 0, sizeof(enc_ciph));
 
-	argv++; // todo
+	arg.c -= 1;
+	arg.v += 1;
 	// if (!ft_strequ("enc", argv[0])) {
 	// 	if (ft_enc_get_ciph(enc.cipher, *argv) == FT_EXFAIL) {
 	// 		printf("errooor\n");
@@ -34,48 +40,49 @@ int		ft_enc(int argc, char* argv[])
 	// 	argv += 1;
 	// }
 
-	ft_enc_opt_init(enc.enc_opt);
+	// ft_enc_opt_init(enc.enc_opt);
 
 	/* Get ciphers (-des, -des-ecb, ...) */
-	while (*argv && ft_isopt(*argv)) {
-		if (ft_enc_get_ciph(enc.cipher, *(argv)+1) == FT_EXFAIL) {
-			break;
+	while (*arg.v && ft_isopt(*arg.v)) {
+		if (ft_enc_get_ciph(opt.cipher, &arg) == FT_EXFAIL
+			&& ft_enc_get_opt(&opt, &arg) == FT_EXFAIL) {
+			// break;
+			printf("ew\n");
 		}
-		argc -= 1;
-		argv += 1;
 	}
 
-	int i = -1;
-	char* s = NULL;
-	while (*argv && ft_isopt(*argv)) {
-		while (++i < FT_ENC_OPT_MAX) {
-			if (ft_strequ(*(argv)+1, enc.enc_opt[i].opt_name)) {
-				enc.ctx[enc.enc_opt[i].opt_key] = enc.enc_opt[i].ft(s, argc, argv + 1);
-				break;
-			}
-		}
+	// int i = -1;
+	// char* s = NULL;
+	// while (*argv && ft_isopt(*argv)) {
+	// 	while (++i < FT_ENC_OPT_MAX) {
+	// 		if (ft_strequ(*(argv)+1, enc.enc_opt[i].opt_name)) {
+	// 			enc.ctx[enc.enc_opt[i].opt_key] = enc.enc_opt[i].ft(s, argc, argv + 1);
+	// 			break;
+	// 		}
+	// 	}
 
-		argc -= 2;
-		argv += 2;
-		i = -1;
-	}
+	// 	argc -= 2;
+	// 	argv += 2;
+	// 	i = -1;
+	// }
 
 	printf("%s:%s\n", enc.ctx[FT_ENC_OPT_K], enc.ctx[FT_ENC_OPT_I]);
+	printf("%s:%s\n", opt.key, opt.in);
 
 	// // calc key
-	ft_enc_get_key(&enc_ciph, enc.ctx);
+	ft_enc_get_key(&enc_ciph, &opt);
 
 	// open_input
 	t_in in;
 
 	ft_memset(&in, 0, sizeof(in));
-	in.len = ft_get_input(enc.ctx[FT_ENC_OPT_I], &in.data);
+	in.len = ft_get_input(opt.in, &in.data);
 	if (!in.len || !in.data) {
-		return (ft_get_input_404(enc.ctx[FT_ENC_OPT_I]));
+		return (ft_get_input_404(opt.in));
 	}
 
 	printf("%d:%s\n", in.len, in.data);
-	printf("%x:%x\n", enc_ciph.key, enc_ciph.iv);
+	// printf("%x:%x\n", enc_ciph.key, enc_ciph.iv);
 
 	// // perform b64 if decrypt + b64 enabled
 
@@ -83,10 +90,10 @@ int		ft_enc(int argc, char* argv[])
 
 	int len = 0;
 	char* cipher = NULL;
-	if (enc.cipher[0] != NULL && enc.cipher[1] != NULL) {
+	if (opt.cipher[0] != NULL && opt.cipher[1] != NULL) {
 		printf(".here\n");
 
-		len = enc.cipher[0](enc_ciph.key, in.data, in.len, &cipher, enc_ciph.iv);
+		len = opt.cipher[opt.enc](enc_ciph.key, in.data, in.len, &cipher, enc_ciph.iv);
 	}
 	// // salt if encrypt
 
@@ -98,7 +105,7 @@ int		ft_enc(int argc, char* argv[])
 
 	// // ft_write_output(enc.ctx[FT_ENC_OPT_O], dst, 64);
 
-	ft_ouptput(enc.ctx[FT_ENC_OPT_O], cipher, len);
+	ft_ouptput(opt.out, cipher, len);
 
 	return (FT_EXOK);
 

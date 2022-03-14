@@ -6,13 +6,13 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 19:11:57 by dzonda            #+#    #+#             */
-/*   Updated: 2022/03/11 15:09:47 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2022/03/14 22:17:45 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_enc.h"
 
-int ft_enc_get_key(t_ciph* enc_ciph, char* ctx[FT_ENC_OPT_MAX]) {
+int ft_enc_get_key(t_ciph* enc_ciph, t_enc_opt* opt) {
     t_uint64 toint = 0;
     char pass[256];
 
@@ -34,7 +34,7 @@ int ft_enc_get_key(t_ciph* enc_ciph, char* ctx[FT_ENC_OPT_MAX]) {
     // }
     // else {
 
-    ft_memcpy(enc_ciph->key, ctx[FT_ENC_OPT_K], FT_KEY_LEN);
+    ft_memcpy(enc_ciph->key, opt->key, FT_KEY_LEN);
     // printf("%s:%s\n", )
     // }
 
