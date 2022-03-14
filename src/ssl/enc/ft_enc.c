@@ -23,7 +23,7 @@ int		ft_enc(int argc, char* argv[])
 
 	ft_memset(&arg, 0, sizeof(arg));
 	arg.c = argc;
-	arg.v = argv;
+	arg.v = (char**)argv;
 
 	ft_memset(&enc, 0, sizeof(enc));
 	ft_memset(&opt, 0, sizeof(opt));
@@ -42,7 +42,7 @@ int		ft_enc(int argc, char* argv[])
 
 	// ft_enc_opt_init(enc.enc_opt);
 
-	/* Get ciphers (-des, -des-ecb, ...) */
+	/* Parse */
 	while (*arg.v && ft_isopt(*arg.v)) {
 		if (ft_enc_get_ciph(opt.cipher, &arg) == FT_EXFAIL
 			&& ft_enc_get_opt(&opt, &arg) == FT_EXFAIL) {
@@ -85,7 +85,19 @@ int		ft_enc(int argc, char* argv[])
 	// printf("%x:%x\n", enc_ciph.key, enc_ciph.iv);
 
 	// // perform b64 if decrypt + b64 enabled
+	if (opt.b64 && opt.enc == FT_ENC_D) {
+		in.data[--(in.len)] = '\0';
+		int dst_len = ft_b64_get_decoded_len((t_uchar*)in.data, in.len);
 
+		char* dst = (char*)ft_memalloc(dst_len + 1);
+
+		ft_b64_dec((t_uchar*)dst, dst_len, (t_uchar*)in.data, in.len);
+
+		free(in.data);
+
+		in.data = dst;
+		in.len = dst_len;
+	}
 	// // perform cipher if cypher passed
 
 	int len = 0;
@@ -101,12 +113,16 @@ int		ft_enc(int argc, char* argv[])
 	// // int dst_len = ft_b64_get_encoded_len(len);
 	// // char* dst = (char*)ft_memalloc(dst_len + 1);
 
-	// ft_b64_enc(dst, dst_len, cipher, len);
+	if (opt.b64 && opt.enc == FT_ENC_E) {
+		int dst_len = ft_b64_get_encoded_len(len);
+		char* dst = (char*)ft_memalloc(dst_len + 1);
 
-	// // ft_write_output(enc.ctx[FT_ENC_OPT_O], dst, 64);
-
-	ft_ouptput(opt.out, cipher, len);
+		ft_b64_enc(dst, dst_len, cipher, len);
+		ft_write_output(opt.out, dst, 64);
+	}
+	else {
+		ft_ouptput(opt.out, cipher, len);
+	}
 
 	return (FT_EXOK);
-
 }

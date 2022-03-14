@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 17:49:26 by dzonda            #+#    #+#             */
-/*   Updated: 2022/03/14 21:56:06 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2022/03/14 22:26:30 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
  */
 int ft_enc_opt_a(t_enc_opt* opt, t_arg* arg) {
   // ctx->opt.encode = FT_DES_B64_CODE;
-  opt->enc = FT_ENC_B64;
+  opt->b64 = FT_ENC_B64;
 
   arg->c -= 1;
   arg->v += 1;
