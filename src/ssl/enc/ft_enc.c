@@ -32,80 +32,76 @@ int ft_ssl_des_exec_salt(char** cipher, int cipher_len, char* salt) {
 	return (cipher_len + 16);
 }
 
+int ft_ouptput(char* file, char* output, int breaker) {
+	int fd;
+	int i;
+	int length;
+	// printf("LAAA\n");
+
+	fd = 1;
+	i = 0;
+	length = breaker;
+	if (file != NULL &&
+		(fd = open(file, O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR)) == -1)
+		return (0);
+
+	// if (breaker > 0) {
+	//     while (i + breaker < length) {
+	//       write(fd, &output[i], breaker);
+	//       write(fd, "\n", 1);
+	//       i += breaker;
+	//     }
+	// }
+
+	write(fd, &output[i], length);
+	// if (breaker) write(fd, "\n", 1);
+
+	return (length);
+}
+
 
 int		ft_enc(int argc, char* argv[])
 {
 	// return (ft_enc_old(argc, argv));
 
 	t_arg arg;
-	t_enc enc;
-	t_ciph enc_ciph;
 	t_enc_opt opt;
+	t_ciph enc_ciph;
 
 	ft_memset(&arg, 0, sizeof(arg));
-	arg.c = argc;
-	arg.v = (char**)argv;
-
-	ft_memset(&enc, 0, sizeof(enc));
 	ft_memset(&opt, 0, sizeof(opt));
 	ft_memset(&enc_ciph, 0, sizeof(enc_ciph));
 
-
-	// if (!ft_strequ("enc", argv[0])) {
-	// 	if (ft_enc_get_ciph(enc.cipher, *argv) == FT_EXFAIL) {
-	// 		printf("errooor\n");
-	// 		// return (FT_EXFAIL);
-	// 	}
-	// 	argc -= 1;
-	// 	argv += 1;
-	// }
-
-	// ft_enc_opt_init(enc.enc_opt);
+	arg.c = argc;
+	arg.v = (char**)argv;
 
 	/* Parse alias command */
 	if (!ft_strequ("enc", *arg.v)) {
-		// printf("%s\n", *arg.v);
 		if (ft_enc_get_ciph(opt.cipher, &arg) == FT_EXFAIL) {
-			// ft_putendl_fd(&("openssl:Error:" + "es" + "is an invalid command"), 1);
-			printf("Ivqlid command\n");
-			return (FT_EXFAIL);
+			return (-42);
+			// return (ft_enc_err_invalid_command(*arg.v));
 		}
-
-		// arg.c -= 1;
-		// arg.v += 1;
+	}
+	else {
+		arg.c -= 1;
+		arg.v += 1;
 	}
 
-	/* Parse */
+	/* Parse options */
 	while (*arg.v && ft_isopt(*arg.v)) {
 		*arg.v = *(arg.v) + 1;
 		if (ft_enc_get_ciph(opt.cipher, &arg) == FT_EXFAIL
 			&& ft_enc_get_opt(&opt, &arg) == FT_EXFAIL) {
-			// break;
-			return (FT_EXFAIL);
+			return (ft_enc_help());
 		}
 		// *arg.v = *(arg.v) - 1;
 	}
 
-	// int i = -1;
-	// char* s = NULL;
-	// while (*argv && ft_isopt(*argv)) {
-	// 	while (++i < FT_ENC_OPT_MAX) {
-	// 		if (ft_strequ(*(argv)+1, enc.enc_opt[i].opt_name)) {
-	// 			enc.ctx[enc.enc_opt[i].opt_key] = enc.enc_opt[i].ft(s, argc, argv + 1);
-	// 			break;
-	// 		}
-	// 	}
-
-	// 	argc -= 2;
-	// 	argv += 2;
-	// 	i = -1;
-	// }
-
-	// printf("%s:%s\n", enc.ctx[FT_ENC_OPT_K], enc.ctx[FT_ENC_OPT_I]);
-	// printf("%s:%s\n", opt.key, opt.in);
-
 	// // calc key
-	ft_enc_get_key(&enc_ciph, &opt);
+	// printf("%s\n", opt.cipher);
+	if (opt.cipher[0] != NULL && ft_enc_get_key(&enc_ciph, &opt) == FT_EXFAIL) {
+		return (FT_EXFAIL);
+	}
 
 	// open_input
 	t_in in;
@@ -115,9 +111,6 @@ int		ft_enc(int argc, char* argv[])
 	if (!in.len || !in.data) {
 		return (ft_get_input_404(opt.in));
 	}
-
-	// printf("%d:%s\n", in.len, in.data);
-	// printf("%x:%x\n", enc_ciph.key, enc_ciph.iv);
 
 	// // perform b64 if decrypt + b64 enabled
 	if (opt.b64 && opt.enc == FT_ENC_D) {
@@ -149,14 +142,19 @@ int		ft_enc(int argc, char* argv[])
 			len = ft_ssl_des_exec_salt(&cipher, len, enc_ciph.salt);
 		}
 	}
+	else {
+		len = in.len;
+		cipher = in.data;
+	}
 
-	// printf("%s\n", cipher);
 
 	// // salt if encrypt
 
 	// // perform b64 if encrypt + b64 enbled
 	// // int dst_len = ft_b64_get_encoded_len(len);
 	// // char* dst = (char*)ft_memalloc(dst_len + 1);
+
+	// printf("%s\n", cipher);
 
 	if (opt.b64 && opt.enc == FT_ENC_E) {
 		int dst_len = ft_b64_get_encoded_len(len);

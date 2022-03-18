@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 19:11:57 by dzonda            #+#    #+#             */
-/*   Updated: 2022/03/18 13:50:43 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2022/03/18 15:21:44 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ int ft_enc_get_key(t_ciph* enc_ciph, t_enc_opt* opt) {
             ft_get_random(enc_ciph->salt, 8);
         }
         else {
+            if (!ft_ishexstr(opt->salt)) {
+                return (ft_enc_err_invalid_hex("salt"));
+            }
             ft_memcpy(enc_ciph->salt, opt->salt, ft_strlen(opt->salt));
         }
 

@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 22:13:32 by dzonda            #+#    #+#             */
-/*   Updated: 2022/03/17 21:11:31 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2022/03/18 15:40:36 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,29 +103,28 @@ int ft_enc_get_opt(t_enc_opt* opt, t_arg* arg) {
 //     { FT_ENC_CIPH_DES_ECB, "des-ecb" },
 // };
 
-// void    ft_display_option(t_enc_opt* opts, int max)
-// {
-//     int i = -1;
+void    ft_display_option()
+{
+    int i = -1;
 
-//     while (++i < max)
-//     {
-//         ft_putstr(" -");
-//         ft_putstr(opts[i].opt_name);
-//         ft_putstr("\t\t");
-//         ft_putendl(opts[i].opt_description);
-//     }
-// }
+    while (++i < FT_ENC_OPT_MAX) {
+        ft_putstr(" -");
+        ft_putstr(opt_table[i].opt_name);
+        ft_putstr("\t\t");
+        ft_putendl(opt_table[i].opt_description);
+    }
+}
 
-// int		ft_enc_help(void)
-// {
-//     ft_putendl("usage: enc -ciphername [-ade] [-base64]");
-//     ft_putendl("    [-i file] [-v IV] [-k key] [-p password]");
-//     ft_putendl("    [-o file] [-s salt]\n");
+int		ft_enc_help(void)
+{
+    ft_putendl("usage: enc -ciphername [-ade] [-base64]");
+    ft_putendl("    [-i file] [-v IV] [-k key] [-p password]");
+    ft_putendl("    [-o file] [-s salt]\n");
 
-//     ft_display_option(enc_opt, FT_ENC_OPT_MAX);
+    ft_display_option();
 
-//     ft_putendl("\nValid ciphername values:");
-//     ft_putendl("-des    -des-cbc    -des-ecb");
+    ft_putendl("\nValid ciphername values:");
+    ft_putendl("-des    -des-cbc    -des-ecb");
 
-//     return (EXIT_SUCCESS);
-// }
+    return (FT_EXFAIL);
+}

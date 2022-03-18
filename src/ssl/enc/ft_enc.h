@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 22:13:32 by dzonda            #+#    #+#             */
-/*   Updated: 2022/03/17 23:39:30 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2022/03/18 17:13:45 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include "../../crypto/b64/ft_b64.h"
 # include "../../crypto/des/ft_des.h"
 # include "../../crypto/kdf/ft_kdf.h"
-# include "ssl_b64/ft_ssl_b64.h"
-# include "ssl_des/ft_ssl_des.h"
+// # include "ssl_b64/ft_ssl_b64.h"
+// # include "ssl_des/ft_ssl_des.h"
 
 # define FT_SSL_CIPHER_NOT_FOUND -42
 
@@ -119,5 +119,7 @@ typedef struct s_ssl_cipher {
 
 int		ft_enc_old(int argc, char* argv[]);
 
+int ft_enc_err_invalid_command(char* cmd);
+int ft_enc_err_invalid_hex(char* opt);
 
 #endif

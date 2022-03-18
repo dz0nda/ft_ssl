@@ -11,19 +11,8 @@ SUBDIRS_ENC = \
 SUBFILES_ENC = \
 			ssl/enc/ft_enc.c \
 			ssl/enc/ft_enc_key.c \
+			ssl/enc/ft_enc_errors.c \
 			ssl/enc/ft_enc_old.c \
 			ssl/enc/cli/ft_enc_options.c \
 			ssl/enc/cli/ft_enc_ciphers.c \
-			ssl/enc/cli/ft_enc_help.c \
-			\
-			ssl/enc/ssl_b64/ft_ssl_b64.c \
-			ssl/enc/ssl_b64/options/ft_ssl_b64_parse.c \
-			ssl/enc/ssl_b64/options/ft_ssl_b64_options.c \
-			ssl/enc/ssl_b64/execute/ft_ssl_b64_exec.c \
-			\
-			ssl/enc/ssl_des/ft_ssl_des.c \
-			ssl/enc/ssl_des/options/ft_ssl_des_options.c \
-			ssl/enc/ssl_des/options/ft_ssl_des_parse.c \
-			ssl/enc/ssl_des/execute/ft_ssl_des_exec_key.c \
-			ssl/enc/ssl_des/execute/ft_ssl_des_exec_enc.c \
-			ssl/enc/ssl_des/execute/ft_ssl_des_exec_dec.c
+			ssl/enc/cli/ft_enc_help.c
