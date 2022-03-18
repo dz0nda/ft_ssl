@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 17:49:26 by dzonda            #+#    #+#             */
-/*   Updated: 2022/03/14 21:41:05 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2022/03/17 21:02:32 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,12 @@ int ft_enc_get_ciph(t_enc_cyph_ft* cipher[2], t_arg* arg) {
     int i = -1;
 
     while (++i < FT_ENC_CIPH_MAX) {
-        if (ft_strequ(*(arg->v) + 1, enc_ciph_table[i].name)) {
+        if (ft_strequ(*arg->v, enc_ciph_table[i].name)) {
             cipher[0] = enc_ciph_table[i].ft[0];
             cipher[1] = enc_ciph_table[i].ft[1];
 
             arg->c -= 1;
             arg->v += 1;
-
             return (FT_EXOK);
         }
     }

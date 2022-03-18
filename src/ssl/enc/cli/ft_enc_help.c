@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 22:13:32 by dzonda            #+#    #+#             */
-/*   Updated: 2022/03/14 21:44:38 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2022/03/17 21:11:31 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int ft_enc_get_opt(t_enc_opt* opt, t_arg* arg) {
     int i = -1;
 
     while (++i < FT_ENC_OPT_MAX) {
-        if (ft_strequ(*(arg->v) + 1, opt_table[i].opt_name)) {
+        if (ft_strequ(*(arg->v), opt_table[i].opt_name)) {
             return (opt_table[i].ft(opt, arg));
         }
     }

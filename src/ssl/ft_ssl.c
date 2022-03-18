@@ -6,23 +6,23 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 22:12:50 by dzonda            #+#    #+#             */
-/*   Updated: 2022/03/05 14:50:02 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2022/03/18 10:09:38 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-static int	ft_ssl_error(int argc, char *argv[])
+static int	ft_ssl_error(int argc, char* argv[])
 {
 	(void)argc;
 	ft_putstr_fd("ftssl:Error: '", STDERR_FILENO);
 	ft_putstr_fd(argv[0], STDERR_FILENO);
-		ft_putendl_fd("' is an invalid command.\n", STDERR_FILENO);
+	ft_putendl_fd("' is an invalid command.\n", STDERR_FILENO);
 	ft_ssl_usage();
 	return (EXIT_SUCCESS);
 }
 
-static int	ft_ssl_dispatch(int argc, char *argv[])
+static int	ft_ssl_dispatch(int argc, char* argv[])
 {
 	static t_ftssl_dist_t	ftssl_dist[FTSSL_DIST] = {
 		{ FTSSL_DGST, ft_ssl_dgst },
@@ -38,12 +38,12 @@ static int	ft_ssl_dispatch(int argc, char *argv[])
 		return (EXIT_SUCCESS);
 	while (++key_dist < FTSSL_DIST)
 		if ((key_cmd = ftssl_dist[key_dist].dist_ft(argc, argv))
-		!= FT_SSL_DIST_NOT_FOUND)
+			!= FT_SSL_DIST_NOT_FOUND)
 			return (key_cmd);
 	return (ft_ssl_error(argc, argv));
 }
 
-int			main(int argc, const char *argv[])
+int			main(int argc, const char* argv[])
 {
 	t_ftssl	ftssl;
 
@@ -54,6 +54,6 @@ int			main(int argc, const char *argv[])
 			ftssl.err = ft_ssl_dispatch(ftssl.sh.argc, ftssl.sh.argv);
 	else
 		ftssl.err = ft_ssl_dispatch(ftssl.sh.argc, ftssl.sh.argv);
-	ft_ssl_shell_reset(&ftssl.sh);
+	// ft_ssl_shell_reset(&ftssl.sh);
 	return (ftssl.err);
 }
