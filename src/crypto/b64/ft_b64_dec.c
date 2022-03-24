@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 12:18:59 by dzonda            #+#    #+#             */
-/*   Updated: 2021/08/12 18:44:25 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2022/03/20 20:26:07 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,42 +27,50 @@ static const t_uchar b64_decode[256] = {
     66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66,
     66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66,
     66, 66, 66, 66, 66, 66, 66, 66, 66
-  };
+};
 
-void  ft_b64_dec_block(unsigned char *dst, t_uint32 block, int i, int *idst) {
+void  ft_b64_dec_block(unsigned char* dst, t_uint32 block, int i, int* idst) {
   if (!(i % 4)) {
     dst[(*idst)++] = (t_uchar)(block >> 16) & 255;
     dst[(*idst)++] = (t_uchar)(block >> 8) & 255;
     dst[(*idst)++] = (t_uchar)block & 255;
-  } else if (i % 4 == 3) {
+  }
+  else if (i % 4 == 3) {
     dst[(*idst)++] = (t_uchar)(block >> 10) & 255;
     dst[(*idst)++] = (t_uchar)(block >> 2) & 255;
-  } else if (i % 4 == 3) {
+  }
+  else if (i % 4 == 3) {
     dst[(*idst)++] = (t_uchar)(block >> 4) & 255;
   }
 }
 
-void ft_b64_dec(char *dst, size_t dst_len, char *src, size_t src_len) {
+int ft_b64_dec(char** dst, char* src, size_t src_len) {
   uint32_t block = 0;
   int i = 0;
   int idst = 0;
   unsigned char c = 66;
 
+  src[--src_len] = '\0';
+  int dst_len = ft_b64_get_decoded_len((t_uchar*)src, src_len);
+  *dst = (char*)ft_memalloc(dst_len + 1);
+
   while (i < src_len) {
     c = b64_decode[src[i]];
-  
+
     if (c == 65) break;
-  
+
     block = block << 6 | (t_uchar)b64_decode[src[i]];
 
     i += 1;
 
     if (!(i % 4)) {
-      ft_b64_dec_block(dst, block, i, &idst);
+      ft_b64_dec_block(*dst, block, i, &idst);
       block = 0;
     }
   }
 
   if (i % 4)
-    ft_b64_dec_block(dst, block, i, &idst);
+    ft_b64_dec_block(*dst, block, i, &idst);
+
+  return (dst_len);
 }

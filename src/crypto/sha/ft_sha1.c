@@ -6,13 +6,13 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 23:11:52 by dzonda            #+#    #+#             */
-/*   Updated: 2021/03/04 14:20:08 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2022/03/18 18:02:51 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_sha.h"
 
-int				ft_sha1_init(t_sha1_ctx *ctx)
+int				ft_sha1_init(t_sha1_ctx* ctx)
 {
 	ctx->hash_size = FT_SHA1_HASH_SIZE;
 	ctx->msg_block_size = FT_SHA1_MSG_BLOCK_SIZE;
@@ -24,7 +24,7 @@ int				ft_sha1_init(t_sha1_ctx *ctx)
 	return (EXIT_SUCCESS);
 }
 
-int				ft_sha1_pre_process(t_sha1_ctx *ctx, uint8_t *msg,
+int				ft_sha1_pre_process(t_sha1_ctx* ctx, uint8_t* msg,
 	unsigned int msg_len)
 {
 	int				i;
@@ -33,7 +33,7 @@ int				ft_sha1_pre_process(t_sha1_ctx *ctx, uint8_t *msg,
 
 	pad = ft_align_bits(msg_len + FT_DGST_X32 + 1, ctx->msg_block_size);
 	ctx->msg_len = pad;
-	ctx->msg = (uint8_t *)ft_memalloc(ctx->msg_len);
+	ctx->msg = (uint8_t*)ft_memalloc(ctx->msg_len);
 	ft_memmove(ctx->msg, msg, msg_len);
 	ctx->msg[msg_len] = 0x80;
 	i = msg_len;
@@ -45,17 +45,17 @@ int				ft_sha1_pre_process(t_sha1_ctx *ctx, uint8_t *msg,
 	return (EXIT_SUCCESS);
 }
 
-static void		ft_sha1_process_hash(t_sha1_ctx *ctx, uint32_t state[5])
+static void		ft_sha1_process_hash(t_sha1_ctx* ctx, uint32_t state[5])
 {
 	int			i;
 	uint32_t	rotator;
-	uint32_t	*m;
+	uint32_t* m;
 	uint32_t	w[80];
 	uint32_t	tmp;
 
 	i = -1;
 	rotator = 0;
-	m = (uint32_t *)ctx->block;
+	m = (uint32_t*)ctx->block;
 	while (++i < 80)
 	{
 		if (i < 16)
@@ -74,11 +74,11 @@ static void		ft_sha1_process_hash(t_sha1_ctx *ctx, uint32_t state[5])
 	}
 }
 
-int				ft_sha1_process(t_sha1_ctx *ctx)
+int				ft_sha1_process(t_sha1_ctx* ctx)
 {
 	unsigned int	i;
 	uint32_t		state[FT_SHA1_STATE];
-	uint8_t			*data;
+	uint8_t* data;
 
 	data = &ctx->msg[0];
 	while (ctx->msg_len--)
@@ -99,20 +99,26 @@ int				ft_sha1_process(t_sha1_ctx *ctx)
 	return (EXIT_SUCCESS);
 }
 
-char			*ft_sha1_final(t_sha1_ctx *ctx, char *cmd_dgst)
+char* ft_sha1_final(t_sha1_ctx* ctx, char* cmd_dgst)
 {
 	int		i;
 	int		j;
-	uint8_t	*p;
+	uint8_t* p;
 
 	i = -1;
 	while (++i < FT_SHA1_STATE)
 	{
 		j = -1;
 		ft_swap_uint32(&ctx->state[i]);
-		p = (uint8_t *)&ctx->state[i];
-		while (++j < 4)
-			ft_itoa(p[j], &cmd_dgst[ft_strlen(cmd_dgst)], 16);
+		p = (uint8_t*)&ctx->state[i];
+		while (++j < 4) {
+			const int len = ft_strlen(cmd_dgst);
+			ft_itoa(p[j], &cmd_dgst[len], 16);
+			if (cmd_dgst[len + 1] == 0) {
+				cmd_dgst[len + 1] = cmd_dgst[len];
+				cmd_dgst[len] = '0';
+			}
+		}
 	}
 	return (cmd_dgst);
 }

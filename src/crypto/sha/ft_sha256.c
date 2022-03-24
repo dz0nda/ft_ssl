@@ -6,13 +6,13 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 23:12:09 by dzonda            #+#    #+#             */
-/*   Updated: 2021/03/04 14:20:16 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2022/03/18 17:30:03 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_sha.h"
 
-int			ft_sha256_init(t_sha256_ctx *ctx)
+int			ft_sha256_init(t_sha256_ctx* ctx)
 {
 	ctx->hash_size = FT_SHA256_HASH_SIZE;
 	ctx->msg_block_size = FT_SHA256_MSG_BLOCK_SIZE;
@@ -28,7 +28,7 @@ int			ft_sha256_init(t_sha256_ctx *ctx)
 	return (EXIT_SUCCESS);
 }
 
-int			ft_sha256_pre_process(t_sha256_ctx *ctx, uint8_t *msg,
+int			ft_sha256_pre_process(t_sha256_ctx* ctx, uint8_t* msg,
 	unsigned int msg_len)
 {
 	int				i;
@@ -37,7 +37,7 @@ int			ft_sha256_pre_process(t_sha256_ctx *ctx, uint8_t *msg,
 
 	pad = ft_align_bits(msg_len + FT_DGST_X32 + 1, ctx->msg_block_size);
 	ctx->msg_len = pad;
-	ctx->msg = (uint8_t *)ft_memalloc(ctx->msg_len);
+	ctx->msg = (uint8_t*)ft_memalloc(ctx->msg_len);
 	ft_memmove(ctx->msg, msg, msg_len);
 	ctx->msg[msg_len] = 0x80;
 	i = msg_len;
@@ -49,7 +49,7 @@ int			ft_sha256_pre_process(t_sha256_ctx *ctx, uint8_t *msg,
 	return (EXIT_SUCCESS);
 }
 
-static int	ft_sha256_process_hash(t_sha256_ctx *ctx, uint32_t state[8])
+static int	ft_sha256_process_hash(t_sha256_ctx* ctx, uint32_t state[8])
 {
 	int			i;
 	uint32_t	w[64];
@@ -59,10 +59,10 @@ static int	ft_sha256_process_hash(t_sha256_ctx *ctx, uint32_t state[8])
 	while (++i < 64)
 	{
 		if (i < 16)
-			w[i] = ft_swap_uint32((uint32_t *)&ctx->block[i * 4]);
+			w[i] = ft_swap_uint32((uint32_t*)&ctx->block[i * 4]);
 		else if (i < 64)
 			w[i] = w[i - 16] + ft_sha256_wsigma0(w[i - 15]) + w[i - 7]
-					+ ft_sha256_wsigma1(w[i - 2]);
+			+ ft_sha256_wsigma1(w[i - 2]);
 		sigma[0] = ft_sha256_sigma0(state, w[i], i);
 		sigma[1] = ft_sha256_sigma1(state);
 		state[7] = state[6];
@@ -77,11 +77,11 @@ static int	ft_sha256_process_hash(t_sha256_ctx *ctx, uint32_t state[8])
 	return (EXIT_SUCCESS);
 }
 
-int			ft_sha256_process(t_sha256_ctx *ctx)
+int			ft_sha256_process(t_sha256_ctx* ctx)
 {
 	unsigned int	i;
 	uint32_t		state[8];
-	uint8_t			*data;
+	uint8_t* data;
 
 	data = &ctx->msg[0];
 	while (ctx->msg_len--)
@@ -99,15 +99,16 @@ int			ft_sha256_process(t_sha256_ctx *ctx)
 			ft_memset(ctx->block, 0, sizeof(ctx->block));
 		}
 	}
-	ft_memdel((void *)&ctx->msg);
+	ft_memdel((void*)&ctx->msg);
 	return (EXIT_SUCCESS);
 }
 
-char		*ft_sha256_final(t_sha256_ctx *ctx, char *cmd_dgst)
+char* ft_sha256_final(t_sha256_ctx* ctx, char* cmd_dgst)
 {
 	int		i;
 	int		j;
-	uint8_t	*p;
+	uint8_t* p;
+	char c[3];
 
 	i = -1;
 	ft_bzero(cmd_dgst, ctx->hash_size);
@@ -115,9 +116,18 @@ char		*ft_sha256_final(t_sha256_ctx *ctx, char *cmd_dgst)
 	{
 		j = -1;
 		ft_swap_uint32(&ctx->state[i]);
-		p = (uint8_t *)&ctx->state[i];
-		while (++j < 4)
-			ft_itoa(p[j], &cmd_dgst[ft_strlen(cmd_dgst)], 16);
+		p = (uint8_t*)&ctx->state[i];
+		while (++j < 4) {
+			ft_memset(c, 0, sizeof(c));
+			ft_itoa(p[j], c, 16);
+			if (c[1] == 0) {
+				c[1] = c[0];
+				c[0] = '0';
+			}
+			ft_memcpy(&cmd_dgst[ft_strlen(cmd_dgst)], c, 2);
+
+			// ft_itoa(p[j], &cmd_dgst[ft_strlen(cmd_dgst)], 16);
+		}
 	}
 	return (cmd_dgst);
 }

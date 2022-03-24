@@ -6,7 +6,7 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 12:18:59 by dzonda            #+#    #+#             */
-/*   Updated: 2022/03/05 19:10:51 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2022/03/18 14:29:45 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int ft_des_ecb_encrypt(char* key, char* msg, int msg_len, char** cipher, char* i
   t_uint64 nkey = 0;
   t_des_subkeys subkeys = { 0 };
 
+  // printf("here\n");
   // ft_memset(&ctx, 0, sizeof(ctx));
 
   // ft_memcpy(&ctx.nkey, key, 8);
@@ -54,6 +55,7 @@ int ft_des_ecb_decrypt(
   *cipher = (char*)ft_memalloc(len);
 
   if (ft_strncmp("Salted__", &msg[0], 8) == 0) {
+    printf("heredd\n");
     len -= 16;
     ft_memcpy(cipher[0], &msg[16], len);
   }
@@ -75,6 +77,8 @@ int ft_des_ecb_decrypt(
 
   char padByte = (*cipher)[len - 1];
   ft_memset(&(*cipher)[len - padByte], '\0', padByte);
+
+  // printf("%s\n", *cipher);
 
   return (len - padByte);
 }

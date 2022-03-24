@@ -6,19 +6,20 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 12:18:59 by dzonda            #+#    #+#             */
-/*   Updated: 2022/02/11 12:18:59 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2022/03/17 23:06:16 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_des.h"
 
-int ft_des_cbc_encrypt(char *key, char *msg, int msg_len, char **cipher,
-                       char *iv) {
+int ft_des_cbc_encrypt(char* key, char* msg, int msg_len, char** cipher,
+  char* iv) {
   // t_des ctx;
   t_uint64 nkey = 0;
-  t_des_subkeys subkeys = {0};
+  t_des_subkeys subkeys = { 0 };
 
   // ft_memset(&ctx, 0, sizeof(ctx));
+  // printf("here\n");
 
   ft_memcpy(&nkey, key, 8);
 
@@ -33,7 +34,7 @@ int ft_des_cbc_encrypt(char *key, char *msg, int msg_len, char **cipher,
       (*cipher)[i + j] ^= iv[j];
     }
 
-    ft_des_exec((t_uchar *)&(*cipher)[i], subkeys, &(*cipher)[i]);
+    ft_des_exec((t_uchar*)&(*cipher)[i], subkeys, &(*cipher)[i]);
     ft_memcpy(iv, &(*cipher)[i], 8);
 
     i += 8;
@@ -43,22 +44,23 @@ int ft_des_cbc_encrypt(char *key, char *msg, int msg_len, char **cipher,
   // printf("%s\n", *cipher);
 }
 
-int ft_des_cbc_decrypt(char *key, char *msg, int msg_len, char **cipher,
-                       char *iv) {
+int ft_des_cbc_decrypt(char* key, char* msg, int msg_len, char** cipher,
+  char* iv) {
   // t_des ctx;
   t_uint64 nkey = 0;
-  t_des_subkeys subkeys = {0};
+  t_des_subkeys subkeys = { 0 };
 
   // ft_memset(&ctx, 0, sizeof(ctx));
 
   int len = msg_len;
 
-  *cipher = (char *)ft_memalloc(len);
+  *cipher = (char*)ft_memalloc(len);
 
   if (ft_strncmp("Salted__", &msg[0], 8) == 0) {
     len -= 16;
     ft_memcpy(cipher[0], &msg[16], len);
-  } else {
+  }
+  else {
     ft_memcpy(cipher[0], msg, len);
   }
 
@@ -72,7 +74,7 @@ int ft_des_cbc_decrypt(char *key, char *msg, int msg_len, char **cipher,
   int i = 0;
   while (i < len) {
     ft_memcpy(t, &(*cipher)[i], 8);
-    ft_des_exec((t_uchar *)&(*cipher)[i], subkeys, &(*cipher)[i]);
+    ft_des_exec((t_uchar*)&(*cipher)[i], subkeys, &(*cipher)[i]);
 
     int j = -1;
     while (++j < 8) {

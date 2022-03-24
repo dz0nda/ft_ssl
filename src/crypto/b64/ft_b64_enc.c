@@ -6,13 +6,13 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 12:18:59 by dzonda            #+#    #+#             */
-/*   Updated: 2021/08/12 18:44:18 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2022/03/20 20:32:52 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_b64.h"
 
-void ft_b64_enc_pad(t_uchar *dst, size_t dst_len, size_t src_len, int *idst) {
+void ft_b64_enc_pad(t_uchar* dst, size_t dst_len, size_t src_len, int* idst) {
   int pad;
 
   pad = src_len % 3;
@@ -23,42 +23,50 @@ void ft_b64_enc_pad(t_uchar *dst, size_t dst_len, size_t src_len, int *idst) {
   }
 }
 
-void ft_b64_enc_block(t_uchar *dst, t_uint32 block, int i, int *idst) {
+void ft_b64_enc_block(t_uchar* dst, t_uint32 block, int i, int* idst) {
   static const t_uchar b64_encode[] =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
   if (!(i % 3)) {
     dst[(*idst)++] = b64_encode[(t_uchar)(block >> 18) & 0x3F];
     dst[(*idst)++] = b64_encode[(t_uchar)(block >> 12) & 0x3F];
     dst[(*idst)++] = b64_encode[(t_uchar)(block >> 6) & 0x3F];
     dst[(*idst)++] = b64_encode[(t_uchar)block & 0x3F];
-  } else if (i % 3 == 2) {
+  }
+  else if (i % 3 == 2) {
     dst[(*idst)++] = b64_encode[(t_uchar)(block >> 10) & 0x3F];
     dst[(*idst)++] = b64_encode[(t_uchar)(block >> 4) & 0x3F];
     dst[(*idst)++] = b64_encode[(t_uchar)(block << 2) & 0x3F];
-  } else if (i % 3 == 1) {
+  }
+  else if (i % 3 == 1) {
     dst[(*idst)++] = b64_encode[(t_uchar)(block >> 2) & 0x3F];
     dst[(*idst)++] = b64_encode[(t_uchar)(block << 4) & 0x3F];
   }
 }
 
-void ft_b64_enc(char *dst, size_t dst_len, char *src, size_t src_len) {
+int ft_b64_enc(char** dst, char* src, size_t src_len) {
   t_uint32 block = 0;
   int i = 0;
   int idst = 0;
+
+
+  int dst_len = ft_b64_get_encoded_len(src_len);
+  *dst = (char*)ft_memalloc(dst_len + 1);
 
   while (i < src_len) {
     block = (block << 8) | (uint32_t)src[i++];
 
     if (!(i % 3)) {
-      ft_b64_enc_block(dst, block, i, &idst);
+      ft_b64_enc_block(*dst, block, i, &idst);
       block = 0;
     }
   }
 
-  if (i % 3) ft_b64_enc_block(dst, block, i, &idst);
+  if (i % 3) ft_b64_enc_block(*dst, block, i, &idst);
 
-  ft_b64_enc_pad(dst, dst_len, src_len, &idst);
+  ft_b64_enc_pad(*dst, dst_len, src_len, &idst);
 
-  dst[idst] = '\0';
+  (*dst)[idst] = '\0';
+
+  return (dst_len);
 }

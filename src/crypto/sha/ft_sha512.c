@@ -6,13 +6,13 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 08:19:12 by dzonda            #+#    #+#             */
-/*   Updated: 2021/03/04 14:15:43 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2022/03/18 17:35:14 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_sha.h"
 
-int				ft_sha512_init(t_sha512_ctx *ctx)
+int				ft_sha512_init(t_sha512_ctx* ctx)
 {
 	ctx->hash_size = FT_SHA512_HASH_SIZE;
 	ctx->msg_block_size = FT_SHA512_MSG_BLOCK_SIZE;
@@ -28,7 +28,7 @@ int				ft_sha512_init(t_sha512_ctx *ctx)
 	return (EXIT_SUCCESS);
 }
 
-int				ft_sha512_pre_process(t_sha512_ctx *ctx, uint8_t *msg,
+int				ft_sha512_pre_process(t_sha512_ctx* ctx, uint8_t* msg,
 	unsigned int msg_len)
 {
 	int				i;
@@ -37,7 +37,7 @@ int				ft_sha512_pre_process(t_sha512_ctx *ctx, uint8_t *msg,
 
 	pad = ft_align_bits(msg_len + FT_DGST_X64 + 1, ctx->msg_block_size);
 	ctx->msg_len = pad;
-	ctx->msg = (uint8_t *)ft_memalloc(ctx->msg_len);
+	ctx->msg = (uint8_t*)ft_memalloc(ctx->msg_len);
 	ft_memmove(ctx->msg, msg, msg_len);
 	ctx->msg[msg_len] = 0x80;
 	i = msg_len;
@@ -49,7 +49,7 @@ int				ft_sha512_pre_process(t_sha512_ctx *ctx, uint8_t *msg,
 	return (EXIT_SUCCESS);
 }
 
-static int		ft_sha512_process_hash(t_sha512_ctx *ctx, uint64_t state[8])
+static int		ft_sha512_process_hash(t_sha512_ctx* ctx, uint64_t state[8])
 {
 	int			i;
 	uint64_t	w[80];
@@ -59,10 +59,10 @@ static int		ft_sha512_process_hash(t_sha512_ctx *ctx, uint64_t state[8])
 	while (++i < 80)
 	{
 		if (i < 16)
-			w[i] = ft_swap_uint64((uint64_t *)&ctx->block[i * 8]);
+			w[i] = ft_swap_uint64((uint64_t*)&ctx->block[i * 8]);
 		else if (i < 80)
 			w[i] = w[i - 16] + ft_sha512_wsigma0(w[i - 15]) + w[i - 7]
-					+ ft_sha512_wsigma1(w[i - 2]);
+			+ ft_sha512_wsigma1(w[i - 2]);
 		sigma[0] = ft_sha512_sigma0(state, w[i], i);
 		sigma[1] = ft_sha512_sigma1(state);
 		state[7] = state[6];
@@ -77,11 +77,11 @@ static int		ft_sha512_process_hash(t_sha512_ctx *ctx, uint64_t state[8])
 	return (EXIT_SUCCESS);
 }
 
-int				ft_sha512_process(t_sha512_ctx *ctx)
+int				ft_sha512_process(t_sha512_ctx* ctx)
 {
 	uint64_t	state[8];
 	int			i;
-	uint8_t		*data;
+	uint8_t* data;
 
 	data = &ctx->msg[0];
 	while (ctx->msg_len--)
@@ -99,15 +99,15 @@ int				ft_sha512_process(t_sha512_ctx *ctx)
 			ft_memset(ctx->block, 0, sizeof(ctx->block));
 		}
 	}
-	ft_memdel((void *)&ctx->msg);
+	ft_memdel((void*)&ctx->msg);
 	return (EXIT_SUCCESS);
 }
 
-char			*ft_sha512_final(t_sha512_ctx *ctx, char *cmd_dgst)
+char* ft_sha512_final(t_sha512_ctx* ctx, char* cmd_dgst)
 {
 	int			i;
 	int			j;
-	uint8_t		*p;
+	uint8_t* p;
 	int			hash_size;
 
 	i = -1;
@@ -116,11 +116,16 @@ char			*ft_sha512_final(t_sha512_ctx *ctx, char *cmd_dgst)
 	while (++i < ctx->state_len)
 	{
 		ft_swap_uint64(&ctx->state[i]);
-		p = (uint8_t *)&ctx->state[i];
+		p = (uint8_t*)&ctx->state[i];
 		j = -1;
-		while (++j < 8)
-		{
-			ft_itoa(p[j], &cmd_dgst[ft_strlen(cmd_dgst)], 16);
+		while (++j < 8) {
+			const int len = ft_strlen(cmd_dgst);
+
+			ft_itoa(p[j], &cmd_dgst[len], 16);
+			if (cmd_dgst[len + 1] == 0) {
+				cmd_dgst[len + 1] = cmd_dgst[len];
+				cmd_dgst[len] = '0';
+			}
 			hash_size++;
 			if (hash_size == ctx->hash_size)
 				return (cmd_dgst);
