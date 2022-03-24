@@ -6,13 +6,14 @@
 /*   By: dzonda <dzonda@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 17:43:12 by dzonda            #+#    #+#             */
-/*   Updated: 2021/08/12 18:10:33 by dzonda           ###   ########lyon.fr   */
+/*   Updated: 2022/03/18 14:51:18 by dzonda           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_tools.h"
+#include <stdio.h>
 
-int ft_get_random(char *dst, int size) {
+int ft_get_random(char* dst, int size) {
   int fd = -1;
   int res = -1;
 
@@ -29,7 +30,7 @@ int ft_get_random(char *dst, int size) {
   return (res);
 }
 
-int ft_get_pass(char *dst, int size) {
+int ft_get_pass(char* dst, int size) {
   char pass[256];
 
   ft_bzero(pass, 256);
@@ -37,7 +38,7 @@ int ft_get_pass(char *dst, int size) {
   if (readpassphrase("enter des encryption password: ", dst, size, 0) == NULL)
     return (FT_EXFAIL);
   if (readpassphrase("Verifying - enter des encryption password: ", pass, 256,
-                     0) == NULL)
+    0) == NULL)
     return (FT_EXFAIL);
 
   if (ft_memcmp(dst, pass, 256) != 0) {
